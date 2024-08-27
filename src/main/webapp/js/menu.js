@@ -72,26 +72,26 @@ $.get("MaintenanceController",{
 });
 });	
 
-const button = document.getElementById('dropdownButton');
-const menu = document.getElementById('dropdownMenu');
-
-button.addEventListener('click', function(event) {
-  event.stopPropagation();
-  menu.classList.toggle('hidden');
-});
-
-document.addEventListener('click', function(event) {
-  if (!button.contains(event.target) && !menu.contains(event.target)) {
-    menu.classList.add('hidden');
-  }
-});
-
-// Prevent clicks inside the dropdown from closing it
-menu.addEventListener('click', function(event) {
-  event.stopPropagation();
-});
 
 document.addEventListener("DOMContentLoaded", function(event) {
+	const button = document.getElementById('dropdownButton');
+	const menu = document.getElementById('dropdownMenu');
     document.getElementById('defaultModalButton').click();
 
+	button.addEventListener('click', function(event) {
+	  event.stopPropagation();
+	  menu.classList.toggle('hidden');
+	});
+
+	document.addEventListener('click', function(event) {
+	  if (!button.contains(event.target) && !menu.contains(event.target)) {
+	    menu.classList.add('hidden');
+	  }
+	});
+
+	// Prevent clicks inside the dropdown from closing it
+	menu.addEventListener('click', function(event) {
+	  event.stopPropagation();
+	});
+	
 });
