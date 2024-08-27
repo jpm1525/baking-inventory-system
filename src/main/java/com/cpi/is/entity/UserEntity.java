@@ -2,9 +2,19 @@ package com.cpi.is.entity;
 
 import java.io.Serializable;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="QKC_USER")
 public class UserEntity implements Serializable{
 
 	private static final long serialVersionUID = 1L;
+		
+		@Id
+		@Column(name="USER_ID")
 		private Integer userId;
 		private String username;
 		private String password;
@@ -45,7 +55,11 @@ public class UserEntity implements Serializable{
 			this.password = password;
 		}
 		
-		
-		
-		
+		@Override
+		public String toString() {
+			return "{userId=" + userId 
+				 + ", username=" + username 
+				 + ", password=" + password + "}";
+		}
+	
 }

@@ -1,9 +1,6 @@
 package com.cpi.is.controller;
 
-
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,9 +8,11 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.cpi.is.entity.UserEntity;
 import com.cpi.is.service.impl.UserServiceImpl;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -26,7 +25,7 @@ public class UserController extends HttpServlet {
     private static String page = "";
     private static String action = "";
     
-    private ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+    private ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
     private UserServiceImpl userService = (UserServiceImpl) context.getBean("userService");
     
     /**
@@ -75,7 +74,7 @@ public class UserController extends HttpServlet {
 					}
 				}
 			}
-		} catch (FileNotFoundException | ClassNotFoundException | SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			request.getRequestDispatcher(page).forward(request, response);
