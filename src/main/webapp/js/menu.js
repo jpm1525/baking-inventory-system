@@ -93,5 +93,5 @@ menu.addEventListener('click', function(event) {
 
 document.addEventListener("DOMContentLoaded", function(event) {
     document.getElementById('defaultModalButton').click();
-	
+
 });
