@@ -1,37 +1,29 @@
 package com.cpi.is.dao.impl;
 
-import java.io.FileNotFoundException;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Map;
+import java.util.List;
+
+import org.hibernate.Session;
 
 import com.cpi.is.dao.UserDAO;
 import com.cpi.is.entity.UserEntity;
-import com.cpi.is.util.DBUtil;
+import com.cpi.is.util.HBUtil;
 
 public class UserDAOImpl implements UserDAO{
 
 	@Override
-	public UserEntity authenticate(Map<String, Object> params) throws FileNotFoundException, ClassNotFoundException, SQLException {
-		UserEntity user = null;
-		
-		String query = "SELECT user_id, username, password FROM inv_users "
-				+ "WHERE username = ? AND password = ?";
-		PreparedStatement stmt = (PreparedStatement) DBUtil.getStmt(query, false);
-		
-		String username = (String) params.get("username");
-		String password = (String) params.get("password");
-		String [] queryParamns = {username, password};
-		
-		try (ResultSet result = DBUtil.select(stmt, queryParamns)) {
-			while(result.next()) {
-				user = new UserEntity(
-						result.getInt("USER_ID"),
-						result.getString("USERNAME"),
-						result.getString("PASSWORD"));
-			} 
-}
-		return user;
+	public UserEntity authenticate(UserEntity user) throws Exception {
+		UserEntity authenticated = null;
+		try (Session session = HBUtil.getSessionFactory().openSession()) {
+			List<UserEntity> results = (List<UserEntity>) session
+					.createQuery("FROM UserEntity U WHERE U.username = :username AND U.password = :password", UserEntity.class)
+					.setParameter("username", user.getUsername())
+					.setParameter("password", user.getPassword())
+					.list();
+			if (results.size() > 0) {
+				authenticated = results.get(0);
+			}
+		}
+		return authenticated;
 	}
+
 }
