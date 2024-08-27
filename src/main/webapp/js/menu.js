@@ -77,7 +77,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	const button = document.getElementById('dropdownButton');
 	const menu = document.getElementById('dropdownMenu');
     document.getElementById('defaultModalButton').click();
-	
 
 	button.addEventListener('click', function(event) {
 	  event.stopPropagation();
