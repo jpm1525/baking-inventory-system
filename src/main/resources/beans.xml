@@ -17,6 +17,16 @@
   <bean id="dispatchTypeService" class="com.cpi.is.service.impl.maintenance.DispatchTypeServiceImpl" depends-on="dispatchTypeDAO">
     <property name="dispatchTypeDAO" ref="dispatchTypeDAO" />
   </bean>
+
+  <bean id="rawMaterialListDAO" class="com.cpi.is.dao.impl.RawMaterialListDAOImpl"></bean>
+  <bean id="rawMaterialListService" class="com.cpi.is.service.impl.RawMaterialListServiceImpl" depends-on="rawMaterialListDAO">
+    <property name ="rawMaterialListDAO" ref="rawMaterialListDAO"/>
+  </bean>
+  
+  <bean id="dailyPlanDAO" class="com.cpi.is.dao.impl.DailyPlanDAOImpl"></bean>
+  <bean id="dailyPlanService" class="com.cpi.is.service.impl.DailyPlanServiceImpl" depends-on="dailyPlanDAO">
+    <property name ="dailyPlanDAO" ref="dailyPlanDAO"/>
+  </bean>
   
   <bean id="branchDAO" class="com.cpi.is.dao.impl.maintenance.BranchDAOImpl"></bean>
   <bean id="branchService" class="com.cpi.is.service.impl.maintenance.BranchServiceImpl" depends-on="branchDAO">
