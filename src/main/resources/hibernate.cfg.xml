@@ -11,5 +11,7 @@
     <property name="hibernate.hbm2ddl.auto">none</property>
     
     <mapping class="com.cpi.is.entity.UserEntity" />
+    <mapping class="com.cpi.is.entity.RawMaterialListEntity" />
+    <mapping class="com.cpi.is.entity.DailyPlanEntity" />
   </session-factory>
 </hibernate-configuration>

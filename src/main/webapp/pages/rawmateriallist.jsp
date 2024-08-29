@@ -1,28 +1,30 @@
+
+<h1 class="text-white text-center text-5xl font-bold m-10">Raw Material List</h1>
+<%--
 <script src="js/modal.js"></script>
 <link rel="stylesheet" href="css/modal.css" type="text/css" />
 
-<h1 class="text-white text-center text-5xl font-bold m-10">Raw Material List</h1>
-<div class="flex justify-end">
+ <div class="flex justify-end">
 <jsp:include page="../pages/modals/rawModal.jsp"></jsp:include>
-</div>
+</div> --%>
 
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+     <%-- <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" class="px-6 py-3" id="txtMaterialCode">
                     Material Code
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" class="px-6 py-3"  id="txtQuantity">
                     Quantity
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" class="px-6 py-3" id="txtUserId">
                     User ID
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" class="px-6 py-3" id="txtBranchId">
                     Branch Id
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" class="px-6 py-3" id="txtDateReceive">
                     Date Receive
                 </th>
                 <th scope="col" class="px-6 py-3">
@@ -30,6 +32,7 @@
                 </th>
             </tr>
         </thead>
+        
         <tbody>
             <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -134,12 +137,80 @@
                     <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                 </td>
             </tr>
-        </tbody>
-    </table>
+        </tbody> 
+    </table> --%>
 </div>
+
+
+
 
 <style>
 th{
 color:white;
 }
+td{
+color:gray;
+}
 </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="divInventoryTable"></div>
+<br>
+<div id="divInventoryForm">
+  <form>
+    <table>
+      <tr>
+        <td><label for="txtMaterialListId">ID</label></td>
+        <td><input type="text" class="input" id="txtMaterialListId" readonly="readonly" /></td>
+      </tr>
+      <tr>
+        <td><label for="txtMaterialCode">Material Code</label></td>
+        <td><input type="text" class="input" id="txtMaterialCode" maxlength="200" /></td>
+      </tr>
+      <tr>
+        <td><label for="txtQuantity">Quantity</label></td>
+        <td><input type="number" class="input" id="txtQuantity" maxlength="12" /></td>
+      </tr>
+      <tr>
+        <td><label for="txtUserId">User ID</label></td>
+        <td><input type="text" class="input" id="txtUserId" maxlength="200" /></td>
+      </tr>
+      <tr>
+        <td><label for="txtDateReceive">Date Receive</label></td>
+        <td><input type="date" class="input" id="txtDateReceive" maxlength="200" /></td>
+      </tr>
+      <tr>
+        <td><label for="txtBranchId">Branch Id</label></td>
+        <td><input type="text" class="input" id="txtBranchId" maxlength="200" /></td>
+      </tr>
+      
+      <tr>
+        <td></td>
+        <td>
+          <button type="button" class="button" id="btnClear">Clear</button>
+          <button type="button" class="button blue" id="btnAdd">Add</button>
+          <button type="button" class="button red" id="btnDelete">Delete</button>
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+<br>
+<script type="text/javascript">
+	var rawmateriallist = JSON.parse('${rawmateriallist}');
+</script>
+<script src="js/rawmateriallist.js"></script>

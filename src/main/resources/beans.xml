@@ -8,5 +8,15 @@
     <property name ="userDAO" ref="userDAO"/>
   </bean>
   
+  <bean id="rawMaterialListDAO" class="com.cpi.is.dao.impl.RawMaterialListDAOImpl"></bean>
+  <bean id="rawMaterialListService" class="com.cpi.is.service.impl.RawMaterialListServiceImpl" depends-on="rawMaterialListDAO">
+    <property name ="rawMaterialListDAO" ref="rawMaterialListDAO"/>
+  </bean>
+  
+  <bean id="dailyPlanDAO" class="com.cpi.is.dao.impl.DailyPlanDAOImpl"></bean>
+  <bean id="dailyPlanService" class="com.cpi.is.service.impl.DailyPlanServiceImpl" depends-on="dailyPlanDAO">
+    <property name ="dailyPlanDAO" ref="dailyPlanDAO"/>
+  </bean>
+  
   
 </beans>
