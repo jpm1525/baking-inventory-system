@@ -7,7 +7,12 @@
   <bean id="userService" class="com.cpi.is.service.impl.UserServiceImpl" depends-on="userDAO">
     <property name ="userDAO" ref="userDAO"/>
   </bean>
-  
+
+  <bean id="dispatchingDAO" class="com.cpi.is.dao.impl.DispatchingDAOImpl"></bean>
+  <bean id="dispatchingService" class="com.cpi.is.service.impl.DispatchingServiceImpl" depends-on="dispatchingDAO">
+    <property name ="dispatchingDAO" ref="dispatchingDAO"/>
+  </bean>
+
   <bean id="dispatchTypeDAO" class="com.cpi.is.dao.impl.maintenance.DispatchTypeDAOImpl"></bean>
   <bean id="dispatchTypeService" class="com.cpi.is.service.impl.maintenance.DispatchTypeServiceImpl" depends-on="dispatchTypeDAO">
     <property name="dispatchTypeDAO" ref="dispatchTypeDAO" />
