@@ -1,9 +1,6 @@
 package com.cpi.is.controller;
 
-
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,9 +8,11 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.cpi.is.entity.UserEntity;
 import com.cpi.is.service.impl.UserServiceImpl;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -26,7 +25,7 @@ public class UserController extends HttpServlet {
     private static String page = "";
     private static String action = "";
     
-    private ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+    private ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
     private UserServiceImpl userService = (UserServiceImpl) context.getBean("userService");
     
     /**
@@ -49,8 +48,12 @@ public class UserController extends HttpServlet {
 				
 				if (user != null) {
 					Cookie cookie = new Cookie("user", user.getUsername());
-					cookie.setMaxAge(24*60*60);
+					cookie.setMaxAge(12*60);
 					response.addCookie(cookie);
+					
+					HttpSession session = request.getSession();
+					session.setAttribute("user", user);
+					
 					request.setAttribute("username", user.getUsername());
 					page = "pages/innerPages/mainMenu.jsp";
 				}	else {
@@ -62,20 +65,36 @@ public class UserController extends HttpServlet {
 				Cookie cookie = new Cookie("user","");
 				cookie.setMaxAge(0);
 				response.addCookie(cookie);
+				
+				HttpSession session = request.getSession();
+				session.invalidate();
+				
 				page = "pages/login.jsp";
-			}else if ("checkUserCookie".equals(action)) {
-				Cookie [] cookies = request.getCookies();
-				request.setAttribute("message", "No existing user cookie");
+			} else if ("checkUserSession".equals(action)) {
+				request.setAttribute("message", "No existing user session");
 				page = "pages/message.jsp";
 				
-				if (cookies != null) {
-					for(Cookie cookie : cookies) {
-						request.setAttribute("username", cookie.getValue());
-						break;
+				HttpSession session = request.getSession();
+				UserEntity user = (UserEntity) session.getAttribute("user");
+				
+				if (user != null) {
+					request.setAttribute("username", user.getUsername());
+					page = "pages/menu.jsp";
+				} else {
+					Cookie[] cookies = request.getCookies();
+					if (cookies != null) {
+						for (Cookie cookie : cookies) {
+							if (cookie.getName().equals("user")) {
+								
+								request.setAttribute("username", cookie.getValue());
+								page = "pages/menu.jsp";
+								break;
+							}
+						}
 					}
 				}
 			}
-		} catch (FileNotFoundException | ClassNotFoundException | SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			request.getRequestDispatcher(page).forward(request, response);

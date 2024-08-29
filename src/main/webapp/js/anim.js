@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+/*document.addEventListener('DOMContentLoaded', function() {
     const loginForm = document.getElementById('login-form');
     const registerForm = document.getElementById('register-fields');
     const showRegisterLink = document.getElementById('show-register');
@@ -16,3 +16,4 @@ document.addEventListener('DOMContentLoaded', function() {
         loginForm.classList.remove('hidden');
     });
 });
+*/

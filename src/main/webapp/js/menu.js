@@ -13,6 +13,7 @@ $("#btnLogout").click(function() {
 	}, function(response) {
 		$("#divMain").html(response);
 		$("#divMenu").html("");
+		history.go();
 	});
 });
 

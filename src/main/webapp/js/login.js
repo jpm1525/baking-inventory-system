@@ -5,30 +5,28 @@ $("#btnLogin").click(function() {
 		password: $('#login-password').val()
 	}, function(response) {
 		
-		if(response.includes("Invalid Username or Password")){
+		if(response.includes("Invalid Username or Password")) {
 			alert(response);
-		}else{
+		} else {
 			$("#divMenu").html(response);
 			$('#divMain').html("");
+			//$("#btnDashboard").click();
 		}
-		
-		//$("btnDashboard").click();
 		
 	});
 });
 
 
-function checkUserCookie() {
-	$.get("UserController", {
-		action: "checkUserCookie"
+function checkUserSession() {
+	$.get('UserController', {
+		action: 'checkUserSession'
 	}, function(response) {
-		if(response.includes("No existing user cookie")) {
-			console.log(response);
-		} else {
+		if (response !== 'No existing user session') {
 			$("#divMenu").html(response);
-			$("#btnDashboard").click();
+			$('#divMain').html("");
+			$('#btnDashboard').click();
 		}
 	});
 }
 
-checkUserCookie();
+checkUserSession();
