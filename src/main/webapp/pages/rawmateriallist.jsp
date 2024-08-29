@@ -1,12 +1,17 @@
-<script src="js/modal.js"></script>
 <link rel="stylesheet" href="css/modal.css" type="text/css" />
+<script src="js/modal/rawModal.js"></script>
 
+<div class="flex place-content-center flex-col ">
+
+<div>
 <h1 class="text-white text-center text-5xl font-bold m-10">Raw Material List</h1>
-<div class="flex justify-end">
-<jsp:include page="../pages/modals/rawModal.jsp"></jsp:include>
 </div>
 
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+<div class="flex justify-end">
+<jsp:include page="../pages/modals/modalRaw/rawModal.jsp"></jsp:include>
+</div>
+
+<div class="basis-6/12">
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -48,10 +53,8 @@
                     $2999
                 </td>
                 <td class="px-6 py-4">
-                    <jsp:include page="../pages/modals/editRaw.jsp"></jsp:include>
-                    <button id="deleteModalButton" class="px-4 py-2 ml-5 text-white bg-red-500 rounded">
-                        Delete
-                    </button>
+                    <jsp:include page="../pages/modals/modalRaw/editRaw.jsp"></jsp:include>
+                    <jsp:include page="../pages/modals/modalRaw/deleteRaw.jsp"></jsp:include>
                 </td>
             </tr>
             <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
@@ -137,7 +140,7 @@
         </tbody>
     </table>
 </div>
-
+</div>
 <style>
 th{
 color:white;
