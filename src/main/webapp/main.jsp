@@ -18,6 +18,7 @@
 
 <link rel="icon" type="images/png" href="images/favIcon.png">
 <script src="js/jquery-3.7.1.min.js"></script>
+<script src="js/session.js"></script>
 <script src="js/anim.js"></script>
 <title>Inventory System</title>
 </head>

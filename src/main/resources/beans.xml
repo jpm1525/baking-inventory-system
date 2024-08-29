@@ -8,5 +8,9 @@
     <property name ="userDAO" ref="userDAO"/>
   </bean>
   
+  <bean id="dispatchingDAO" class="com.cpi.is.dao.impl.DispatchingDAOImpl"></bean>
+  <bean id="dispatchingService" class="com.cpi.is.service.impl.DispatchingServiceImpl" depends-on="dispatchingDAO">
+    <property name ="dispatchingDAO" ref="dispatchingDAO"/>
+  </bean>
   
 </beans>
