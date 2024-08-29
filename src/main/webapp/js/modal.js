@@ -6,9 +6,9 @@ const closeModalButtonTop = document.getElementById(
 const closeModalButtonBottom = document.getElementById(
   "closeModalButtonBottom"
 );
-const secondaryActionButton = document.getElementById(
-  "secondaryActionButton"
-);
+//const secondaryActionButton = document.getElementById(
+//  "secondaryActionButton"
+//);
 
 openModalButton.addEventListener("click", () => {
   modal.classList.remove("closing");

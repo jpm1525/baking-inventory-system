@@ -11,5 +11,9 @@
     <property name="hibernate.hbm2ddl.auto">none</property>
     
     <mapping class="com.cpi.is.entity.UserEntity" />
+    <mapping class="com.cpi.is.entity.maintenance.DispatchTypeEntity" />
+    <mapping class="com.cpi.is.entity.maintenance.BranchEntity" />
+    <mapping class="com.cpi.is.entity.maintenance.SkuCodeEntity" />
+    <mapping class="com.cpi.is.entity.maintenance.MaterialCodeEntity" />
   </session-factory>
 </hibernate-configuration>
