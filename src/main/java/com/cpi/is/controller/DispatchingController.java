@@ -7,6 +7,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONArray;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.cpi.is.service.impl.DispatchingServiceImpl;
+
 /**
  * Servlet implementation class CustomerController
  */
@@ -14,7 +20,10 @@ import javax.servlet.http.HttpServletResponse;
 public class DispatchingController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static String page = "";
-    private static String action = "";   
+    private static String action = "";
+    
+    private ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+	private DispatchingServiceImpl dispatchingService = (DispatchingServiceImpl) context.getBean("dispatchingService");
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -27,12 +36,25 @@ public class DispatchingController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		action = request.getParameter("action");
-		
-		if("showDispatching".equals(action)) {
-			page = "pages/dispatching.jsp";
+		try {
+			action = request.getParameter("action");
+			
+			if ("showDispatching".equals(action)) {
+				request.setAttribute("dispatching", new JSONArray(dispatchingService.getData()));
+				page = "pages/dispatching.jsp";
+			} else if ("saveData".equals(action)) {
+				request.setAttribute("message", dispatchingService.saveData(request));
+				page = "pages/message.jsp";
+			} else if ("deleteData".equals(action)) {
+				request.setAttribute("message", dispatchingService.deleteData(request));
+				page = "pages/message.jsp";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			request.getRequestDispatcher(page).forward(request, response);
 		}
-		request.getRequestDispatcher(page).forward(request,response);
+
 	}
 
 	/**

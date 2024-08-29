@@ -7,7 +7,17 @@
   <bean id="userService" class="com.cpi.is.service.impl.UserServiceImpl" depends-on="userDAO">
     <property name ="userDAO" ref="userDAO"/>
   </bean>
-  
+
+  <bean id="dispatchingDAO" class="com.cpi.is.dao.impl.DispatchingDAOImpl"></bean>
+  <bean id="dispatchingService" class="com.cpi.is.service.impl.DispatchingServiceImpl" depends-on="dispatchingDAO">
+    <property name ="dispatchingDAO" ref="dispatchingDAO"/>
+  </bean>
+
+  <bean id="dispatchTypeDAO" class="com.cpi.is.dao.impl.maintenance.DispatchTypeDAOImpl"></bean>
+  <bean id="dispatchTypeService" class="com.cpi.is.service.impl.maintenance.DispatchTypeServiceImpl" depends-on="dispatchTypeDAO">
+    <property name="dispatchTypeDAO" ref="dispatchTypeDAO" />
+  </bean>
+
   <bean id="rawMaterialListDAO" class="com.cpi.is.dao.impl.RawMaterialListDAOImpl"></bean>
   <bean id="rawMaterialListService" class="com.cpi.is.service.impl.RawMaterialListServiceImpl" depends-on="rawMaterialListDAO">
     <property name ="rawMaterialListDAO" ref="rawMaterialListDAO"/>
@@ -18,5 +28,18 @@
     <property name ="dailyPlanDAO" ref="dailyPlanDAO"/>
   </bean>
   
+  <bean id="branchDAO" class="com.cpi.is.dao.impl.maintenance.BranchDAOImpl"></bean>
+  <bean id="branchService" class="com.cpi.is.service.impl.maintenance.BranchServiceImpl" depends-on="branchDAO">
+    <property name="branchDAO" ref="branchDAO" />
+  </bean>
   
+  <bean id="skuCodeDAO" class="com.cpi.is.dao.impl.maintenance.SkuCodeDAOImpl"></bean>
+  <bean id="skuCodeService" class="com.cpi.is.service.impl.maintenance.SkuCodeServiceImpl" depends-on="skuCodeDAO">
+    <property name="skuCodeDAO" ref="skuCodeDAO" />
+  </bean>
+  
+  <bean id="materialCodeDAO" class="com.cpi.is.dao.impl.maintenance.MaterialCodeDAOImpl"></bean>
+  <bean id="materialCodeService" class="com.cpi.is.service.impl.maintenance.MaterialCodeServiceImpl" depends-on="materialCodeDAO">
+    <property name="materialCodeDAO" ref="materialCodeDAO" />
+  </bean>
 </beans>
