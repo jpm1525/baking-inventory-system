@@ -10,7 +10,7 @@ $("#btnLogin").click(function() {
 		} else {
 			$("#divMenu").html(response);
 			$('#divMain').html("");
-			$("#btnDashboard").click();
+			//$("#btnDashboard").click();
 		}
 
 	});

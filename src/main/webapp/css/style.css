@@ -4,6 +4,7 @@ body {
     background-image: url('../images/bg2.gif');
     background-size: cover;
     background-position: center;
+    background-color: rgba(255, 255, 255, 0.1);
     background-attachment: fixed;
     font-family: 'Century Gothic';
     height: 100%;
@@ -11,15 +12,47 @@ body {
     overflow-x: scroll;
 }
 
+
 label{
-font-size:17px;
+font-size:20px;
 font-weight:bold;
 color:white;
 }
 
 fieldset{
-background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.1);
+  user-select: none;
 }  
+
+footer {
+    text-align: center;
+}
+.dashboardbox{
+  width: 500px;
+  height: 300px;
+  margin:20px;
+  border-radius: 20px;
+  user-select: none;
+  box-shadow: 4px 4px 9px -3px rgba(0, 0, 0, 0.82);
+}
+
+.dashboardbox h1{
+  display:flex;
+  position: absolute;
+  font-weight:bold;
+  margin-top: 10px;
+  margin-left: 20px;
+  font-size:45px;
+  z-index:3;
+  text-shadow: 3px 2px 6px rgba(0, 0, 0, 0.81);
+}
+
+.dashboardbox img{
+    display:flex;
+    position: absolute;
+    z-index:2;
+    opacity:0.2;
+}
 
 .menu-content {
             top: 60px;
@@ -33,63 +66,18 @@ background-color: rgba(255, 255, 255, 0.1);
             opacity: 1;
             transform: translateY(0);
         }
-        
-        
-	.rowl {
-	  display: flex;
-	}
-	
-	.columnl {
-	  flex: 50%;
-	}
-	
-	
-	.column2l {
-	  z-index:1;
-	  flex: 50%;
-	}
-        
-.row {
-  display: flex;
-}
-
-.navcol1{
-	  flex: 20%;
-}
-
-.navcol2 {
-    flex: 80%;
-    display: flex;
-    justify-content: flex-end;
-    width: 100%; /* or any appropriate width */
-}
-.column {
-  flex: 15%;
-}
-
-.column2 {
-	position:absolute;
-	top:80px;
-	left: 300px;
-  	flex: 85%;
-  	
-}
-
-.max-w-9xl {
-      max-width: 90rem; /* Define your custom maximum width here */
-    }
-
+     
 /* -------------------------------------------*/
 .sidebar {
-	margin-top:40px;
 	position:fixed;
-	z-index:1;
     width: 280px;
     background-color: #34495e;
     color: #fff;
     height: 100vh; /* Full viewport height */
     padding: 20px;
     box-sizing: border-box;
+    z-index:7;
+    user-select: none;
 }
 
 .sidebar ul {
@@ -98,17 +86,17 @@ background-color: rgba(255, 255, 255, 0.1);
 }
 
 .sidebar ul li {
-    margin: 10px 0;
+    margin: 5px 0;
 }
 
 .sidebar ul li a {
-	font-size:16px;
-    font-weight: bold;
+	font-size:14px;
     color: #fff;
     text-decoration: none;
     display: block;
-    padding: 10px;
+    padding: 5px;
     border-radius: 4px;
+    margin-left: 24px;
 }
 
 .sidebar ul li a:hover {
@@ -118,61 +106,72 @@ background-color: rgba(255, 255, 255, 0.1);
 /*TOP BAR*/
 .topbar {
     position: fixed;
-    top: 0;/* Offset for the sidebar width */
-    left:250px;
-    width: calc(100% - 250px);
+    top: 0;
+    left:280px;
+    width: calc(100% - 280px);
     background-color: #7b241c;
     color: #fff;
-    height: 60px; /* Adjust height as needed */
+    height: 60px;
     display: flex;
     align-items: center;
     padding: 0 25px;
-    box-sizing: border-box;
-    z-index:1;
+    z-index:8;
+    user-select: none;
 }
 .topbar2 {
     position: fixed;
-    top: 0;/* Offset for the sidebar width */
+    top: 0;
     width:280px;
     background-color: #701c15;
     color: #fff;
-    height: 60px; /* Adjust height as needed */
+    height: 60px;
     display: flex;
     align-items: center;
     padding: 0 25px;
-    box-sizing: border-box;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    z-index:2;
-}
-
-.topbar-content {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.topbar-left h1 {
-    font-size: 20px;
-    margin: 0;
+    z-index:9;
+    user-select: none;
 }
 
 .topbar-right button {
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 16px;
     padding: 10px;
+    font-size: 18px;
     margin-left: 10px;
+    margin-top: 7px;
     border-radius: 4px;
-    cursor: pointer;
-    justify-content: flex-end;
 }
 
 .topbar-right button:hover {
     background-color: #ff0000;
 }
 
-  .relative:hover .dropdown-content,
+/* Modal transitions */
+dialog.showing {
+  animation: fadeIn 0.3s forwards;
+}
+
+dialog.closing {
+  animation: fadeOut 0.3s forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.9); }
+}
+
+/* Additional styles if needed */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+ /*  .relative:hover .dropdown-content,
   .relative:focus-within .dropdown-content {
     display: block;
-  }
+  } */

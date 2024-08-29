@@ -62,7 +62,7 @@ public class UserController extends HttpServlet {
 					sessionCookie.setMaxAge(12*60);
 					response.addCookie(sessionCookie);
 					
-					page = "pages/menu.jsp";
+					page = "pages/innerPages/mainMenu.jsp";
 				} else {
 					request.setAttribute("message", "Invalid Username or Password");
 					page = "pages/message.jsp";
@@ -86,7 +86,7 @@ public class UserController extends HttpServlet {
 			} else if ("checkUserSession".equals(action)) {
 				HttpSession session = request.getSession();
 				UserEntity user = (UserEntity) session.getAttribute("user");
-				page = "pages/menu.jsp";
+				page = "pages/innerPages/mainMenu.jsp";
 				
 				if (user != null) {
 					request.setAttribute("username", user.getUsername());

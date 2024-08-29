@@ -13,5 +13,9 @@
     <mapping class="com.cpi.is.entity.UserEntity" />
     <mapping class="com.cpi.is.entity.DispatchingEntity" />
     <mapping class="com.cpi.is.entity.SessionEntity" />
+    <mapping class="com.cpi.is.entity.maintenance.DispatchTypeEntity" />
+    <mapping class="com.cpi.is.entity.maintenance.BranchEntity" />
+    <mapping class="com.cpi.is.entity.maintenance.SkuCodeEntity" />
+    <mapping class="com.cpi.is.entity.maintenance.MaterialCodeEntity" />
   </session-factory>
 </hibernate-configuration>
