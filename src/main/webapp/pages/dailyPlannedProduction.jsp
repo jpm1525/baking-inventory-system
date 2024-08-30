@@ -215,4 +215,4 @@ color:gray;
 <script type="text/javascript">
 	var dailyplannedproduction = JSON.parse('${dailyplannedproduction}');
 </script>
-<script src="js/dailyplannedproduction.js"></script>
+<script src="js/daily_planned_production.js"></script>

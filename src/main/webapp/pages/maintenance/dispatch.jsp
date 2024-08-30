@@ -1,6 +1,53 @@
+<link rel="stylesheet" href="css/modal.css" type="text/css" />
+<script src="js/modal/raw_modal.js"></script>
+
 <h1 class="text-white" id="btnShowMaintenance">Maintenance</h1>
-<p></p>
-<h1 class="text-white" id="btnDispatch">Dispatch Types</h1>
+
+<div class="flex place-content-center flex-col ">
+  <div>
+    <h1 class="text-white text-center text-5xl font-bold m-10" id="btnDispatch">Dispatch Type</h1>
+  </div>
+  <div class="flex justify-end">
+    <button id="openAddModalButton" class="px-4 py-2 m-2 text-white bg-indigo-500 rounded">
+      <i class="fas fa-plus"></i>
+    </button>
+    <jsp:include page="../modals/modal-raw/rawModal.jsp"></jsp:include>
+  </div>
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg basis-6/12">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <tr>
+          <th th scope="col" class="px-6 py-3">
+            Dispatch Type Code
+          </th>
+          <th th scope="col" class="px-6 py-3">
+            Dispatch Type Name
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Action
+          </th>
+        </tr>
+      </thead>
+      <tbody id="divTable">
+        
+      </tbody>
+        <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                Apple MacBook Pro 17"
+            </th>
+            <td class="px-6 py-4">
+                $2999
+            </td>
+            <td class="px-6 py-4">
+                <jsp:include page="../modals/modal-raw/editRaw.jsp"></jsp:include>
+                <jsp:include page="../modals/modal-raw/deleteRaw.jsp"></jsp:include>
+            </td>
+        </tr>
+    </table>
+  </div>
+</div>
+
+
 <label class="text-white-100 text-lg">Add Dispatch Type</label>
   <div class="grid gap-4 mb-4 sm:grid-cols-2 mt-5">
     <div>
@@ -17,26 +64,6 @@
       Add
     </button>
   </div>
-<label class="text-white-100 text-lg">Read Dispatch Type</label>
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-  <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-      <tr>
-        <th th scope="col" class="px-6 py-3">
-          Dispatch Type Code
-        </th>
-        <th th scope="col" class="px-6 py-3">
-          Dispatch Type Name
-        </th>
-        <th scope="col" class="px-6 py-3">
-          Action
-        </th>
-      </tr>
-    </thead>
-    <tbody id="divTable">
-    </tbody>
-  </table>
-</div>
 
 <label class="text-white-100 text-lg">Update Dispatch Type</label>
   <div class="grid gap-4 mb-4 sm:grid-cols-2 mt-5">

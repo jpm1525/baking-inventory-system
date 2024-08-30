@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="css/modal.css" type="text/css" />
-<script src="js/modal/rawModal.js"></script>
+<script src="js/modal/raw_modal.js"></script>
 
 <button id="editModalButton" class="px-4 py-2 mr-3 text-white bg-indigo-500 rounded">
   Edit

@@ -43,7 +43,7 @@ public class DailyPlannedProductionController extends HttpServlet {
 			
 			if("showDailyPlannedProduction".equals(action)) {
 				request.setAttribute("dailyplannedproduction", new JSONArray(dailyPlanService.getData()));
-				page = "pages/dailyplannedproduction.jsp";
+				page = "pages/dailyPlannedProduction.jsp";
 			} else if ("saveData".equals(action)) {
 				request.setAttribute("message", dailyPlanService.saveData(request));
 				page = "pages/message.jsp";
