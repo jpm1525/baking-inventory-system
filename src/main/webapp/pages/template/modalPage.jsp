@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="css/modal.css" type="text/css" />
-<script src="js/modal/rawModal.js"></script>
+<script src="js/modal/raw_modal.js"></script>
 
 <div class="flex place-content-center flex-col ">
 

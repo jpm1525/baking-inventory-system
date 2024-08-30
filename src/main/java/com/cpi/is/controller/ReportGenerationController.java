@@ -30,7 +30,7 @@ public class ReportGenerationController extends HttpServlet {
 		action = request.getParameter("action");
 		
 		if("showReportGeneration".equals(action)) {
-			page = "pages/reportgeneration.jsp";
+			page = "pages/reportGeneration.jsp";
 		}
 		request.getRequestDispatcher(page).forward(request,response);
 	}

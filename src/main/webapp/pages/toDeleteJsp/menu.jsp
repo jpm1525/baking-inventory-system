@@ -7,6 +7,6 @@
       </div>  
     </div>
 </div>
-<script src="js/mainMenuRoute.js"></script>
+<script src="js/main_menu_route.js"></script>
 <script src="js/menu.js"></script>
 <link rel="stylesheet" href="css/style.css" type="text/css" />

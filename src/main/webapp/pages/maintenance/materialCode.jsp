@@ -71,4 +71,4 @@
 <script type="text/javascript">
   var materialCode = JSON.parse('${materialCode}');
 </script>
-<script src="js/maintenance/material-code.js"></script>
+<script src="js/maintenance/material_code.js"></script>
