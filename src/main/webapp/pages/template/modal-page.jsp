@@ -8,7 +8,7 @@
 </div>
 
 <div class="flex justify-end">
-<jsp:include page="../pages/modals/modalRaw/rawModal.jsp"></jsp:include>
+<jsp:include page="../modals/modalRaw/rawModal.jsp"></jsp:include>
 </div>
 
 <div class="basis-6/12">
@@ -53,8 +53,8 @@
                     $2999
                 </td>
                 <td class="px-6 py-4">
-                    <jsp:include page="../pages/modals/modalRaw/editRaw.jsp"></jsp:include>
-                    <jsp:include page="../pages/modals/modalRaw/deleteRaw.jsp"></jsp:include>
+                    <jsp:include page="../modals/modalRaw/editRaw.jsp"></jsp:include>
+                    <jsp:include page="../modals/modalRaw/deleteRaw.jsp"></jsp:include>
                 </td>
             </tr>
             <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
