@@ -14,6 +14,7 @@
     <mapping class="com.cpi.is.entity.RawMaterialListEntity" />
     <mapping class="com.cpi.is.entity.DailyPlanEntity" />
     <mapping class="com.cpi.is.entity.DispatchingEntity" />
+    <mapping class="com.cpi.is.entity.FinishedProductListEntity" />
     <mapping class="com.cpi.is.entity.SessionEntity" />
     <mapping class="com.cpi.is.entity.maintenance.DispatchTypeEntity" />
     <mapping class="com.cpi.is.entity.maintenance.BranchEntity" />
