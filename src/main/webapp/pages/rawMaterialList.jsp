@@ -1,15 +1,6 @@
 
 <h1 class="text-white text-center text-5xl font-bold m-10">Raw Material List</h1>
 
-<style>
-th{
-color:white;
-}
-td{
-color:gray;
-}
-</style>
-
 <div id="divInventoryTable"></div>
 <br>
 <div id="divInventoryForm">
@@ -55,4 +46,4 @@ color:gray;
 <script type="text/javascript">
 	var rawmateriallist = JSON.parse('${rawmateriallist}');
 </script>
-<script src="js/raw_material_list.js"></script>
+<script src="js/rawmateriallist.js"></script>

@@ -19,3 +19,6 @@ if (typeof openDeleteModalButton === 'undefined' || openDeleteModalButton === nu
 if (typeof closeDeleteModalButtons === 'undefined' || closeDeleteModalButtons === null) {let closeDeleteModalButtons = "";}
 if (typeof yesDeleteButton === 'undefined' || yesDeleteButton === null) {let yesDeleteButton = "";}
 //===================================================================================================================//
+document.getElementById('blurButton').addEventListener('click', function() {
+    document.body.classList.toggle('blurred');
+});
