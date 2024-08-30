@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="css/modal.css" type="text/css" />
-<script src="js/modal/rawModal.js"></script>
+<script src="js/modal/raw_modal.js"></script>
 
-<button id="deleteModalButton" class="px-4 py-2 text-white bg-red-500 rounded">
+<button id="deleteModalButton" class="px-4 py-2 ml-2 text-white bg-red-500 rounded">
   Delete
 </button>
 

@@ -67,7 +67,7 @@ public class MaintenanceController extends HttpServlet {
 				page = "pages/message.jsp";
 			} else if("showSkuCodes".equals(action)) {
 				request.setAttribute("skuCode",new JSONArray(skuCodeService.getData()));
-				page = "pages/maintenance/sku-code.jsp";
+				page = "pages/maintenance/skuCode.jsp";
 			} else if ("saveSkuCodeData".equals(action)) {
 				request.setAttribute("message", skuCodeService.saveData(request));
 				page = "pages/message.jsp";
@@ -76,7 +76,7 @@ public class MaintenanceController extends HttpServlet {
 				page = "pages/message.jsp";
 			} else if("showMaterialCodes".equals(action)) {
 				request.setAttribute("materialCode",new JSONArray(materialCodeService.getData()));
-				page = "pages/maintenance/material-code.jsp";
+				page = "pages/maintenance/materialCode.jsp";
 			} else if ("saveMaterialCodeData".equals(action)) {
 				request.setAttribute("message", materialCodeService.saveData(request));
 				page = "pages/message.jsp";

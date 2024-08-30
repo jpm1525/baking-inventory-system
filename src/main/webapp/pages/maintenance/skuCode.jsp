@@ -71,4 +71,4 @@
 <script type="text/javascript">
   var skuCode = JSON.parse('${skuCode}');
 </script>
-<script src="js/maintenance/sku-code.js"></script>
+<script src="js/maintenance/sku_code.js"></script>

@@ -30,7 +30,7 @@ public class MainMenuController extends HttpServlet {
 		action = request.getParameter("action");
 		
 		if("showMainMenu".equals(action)) {
-			page = "pages/innerPages/mainMenu.jsp";
+			page = "pages/inner-pages/mainMenu.jsp";
 		}
 		request.getRequestDispatcher(page).forward(request,response);
 	}
