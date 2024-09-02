@@ -12,6 +12,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.cpi.is.service.impl.DispatchingServiceImpl;
+import com.cpi.is.service.impl.maintenance.BranchServiceImpl;
+import com.cpi.is.service.impl.maintenance.DispatchTypeServiceImpl;
+import com.cpi.is.service.impl.maintenance.SkuCodeServiceImpl;
 
 /**
  * Servlet implementation class CustomerController
@@ -24,6 +27,10 @@ public class DispatchingController extends HttpServlet {
     
     private ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
 	private DispatchingServiceImpl dispatchingService = (DispatchingServiceImpl) context.getBean("dispatchingService");
+	private DispatchTypeServiceImpl dispatchTypeService = (DispatchTypeServiceImpl) context.getBean("dispatchTypeService");
+	private BranchServiceImpl branchService = (BranchServiceImpl) context.getBean("branchService");
+	private SkuCodeServiceImpl skuCodeService = (SkuCodeServiceImpl) context.getBean("skuCodeService");
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -41,6 +48,9 @@ public class DispatchingController extends HttpServlet {
 			
 			if ("showDispatching".equals(action)) {
 				request.setAttribute("dispatching", new JSONArray(dispatchingService.getData()));
+				request.setAttribute("dispatchType", new JSONArray(dispatchTypeService.getData()));
+				request.setAttribute("branch",new JSONArray(branchService.getData()));
+				request.setAttribute("skuCode",new JSONArray(skuCodeService.getData()));
 				page = "pages/dispatching.jsp";
 			} else if ("saveData".equals(action)) {
 				request.setAttribute("message", dispatchingService.saveData(request));
