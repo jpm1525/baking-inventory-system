@@ -16,7 +16,7 @@ public class DailyPlanDAOImpl implements DailyPlanDAO {
 		List<DailyPlanEntity> dailyplannedproduction = null;
 		try (Session session = HBUtil.getSessionFactory().openSession()) {
 			dailyplannedproduction = (List<DailyPlanEntity>) 
-					session.createQuery("From DailyPlanEntity T", DailyPlanEntity.class).list();
+				session.createQuery("From DailyPlanEntity T", DailyPlanEntity.class).list();
 		}
 		return dailyplannedproduction;
 	}
