@@ -3,11 +3,16 @@ package com.cpi.is.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.cpi.is.entity.maintenance.BranchEntity;
+import com.cpi.is.entity.maintenance.DispatchTypeEntity;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -33,6 +38,16 @@ public class DispatchingEntity implements Serializable {
 	@Column(name="dispatch_date")
 	@Temporal(TemporalType.DATE)
 	private Date dispatchDate;
+	
+	@ManyToOne
+	@JoinColumn(name="BRANCH_ID", insertable=false, updatable=false)
+	private BranchEntity branch;
+	@ManyToOne
+	@JoinColumn(name="DISPATCH_TYPE_CD", insertable=false, updatable=false)
+	private DispatchTypeEntity dispatchType;
+	@ManyToOne
+	@JoinColumn(name="FPL_ID", insertable=false, updatable=false)
+	private FinishedProductListEntity fpl;
 	
 	public DispatchingEntity() {
 		super();
@@ -105,6 +120,30 @@ public class DispatchingEntity implements Serializable {
 
 	public void setDispatchDate(Date dispatchDate) {
 		this.dispatchDate = dispatchDate;
+	}
+	
+	public BranchEntity getBranch() {
+		return branch;
+	}
+
+	public void setBranch(BranchEntity branch) {
+		this.branch = branch;
+	}
+
+	public DispatchTypeEntity getDispatchType() {
+		return dispatchType;
+	}
+
+	public void setDispatchType(DispatchTypeEntity dispatchType) {
+		this.dispatchType = dispatchType;
+	}
+
+	public FinishedProductListEntity getFpl() {
+		return fpl;
+	}
+
+	public void setFpl(FinishedProductListEntity fpl) {
+		this.fpl = fpl;
 	}
 
 	@Override

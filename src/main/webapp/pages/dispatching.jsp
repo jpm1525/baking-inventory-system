@@ -1,3 +1,8 @@
+<style>
+.input{
+color:black;
+}
+</style>
 <h1 class="text-white">Dispatching</h1>
 <div id="divDispatchingTable"></div>
 <br>
@@ -10,10 +15,11 @@
 					readonly="readonly" /></td>
 			</tr>
 			<tr>
-				<td><label for="txtDispatchType">Dispatch Type Code</label></td>
-				<td><input type="text" class="input" id="txtDispatchType"
-					maxlength="200" /></td>
-			</tr>
+				<td><label for="txtDispatchType">Dispatch Type Name</label></td>
+				<td>
+					<select class= "input" id="selDispatchType" name="selDispatchType">
+					</select>
+				</td>
 			<tr>
 				<td><label for="txtFinishedProdId">Finished Product ID</label></td>
 				<td><input type="text" class="input" id="txtFinishedProdId"
@@ -25,9 +31,10 @@
 					maxlength="12" /></td>
 			</tr>
 			<tr>
-				<td><label for="txtBranchId">Branch ID</label></td>
-				<td><input type="number" class="input" id="txtBranchId"
-					maxlength="12" /></td>
+				<td><label for="txtBranchId">Branch Name</label></td>
+				<td><select class= "input" id="selBranch" name="selBranch">
+					</select>
+				</td>
 			</tr>
 			<tr>
 				<td><label for="txtDestination">Destination</label></td>
@@ -35,8 +42,8 @@
 					maxlength="200" /></td>
 			</tr>
 			<tr>
-				<td><label for="txtDispatchDate">Dispatch Date</label></td>
-				<td><input type="date" class="block" id="txtDispatchDate"
+				<td><label for="dateDispatchDate">Dispatch Date</label></td>
+				<td><input type="date" class="input" id="dateDispatchDate"
 					maxlength="200" /></td>
 			</tr>
 			<tr>
@@ -53,5 +60,8 @@
 <br>
 <script type="text/javascript">
 	var dispatching = JSON.parse('${dispatching}');
+	var dispatchType = JSON.parse('${dispatchType}');
+	var branch = JSON.parse('${branch}');
+	var skuCode = JSON.parse('${skuCode}');
 </script>
 <script src="js/dispatching.js"></script>
