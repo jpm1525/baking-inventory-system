@@ -145,23 +145,12 @@
 
 
 <style>
-th{
-color:white;
+
+.input{
+color:BLACK;
 }
-td{
-color:gray;
-}
+
 </style>
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -177,6 +166,14 @@ color:gray;
         <td><label for="txtDppId">Daily Planned Production ID</label></td>
         <td><input type="text" class="input" id="txtDppId" readonly="readonly" /></td>
       </tr>
+      <!-- <tr>
+        <td><label for="txtMaterialCode">Material Code</label></td>
+        <td><input type="text" class="input" id="txtMaterialCode" maxlength="200" /></td>
+      </tr> -->
+      <tr>
+        <td><label for="txtQuantity">Quantity</label></td>
+        <td><input type="number" class="input" id="txtQuantity" maxlength="12" /></td>
+      </tr>
       <tr>
         <td><label for="txtProductionDate">Production Date</label></td>
         <td><input type="date" class="input" id="txtProductionDate" maxlength="200" /></td>
@@ -189,16 +186,11 @@ color:gray;
         <td><label for="txtSkuCd">SKU CODE</label></td>
         <td><input type="text" class="input" id="txtSkuCd" maxlength="200" /></td>
       </tr>
-      <tr>
-        <td><label for="txtQuantity">Quantity</label></td>
-        <td><input type="number" class="input" id="txtQuantity" maxlength="12" /></td>
-      </tr>
+      
       <tr>
         <td><label for="txtStatus">Status</label></td>
         <td><input type="text" class="input" id="txtStatus" maxlength="12" /></td>
       </tr>
-      
-      
       
       <tr>
         <td></td>

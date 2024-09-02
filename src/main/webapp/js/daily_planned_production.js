@@ -1,4 +1,3 @@
-
 function toggleAddButton() {
 	if ('' === $('#txtDppId').val()) {
 		$('#btnAdd').html('Add');
@@ -115,6 +114,8 @@ function resetInventoryForm() {
 $('#btnClear').click(resetInventoryForm);
 
 $('#btnDelete').click(function() {
+
+	confirm('Are you sure to delete?');
 	if ($('#txtDppId').val() !== '') {
 		let item = createItem();
 		$.post('DailyPlannedProductionController', {
@@ -122,7 +123,6 @@ $('#btnDelete').click(function() {
 			item: JSON.stringify(item)
 		}, function(response) {
 			if (response.includes('success')) {
-				alert('Deleted successfully');
 				$('#btnDailyPlannedProduction').click();
 			} else {
 				alert('Unable to save changes 2');
