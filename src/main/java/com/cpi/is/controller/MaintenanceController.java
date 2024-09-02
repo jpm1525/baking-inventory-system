@@ -61,7 +61,6 @@ public class MaintenanceController extends HttpServlet {
 			} else if ("saveBranchData".equals(action)) {
 				request.setAttribute("message", branchService.saveData(request));
 				page = "pages/message.jsp";
-				System.out.println("controller");
 			} else if ("deleteBranchData".equals(action)) {
 				request.setAttribute("message", branchService.deleteData(request));
 				page = "pages/message.jsp";

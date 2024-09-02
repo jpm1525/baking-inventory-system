@@ -1,10 +1,60 @@
-$("#btnShowMaintenance").click(function(){
-	$.get("MaintenanceController",{
-		action: "showMaintenance"
-		}, function(response){
-		$("#divContent").html(response)
-	});
-});	
+if (typeof data === 'undefined' || data === null) {let data = "";}
+if (typeof callback === 'undefined' || callback === null) {let callback = "";}
+if (typeof observer === 'undefined' || observer === null) {let observer = "";}
+
+var editButton = function(value, data, cell, row, options){
+	let thisButton = '<button class="px-4 py-2 text-white bg-indigo-500 rounded editModalButton"> Edit </button>';
+		thisButton +='<button class="px-4 py-2 ml-5 text-white bg-red-500 rounded deleteModalButton"> Delete </button>';
+    return thisButton;
+};
+
+var divTable = new Tabulator("#divTableTabulator" , {
+	layout:"fitColumns",
+	data: materialCode, //json parse 
+	pagination: 'local',
+	pagination: true,
+	paginationSize: 10,
+	paginationSizeSelector:[5, 10, 15, 20],
+	paginationCounter:"rows",
+	selectableRows:1,
+	columns: [
+		{title:"Code", field: 'materialCd'},
+		{title:"Name", field: 'materialCodeName'},
+		{title:"Unit of Measurement", field: 'unitOfMeasurement'},
+		{title:"Action" , field: 'unitOfMeasurement', headerSort:false, formatter:editButton},
+	],
+});
+
+$(".materialCodeForm").submit(function(e){
+	e.preventDefault();
+});
+
+divTable.on('rowClick',function() {
+	let row = divTable.getSelectedData()[0];
+	if (row !== undefined) {
+		populateForm(row);
+	} 
+})
+
+callback = function(mutationsList, observer) {
+    for(let mutation of mutationsList) {
+        if (mutation.type === 'childList') {
+            $(".editModalButton").on('click', function(){
+                editModal.classList.remove("closing");
+                editModal.showModal();
+                editModal.classList.add("showing");
+            });
+            $(".deleteModalButton").on('click', function(){
+                $("#deleteModal").removeClass("closing")
+                deleteModal.showModal();
+                $("#deleteModal").addClass("showing")
+            });
+        }
+    }
+};
+
+observer = new MutationObserver(callback);
+observer.observe(document.getElementById('divTableTabulator'), { childList: true, subtree: true });
 
 $("#btnMaterialCode").click(function(){
 	$.get("MaintenanceController",{
@@ -14,65 +64,37 @@ $("#btnMaterialCode").click(function(){
 	});
 });	
 
-function createTable(materialCode) {
-	let html = '';
-	$.each(materialCode, function(index, item) {
-		html += '<tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50';
-		html += '  even:dark:bg-gray-800 border-b dark:border-gray-700" id="item'+index+'Row">';
-		html += '  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap';
-		html += '    dark:text-white" id="itemCode' + index + '">';
-		html +=        item.materialCd;
-		html += '  </th>';
-		html += '  <td class="px-6 py-4" id="itemName' + index + '">';
-		html +=      item.materialCodeName;
-		html += '  </td>';
-		html += '  <td class="px-6 py-4" id="itemUnit' + index + '">';
-		html +=      item.unitOfMeasurement;
-		html += '  </td>';
-		html += '  <td class="px-6 py-4">';
-		html += '    <button id="btnEdit'+ index +'" class="px-4 py-2 text-white bg-indigo-500 rounded">';
-		html += '      Edit';
-		html += '    </button>';
-		html += '    <button id="btnDelete'+ index +'" class="px-4 py-2 ml-5 text-white bg-red-500 rounded">';
-		html += '	    Delete';
-		html += '    </button>';
-		html += '  </td>';
-		html += '</tr>';
+$('#deleteSaveModalButton').click(function(event){
+	event.stopImmediatePropagation();
+	$.post('MaintenanceController', {
+		action: 'deleteMaterialCodeData',
+		data: JSON.stringify(data)
+	}, function(response) {
+		if (response.includes('success')) {
+			closeDeleteModal();
+			$('#btnMaterialCode').click();
+		} else {
+			$('.errorMessage').text("Unable to save changes");
+		}
 	});
-	$('#divTable').html(html);
+});	
+
+function populateForm(row) {
+	$('#materialCodeUpdate').val(row.materialCd).toString();
+	$('#materialCodeNameUpdate').val(row.materialCodeName);
+	$('#materialCodeUnitOfMeasurementUpdate').val(row.unitOfMeasurement);
+	data = {
+		materialCd: row.materialCd.toString(),
+		materialCodeName: row.materialCodeName,
+		unitOfMeasurement: row.unitOfMeasurement
+	};
 }
 
-function bindRowsClick(materialCode) {
-	$.each(materialCode, function(index, item) {
-		$('#btnEdit'+ index).click(function() {
-			$('#materialCodeUpdate').val(item.materialCd);
-			$('#materialCodeNameUpdate').val(item.materialCodeName);
-			$('#materialCodeUnitOfMeasurementUpdate').val(item.unitOfMeasurement);
-		});
-		$('#btnDelete' + index).click(function() {
-			let data = {
-					materialCd: item.materialCd,
-					materialCodeName: item.materialCodeName,
-					unitOfMeasurement: item.unitOfMeasurement
-				};
-			$.post('MaintenanceController', {
-				action: 'deleteMaterialCodeData',
-				data: JSON.stringify(data)
-			}, function(response) {
-				if (response.includes('success')) {
-					$('#btnMaterialCode').click();
-				} else {
-					alert('Unable to save changes');
-				}
-			});
-		});
-	});
-}
 
 function validate(data) {
 	let valid = true;
-	if (data.materialCd === '' || data.materialName === '') {
-		alert('Please correctly fill-out all required fields');
+	if (data.materialCd === '' || data.materialName === '' | data.unitOfMeasurement === '') {
+		$('.errorMessage').text("Please correctly fill-out all required fields");
 		valid = false;
 	} 
 	return valid;
@@ -85,6 +107,8 @@ function sendData(data){
 			data: JSON.stringify(data)
 		}, function(response) {
 			if (response.includes('success')) {
+				closeAddModal();
+				closeEditModal();
 				$('#btnMaterialCode').click();
 			} else {
 				alert('Unable to save changes');
@@ -111,8 +135,5 @@ function updateData() {
 	sendData(data);
 }
 
-
-createTable(materialCode);
-bindRowsClick(materialCode);
 $('#btnCreateMaterialCode').click(addData);
 $('#btnUpdateMaterialCode').click(updateData);

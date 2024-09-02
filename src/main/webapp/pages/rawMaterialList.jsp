@@ -1,4 +1,3 @@
-
 <h1 class="text-white text-center text-5xl font-bold m-10">Raw Material List</h1>
 
 <div id="divInventoryTable"></div>

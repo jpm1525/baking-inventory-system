@@ -1,4 +1,3 @@
-
 function toggleAddButton() {
 	if ('' === $('#txtDppId').val()) {
 		$('#btnAdd').html('Add');

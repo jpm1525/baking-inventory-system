@@ -1,10 +1,59 @@
-$("#btnShowMaintenance").click(function(){
-	$.get("MaintenanceController",{
-		action: "showMaintenance"
-		}, function(response){
-		$("#divContent").html(response)
-	});
-});	
+if (typeof data === 'undefined' || data === null) {let data = "";}
+if (typeof callback === 'undefined' || callback === null) {let callback = "";}
+if (typeof observer === 'undefined' || observer === null) {let observer = "";}
+
+var editButton = function(value, data, cell, row, options){
+	let thisButton = '<button class="px-4 py-2 text-white bg-indigo-500 rounded editModalButton"> Edit </button>';
+		thisButton +='<button class="px-4 py-2 ml-5 text-white bg-red-500 rounded deleteModalButton"> Delete </button>'
+    return thisButton;
+};
+
+var divTable = new Tabulator("#divTableTabulator" , {
+	layout:"fitColumns",
+	data: branch, //json parse 
+	pagination: 'local',
+	pagination: true,
+	paginationSize: 10,
+	paginationSizeSelector:[5, 10, 15, 20],
+	paginationCounter:"rows",
+	selectableRows:1,
+	columns: [
+		{title:"Id", field: 'branchId'},
+		{title:"Name", field: 'branchName'},
+		{title:"Action" , headerSort:false, formatter:editButton},
+	],
+});
+
+$(".branchForm").submit(function(e){
+	e.preventDefault();
+});
+
+divTable.on('rowClick',function() {
+	let row = divTable.getSelectedData()[0];
+	if (row !== undefined) {
+		populateForm(row);
+	} 
+})
+
+callback = function(mutationsList, observer) {
+    for(let mutation of mutationsList) {
+        if (mutation.type === 'childList') {
+            $(".editModalButton").on('click', function(){
+                editModal.classList.remove("closing");
+                editModal.showModal();
+                editModal.classList.add("showing");
+            });
+            $(".deleteModalButton").on('click', function(){
+                $("#deleteModal").removeClass("closing")
+                deleteModal.showModal();
+                $("#deleteModal").addClass("showing")
+            });
+        }
+    }
+};
+
+observer = new MutationObserver(callback);
+observer.observe(document.getElementById('divTableTabulator'), { childList: true, subtree: true });
 
 $("#btnBranch").click(function(){
 	$.get("MaintenanceController",{
@@ -14,54 +63,28 @@ $("#btnBranch").click(function(){
 	});
 });	
 
-function createBranchTable(branch) {
-	let html = '';
-	$.each(branch, function(index, item) {
-		html += '<tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50';
-		html += '  even:dark:bg-gray-800 border-b dark:border-gray-700" id="item'+index+'Row">';
-		html += '  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap';
-		html += '    dark:text-white" id="itemCode' + index + '">';
-		html +=        item.branchId;
-		html += '  </th>';
-		html += '  <td class="px-6 py-4" id="itemName">';
-		html +=      item.branchName;
-		html += '  </td>';
-		html += '  <td class="px-6 py-4" id="itemName'+ index +'">';
-		html += '    <button id="btnEdit'+ index +'" class="px-4 py-2 text-white bg-indigo-500 rounded">';
-		html += '      Edit';
-		html += '    </button>';
-		html += '    <button id="btnDelete'+ index +'" class="px-4 py-2 ml-5 text-white bg-red-500 rounded">';
-		html += '	    Delete';
-		html += '    </button>';
-		html += '  </td>';
-		html += '</tr>';
+$('#deleteSaveModalButton').click(function(event){
+	event.stopImmediatePropagation();
+	$.post('MaintenanceController', {
+		action: 'deleteBranchData',
+		data: JSON.stringify(data)
+	}, function(response) {
+		if (response.includes('success')) {
+			closeDeleteModal();
+			$('#btnBranch').click();
+		} else {
+			$('.errorMessage').text("Unable to save changes");
+		}
 	});
-	$('#divTable').html(html);
-}
+});
 
-function bindRowsClick(branch) {
-	$.each(branch, function(index, item) {
-		$('#btnEdit'+ index).click(function() {
-			$('#branchIdUpdate').val(item.branchId);
-			$('#branchNameUpdate').val(item.branchName);
-		});
-		$('#btnDelete' + index).click(function() {
-			let data = {
-					branchId: item.branchId.toString(),
-					branchName: item.branchName
-				};
-			$.post('MaintenanceController', {
-				action: 'deleteBranchData',
-				data: JSON.stringify(data)
-			}, function(response) {
-				if (response.includes('success')) {
-					$('#btnBranch').click();
-				} else {
-					alert('Unable to save changes');
-				}
-			});
-		});
-	});
+function populateForm(row) {
+	$('#branchIdUpdate').val(row.branchId).toString();
+	$('#branchNameUpdate').val(row.branchName);
+	data = {
+		branchId: row.branchId.toString(),
+		branchName: row.branchName
+	};
 }
 
 function validate(data) {
@@ -80,9 +103,11 @@ function sendData(data){
 			data: JSON.stringify(data)
 		}, function(response) {
 			if (response.includes('success')) {
+				closeAddModal();
+				closeEditModal();
 				$('#btnBranch').click();
 			} else {
-				alert('Unable to save changes');
+				$('.errorMessage').text("Unable to save changes");
 			}
 		});
 	}
@@ -90,7 +115,7 @@ function sendData(data){
 
 function addData() {
 	let data = {
-		branchId: $('#branchIdCreate').val(),
+		branchId: $('#branchIdCreate').val().toString(),
 		branchName: $('#branchNameCreate').val()
 	};
 	sendData(data);
@@ -104,8 +129,5 @@ function updateData() {
 	sendData(data);
 }
 
-
-createBranchTable(branch);
-bindRowsClick(branch);
 $('#btnCreateBranch').click(addData);
 $('#btnUpdateBranch').click(updateData);
