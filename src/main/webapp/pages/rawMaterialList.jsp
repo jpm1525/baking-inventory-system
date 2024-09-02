@@ -46,4 +46,13 @@
 <script type="text/javascript">
 	var rawmateriallist = JSON.parse('${rawmateriallist}');
 </script>
-<script src="js/rawmateriallist.js"></script>
+<script src="js/raw_material_list.js"></script>
+
+
+<style>
+
+.input{
+color:BLACK;
+}
+
+</style>
