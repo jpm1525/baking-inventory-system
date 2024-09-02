@@ -36,10 +36,10 @@
                         Maintenance <i id="dropdownIconMaintenance" class="fas fa-angle-down ml-1"></i>
                     </button>
                     <ul id="dropdownMenuMaintenance" class="bg-base-100 rounded-box z-[1] w-52 p-2 hidden">
-                          <li><a id="btnMaintenance">Manage Dispatch Types</a></li>
-                          <li><a>Manage Branches</a></li>
-                          <li><a>Manage SKU Codes</a></li>
-                          <li><a>Manage Material Codes</a></li>
+                          <li><a id="btnDispatch">Manage Dispatch Types</a></li>
+                          <li><a id="btnBranches">Manage Branches</a></li>
+                          <li><a id="btnSkuCodes">Manage SKU Codes</a></li>
+                          <li><a id="btnMaterialCodes">Manage Material Codes</a></li>
                     </ul>
                 </div>
 </nav>

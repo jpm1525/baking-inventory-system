@@ -1,10 +1,10 @@
 <link rel="stylesheet" href="css/modal.css" type="text/css" />
 
 <dialog id="addModal" class="relative p-6 bg-white dark:bg-gray-700 rounded-lg shadow-lg max-w-2xl">
-  <form class="dispatchForm">
+  <form class="skuCodeForm">
     <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
       <h3 class="text-3xl font-semibold text-gray-900 dark:text-white">
-          Add Dispatch Type
+          Add SKU Code
       </h3>
       <button type="button" id="closeAddModalButton" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 
         rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 
@@ -18,18 +18,25 @@
     
     <div class="grid gap-4 mb-4 sm:grid-cols-1 mt-5">
       <div>
-        <label for="dispatchTypeCodeCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Code</label>
-        <input type="text" name="dispatchTypeCodeCreate" id="dispatchTypeCodeCreate" class="bg-gray-50 border border-gray-300 
+        <label for="skuCodeCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Code</label>
+        <input type="text" name="skuCodeCreate" id="skuCodeCreate" class="bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
-          required="required" placeholder="Type dispatch type code">
+          required="required" placeholder="Type sku code">
       </div>
       <div>
-        <label for="dispatchTypeNameCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Name</label>
-        <input type="text" name="dispatchTypeNameCreate" id="dispatchTypeNameCreate" class="bg-gray-50 border border-gray-300 
+        <label for="skuCodeNameCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Name</label>
+        <input type="text" name="skuCodeNameCreate" id="skuCodeNameCreate" class="bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
-          required="required" placeholder="Type dispatch type name">
+          required="required" placeholder="Type sku code name">
+      </div>
+      <div>
+        <label for="skuCodeUnitOfMeasurementCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Unit of Measurement</label>
+        <input type="text" name="skuCodeUnitOfMeasurementCreate" id="skuCodeUnitOfMeasurementCreate" class="bg-gray-50 border border-gray-300 
+          text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
+          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
+          required="required" placeholder="Type unit of measurement">
       </div>
     </div>
   
@@ -46,12 +53,12 @@
         dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
         Cancel
       </button>
-      <button id="btnCreateDispatchType" type="submit" class="text-white inline-flex items-center bg-blue-700 
+      <button id="btnCreateSkuCode" type="submit" class="text-white inline-flex items-center bg-blue-700 
         hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium 
         rounded px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 
         dark:focus:ring-blue-800">
         Save
       </button>
     </div>
-  </form>
+  </form>  
 </dialog>

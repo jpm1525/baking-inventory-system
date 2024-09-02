@@ -1,10 +1,59 @@
-$("#btnShowMaintenance").click(function(){
-	$.get("MaintenanceController",{
-		action: "showMaintenance"
-		}, function(response){
-		$("#divContent").html(response)
-	});
-});	
+if (typeof data === 'undefined' || data === null) {let data = "";}
+if (typeof callback === 'undefined' || callback === null) {let callback = "";}
+if (typeof observer === 'undefined' || observer === null) {let observer = "";}
+
+var editButton = function(value, data, cell, row, options){
+	let thisButton = '<button class="px-4 py-2 text-white bg-indigo-500 rounded editModalButton"> Edit </button>';
+		thisButton +='<button class="px-4 py-2 ml-5 text-white bg-red-500 rounded deleteModalButton"> Delete </button>'
+    return thisButton;
+};
+
+var divTable = new Tabulator("#divTableTabulator" , {
+	layout:"fitColumns",
+	data: dispatchType, //json parse 
+	pagination: 'local',
+	pagination: true,
+	paginationSize: 10,
+	paginationSizeSelector:[5, 10, 15, 20],
+	paginationCounter:"rows",
+	selectableRows:1,
+	columns: [
+		{title:"Code", field: 'dispatchTypeCd'},
+		{title:"Name", field: 'dispatchTypeName'},
+		{title:"Action" , headerSort:false, formatter:editButton},
+	],
+});
+
+$(".dispatchForm").submit(function(e){
+	e.preventDefault();
+});
+
+divTable.on('rowClick',function() {
+	let row = divTable.getSelectedData()[0];
+	if (row !== undefined) {
+		populateForm(row);
+	} 
+})
+
+callback = function(mutationsList, observer) {
+    for(let mutation of mutationsList) {
+        if (mutation.type === 'childList') {
+            $(".editModalButton").on('click', function(){
+                editModal.classList.remove("closing");
+                editModal.showModal();
+                editModal.classList.add("showing");
+            });
+            $(".deleteModalButton").on('click', function(){
+                $("#deleteModal").removeClass("closing")
+                deleteModal.showModal();
+                $("#deleteModal").addClass("showing")
+            });
+        }
+    }
+};
+
+observer = new MutationObserver(callback);
+observer.observe(document.getElementById('divTableTabulator'), { childList: true, subtree: true });
 
 $("#btnDispatch").click(function(){
 	$.get("MaintenanceController",{
@@ -14,70 +63,34 @@ $("#btnDispatch").click(function(){
 	});
 });	
 
-function createInventoryTable(dispatchType) {
-	let html = '';
-	$.each(dispatchType, function(index, item) {
-		html += '<tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50';
-		html += '  even:dark:bg-gray-800 border-b dark:border-gray-700" id="item'+index+'Row">';
-		html += '  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap';
-		html += '    dark:text-white" id="itemCode' + index + '">';
-		html +=        item.dispatchTypeCd;
-		html += '  </th>';
-		html += '  <td class="px-6 py-4" id="itemName">';
-		html +=      item.dispatchTypeName;
-		html += '  </td>';
-		html += '  <td class="px-6 py-4" id="itemName'+ index +'">';
-		html += '    <button id="btnEdit'+ index +'" class="px-4 py-2 text-white bg-indigo-500 rounded">';
-		html += '      Edit';
-		html += '    </button>';
-		html += '    <button id="btnDelete'+ index +'" class="px-4 py-2 ml-5 text-white bg-red-500 rounded">';
-		html += '	    Delete';
-		html += '    </button>';
-		html += '  </td>';
-		html += '</tr>';
+$('#deleteSaveModalButton').click(function(event){
+	event.stopImmediatePropagation();
+	$.post('MaintenanceController', {
+		action: 'deleteDispatchData',
+		data: JSON.stringify(data)
+	}, function(response) {
+		if (response.includes('success')) {
+			closeDeleteModal();
+			$('#btnDispatch').click();
+		} else {
+			$('.errorMessage').text("Unable to save changes");
+		}
 	});
-	$('#divTable').html(html);
-	//bindRowsClick(dispatchType);
-}
+});
 
-function bindRowsClick(dispatchType) {
-	$.each(dispatchType, function(index, item) {
-		$('#btnEdit'+ index).click(function() {
-			$('#dispatchTypeCodeUpdate').val(item.dispatchTypeCd);
-			$('#dispatchTypeNameUpdate').val(item.dispatchTypeName);
-			//toggleAddButton();
-		});
-		$('#btnDelete' + index).click(function() {
-			let data = {
-					dispatchTypeCd: item.dispatchTypeCd,
-					dispatchTypeName: item.dispatchTypeName
-				};
-			$.post('MaintenanceController', {
-				action: 'deleteDispatchData',
-				data: JSON.stringify(data)
-			}, function(response) {
-				if (response.includes('success')) {
-					$('#btnDispatch').click();
-				} else {
-					alert('Unable to save changes');
-				}
-			});
-		});
-	});
-}
-
-
-
-function createData() {
-
-	
-	return data;
+function populateForm(row) {
+	$('#dispatchTypeCodeUpdate').val(row.dispatchTypeCd);
+	$('#dispatchTypeNameUpdate').val(row.dispatchTypeName);
+	data = {
+		dispatchTypeCd: row.dispatchTypeCd,
+		dispatchTypeName: row.dispatchTypeName
+	};
 }
 
 function validate(data) {
 	let valid = true;
-	if (data.materialCode === '' || data.materialName === '') {
-		alert('Please correctly fill-out all required fields');
+	if (data.dispatchTypeCd === '' || data.dispatchTypeName === '') {
+		$('.errorMessage').text("Please correctly fill-out all required fields");
 		valid = false;
 	} 
 	return valid;
@@ -90,9 +103,11 @@ function sendData(data){
 			data: JSON.stringify(data)
 		}, function(response) {
 			if (response.includes('success')) {
+				closeAddModal();
+				closeEditModal();
 				$('#btnDispatch').click();
 			} else {
-				alert('Unable to save changes');
+				$('.errorMessage').text("Unable to save changes");
 			}
 		});
 	}
@@ -114,8 +129,5 @@ function updateData() {
 	sendData(data);
 }
 
-
-createInventoryTable(dispatchType);
-bindRowsClick(dispatchType);
 $('#btnCreateDispatchType').click(addData);
 $('#btnUpdateDispatchType').click(updateData);

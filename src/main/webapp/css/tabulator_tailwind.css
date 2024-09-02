@@ -1,0 +1,188 @@
+/* Light Theme (Default) */
+
+/* Container */
+.tabulator {
+    overflow-x: auto;
+    background-color: #ffffff !important; /* Light mode background */
+    border-radius: 0.5rem; /* Tailwind's rounded-md */
+}
+
+/* Header */
+.tabulator-header {
+    background-color: #e5e7eb !important; /* Light mode header background (Tailwind's gray-200) */
+    color: #374151 !important; /* Light mode text color (Tailwind's gray-700) */
+    border-top-left-radius: 0.5rem; /* Rounded top-left corner */
+    border-top-right-radius: 0.5rem; /* Rounded top-right corner */
+    text-transform: uppercase;
+}
+
+/* Column Headers */
+.tabulator-col {
+	background-color: #e5e7eb !important; /* Light mode header background (Tailwind's gray-200) */
+    padding: 0.5rem 1rem; /* Tailwind's px-4 py-2 */
+    color: #1f2937 !important; /* Light mode text color (Tailwind's gray-800) */
+}
+
+.tabulator-col-title{
+	font-weight: 500; /* Tailwind's font-medium */
+}
+
+/* Rows */
+.tabulator-row {
+    transition: background-color 0.2s;
+}
+
+.tabulator-row:nth-child(odd) {
+    background-color: #ffffff !important; /* Light mode odd rows (white) */
+}
+
+.tabulator-row:nth-child(even) {
+    background-color: #f9fafb !important; /* Light mode even rows (Tailwind's gray-50) */
+}
+
+.tabulator-row:hover {
+    background-color: #e5e7eb !important; /* Light mode row hover (Tailwind's gray-200) */
+}
+
+/* Cells */
+.tabulator-cell {
+    padding: 0.5rem 1rem; /* Tailwind's px-4 py-2 */
+   	border-right: 0px solid !important;
+    color: #1f2937 !important; /* Light mode text color (Tailwind's gray-800) */
+    padding-left: 1.5rem !important; 
+}
+
+/* Footer (for pagination or other controls) */
+.tabulator-footer {
+    background-color: #e5e7eb !important; /* Light mode footer background (Tailwind's gray-200) */
+    color: #374151 !important; /* Light mode footer text color (Tailwind's gray-700) */
+    border-bottom-left-radius: 0.5rem; /* Rounded bottom-left corner */
+    border-bottom-right-radius: 0.5rem; /* Rounded bottom-right corner */
+}
+
+.tabulator-page{
+	color: #374151 !important; /* Light mode footer text color (Tailwind's gray-700) */
+}
+
+.tabulator-page-size{
+	min-width:50px;
+}
+
+.tabulator-pages button.active{
+	color: #2563EB !important; /* Equivalent to text-blue-600 */
+    border-color: #4B5563 !important; /* Equivalent to border-gray-600 */
+    background-color: #EFF6FF !important; /* Equivalent to bg-blue-50 */
+}
+
+.tabulator-pages button.active:hover{
+    color: #1D4ED8; /* Equivalent to hover:text-blue-700 */
+    background-color: #DBEAFE; /* Equivalent to hover:bg-blue-100 */
+}
+
+.tabulator label{
+	font-size: 14px;
+	color: #374151 !important; /* Light mode footer text color (Tailwind's gray-700) */
+}
+
+.tabulator select{
+	background-color: #F9FAFB; /* Equivalent to bg-gray-50 */
+    border-width: 1px;
+    border-color: #D1D5DB; /* Equivalent to border-gray-300 */
+    color: #111827; /* Equivalent to text-gray-900 */
+    font-size: 0.875rem; /* 14px */
+    line-height: 1.25rem; /* 20px */
+    border-radius: 0.5rem; /* Equivalent to rounded-lg */
+    display: block; /* Equivalent to block */
+    padding: 0.625rem; /* Equivalent to p-2.5 */
+}
+
+.tabulator select:focus{
+	outline: 2px solid transparent;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px #3B82F6; /* Equivalent to focus:ring-blue-500 */
+    border-color: #3B82F6; /* Equivalent to focus:border-blue-500 */
+}
+
+/* Dark Theme (Using prefers-color-scheme) */
+
+@media (prefers-color-scheme: dark) {
+    /* Container */
+    .tabulator {
+        background-color: #1f2937 !important; /* Dark mode background (Tailwind's gray-800) */
+    }
+
+    /* Header */
+    .tabulator-header {
+        background-color: #374151 !important; /* Dark mode header background (Tailwind's gray-700) */
+        color: #d1d5db !important; /* Dark mode text color (Tailwind's gray-300) */
+        border-color: #374151 !important; /* Dark mode footer background (Tailwind's gray-700) */
+    }
+
+    /* Column Headers */
+    .tabulator-col {
+    	background-color: #374151 !important; /* Dark mode header background (Tailwind's gray-700) */
+        color: #d1d5db !important; /* Dark mode text color (Tailwind's gray-300) */
+        border-color: #374151 !important; /* Dark mode footer background (Tailwind's gray-700) */
+    }
+
+    /* Cells */
+    .tabulator-cell{
+    	border-color: #374151 !important; /* Dark mode footer background (Tailwind's gray-700) */
+    }
+
+    /* Rows */
+    .tabulator-row{
+    	border-color: #374151 !important; /* Dark mode footer background (Tailwind's gray-700) */
+    	border-right: 0px solid !important;
+    }
+    
+    .tabulator-row:nth-child(odd) {
+        background-color: #111827 !important; /* Dark mode even rows (Tailwind's gray-900) */
+    }
+
+    .tabulator-row:nth-child(even) {
+    	background-color: #1f2937 !important; /* Dark mode odd rows (Tailwind's gray-800) */
+    }
+
+    .tabulator-row:hover {
+        background-color: #4b5563 !important; /* Dark mode row hover (Tailwind's gray-600) */
+    }
+
+    /* Cells */
+    .tabulator-cell {
+        border-color: #4b5563 !important; /* Dark mode border (Tailwind's gray-600) */
+        color: #d1d5db !important; /* Dark mode text color (Tailwind's gray-200) */
+        
+    }
+
+    /* Footer (for pagination or other controls) */
+    .tabulator-footer {
+        background-color: #374151 !important; /* Dark mode footer background (Tailwind's gray-700) */
+        color: #d1d5db !important; /* Dark mode footer text color (Tailwind's gray-300) */
+        border-color: #374151 !important; /* Dark mode footer background (Tailwind's gray-700) */
+    }
+    
+    .tabulator-page{
+    	color: #d1d5db !important; /* Dark mode footer text color (Tailwind's gray-300) */
+    }
+    
+    .tabulator-pages button.active{
+	    border-color: #FFFFFF !important; /* Equivalent to dark:white */
+	    background-color: #374151 !important; /* Equivalent to dark:bg-gray-700 */
+	    color: #FFFFFF !important; /* Equivalent to dark:text-white */
+	}
+	    
+    .tabulator label{
+		color: #d1d5db !important; /* Light mode footer text color (Tailwind's gray-700) */
+	}
+	
+	.tabulator select{
+	    background-color: #374151; /* Equivalent to dark:bg-gray-700 */
+	    border-color: #4B5563; /* Equivalent to dark:border-gray-600 */
+	    color: #FFFFFF; /* Equivalent to dark:text-white */
+	}
+	
+	.tabulator select::placeholder {
+    	color: #9CA3AF; /* Equivalent to dark:placeholder-gray-400 */
+	}
+}
