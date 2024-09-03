@@ -19,12 +19,12 @@
         tabulator-layout="fitColumns">
         <div class="tabulator-header" role="rowgroup">
           <div class="tabulator-header-contents" role="rowgroup">
-            <div class="tabulator-headers" role="row" style="height: 45px;">
+            <div class="tabulator-headers" role="row" style="height: 45px; width: 100%;">
               <div
                 class="tabulator-col tabulator-sortable tabulator-col-sorter-element"
                 role="columnheader" aria-sort="none"
                 tabulator-field="branchId"
-                style="min-width: 40px; width: 533px; height: 45px;">
+                style="min-width: 40px; width: 33%; height: 45px;">
                 <div class="tabulator-col-content">
                   <div class="tabulator-col-title-holder">
                     <div class="tabulator-col-title">Id</div>
@@ -39,7 +39,7 @@
                 class="tabulator-col tabulator-sortable tabulator-col-sorter-element"
                 role="columnheader" aria-sort="none"
                 tabulator-field="branchName"
-                style="min-width: 40px; width: 533px; height: 45px;">
+                style="min-width: 40px; width: 33%; height: 45px;">
                 <div class="tabulator-col-content">
                   <div class="tabulator-col-title-holder">
                     <div class="tabulator-col-title">Name</div>
@@ -53,7 +53,7 @@
               <div
                 class="tabulator-col tabulator-sortable tabulator-col-sorter-element"
                 role="columnheader" aria-sort="none"
-                style="min-width: 40px; width: 534px; height: 45px;">
+                style="min-width: 40px; width: 33%; height: 45px;">
                 <div class="tabulator-col-content">
                   <div class="tabulator-col-title-holder">
                     <div class="tabulator-col-title">Action</div>
@@ -70,7 +70,7 @@
           </div>
         </div>
         <div class="tabulator-tableholder" tabindex="0" style="height: 40px;">
-          <div class="tabulator-table" role="rowgroup" style="min-width: 1600px;">
+          <div class="tabulator-table" role="rowgroup" style="width: 100%;">
             <div class="text-center dark:bg-gray-800">
               <div role="status">
                   <svg aria-hidden="true" class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 

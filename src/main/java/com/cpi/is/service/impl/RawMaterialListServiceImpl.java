@@ -52,13 +52,13 @@ public class RawMaterialListServiceImpl implements RawMaterialListService {
 	@Override
 	public String saveData(HttpServletRequest request) throws Exception {
 		return rawMaterialListDAO.saveData(
-				jsonToEntity(new JSONObject(request.getParameter("item"))));
+				jsonToEntity(new JSONObject(request.getParameter("data"))));
 	}
 
 	@Override
 	public String deleteData(HttpServletRequest request) throws Exception {
 		return rawMaterialListDAO.deleteData(
-				jsonToEntity(new JSONObject(request.getParameter("item"))));
+				jsonToEntity(new JSONObject(request.getParameter("data"))));
 	}
 
 }
