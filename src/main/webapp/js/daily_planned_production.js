@@ -1,136 +1,154 @@
-function toggleAddButton() {
-	if ('' === $('#txtDppId').val()) {
-		$('#btnAdd').html('Add');
-	} else {
-		$('#btnAdd').html('Update');
-	}
-}
+if (typeof data === 'undefined' || data === null) {let data = "";}
+if (typeof callback === 'undefined' || callback === null) {let callback = "";}
+if (typeof observer === 'undefined' || observer === null) {let observer = "";}
 
-function bindRowsClick(dailyplannedproduction) {
-	$.each(dailyplannedproduction, function(index, item) {
-		$('#item'+index+'row').click(function() {
-			$('#txtDppId').val(item.dppId);
-			$('#txtProductionDate').val(item.productionDate);
-			$('#txtBranchId').val(item.branchId);
-			$('#txtSkuCd').val(item.skuCd);
-			$('#txtQuantity').val(item.quantity);
-			$('#txtStatus').val(item.status);
-			toggleAddButton();
-		});
+var editButton = function(value, data, cell, row, options){
+	let thisButton = '<button class="px-4 py-2 text-white bg-indigo-500 rounded editModalButton"> Edit </button>';
+		thisButton +='<button class="px-4 py-2 ml-5 text-white bg-red-500 rounded deleteModalButton"> Delete </button>'
+    return thisButton;
+};
+
+var divTable = new Tabulator("#divTableTabulator" , {
+	layout:"fitDataFill",
+	data: dailyPlannedProduction, //json parse 
+	pagination: 'local',
+	pagination: true,
+	paginationSize: 10,
+	paginationSizeSelector:[5, 10, 15, 20],
+	paginationCounter:"rows",
+	selectableRows:1,
+	columns: [
+		{title:"ID", field: 'dppId'},
+		{title:"Production Data", field: 'productionDate'},
+		{title:"Branch ID", field: 'branchId'},
+		{title:"SKU Code", field: 'skuCd'},
+		{title:"Quantity", field: 'quantity'},
+		{title:"Status", field: 'status'},
+		{title:"Action" , headerSort:false, formatter:editButton},
+	],
+});
+
+$(".dailyPlannedProductionForm").submit(function(e){
+	e.preventDefault();
+});
+
+divTable.on('rowClick',function() {
+	let row = divTable.getSelectedData()[0];
+	if (row !== undefined) {
+		populateForm(row);
+	} 
+})
+
+callback = function(mutationsList, observer) {
+    for(let mutation of mutationsList) {
+        if (mutation.type === 'childList') {
+            $(".editModalButton").on('click', function(){
+                editModal.classList.remove("closing");
+                editModal.showModal();
+                editModal.classList.add("showing");
+            });
+            $(".deleteModalButton").on('click', function(){
+                $("#deleteModal").removeClass("closing")
+                deleteModal.showModal();
+                $("#deleteModal").addClass("showing")
+            });
+        }
+    }
+};
+
+observer = new MutationObserver(callback);
+observer.observe(document.getElementById('divTableTabulator'), { childList: true, subtree: true });
+
+$("#btnShowDailyPlannedProduction").click(function(){
+	$.get("DailyPlannedProductionController",{
+		action: "showDailyPlannedProduction"
+		}, function(response){
+		$("#divContent").html(response)
 	});
-}
+});
 
-function createDailyPlannedProductionTable(dailyplannedproduction) {
-	let html = '';
-	html += '<table class="inventory">';
-	html += '  <tr>';
-	html += '    <th>Daily Planned Production ID</th>';
-	html += '    <th>Production Date</th>';
-	html += '    <th>Branch ID</th>';
-	html += '    <th>SKU Code</th>';
-	html += '    <th>Quantity</th>';
-	html += '    <th>Status</th>';
-	html += '  </tr>';
-	$.each(dailyplannedproduction, function(index, item) {
-		html += '<tr id="item'+index+'row">';
-		html += '  <td id="item'+index+'dppId">' + item.dppId + '</td>';
-		html += '  <td id="item'+index+'productionDate">' + item.productionDate + '</td>';
-		html += '  <td id="item'+index+'branchId" class="center-aligned">' + item.branchId + '</td>';
-		html += '  <td id="item'+index+'skuCd" class="center-aligned">' + item.skuCd + '</td>';
-		html += '  <td id="item'+index+'quantity" class="center-aligned">' + item.quantity + '</td>';
-		html += '  <td id="item'+index+'status" class="center-aligned">' + item.status + '</td>';
-		html += '</tr>';
+$('#deleteSaveModalButton').click(function(event){
+	event.stopImmediatePropagation();
+	$.post('DailyPlannedProductionController', {
+		action: 'deleteData',
+		data: JSON.stringify(data)
+	}, function(response) {
+		if (response.includes('success')) {
+			closeDeleteModal();
+			$('#btnShowDailyPlannedProduction').click();
+		} else {
+			$('.errorMessage').text("Unable to save changes");
+		}
 	});
-	html += '</table>';
-	$('#divInventoryTable').html(html);
-	bindRowsClick(dailyplannedproduction);
+});	
+
+function populateForm(row) {
+	$('#dailyPlannedProductionIdUpdate').val(row.dppId);
+	$('#dailyPlannedProductionDateUpdate').val(row.productionDate);
+	$('#dailyPlannedProductionBranchIdUpdate').val(row.branchId);
+	$('#dailyPlannedProductionSkuCdUpdate').val(row.skuCd);
+	$('#dailyPlannedProductionQuantityUpdate').val(row.quantity);
+	$('#dailyPlannedProductionStatusUpdate').val(row.status);
+	data = {
+		dppId: row.dppId.toString(),
+		productionDate: row.productionDate.toString(),
+		branchId: row.branchId.toString(),
+		skuCd: row.skuCd.toString(),
+		quantity: row.quantity.toString(),
+		status: row.status.toString()
+	};
 }
 
-function createItem() {
-	let item;
-	if($('#txtDppId').val() == "") {
-		item = {
-			dppId: '0',
-			productionDate: $('#txtProductionDate').val(),
-			branchId: $('#txtBranchId').val(),
-			skuCd: $('#txtSkuCd').val(),
-			quantity: $('#txtQuantity').val(),
-			status: $('#txtStatus').val()
-		};
-	} else {
-		item = {
-			dppId: $('#txtDppId').val(),
-			productionDate: $('#txtProductionDate').val(),
-			branchId: $('#txtBranchId').val(),
-			skuCd: $('#txtSkuCd').val(),
-			quantity: $('#txtQuantity').val(),
-			status: $('#txtStatus').val()
-		};
-	}
-	
-	return item;
-}
-
-function validate(item) {
+function validate(data) {
 	let valid = true;
-	if (item.description === '' || item.quantity === '') {
-		alert('Please correctly fill-out all required fields');
+	if (data.dppId === '' || data.productionDate === '' || data.branchId === '' || 
+		data.skuCd === '' || data.quantity === '' || data.status === '') {
+		$('.errorMessage').text("Please correctly fill-out all required fields");
 		valid = false;
-	} else if (item.quantity < 0) {
-		alert('Quantity must be a non-negative number');
-		valid = false;
-	}
+	} 
 	return valid;
 }
 
-function addItem() {
-	let item = createItem();
-	if (validate(item)) {
+function sendData(data){
+	if (validate(data)) {
 		$.post('DailyPlannedProductionController', {
 			action: 'saveData',
-			item: JSON.stringify(item)
+			data: JSON.stringify(data)
 		}, function(response) {
 			if (response.includes('success')) {
-				$('#btnDailyPlannedProduction').click();
+				closeAddModal();
+				closeEditModal();
+				$('#btnShowDailyPlannedProduction').click();
 			} else {
-				alert('Unable to save changes 1');
+				$('.errorMessage').text("Unable to save changes");
 			}
 		});
 	}
 }
 
-$('#btnAdd').click(addItem);
-
-function resetInventoryForm() {
-	$('#txtDppId').val('');
-	$('#txtProductionDate').val('');
-	$('#txtBranchId').val('');
-	$('#txtSkuCd').val('');
-	$('#txtQuantity').val('');
-	$('#txtStatus').val('');
-	toggleAddButton();
+function addData() {
+	let data = {
+		dppId: "0",
+		productionDate: $('#dailyPlannedProductionDateCreate').val().toString(),
+		branchId: $('#dailyPlannedProductionBranchIdCreate').val().toString(),
+		skuCd: $('#dailyPlannedProductionSkuCdCreate').val().toString(),
+		quantity: $('#dailyPlannedProductionQuantityCreate').val(),
+		status: $('#dailyPlannedProductionStatusCreate').val()
+	};
+	sendData(data);
 }
 
-$('#btnClear').click(resetInventoryForm);
+function updateData() {
+	let data = {
+		dppId: $('#dailyPlannedProductionIdUpdate').val().toString(),
+		productionDate: $('#dailyPlannedProductionDateUpdate').val().toString(),
+		branchId: $('#dailyPlannedProductionBranchIdUpdate').val().toString(),
+		skuCd: $('#dailyPlannedProductionSkuCdUpdate').val().toString(),
+		quantity: $('#dailyPlannedProductionQuantityUpdate').val(),
+		status: $('#dailyPlannedProductionStatusUpdate').val()
+	};
+	sendData(data);
+}
 
-$('#btnDelete').click(function() {
-
-	confirm('Are you sure to delete?');
-	if ($('#txtDppId').val() !== '') {
-		let item = createItem();
-		$.post('DailyPlannedProductionController', {
-			action: 'deleteData',
-			item: JSON.stringify(item)
-		}, function(response) {
-			if (response.includes('success')) {
-				$('#btnDailyPlannedProduction').click();
-			} else {
-				alert('Unable to save changes 2');
-			}
-		});
-	} else {
-		alert('Please select an item to delete');
-	}
-});
-
-createDailyPlannedProductionTable(dailyplannedproduction);
+$('#btnCreateDailyPlannedProduction').click(addData);
+$('#btnUpdateDailyPlannedProduction').click(updateData);
