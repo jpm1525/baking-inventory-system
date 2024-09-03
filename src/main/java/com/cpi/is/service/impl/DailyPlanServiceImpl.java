@@ -52,13 +52,13 @@ public class DailyPlanServiceImpl implements DailyPlanService{
 	@Override
 	public String saveData(HttpServletRequest request) throws Exception {
 		return dailyPlanDAO.saveData(
-				jsonToEntity(new JSONObject(request.getParameter("item"))));
+				jsonToEntity(new JSONObject(request.getParameter("data"))));
 	}
 
 	@Override
 	public String deleteData(HttpServletRequest request) throws Exception {
 		return dailyPlanDAO.deleteData(
-				jsonToEntity(new JSONObject(request.getParameter("item"))));
+				jsonToEntity(new JSONObject(request.getParameter("data"))));
 	}
 
 }

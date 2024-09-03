@@ -103,5 +103,6 @@ function closeDeleteModal() {
     },
     { once: true }
   );
+  $('.errorMessage').empty();
 }
 
