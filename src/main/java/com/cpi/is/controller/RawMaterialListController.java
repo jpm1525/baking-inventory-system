@@ -41,7 +41,7 @@ public class RawMaterialListController extends HttpServlet {
 			action = request.getParameter("action");
 			
 			if ("showRawMaterialList".equals(action)) {
-				request.setAttribute("rawmateriallist", new JSONArray(rawMaterialListService.getData()));
+				request.setAttribute("rawMaterialList", new JSONArray(rawMaterialListService.getData()));
 				page = "pages/rawMaterialList.jsp";
 			} else if ("saveData".equals(action)) {
 				request.setAttribute("message", rawMaterialListService.saveData(request));

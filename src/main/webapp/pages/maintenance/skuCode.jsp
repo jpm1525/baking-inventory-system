@@ -22,12 +22,12 @@
         <div class="tabulator-header" role="rowgroup">
           <div class="tabulator-header-contents" role="rowgroup">
             <div class="tabulator-headers" role="row"
-              style="height: 45px;">
+              style="height: 45px; width: 100%;">
               <div
                 class="tabulator-col tabulator-sortable tabulator-col-sorter-element"
                 role="columnheader" aria-sort="none"
                 tabulator-field="skuCd"
-                style="min-width: 40px; width: 400px; height: 45px;">
+                style="min-width: 40px; width: 25%; height: 45px;">
                 <div class="tabulator-col-content">
                   <div class="tabulator-col-title-holder">
                     <div class="tabulator-col-title">Code</div>
@@ -43,7 +43,7 @@
                 class="tabulator-col tabulator-sortable tabulator-col-sorter-element"
                 role="columnheader" aria-sort="none"
                 tabulator-field="skuCodeName"
-                style="min-width: 40px; width: 400px; height: 45px;">
+                style="min-width: 40px; width: 25%; height: 45px;">
                 <div class="tabulator-col-content">
                   <div class="tabulator-col-title-holder">
                     <div class="tabulator-col-title">Name</div>
@@ -59,7 +59,7 @@
                 class="tabulator-col tabulator-sortable tabulator-col-sorter-element"
                 role="columnheader" aria-sort="none"
                 tabulator-field="unitOfMeasurement"
-                style="min-width: 40px; width: 400px; height: 45px;">
+                style="min-width: 40px; width: 25%; height: 45px;">
                 <div class="tabulator-col-content">
                   <div class="tabulator-col-title-holder">
                     <div class="tabulator-col-title">Unit of Measurement</div>
@@ -73,7 +73,7 @@
                 style="height: 45px;"></span>
               <div class="tabulator-col" role="columnheader"
                 aria-sort="none"
-                style="min-width: 40px; width: 400px; height: 45px;">
+                style="min-width: 40px; width: 25%; height: 45px;">
                 <div class="tabulator-col-content">
                   <div class="tabulator-col-title-holder">
                     <div class="tabulator-col-title">Action</div>
@@ -89,7 +89,7 @@
           </div>
         </div>
         <div class="tabulator-tableholder" tabindex="0" style="height: 21px;">
-          <div class="tabulator-table" role="rowgroup" style="min-width: 1600px;">
+          <div class="tabulator-table" role="rowgroup" style="width: 100%;">
             <div class="text-center dark:bg-gray-800">
               <div role="status">
                   <svg aria-hidden="true" class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 
