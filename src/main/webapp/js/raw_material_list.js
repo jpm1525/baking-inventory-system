@@ -9,7 +9,7 @@ var editButton = function(value, data, cell, row, options){
 };
 
 var divTable = new Tabulator("#divTableTabulator" , {
-	layout:"fitData",
+	layout:"fitColumns",
 	data: rawMaterialList, //json parse 
 	pagination: 'local',
 	pagination: true,
@@ -84,18 +84,18 @@ $('#deleteSaveModalButton').click(function(event){
 
 function populateForm(row) {
 	$('#rawMaterialListIdUpdate').val(row.materialListId);
-	$('#materialCodeUpdate').val(row.materialCd).toString();
+	$('#materialCodeUpdate').val(row.materialCd);
 	$('#rawMaterialListQuantityUpdate').val(row.quantity);
 	$('#rawMaterialListDateReceiveUpdate').val(row.dateReceive);
 	$('#userIdUpdate').val(row.userId);
 	$('#branchIdUpdate').val(row.branchId);
 	data = {
-		materialListId: row.materialListId,
+		materialListId: row.materialListId.toString(),
 		materialCd: row.materialCd.toString(),
-		quantity: row.quantity,
-		dateReceive: row.dateReceive,
-		userId: row.userId,
-		branchId: row.branchId
+		quantity: row.quantity.toString(),
+		dateReceive: row.dateReceive.toString(),
+		userId: row.userId.toString(),
+		branchId: row.branchId.toString()
 	};
 }
 
@@ -129,9 +129,9 @@ function sendData(data){
 function addData() {
 	let data = {
 		materialListId: "0",
-		materialCd: $('#materialCodeCreate').val(),
-		quantity: $('#rawMaterialListQuantityCreate').val(),
-		dateReceive: $('#rawMaterialListDateReceiveCreate').val(),
+		materialCd: $('#materialCodeCreate').val().toString(),
+		quantity: $('#rawMaterialListQuantityCreate').val().toString(),
+		dateReceive: $('#rawMaterialListDateReceiveCreate').val().toString(),
 		userId: $('#userIdCreate').val(),
 		branchId: $('#branchIdCreate').val()
 	};
@@ -140,12 +140,12 @@ function addData() {
 
 function updateData() {
 	let data = {
-		materialListId: $('#rawMaterialListIdUpdate').val(),
-		materialCd: $('#materialCodeUpdate').val(),
-		quantity: $('#rawMaterialListQuantityUpdate').val(),
-		dateReceive: $('#rawMaterialListDateReceiveUpdate').val(),
-		userId: $('#userIdUpdate').val(),
-		branchId: $('#branchIdUpdate').val()
+		materialListId: $('#rawMaterialListIdUpdate').val().toString(),
+		materialCd: $('#materialCodeUpdate').val().toString(),
+		quantity: $('#rawMaterialListQuantityUpdate').val().toString(),
+		dateReceive: $('#rawMaterialListDateReceiveUpdate').val().toString(),
+		userId: $('#userIdUpdate').val().toString(),
+		branchId: $('#branchIdUpdate').val().toString()
 	};
 	sendData(data);
 }
