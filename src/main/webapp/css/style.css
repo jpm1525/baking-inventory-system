@@ -170,11 +170,7 @@ footer {
 .topbar {
   position: fixed;
   top: 15px;
-<<<<<<< HEAD
-  width: calc(220vh - 53px);
-=======
   width: calc(100% - 40px);
->>>>>>> branch 'master' of https://github.com/jpm1525/baking-inventory-system.git
   margin-left: 20px;
   margin-right: 20px;
   height: 70px;
