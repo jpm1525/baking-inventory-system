@@ -13,6 +13,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.cpi.is.service.impl.maintenance.DispatchTypeServiceImpl;
 import com.cpi.is.service.impl.maintenance.SkuCodeServiceImpl;
+import com.cpi.is.util.SessionUtil;
 import com.cpi.is.service.impl.maintenance.BranchServiceImpl;
 import com.cpi.is.service.impl.maintenance.MaterialCodeServiceImpl;
 
@@ -42,46 +43,55 @@ public class MaintenanceController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		action = request.getParameter("action");
+		
 		try {
-			if("showMaintenance".equals(action)) {
-				page = "pages/maintenance.jsp";
-			} else if("showDispatch".equals(action)) {
-				request.setAttribute("dispatchType", new JSONArray(dispatchTypeService.getData()));
-				page = "pages/maintenance/dispatch.jsp";
-			} else if ("saveDispatchData".equals(action)) {
-				request.setAttribute("message", dispatchTypeService.saveData(request));
-				page = "pages/message.jsp";
-			} else if ("deleteDispatchData".equals(action)) {
-				request.setAttribute("message", dispatchTypeService.deleteData(request));
-				page = "pages/message.jsp";
-			} else if("showBranches".equals(action)) {
-				request.setAttribute("branch",new JSONArray(branchService.getData()));
-				page = "pages/maintenance/branch.jsp";
-			} else if ("saveBranchData".equals(action)) {
-				request.setAttribute("message", branchService.saveData(request));
-				page = "pages/message.jsp";
-			} else if ("deleteBranchData".equals(action)) {
-				request.setAttribute("message", branchService.deleteData(request));
-				page = "pages/message.jsp";
-			} else if("showSkuCodes".equals(action)) {
-				request.setAttribute("skuCode",new JSONArray(skuCodeService.getData()));
-				page = "pages/maintenance/skuCode.jsp";
-			} else if ("saveSkuCodeData".equals(action)) {
-				request.setAttribute("message", skuCodeService.saveData(request));
-				page = "pages/message.jsp";
-			} else if ("deleteSkuCodeData".equals(action)) {
-				request.setAttribute("message", skuCodeService.deleteData(request));
-				page = "pages/message.jsp";
-			} else if("showMaterialCodes".equals(action)) {
-				request.setAttribute("materialCode",new JSONArray(materialCodeService.getData()));
-				page = "pages/maintenance/materialCode.jsp";
-			} else if ("saveMaterialCodeData".equals(action)) {
-				request.setAttribute("message", materialCodeService.saveData(request));
-				page = "pages/message.jsp";
-			} else if ("deleteMaterialCodeData".equals(action)) {
-				request.setAttribute("message", materialCodeService.deleteData(request));
-				page = "pages/message.jsp";
+			
+			if (SessionUtil.checkUserSession(request)) {
+			
+				action = request.getParameter("action");
+				
+				if("showMaintenance".equals(action)) {
+					page = "pages/maintenance.jsp";
+				} else if("showDispatch".equals(action)) {
+					request.setAttribute("dispatchType", new JSONArray(dispatchTypeService.getData()));
+					page = "pages/maintenance/dispatch.jsp";
+				} else if ("saveDispatchData".equals(action)) {
+					request.setAttribute("message", dispatchTypeService.saveData(request));
+					page = "pages/message.jsp";
+				} else if ("deleteDispatchData".equals(action)) {
+					request.setAttribute("message", dispatchTypeService.deleteData(request));
+					page = "pages/message.jsp";
+				} else if("showBranches".equals(action)) {
+					request.setAttribute("branch",new JSONArray(branchService.getData()));
+					page = "pages/maintenance/branch.jsp";
+				} else if ("saveBranchData".equals(action)) {
+					request.setAttribute("message", branchService.saveData(request));
+					page = "pages/message.jsp";
+				} else if ("deleteBranchData".equals(action)) {
+					request.setAttribute("message", branchService.deleteData(request));
+					page = "pages/message.jsp";
+				} else if("showSkuCodes".equals(action)) {
+					request.setAttribute("skuCode",new JSONArray(skuCodeService.getData()));
+					page = "pages/maintenance/skuCode.jsp";
+				} else if ("saveSkuCodeData".equals(action)) {
+					request.setAttribute("message", skuCodeService.saveData(request));
+					page = "pages/message.jsp";
+				} else if ("deleteSkuCodeData".equals(action)) {
+					request.setAttribute("message", skuCodeService.deleteData(request));
+					page = "pages/message.jsp";
+				} else if("showMaterialCodes".equals(action)) {
+					request.setAttribute("materialCode",new JSONArray(materialCodeService.getData()));
+					page = "pages/maintenance/materialCode.jsp";
+				} else if ("saveMaterialCodeData".equals(action)) {
+					request.setAttribute("message", materialCodeService.saveData(request));
+					page = "pages/message.jsp";
+				} else if ("deleteMaterialCodeData".equals(action)) {
+					request.setAttribute("message", materialCodeService.deleteData(request));
+					page = "pages/message.jsp";
+				}
+				
+			} else {
+					page = "pages/reload.jsp";
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

@@ -4,6 +4,12 @@ $(document).ready(function(){
         var url, action;
 
         switch (buttonId) {
+			case 'btnToDash':
+			    url = 'DashboardController';
+			    action = 'showDashboard';
+			    $("#divVeryOuter").hide();
+			    $("#divOuter").show(); 
+			    break;
             case 'btnToRaw':
                 url = 'RawMaterialListController';
                 action = 'showRawMaterialList';
