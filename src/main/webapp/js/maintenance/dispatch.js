@@ -10,7 +10,7 @@ var editButton = function(value, data, cell, row, options){
 
 var divTable = new Tabulator("#divTableTabulator" , {
 	layout:"fitColumns",
-	data: dispatchType, //json parse 
+	data: dispatchType, 
 	pagination: 'local',
 	pagination: true,
 	paginationSize: 10,
@@ -18,9 +18,9 @@ var divTable = new Tabulator("#divTableTabulator" , {
 	paginationCounter:"rows",
 	selectableRows:1,
 	columns: [
-		{title:"Code", field: 'dispatchTypeCd'},
-		{title:"Name", field: 'dispatchTypeName'},
-		{title:"Action" , headerSort:false, formatter:editButton},
+		{title:"Code", field: 'dispatchTypeCd', minWidth:50},
+		{title:"Name", field: 'dispatchTypeName', minWidth:100},
+		{title:"Action" , headerSort:false, formatter:editButton, minWidth:200},
 	],
 });
 
@@ -73,7 +73,7 @@ $('#deleteSaveModalButton').click(function(event){
 			closeDeleteModal();
 			$('#btnDispatch').click();
 		} else {
-			$('.errorMessage').text("Unable to save changes");
+			$('.errorMessage').text(response);
 		}
 	});
 });
@@ -82,8 +82,8 @@ function populateForm(row) {
 	$('#dispatchTypeCodeUpdate').val(row.dispatchTypeCd);
 	$('#dispatchTypeNameUpdate').val(row.dispatchTypeName);
 	data = {
-		dispatchTypeCd: row.dispatchTypeCd,
-		dispatchTypeName: row.dispatchTypeName
+		dispatchTypeCd: row.dispatchTypeCd.toString(),
+		dispatchTypeName: row.dispatchTypeName.toString()
 	};
 }
 
@@ -92,7 +92,13 @@ function validate(data) {
 	if (data.dispatchTypeCd === '' || data.dispatchTypeName === '') {
 		$('.errorMessage').text("Please correctly fill-out all required fields");
 		valid = false;
-	} 
+	} else if (data.dispatchTypeCd.length > 50){
+		$('.errorMessage').text("Dispatch Type Code characters should be less than 51");
+		valid = false;
+	} else if (data.dispatchTypeName.length > 200){
+		$('.errorMessage').text("Dispatch Type Name characters should be less than 201");
+		valid = false;
+	}
 	return valid;
 }
 
@@ -107,7 +113,7 @@ function sendData(data){
 				closeEditModal();
 				$('#btnDispatch').click();
 			} else {
-				$('.errorMessage').text("Unable to save changes");
+				$('.errorMessage').text(response);
 			}
 		});
 	}
@@ -115,16 +121,16 @@ function sendData(data){
 
 function addData() {
 	let data = {
-		dispatchTypeCd: $('#dispatchTypeCodeCreate').val(),
-		dispatchTypeName: $('#dispatchTypeNameCreate').val()
+		dispatchTypeCd: $('#dispatchTypeCodeCreate').val().toString(),
+		dispatchTypeName: $('#dispatchTypeNameCreate').val().toString()
 	};
 	sendData(data);
 }
 
 function updateData() {
 	let data = {
-		dispatchTypeCd: $('#dispatchTypeCodeUpdate').val(),
-		dispatchTypeName: $('#dispatchTypeNameUpdate').val()
+		dispatchTypeCd: $('#dispatchTypeCodeUpdate').val().toString(),
+		dispatchTypeName: $('#dispatchTypeNameUpdate').val().toString()
 	};
 	sendData(data);
 }

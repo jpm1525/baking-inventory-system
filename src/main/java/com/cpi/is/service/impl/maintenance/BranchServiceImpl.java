@@ -35,14 +35,42 @@ public class BranchServiceImpl implements BranchService {
 
 	@Override
 	public String saveData(HttpServletRequest request) throws Exception {
-		return branchDAO.saveData(
-				jsonToEntity(new JSONObject(request.getParameter("data"))));
+		String validation = validateData(request);
+		if(validation.equals("Success")) {
+			return branchDAO.saveData(
+					jsonToEntity(new JSONObject(request.getParameter("data"))));
+		} else {
+			return validation;
+		}
 	}
 
 	@Override
 	public String deleteData(HttpServletRequest request) throws Exception {
-		return branchDAO.deleteData(
-				jsonToEntity(new JSONObject(request.getParameter("data"))));
+		String validation = validateData(request);
+		if(validation.equals("Success")) {
+			return branchDAO.deleteData(
+					jsonToEntity(new JSONObject(request.getParameter("data"))));
+		} else {
+			return "Unable to delete data";
+		}
+	}
+	
+	public String validateData(HttpServletRequest request) throws Exception{
+		JSONObject json = new JSONObject(request.getParameter("data"));
+		String validation = "Success";
+		if (!json.has("branchId") || !(json.get("branchId") instanceof String)) {
+			validation = "Please fill-out the branch form properly";
+		} else if(!json.has("branchName") || !(json.get("branchName") instanceof String)) {
+			validation = "Please fill-out the branch form properly";
+		} else if (json.getString("branchId").length() < 1 && json.getString("branchId").length() > 50) {
+			validation = "Please fill-out the branch form properly";
+		} else if (json.getString("branchName").length() < 1 && json.getString("branchName").length() > 200) {
+			validation = "Please fill-out the branch form properly";
+		} else if (!json.getString("branchId").matches("\\d+")) {
+			validation = "Please fill-out the branch form properly";
+		}
+		
+		return validation;
 	}
 
 }

@@ -10,7 +10,7 @@ var editButton = function(value, data, cell, row, options){
 
 var divTable = new Tabulator("#divTableTabulator" , {
 	layout:"fitColumns",
-	data: branch, //json parse 
+	data: branch, 
 	pagination: 'local',
 	pagination: true,
 	paginationSize: 10,
@@ -18,9 +18,9 @@ var divTable = new Tabulator("#divTableTabulator" , {
 	paginationCounter:"rows",
 	selectableRows:1,
 	columns: [
-		{title:"Id", field: 'branchId'},
-		{title:"Name", field: 'branchName'},
-		{title:"Action" , headerSort:false, formatter:editButton},
+		{title:"Id", field: 'branchId', minWidth:50},
+		{title:"Name", field: 'branchName', minWidth:100},
+		{title:"Action" , headerSort:false, formatter:editButton, minWidth:200},
 	],
 });
 
@@ -73,17 +73,17 @@ $('#deleteSaveModalButton').click(function(event){
 			closeDeleteModal();
 			$('#btnBranch').click();
 		} else {
-			$('.errorMessage').text("Unable to save changes");
+			$('.errorMessage').text(response);
 		}
 	});
 });
 
 function populateForm(row) {
-	$('#branchIdUpdate').val(row.branchId).toString();
+	$('#branchIdUpdate').val(row.branchId);
 	$('#branchNameUpdate').val(row.branchName);
 	data = {
 		branchId: row.branchId.toString(),
-		branchName: row.branchName
+		branchName: row.branchName.toString()
 	};
 }
 
@@ -91,6 +91,15 @@ function validate(data) {
 	let valid = true;
 	if (data.branchId === '' || data.branchName === '') {
 		alert('Please correctly fill-out all required fields');
+		valid = false;
+	} else if (data.branchId.length > 50){
+		$('.errorMessage').text("Branch ID characters should be less than 51");
+		valid = false;
+	} else if (data.branchName.length > 200){
+		$('.errorMessage').text("Branch Name characters should be less than 201");
+		valid = false;
+	} else if (!(/^\d+$/.test(data.branchId))) {
+	    $('.errorMessage').text("Branch ID should only contain numbers");
 		valid = false;
 	} 
 	return valid;
@@ -107,7 +116,7 @@ function sendData(data){
 				closeEditModal();
 				$('#btnBranch').click();
 			} else {
-				$('.errorMessage').text("Unable to save changes");
+				$('.errorMessage').text(response);
 			}
 		});
 	}
@@ -116,7 +125,7 @@ function sendData(data){
 function addData() {
 	let data = {
 		branchId: $('#branchIdCreate').val().toString(),
-		branchName: $('#branchNameCreate').val()
+		branchName: $('#branchNameCreate').val().toString()
 	};
 	sendData(data);
 }
@@ -124,7 +133,7 @@ function addData() {
 function updateData() {
 	let data = {
 		branchId: $('#branchIdUpdate').val().toString(),
-		branchName: $('#branchNameUpdate').val()
+		branchName: $('#branchNameUpdate').val().toString()
 	};
 	sendData(data);
 }
