@@ -1,170 +1,182 @@
-function toggleAddButton() {
-	if ('' === $('#txtDispatchId').val()) {
-		$('#btnAdd').html('Add');
-	} else {
-		$('#btnAdd').html('Update');
-	}
-}
+if (typeof data === 'undefined' || data === null) {let data = "";}
+if (typeof callback === 'undefined' || callback === null) {let callback = "";}
+if (typeof observer === 'undefined' || observer === null) {let observer = "";}
 
-function bindRowsClick(dispatching) {
-	$.each(dispatching, function(index, data) {
-		$('#data'+index+'row').click(function() {
-			$('#txtDispatchId').val(data.dispatchTrackId);
-			$('#selDispatchType').val(data.dispatchTypeCd);
-			$('#txtFinishedProdId').val(data.fplId);
-			$('#txtQuantity').val(data.quantity);
-			$('#selBranch').val(data.branchId);
-			$('#txtDestination').val(data.destination);
-			$('#dateDispatchDate').val(data.dispatchDate);
-			toggleAddButton();
-		});
+var editButton = function(value, data, cell, row, options){
+	let thisButton = '<button class="px-4 py-2 text-white bg-indigo-500 rounded editModalButton"> Edit </button>';
+		thisButton +='<button class="px-4 py-2 ml-5 text-white bg-red-500 rounded deleteModalButton"> Delete </button>'
+    return thisButton;
+};
+
+var divTable = new Tabulator("#divTableTabulator" , {
+	layout:"fitDataFill",
+	data: dispatching, //json parse 
+	pagination: 'local',
+	pagination: true,
+	paginationSize: 10,
+	paginationSizeSelector:[5, 10, 15, 20],
+	paginationCounter:"rows",
+	selectableRows:1,
+	columns: [
+		{title:"Id", field: 'dispatchTrackId', visible: false},
+		{title:"Code", field: 'dispatchTypeCd'},
+		{title:"Name", field: 'dispatchType.dispatchTypeName'},
+		{title:"FPL ID", field: 'fplId'},
+		{title:"SKU Name", field: 'fpl.sku.skuCodeName'},
+		{title:"Quantity", field: 'quantity'},
+		{title:"Branch ID", field: 'branchId'},
+		{title:"Branch Name", field: 'branch.branchName'},
+		{title:"Destination", field: 'destination'},
+		{title:"Dispatch Date", field: 'dispatchDate'},
+		{title:"Action" , headerSort:false, formatter:editButton},
+	],
+});
+
+$(".dispatchingForm").submit(function(e){
+	e.preventDefault();
+});
+
+divTable.on('rowClick',function() {
+	let row = divTable.getSelectedData()[0];
+	if (row !== undefined) {
+		populateForm(row);
+	} 
+})
+
+callback = function(mutationsList, observer) {
+    for(let mutation of mutationsList) {
+        if (mutation.type === 'childList') {
+            $(".editModalButton").on('click', function(){
+                editModal.classList.remove("closing");
+                editModal.showModal();
+                editModal.classList.add("showing");
+            });
+            $(".deleteModalButton").on('click', function(){
+                $("#deleteModal").removeClass("closing")
+                deleteModal.showModal();
+                $("#deleteModal").addClass("showing")
+            });
+        }
+    }
+};
+
+observer = new MutationObserver(callback);
+observer.observe(document.getElementById('divTableTabulator'), { childList: true, subtree: true });
+
+$("#btnShowDispatching").click(function(){
+	$.get("DispatchingController",{
+		action: "showDispatching"
+		}, function(response){
+		$("#divContent").html(response)
 	});
-}
+});
 
-function getDispatchType() {
-	let html = '<option value="">';
-	$.each(dispatchType, function(index, data) {
-		html+= '<option value="' + data.dispatchTypeCd + '">' + data.dispatchTypeName + '</option>'
+$('#deleteSaveModalButton').click(function(event){
+	event.stopImmediatePropagation();
+	$.post('DispatchingController', {
+		action: 'deleteData',
+		data: JSON.stringify(data)
+	}, function(response) {
+		if (response.includes('success')) {
+			closeDeleteModal();
+			$('#btnShowDispatching').click();
+		} else {
+			$('.errorMessage').text("Unable to save changes");
+		}
 	});
-	$('#selDispatchType').html(html);
+});	
 
-	/*$.each(skuCode, function(index, data) {
-		html += '<option value="' + data.skuCd + '">' + data.skuCodeName + '</option>'
-	});
-	$('#selSkuCode').html(html);*/
-	
-			
-}
-
-function getBranchName() {
-	let html = '<option value="">';
-	$.each(branch, function(index, data) {
-		html += '<option value="' + data.branchId + '">' + data.branchName + '</option>'
-	});
-	$('#selBranch').html(html);
-}
-
-getDispatchType();
-getBranchName();
-
-function createDispatchingTable(dispatching) {
-	let html = '';
-	html += '<table class="dispatching text-white">';
-	html += '  <tr>';
-	html += '    <th>Dispatch Type ID</th>';
-	html += '    <th>Dispatch Type Name</th>';
-	html += '    <th>Finished Product ID</th>';
-	html += '    <th>SKU Name</th>';
-	html += '    <th>Quantity</th>';
-	html += '    <th>Branch ID</th>';
-	html += '    <th>Branch Name</th>';
-	html += '    <th>Destination</th>';
-	html += '    <th>Dispatch Date</th>';
-	html += '  </tr>';
-	$.each(dispatching, function(index, data) {
-		html += '<tr id="data'+index+'row">';
-		html += '  <td id="data'+index+'disType" style="align: center;">' + data.dispatchTypeCd + '</td>';
-		html += '  <td id="data'+index+'disName">' + data.dispatchType.dispatchTypeName + '</td>';
-		html += '  <td id="data'+index+'fplId" style="align: center;">' + data.fplId + '</td>';
-		html += '  <td id="data'+index+'skuCode">' + data.fpl.sku.skuCodeName + '</td>';
-		html += '  <td id="data'+index+'qty" style="align: center;">' + data.quantity + '</td>';
-		html += '  <td id="data'+index+'brId" style="align: center;">' + data.branchId + '</td>';
-		html += '  <td id="data'+index+'brName">' + data.branch.branchName + '</td>';
-		html += '  <td id="data'+index+'desti">' + data.destination + '</td>';
-		html += '  <td id="data'+index+'disDate">' + data.dispatchDate + '</td>';
-		html += '</tr>';
-	});
-	html += '</table>';
-	$('#divDispatchingTable').html(html);
-	bindRowsClick(dispatching);
-}
-
-function createData() {
-	let data;
-	if($('#txtDispatchId').val() == ""){
-		data = {
-			dispatchTrackId: '0',
-			dispatchTypeCd: $('#selDispatchType').val(),
-			fplId: $('#txtFinishedProdId').val(),
-			quantity: $('#txtQuantity').val(),
-			branchId: $('#selBranch').val(),
-			destination: $('#txtDestination').val(),
-			dispatchDate: $('#dateDispatchDate').val()
-		};
-	}
-	else{
-		data = {
-			dispatchTrackId: $('#txtDispatchId').val() !== '' ? $('#txtDispatchId').val() : '0',
-			dispatchTypeCd: $('#selDispatchType').val(),
-			fplId: $('#txtFinishedProdId').val(),
-			quantity: $('#txtQuantity').val(),
-			branchId: $('#selBranch').val(),
-			destination: $('#txtDestination').val(),
-			dispatchDate: $('#dateDispatchDate').val()
-		};
-	}
-	return data;
+function populateForm(row) {
+	$('#dispatchingIdUpdate').val(row.dispatchTrackId);
+	$('#dispatchingTypeNameUpdate').val(row.dispatchTypeCd);
+	$('#dispatchingFinishedProductListIdUpdate').val(row.fplId);
+	$('#dispatchingQuantityUpdate').val(row.quantity);
+	$('#dispatchingBranchNameUpdate').val(row.branchId);
+	$('#dispatchingDestinationUpdate').val(row.destination);
+	$('#dispatchingDateUpdate').val(row.dispatchDate);
+	data = {
+		dispatchTrackId: row.dispatchTrackId.toString(),
+		dispatchTypeCd: row.dispatchTypeCd.toString(),
+		fplId: row.fplId.toString(),
+		quantity: row.quantity.toString(),
+		branchId: row.branchId.toString(),
+		destination: row.destination.toString(),
+		dispatchDate: row.dispatchDate.toString()
+	};
 }
 
 function validate(data) {
 	let valid = true;
-	if (data.description === '' || data.quantity === '') {
-		alert('Please correctly fill-out all required fields');
+	if (data.dispatchTrackId === '' || data.dispatchTrackId === '' || data.fplId === '' || 
+		data.quantity === '' || data.branchId === '' || data.destination === '' || data.dispatchDate === '') {
+		$('.errorMessage').text("Please correctly fill-out all required fields");
 		valid = false;
-	} else if (data.quantity < 0) {
-		alert('Quantity must be a non-negative number');
-		valid = false;
-	}
+	} 
 	return valid;
 }
 
-function addData() {
-	let data = createData();
+function sendData(data){
 	if (validate(data)) {
+		console.log(data);
 		$.post('DispatchingController', {
 			action: 'saveData',
 			data: JSON.stringify(data)
 		}, function(response) {
 			if (response.includes('success')) {
-				$('#btnDispatching').click();
+				closeAddModal();
+				closeEditModal();
+				$('#btnShowDispatching').click();
 			} else {
-				alert('Unable to save changes');
+				$('.errorMessage').text("Unable to save changes");
 			}
 		});
 	}
 }
 
-$('#btnAdd').click(addData);
-
-function resetDispatchingForm() {
-	$('#txtDispatchId').val('');
-	$('#selDispatchType').val('');
-	$('#txtFinishedProdId').val('');
-	$('#txtQuantity').val('');
-	$('#selBranch').val('');
-	$('#txtDestination').val('');
-	$('#dateDispatchDate').val('');
-	toggleAddButton();
+function addData() {
+	let data = {
+		dispatchTrackId: "0",
+		dispatchTypeCd: $('#dispatchingTypeNameCreate').val().toString(),
+		fplId: $('#dispatchingFinishedProductListIdCreate').val().toString(),
+		quantity: $('#dispatchingQuantityCreate').val().toString(),
+		branchId: $('#dispatchingBranchNameCreate').val().toString(),
+		destination: $('#dispatchingDestinationCreate').val().toString(),
+		dispatchDate: $('#dispatchingDateCreate').val().toString()
+	};
+	sendData(data);
 }
 
-$('#btnClear').click(resetDispatchingForm);
+function updateData() {
+	let data = {
+		dispatchTrackId: $('#dispatchingIdUpdate').val().toString(),
+		dispatchTypeCd: $('#dispatchingTypeNameUpdate').val().toString(),
+		fplId: $('#dispatchingFinishedProductListIdUpdate').val().toString(),
+		quantity: $('#dispatchingQuantityUpdate').val().toString(),
+		branchId: $('#dispatchingBranchNameUpdate').val().toString(),
+		destination: $('#dispatchingDestinationUpdate').val().toString(),
+		dispatchDate: $('#dispatchingDateUpdate').val().toString()
+	};
+	sendData(data);
+}
 
-$('#btnDelete').click(function() {
-	if ($('#txtDispatchId').val() !== '') {
-		let data = createData();
-		$.post('DispatchingController', {
-			action: 'deleteData',
-			data: JSON.stringify(data)
-		}, function(response) {
-			if (response.includes('success')) {
-				$('#btnDispatching').click();
-			} else {
-				alert('Unable to save changes');
-			}
-		});
-	} else {
-		alert('Please select an item to delete');
-	}
-});
+$('#btnCreateDispatching').click(addData);
+$('#btnUpdateDispatching').click(updateData);
 
-createDispatchingTable(dispatching);
+function getDispatchType() {
+	let html = '';
+	$.each(dispatchType, function(index, data) {
+		html+= '<option value="' + data.dispatchTypeCd + '">' + data.dispatchTypeName + '</option>'
+	});
+	$('.selectDispatchingTypeName').append(html);
+}
+
+function getBranchName() {
+	let html = '';
+	$.each(branch, function(index, data) {
+		html += '<option value="' + data.branchId + '">' + data.branchName + '</option>'
+	});
+	$('.selectDispatchingBranch').append(html);
+}
+
+getDispatchType();
+getBranchName();
