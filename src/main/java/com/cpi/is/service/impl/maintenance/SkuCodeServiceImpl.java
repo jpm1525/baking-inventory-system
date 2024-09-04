@@ -61,17 +61,17 @@ public class SkuCodeServiceImpl implements SkuCodeService {
 		String validation = "Success";
 		
 		if (!json.has("skuCd") || !(json.get("skuCd") instanceof String)) {
-			validation = "Please fill-out the sku code form properly 1";
+			validation = "Please fill-out the sku code form properly";
 		} else if (!json.has("skuCodeName") || !(json.get("skuCodeName") instanceof String)) {
-			validation = "Please fill-out the sku code form properly 2";
+			validation = "Please fill-out the sku code form properly";
 		} else if (!json.has("unitOfMeasurement") || !(json.get("unitOfMeasurement") instanceof String)) {
-			validation = "Please fill-out the sku code form properly 3";
+			validation = "Please fill-out the sku code form properly";
 		} else if (json.getString("skuCd").length() < 1 || json.getString("skuCd").length() > 50) {
-			validation = "Please fill-out the sku code form properly 4";
+			validation = "Please fill-out the sku code form properly";
 		} else if (json.getString("skuCodeName").length() < 1 || json.getString("skuCodeName").length() > 200) {
-			validation = "Please fill-out the sku code form properly 5";
+			validation = "Please fill-out the sku code form properly";
 		} else if (json.getString("unitOfMeasurement").length() < 1 || json.getString("unitOfMeasurement").length() > 100) {
-			validation = "Please fill-out the sku code form properly 6";
+			validation = "Please fill-out the sku code form properly";
 		}
 		
 		return validation;

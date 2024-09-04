@@ -122,9 +122,39 @@ function populateForm(row) {
 
 function validate(data) {
 	let valid = true;
-	if (data.materialCd === '' || data.quantity === '' || 
+	if (data.materialListId === '' || data.materialCd === '' || data.quantity === '' || 
 		data.dateReceive === '' || data.userId === '' || data.branchId === '') {
 		$('.errorMessage').text("Please correctly fill-out all required fields");
+		valid = false;
+	} else if (data.materialListId.length > 50){
+		$('.errorMessage').text("Material List ID characters should be less than 51");
+		valid = false;
+	} else if (data.materialCd.length > 50){
+		$('.errorMessage').text("Material Code characters should be less than 51");
+		valid = false;
+	} else if (data.quantity.length > 50){
+		$('.errorMessage').text("Quantity characters should be less than 51");
+		valid = false;
+	} else if (data.dateReceive.length > 20){
+		$('.errorMessage').text("Please put proper data in date receive");
+		valid = false;
+	} else if (data.userId.length > 50){
+		$('.errorMessage').text("User ID characters should be less than 51");
+		valid = false;
+	} else if (data.branchId.length > 50){
+		$('.errorMessage').text("Branch ID should be less than 51");
+		valid = false;
+	} else if (!(/^\d+$/.test(data.materialListId))) {
+	    $('.errorMessage').text("Material List ID should only contain numbers");
+		valid = false;
+	} else if (!(/^\d+$/.test(data.quantity))) {
+	    $('.errorMessage').text("Quantity should only contain numbers");
+		valid = false;
+	} else if (!(/^\d+$/.test(data.branchId))) {
+	    $('.errorMessage').text("Branch ID should only contain numbers");
+		valid = false;
+	} else if (!(!isNaN(Date.parse(data.dateReceive)) && (new Date(data.dateReceive).toISOString().startsWith(data.dateReceive)))) {
+	    $('.errorMessage').text("Please enter valid date");
 		valid = false;
 	} 
 	return valid;
