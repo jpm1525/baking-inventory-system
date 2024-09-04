@@ -196,5 +196,7 @@
 
 <script type="text/javascript">
 	var dailyPlannedProduction = JSON.parse('${dailyPlannedProduction}');
+	var branchId = JSON.parse('${branchId}');
+	var skuCd = JSON.parse('${skuCd}');
 </script>
 <script src="js/daily_planned_production.js"></script>

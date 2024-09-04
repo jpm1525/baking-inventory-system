@@ -16,7 +16,7 @@ public class RawMaterialListDAOImpl implements RawMaterialListDAO {
 		List<RawMaterialListEntity> rawMaterialList = null;
 		try (Session session = HBUtil.getSessionFactory().openSession()) {
 			rawMaterialList = (List<RawMaterialListEntity>) 
-					session.createQuery("From RawMaterialListEntity T ORDER BY T.materialCd ASC", RawMaterialListEntity.class).list();
+					session.createQuery("From RawMaterialListEntity T ORDER BY T.materialListId DESC", RawMaterialListEntity.class).list();
 		}
 		return rawMaterialList;
 	}

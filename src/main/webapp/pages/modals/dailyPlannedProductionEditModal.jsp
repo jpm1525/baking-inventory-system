@@ -30,19 +30,23 @@
           rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 
           dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date">
       </div>
-      <div>
+      <div>          
         <label for="dailyPlannedProductionBranchIdUpdate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Branch ID</label>
-        <input type="text" name="dailyPlannedProductionBranchIdUpdate" id="dailyPlannedProductionBranchIdUpdate" class="bg-gray-50 border border-gray-300 
+        <select id="dailyPlannedProductionBranchIdUpdate" name="dailyPlannedProductionBranchIdUpdate" class="bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
-          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
-          required="required" placeholder="Type branch id">
+          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 
+          dailyPlannedProductionBranchIdCreate" required="required">
+          <option value="" disabled selected hidden>Select Branch ID</option>
+        </select>
       </div>
-       <div>
+       <div>          
         <label for="dailyPlannedProductionSkuCdUpdate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">SKU Code</label>
-        <input type="text" name="dailyPlannedProductionSkuCdUpdate" id="dailyPlannedProductionSkuCdUpdate" class="bg-gray-50 border border-gray-300 
+        <select id="dailyPlannedProductionSkuCdUpdate" name="dailyPlannedProductionSkuCdUpdate" class="bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
-          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
-          required="required" placeholder="Type user id">
+          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 
+          dailyPlannedProductionSkuCdCreate" required="required">
+          <option value="" disabled selected hidden>Select SKU Code</option>
+        </select>
       </div>
       <div>
         <label for="dailyPlannedProductionQuantityUpdate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Quantity</label>
@@ -52,11 +56,18 @@
           required="required" placeholder="Type quantity">
       </div>
       <div>
-        <label for="dailyPlannedProductionStatusUpdate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Status</label>
-        <input type="text" name="dailyPlannedProductionStatusUpdate" id="dailyPlannedProductionStatusUpdate" class="bg-gray-50 border border-gray-300 
-          text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
-          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
-          required="required" placeholder="Type material code">
+      	<label for="dailyPlannedProductionStatusUpdate"
+        class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Status</label>
+        <select id="dailyPlannedProductionStatusUpdate"
+        		name="dailyPlannedProductionStatusUpdate"
+        		class="input bg-gray-50 border border-gray-300 
+          		text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
+          		dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+        	<option value="" disabled selected hidden>Select Status</option>
+        	<option>Planned
+	        <option>In Progress
+	        <option>Completed
+        </select>
       </div>
     </div>
   

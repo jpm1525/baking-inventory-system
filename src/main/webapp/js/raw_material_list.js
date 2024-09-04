@@ -1,3 +1,23 @@
+function getMaterialCode(){
+	let html = '';
+		$.each(materialCode, function(index, data) {
+			html+= '<option value="' + data.materialCd + '">' + data.materialCd + '</option>'
+		});
+		$('.selectMaterialCode').html(html);
+}
+
+getMaterialCode();
+
+function getBranchId(){
+	let html = '';
+		$.each(branchId, function(index, data) {
+			html+= '<option value="' + data.branchId + '">' + data.branchId + '</option>'
+		});
+		$('.selectBranchIdCreate').html(html);
+}
+
+getBranchId();
+
 if (typeof data === 'undefined' || data === null) {let data = "";}
 if (typeof callback === 'undefined' || callback === null) {let callback = "";}
 if (typeof observer === 'undefined' || observer === null) {let observer = "";}
@@ -9,7 +29,7 @@ var editButton = function(value, data, cell, row, options){
 };
 
 var divTable = new Tabulator("#divTableTabulator" , {
-	layout:"fitColumns",
+	layout:"fitDataFill",
 	data: rawMaterialList, //json parse 
 	pagination: 'local',
 	pagination: true,
@@ -24,9 +44,10 @@ var divTable = new Tabulator("#divTableTabulator" , {
 		{title:"Date Receive", field: 'dateReceive'},
 		{title:"User ID", field: 'userId'},
 		{title:"Branch ID", field: 'branchId'},
-		{title:"Action" , headerSort:false, formatter:editButton},
+		{title:"Action", headerSort:false, formatter:editButton, minWidth:75},
 	],
 });
+
 
 $(".rawMaterialListForm").submit(function(e){
 	e.preventDefault();
@@ -59,7 +80,7 @@ callback = function(mutationsList, observer) {
 observer = new MutationObserver(callback);
 observer.observe(document.getElementById('divTableTabulator'), { childList: true, subtree: true });
 
-$("#btnRawMaterialList").click(function(){
+$("#btnShowRawMaterialList").click(function(){
 	$.get("RawMaterialListController",{
 		action: "showRawMaterialList"
 		}, function(response){
@@ -75,7 +96,7 @@ $('#deleteSaveModalButton').click(function(event){
 	}, function(response) {
 		if (response.includes('success')) {
 			closeDeleteModal();
-			$('#btnRawMaterialList').click();
+			$('#btnShowRawMaterialList').click();
 		} else {
 			$('.errorMessage').text("Unable to save changes");
 		}
@@ -118,7 +139,7 @@ function sendData(data){
 			if (response.includes('success')) {
 				closeAddModal();
 				closeEditModal();
-				$('#btnRawMaterialList').click();
+				$('#btnShowRawMaterialList').click();
 			} else {
 				$('.errorMessage').text("Unable to save changes");
 			}
@@ -129,7 +150,7 @@ function sendData(data){
 function addData() {
 	let data = {
 		materialListId: "0",
-		materialCd: $('#materialCodeCreate').val().toString(),
+		materialCd: $('#selMaterialCode').val().toString(),
 		quantity: $('#rawMaterialListQuantityCreate').val().toString(),
 		dateReceive: $('#rawMaterialListDateReceiveCreate').val().toString(),
 		userId: $('#userIdCreate').val(),
