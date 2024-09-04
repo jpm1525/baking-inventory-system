@@ -49,4 +49,9 @@ public class UserServiceImpl implements UserService {
 				CookieUtil.getCookieValue(request.getCookies(), "user")));		
 	}
 
+	public boolean isSessionValid(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

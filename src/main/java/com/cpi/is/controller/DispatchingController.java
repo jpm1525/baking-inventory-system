@@ -15,6 +15,7 @@ import com.cpi.is.service.impl.DispatchingServiceImpl;
 import com.cpi.is.service.impl.maintenance.BranchServiceImpl;
 import com.cpi.is.service.impl.maintenance.DispatchTypeServiceImpl;
 import com.cpi.is.service.impl.maintenance.SkuCodeServiceImpl;
+import com.cpi.is.util.SessionUtil;
 
 /**
  * Servlet implementation class CustomerController
@@ -44,8 +45,11 @@ public class DispatchingController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		try {
-			action = request.getParameter("action");
 			
+			if (SessionUtil.checkUserSession(request)) {
+			
+				action = request.getParameter("action");
+		
 			if ("showDispatching".equals(action)) {
 				request.setAttribute("dispatching", new JSONArray(dispatchingService.getData()));
 				request.setAttribute("dispatchType", new JSONArray(dispatchTypeService.getData()));
@@ -58,6 +62,9 @@ public class DispatchingController extends HttpServlet {
 			} else if ("deleteData".equals(action)) {
 				request.setAttribute("message", dispatchingService.deleteData(request));
 				page = "pages/message.jsp";
+			}
+			} else {
+				page = "pages/reload.jsp";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

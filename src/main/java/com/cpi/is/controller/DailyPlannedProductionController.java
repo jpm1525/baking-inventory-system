@@ -12,6 +12,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.cpi.is.service.impl.DailyPlanServiceImpl;
+import com.cpi.is.util.SessionUtil;
 
 /**
  * Servlet implementation class InventoryController
@@ -37,20 +38,29 @@ public class DailyPlannedProductionController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
+		
 		try {
-			action = request.getParameter("action");
 			
-			if("showDailyPlannedProduction".equals(action)) {
-				request.setAttribute("dailyPlannedProduction", new JSONArray(dailyPlanService.getData()));
-				page = "pages/dailyPlannedProduction.jsp";
-			} else if ("saveData".equals(action)) {
-				request.setAttribute("message", dailyPlanService.saveData(request));
-				page = "pages/message.jsp";
-			} else if ("deleteData".equals(action)) {
-				request.setAttribute("message", dailyPlanService.deleteData(request));
-				page = "pages/message.jsp";
+			if (SessionUtil.checkUserSession(request)) {
+			
+				action = request.getParameter("action");
+				
+				if("showDailyPlannedProduction".equals(action)) {
+					request.setAttribute("dailyPlannedProduction", new JSONArray(dailyPlanService.getData()));
+					page = "pages/dailyPlannedProduction.jsp";
+				} else if ("saveData".equals(action)) {
+					request.setAttribute("message", dailyPlanService.saveData(request));
+					page = "pages/message.jsp";
+				} else if ("deleteData".equals(action)) {
+					request.setAttribute("message", dailyPlanService.deleteData(request));
+					page = "pages/message.jsp";
+				}
+			} else {
+				page = "pages/reload.jsp";
 			}
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
