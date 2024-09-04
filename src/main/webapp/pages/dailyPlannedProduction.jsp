@@ -8,7 +8,7 @@
 <div class="flex place-content-center flex-col ">
   <div>
     <h1
-      class="text-black dark:text-white text-center text-5xl font-bold m-10"
+      class="text-[#68411b]  dark:text-white text-center text-5xl font-bold m-10"
       id="btnShowDailyPlannedProduction">Daily Planned Production</h1>
   </div>
   <div class="flex justify-end">

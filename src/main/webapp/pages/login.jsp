@@ -1,14 +1,14 @@
 <div id="loginjsp">
-  <div class="flex place-content-center">
+  <div class="flex place-content-center scrolling">
     <!-- Login Form -->
-    <div id="login-form"
-      class="flex h-screen justify-center items-center mt-[-20px]">
-      <form>
-       
-        
+    <div id="login-form" class="flex h-screen w-screen justify-center items-center mt-[-20px] relative flex-wrap"> 
+    
+      <div> <img src="images/banners/log_img.png" class="w-[400px] h-[400px] m-5"></div>
+     
+      <div>
+      <form class="m-5">
         <fieldset
-          class="p-4 px-12 py-6 rounded-lg"> 
-          <h1>LOGIN</h1>
+          class="px-8 pb-4 pt-5 rounded-lg"> 
           <table class="m-5">
             <tr>
               <td class="pr-5"><label for="login-username">Username</label></td>
@@ -23,13 +23,13 @@
                 class="w-full border rounded py-2 pr-20 pl-3 my-2 text-lg" /></td>
             </tr>
           </table>
-          <div class="mt-4 pt-5">
+          <div>
             <div class="flex justify-center space-x-6">
-              <button type="reset" id="login-clear"
-                class="bg-[#846a5b] hover:bg-[#AD8F7D] text-white px-10 py-2 rounded border border-[#6F594C] hover:border-[#846a5b]">Clear</button>
-              <button type="button" id="btnLogin"
-            class="bg-[#244c66] hover:bg-[#4381AD] text-white px-10 py-2 rounded border border-[#1a3a4b] hover:border-[#6b8a9c]">Login</button>
-
+             <button type="button" id="btnLogin"
+                 class="bg-[#244c66] hover:bg-[#4381AD] text-white px-10 py-2 rounded border border-[#1a3a4b] hover:border-[#6b8a9c]">Login</button>
+             
+             <button type="reset" id="login-clear"
+                 class="bg-[#846a5b] hover:bg-[#AD8F7D] text-white px-10 py-2 rounded border border-[#6F594C] hover:border-[#846a5b]">Clear</button>
             </div>
             <div class="text-center mt-4">
               <a href="#" id="show-forgot"
@@ -39,6 +39,7 @@
           </div>
         </fieldset>
       </form>
+      </div>
     </div>
   </div>
 </div>
