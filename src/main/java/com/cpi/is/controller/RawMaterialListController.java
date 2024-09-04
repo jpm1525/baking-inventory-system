@@ -12,6 +12,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.cpi.is.service.impl.RawMaterialListServiceImpl;
+import com.cpi.is.service.impl.maintenance.BranchServiceImpl;
+import com.cpi.is.service.impl.maintenance.MaterialCodeServiceImpl;
 
 /**
  * Servlet implementation class DashboardController
@@ -25,7 +27,9 @@ public class RawMaterialListController extends HttpServlet {
        
     private ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
 	private RawMaterialListServiceImpl rawMaterialListService = (RawMaterialListServiceImpl) context.getBean("rawMaterialListService");
-
+	private MaterialCodeServiceImpl materialCodeService = (MaterialCodeServiceImpl) context.getBean("materialCodeService");
+	private BranchServiceImpl branchService = (BranchServiceImpl) context.getBean("branchService");
+	
 	/**
      * @see HttpServlet#HttpServlet()
      */
@@ -42,6 +46,8 @@ public class RawMaterialListController extends HttpServlet {
 			
 			if ("showRawMaterialList".equals(action)) {
 				request.setAttribute("rawMaterialList", new JSONArray(rawMaterialListService.getData()));
+				request.setAttribute("materialCode", new JSONArray(materialCodeService.getData()));
+				request.setAttribute("branchId", new JSONArray(branchService.getData()));
 				page = "pages/rawMaterialList.jsp";
 			} else if ("saveData".equals(action)) {
 				request.setAttribute("message", rawMaterialListService.saveData(request));

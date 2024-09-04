@@ -8,8 +8,8 @@
 <div class="flex place-content-center flex-col ">
   <div>
     <h1
-      class="text-[#68411b] dark:text-white text-center text-5xl font-bold m-10"
-      id="btnRawMaterialList">Raw Material List</h1>
+      class="text-blacktext-[#68411b] dark:text-white text-center text-5xl font-bold m-10"
+      id="btnShowRawMaterialList">Raw Material List</h1>
   </div>
   <div class="flex justify-end">
     <button id="openAddModalButton"
@@ -201,6 +201,8 @@
 <jsp:include page="../pages/modals/maintenance/deleteModal.jsp"></jsp:include>
 
 <script type="text/javascript">
+	var materialCode = JSON.parse('${materialCode}');
 	var rawMaterialList = JSON.parse('${rawMaterialList}');
+	var branchId = JSON.parse('${branchId}');
 </script>
 <script src="js/raw_material_list.js"></script>

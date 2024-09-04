@@ -17,19 +17,21 @@
     </div>
     
     <div class="grid gap-4 mb-4 sm:grid-cols-2 mt-5">
-      <div class="col-span-2">
-        <label for="materialCodeCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Name</label>
-        <input type="text" name="materialCodeCreate" id="materialCodeCreate" class="bg-gray-50 border border-gray-300 
+      <div class="col-span-2">        
+        <label for="selMaterialCode" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Material Code</label>
+        <select id="selMaterialCode" name="selMaterialCode" class="bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
-          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
-          required="required" placeholder="Type material code">
+          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 
+          selectMaterialCode" required="required">
+          <option value="" disabled selected hidden>Select Material Code</option>
+        </select>
       </div>
       <div>
-        <label for="rawMaterialListQuantityCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Unit of Measurement</label>
+        <label for="rawMaterialListQuantityCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Quantity</label>
         <input type="number" name="rawMaterialListQuantityCreate" id="rawMaterialListQuantityCreate" class="bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
-          required="required" placeholder="Type quantity">
+          required="required" placeholder="Enter quantity">
       </div>
       <div>
         <label for="rawMaterialListDateReceiveCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Date Received</label>
@@ -39,17 +41,20 @@
       </div>
       <div>
         <label for="userIdCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">User ID</label>
+        
         <input type="text" name="userIdCreate" id="userIdCreate" class="bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
-          required="required" placeholder="Type user id">
+          required="required" placeholder="Enter user id">
       </div>
       <div>
-        <label for="branchIdCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Branch ID</label>
-        <input type="text" name="branchIdCreate" id="branchIdCreate" class="bg-gray-50 border border-gray-300 
+      	<label for="branchIdCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Branch ID</label>
+        <select id="branchIdCreate" name="branchIdCreate" class="bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
-          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
-          required="required" placeholder="Type branch id">
+          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 
+          selectBranchIdCreate" required="required">
+          <option value="" disabled selected hidden>Select Branch ID</option>
+        </select>
       </div>
     </div>
   
