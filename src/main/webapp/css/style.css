@@ -176,7 +176,7 @@ footer {
 .topbar {
   position: fixed;
   top: 15px;
-  width: calc(203vh - 40px);
+  width: calc(220vh - 53px);
   margin-left: 20px;
   margin-right: 20px;
   height: 70px;
