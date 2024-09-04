@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.cpi.is.util.SessionUtil;
+
 /**
  * Servlet implementation class SupplierController
  */
@@ -27,12 +29,25 @@ public class ReportGenerationController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		action = request.getParameter("action");
+		try {
+			
+			if (SessionUtil.checkUserSession(request)) {
+			
+				action = request.getParameter("action");
 		
-		if("showReportGeneration".equals(action)) {
-			page = "pages/reportGeneration.jsp";
-		}
+				if("showReportGeneration".equals(action)) {
+					page = "pages/reportGeneration.jsp";
+					}
+				
+				} else {
+					page = "pages/reload.jsp";
+			}
+		}catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		request.getRequestDispatcher(page).forward(request,response);
+	
 	}
 	
 

@@ -12,6 +12,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.cpi.is.service.impl.RawMaterialListServiceImpl;
+import com.cpi.is.util.SessionUtil;
 
 /**
  * Servlet implementation class DashboardController
@@ -38,18 +39,26 @@ public class RawMaterialListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			action = request.getParameter("action");
 			
-			if ("showRawMaterialList".equals(action)) {
-				request.setAttribute("rawMaterialList", new JSONArray(rawMaterialListService.getData()));
-				page = "pages/rawMaterialList.jsp";
-			} else if ("saveData".equals(action)) {
-				request.setAttribute("message", rawMaterialListService.saveData(request));
-				page = "pages/message.jsp";
-			} else if ("deleteData".equals(action)) {
-				request.setAttribute("message", rawMaterialListService.deleteData(request));
-				page = "pages/message.jsp";
+	
+			if (SessionUtil.checkUserSession(request)) {
+				action = request.getParameter("action");
+				
+				if ("showRawMaterialList".equals(action)) {
+					request.setAttribute("rawMaterialList", new JSONArray(rawMaterialListService.getData()));
+					page = "pages/rawMaterialList.jsp";
+				} else if ("saveData".equals(action)) {
+					request.setAttribute("message", rawMaterialListService.saveData(request));
+					page = "pages/message.jsp";
+				} else if ("deleteData".equals(action)) {
+					request.setAttribute("message", rawMaterialListService.deleteData(request));
+					page = "pages/message.jsp";
+				}
+			} else {
+				page = "pages/reload.jsp";
 			}
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
