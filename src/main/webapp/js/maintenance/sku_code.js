@@ -10,7 +10,7 @@ var editButton = function(value, data, cell, row, options){
 
 var divTable = new Tabulator("#divTableTabulator" , {
 	layout:"fitColumns",
-	data: skuCode, //json parse 
+	data: skuCode,
 	pagination: 'local',
 	pagination: true,
 	paginationSize: 10,
@@ -18,10 +18,10 @@ var divTable = new Tabulator("#divTableTabulator" , {
 	paginationCounter:"rows",
 	selectableRows:1,
 	columns: [
-		{title:"Code", field: 'skuCd'},
-		{title:"Name", field: 'skuCodeName'},
-		{title:"Unit of Measurement", field: 'unitOfMeasurement'},
-		{title:"Action" , headerSort:false, formatter:editButton},
+		{title:"Code", field: 'skuCd', minWidth:50},
+		{title:"Name", field: 'skuCodeName', minWidth:100},
+		{title:"Unit of Measurement", field: 'unitOfMeasurement', minWidth:100},
+		{title:"Action" , headerSort:false, formatter:editButton, minWidth:200},
 	],
 });
 
@@ -74,19 +74,19 @@ $('#deleteSaveModalButton').click(function(event){
 			closeDeleteModal();
 			$('#btnSkuCode').click();
 		} else {
-			$('.errorMessage').text("Unable to save changes");
+			$('.errorMessage').text(response);
 		}
 	});
 });	
 
 function populateForm(row) {
-	$('#skuCodeUpdate').val(row.skuCd).toString();
+	$('#skuCodeUpdate').val(row.skuCd);
 	$('#skuCodeNameUpdate').val(row.skuCodeName);
 	$('#skuCodeUnitOfMeasurementUpdate').val(row.unitOfMeasurement);
 	data = {
 		skuCd: row.skuCd.toString(),
-		skuCodeName: row.skuCodeName,
-		unitOfMeasurement: row.unitOfMeasurement
+		skuCodeName: row.skuCodeName.toString(),
+		unitOfMeasurement: row.unitOfMeasurement.toString()
 	};
 }
 
@@ -95,7 +95,16 @@ function validate(data) {
 	if (data.skuCd === '' || data.skuCodeName === '' || data.unitOfMeasurement === '') {
 		$('.errorMessage').text("Please correctly fill-out all required fields");
 		valid = false;
-	} 
+	} else if (data.skuCd.length > 50){
+		$('.errorMessage').text("SKU Code characters should be less than 51");
+		valid = false;
+	} else if (data.skuCodeName.length > 200){
+		$('.errorMessage').text("SKU Code Name characters should be less than 201");
+		valid = false;
+	} else if (data.unitOfMeasurement.length > 100){
+		$('.errorMessage').text("Unit of Measurement characters should be less than 101");
+		valid = false;
+	}
 	return valid;
 }
 
@@ -110,7 +119,7 @@ function sendData(data){
 				closeEditModal();
 				$('#btnSkuCode').click();
 			} else {
-				$('.errorMessage').text("Unable to save changes");
+				$('.errorMessage').text(response);
 			}
 		});
 	}
@@ -118,18 +127,18 @@ function sendData(data){
 
 function addData() {
 	let data = {
-		skuCd: $('#skuCodeCreate').val(),
-		skuCodeName: $('#skuCodeNameCreate').val(),
-		unitOfMeasurement: $('#skuCodeUnitOfMeasurementCreate').val()
+		skuCd: $('#skuCodeCreate').val().toString(),
+		skuCodeName: $('#skuCodeNameCreate').val().toString(),
+		unitOfMeasurement: $('#skuCodeUnitOfMeasurementCreate').val().toString()
 	};
 	sendData(data);
 }
 
 function updateData() {
 	let data = {
-		skuCd: $('#skuCodeUpdate').val(),
-		skuCodeName: $('#skuCodeNameUpdate').val(),
-		unitOfMeasurement: $('#skuCodeUnitOfMeasurementUpdate').val()
+		skuCd: $('#skuCodeUpdate').val().toString(),
+		skuCodeName: $('#skuCodeNameUpdate').val().toString(),
+		unitOfMeasurement: $('#skuCodeUnitOfMeasurementUpdate').val().toString()
 	};
 	sendData(data);
 }

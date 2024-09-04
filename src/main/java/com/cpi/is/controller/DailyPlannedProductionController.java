@@ -14,6 +14,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.cpi.is.service.impl.DailyPlanServiceImpl;
 import com.cpi.is.service.impl.maintenance.BranchServiceImpl;
 import com.cpi.is.service.impl.maintenance.SkuCodeServiceImpl;
+import com.cpi.is.util.SessionUtil;
+
 
 /**
  * Servlet implementation class InventoryController
@@ -42,20 +44,25 @@ public class DailyPlannedProductionController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			action = request.getParameter("action");
+			if (SessionUtil.checkUserSession(request)) {
 			
-			if("showDailyPlannedProduction".equals(action)) {
-				request.setAttribute("dailyPlannedProduction", new JSONArray(dailyPlanService.getData()));
-				request.setAttribute("branchId", new JSONArray(branchService.getData()));
-				request.setAttribute("skuCd", new JSONArray(skuCodeService.getData()));
-				page = "pages/dailyPlannedProduction.jsp";
-			} else if ("saveData".equals(action)) {
-				request.setAttribute("message", dailyPlanService.saveData(request));
-				page = "pages/message.jsp";
-			} else if ("deleteData".equals(action)) {
-				request.setAttribute("message", dailyPlanService.deleteData(request));
-				page = "pages/message.jsp";
-			}
+				action = request.getParameter("action");
+				
+				if("showDailyPlannedProduction".equals(action)) {
+					request.setAttribute("dailyPlannedProduction", new JSONArray(dailyPlanService.getData()));
+					request.setAttribute("branchId", new JSONArray(branchService.getData()));
+					request.setAttribute("skuCd", new JSONArray(skuCodeService.getData()));
+					page = "pages/dailyPlannedProduction.jsp";
+				} else if ("saveData".equals(action)) {
+					request.setAttribute("message", dailyPlanService.saveData(request));
+					page = "pages/message.jsp";
+				} else if ("deleteData".equals(action)) {
+					request.setAttribute("message", dailyPlanService.deleteData(request));
+					page = "pages/message.jsp";
+				}
+			} else {
+				page = "pages/reload.jsp";
+			}	
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

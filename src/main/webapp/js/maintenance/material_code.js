@@ -10,7 +10,7 @@ var editButton = function(value, data, cell, row, options){
 
 var divTable = new Tabulator("#divTableTabulator" , {
 	layout:"fitColumns",
-	data: materialCode, //json parse 
+	data: materialCode,
 	pagination: 'local',
 	pagination: true,
 	paginationSize: 10,
@@ -18,10 +18,10 @@ var divTable = new Tabulator("#divTableTabulator" , {
 	paginationCounter:"rows",
 	selectableRows:1,
 	columns: [
-		{title:"Code", field: 'materialCd'},
-		{title:"Name", field: 'materialCodeName'},
-		{title:"Unit of Measurement", field: 'unitOfMeasurement'},
-		{title:"Action" , field: 'unitOfMeasurement', headerSort:false, formatter:editButton},
+		{title:"Code", field: 'materialCd', minWidth:50},
+		{title:"Name", field: 'materialCodeName', minWidth:100},
+		{title:"Unit of Measurement", field: 'unitOfMeasurement', minWidth:100},
+		{title:"Action", headerSort:false, formatter:editButton, minWidth:200},
 	],
 });
 
@@ -74,29 +74,38 @@ $('#deleteSaveModalButton').click(function(event){
 			closeDeleteModal();
 			$('#btnMaterialCode').click();
 		} else {
-			$('.errorMessage').text("Unable to save changes");
+			$('.errorMessage').text(response);
 		}
 	});
 });	
 
 function populateForm(row) {
-	$('#materialCodeUpdate').val(row.materialCd).toString();
+	$('#materialCodeUpdate').val(row.materialCd);
 	$('#materialCodeNameUpdate').val(row.materialCodeName);
 	$('#materialCodeUnitOfMeasurementUpdate').val(row.unitOfMeasurement);
 	data = {
 		materialCd: row.materialCd.toString(),
-		materialCodeName: row.materialCodeName,
-		unitOfMeasurement: row.unitOfMeasurement
+		materialCodeName: row.materialCodeName.toString(),
+		unitOfMeasurement: row.unitOfMeasurement.toString()
 	};
 }
 
 
 function validate(data) {
 	let valid = true;
-	if (data.materialCd === '' || data.materialName === '' | data.unitOfMeasurement === '') {
+	if (data.materialCd === '' || data.materialCodeName === '' | data.unitOfMeasurement === '') {
 		$('.errorMessage').text("Please correctly fill-out all required fields");
 		valid = false;
-	} 
+	} else if (data.materialCd.length > 50){
+		$('.errorMessage').text("Material Code characters should be less than 51");
+		valid = false;
+	} else if (data.materialCodeName.length > 200){
+		$('.errorMessage').text("Material Code Name characters should be less than 201");
+		valid = false;
+	} else if (data.unitOfMeasurement.length > 100){
+		$('.errorMessage').text("Unit of Measurement characters should be less than 101");
+		valid = false;
+	}
 	return valid;
 }
 
@@ -111,7 +120,7 @@ function sendData(data){
 				closeEditModal();
 				$('#btnMaterialCode').click();
 			} else {
-				alert('Unable to save changes');
+				$('.errorMessage').text(response);
 			}
 		});
 	}
@@ -119,18 +128,18 @@ function sendData(data){
 
 function addData() {
 	let data = {
-		materialCd: $('#materialCodeCreate').val(),
-		materialCodeName: $('#materialCodeNameCreate').val(),
-		unitOfMeasurement: $('#materialCodeUnitOfMeasurementCreate').val()
+		materialCd: $('#materialCodeCreate').val().toString(),
+		materialCodeName: $('#materialCodeNameCreate').val().toString(),
+		unitOfMeasurement: $('#materialCodeUnitOfMeasurementCreate').val().toString()
 	};
 	sendData(data);
 }
 
 function updateData() {
 	let data = {
-		materialCd: $('#materialCodeUpdate').val(),
-		materialCodeName: $('#materialCodeNameUpdate').val(),
-		unitOfMeasurement: $('#materialCodeUnitOfMeasurementUpdate').val()
+		materialCd: $('#materialCodeUpdate').val().toString(),
+		materialCodeName: $('#materialCodeNameUpdate').val().toString(),
+		unitOfMeasurement: $('#materialCodeUnitOfMeasurementUpdate').val().toString()
 	};
 	sendData(data);
 }

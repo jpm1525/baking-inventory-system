@@ -107,7 +107,7 @@ function populateForm(row) {
 
 function validate(data) {
 	let valid = true;
-	if (data.dispatchTrackId === '' || data.dispatchTrackId === '' || data.fplId === '' || 
+	if (data.dispatchTrackId === '' || data.dispatchTypeCd === '' || data.fplId === '' || 
 		data.quantity === '' || data.branchId === '' || data.destination === '' || data.dispatchDate === '') {
 		$('.errorMessage').text("Please correctly fill-out all required fields");
 		valid = false;
