@@ -27,6 +27,7 @@ dropdowns.forEach(({ button, menu, icon }, index, allDropdowns) => {
   });
 });
 
+
 document.addEventListener('click', (event) => {
   dropdowns.forEach(({ button, menu, icon }) => {
     if (!button.contains(event.target) && !menu.contains(event.target)) {
@@ -36,3 +37,19 @@ document.addEventListener('click', (event) => {
     }
   });
 });
+
+document.getElementById("sidebarToggle").addEventListener("click", function() {
+    const sidebar = document.querySelector(".sidebar");
+    const divContent = document.getElementById("divContent");
+
+    // Toggle sidebar visibility
+    sidebar.classList.toggle("sidebar-hidden");
+
+    // Adjust divContent width based on sidebar visibility
+    if (sidebar.classList.contains("sidebar-hidden")) {
+        divContent.classList.add("sidebar-adjusted");
+    } else {
+        divContent.classList.remove("sidebar-adjusted");
+    }
+});
+

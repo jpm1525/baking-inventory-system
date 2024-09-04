@@ -6,7 +6,7 @@
 
 <div class="flex place-content-center flex-col ">
   <div>
-    <h1 class="text-black dark:text-white text-center text-5xl font-bold m-10" id="btnBranch">Branch</h1>
+    <h1 class="text-[#68411b]  dark:text-white text-center text-5xl font-bold m-10" id="btnBranch">Branch</h1>
   </div>
   <div class="flex justify-end">
     <button id="openAddModalButton" class="px-4 py-2 m-2 text-white bg-indigo-500 rounded">

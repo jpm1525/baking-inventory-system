@@ -1,26 +1,26 @@
-<nav class="sidebar">
-        <table>
-		    <tr id="btnDashboard">
-		        <td class="p-2"><a href="#"><i class="fas fa-home"></i></a></td>
-		        <td><a href="#">Dashboard</a></td>
-		    </tr>
-		    <tr id="btnRawMaterialList">
-		        <td class="p-2"><a href="#"><i class="fas fa-cogs"></i></a></td>
-		        <td><a href="#">Raw Material List</a></td>
-		    </tr>
-		    <tr id="btnDailyPlannedProduction">
-		        <td class="p-2"><a href="#"><i class="fas fa-calendar-day"></i></a></td>
-		        <td><a href="#">Daily Planned Production</a></td>
-		    </tr>
-		    <tr id="btnDispatching">
-		        <td class="p-2"><a href="#"><i class="fas fa-truck"></i></a></td>
-		        <td><a href="#">Dispatching</a></td>
-		    </tr>
-		  </table>
+<nav class="sidebar text-[#68411b] dark:text-white bg-white dark:bg-[#1f2937]">
+
+       
+		    <div id="btnDashboard" class="my-2">
+		        <i class="fas fa-home p-2"></i>
+		        <a>Dashboard</a>
+		    </div>
+		    <div id="btnRawMaterialList" class="my-2">
+		        <i class="fas fa-cogs p-2"></i>
+                <a>Raw Material List</a>
+		    </div>
+		    <div id="btnDailyPlannedProduction" class="my-2">
+		        <i class="fas fa-calendar-day p-2"></i>
+		        <a>Daily Planned Production</a>
+		    </div>
+		    <div id="btnDispatching" class="my-2">
+		        <i class="fas fa-truck p-2"></i>
+		        <a>Dispatching</a>
+		    </div>
       
-                <div class="p-2">
-                    <i class="fas fa-file-alt ml-1"></i>
-                    <button id="dropdownButtonReport" class="ml-2">
+                <div class="p-2 my-2">
+                    <i class="fas fa-file-alt ml-1 mr-2"></i>
+                    <button id="dropdownButtonReport">
                         Report Generation <i id="dropdownIconReport" class="fas fa-angle-down ml-1"></i>
                     </button>
                     <ul id="dropdownMenuReport" class="bg-base-100 rounded-box z-[1] w-52 p-2 hidden">
@@ -30,7 +30,7 @@
                     </ul>
                 </div>
                 
-                <div class="p-2">
+                <div class="p-2 my-2">
                     <i class="fas fa-tools"></i>
                     <button id="dropdownButtonMaintenance" class="ml-2">
                         Maintenance <i id="dropdownIconMaintenance" class="fas fa-angle-down ml-1"></i>
