@@ -1,5 +1,6 @@
 package com.cpi.is.service.impl.maintenance;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -62,13 +63,15 @@ public class BranchServiceImpl implements BranchService {
 			validation = "Please fill-out the branch form properly";
 		} else if(!json.has("branchName") || !(json.get("branchName") instanceof String)) {
 			validation = "Please fill-out the branch form properly";
-		} else if (json.getString("branchId").length() < 1 && json.getString("branchId").length() > 50) {
+		} else if (json.getString("branchId").length() < 1 || json.getString("branchId").length() > 19) {
+			validation = "Please fill-out the branch form properly";
+		} else if (!json.getString("branchId").matches("^[0-9]\\d*$")) {
+			validation = "Please fill-out the branch form properly";
+		} else if ((new BigInteger(json.getString("branchId"))).compareTo(new BigInteger("9223372036854775807")) == 1) {
 			validation = "Please fill-out the branch form properly";
 		} else if (json.getString("branchName").length() < 1 && json.getString("branchName").length() > 200) {
 			validation = "Please fill-out the branch form properly";
-		} else if (!json.getString("branchId").matches("\\d+")) {
-			validation = "Please fill-out the branch form properly";
-		}
+		} 
 		
 		return validation;
 	}
