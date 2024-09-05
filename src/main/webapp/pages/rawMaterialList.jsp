@@ -218,5 +218,6 @@
 	var materialCode = JSON.parse('${materialCode}');
 	var rawMaterialList = JSON.parse('${rawMaterialList}');
 	var branchId = JSON.parse('${branchId}');
+	var userId = JSON.parse('${userId}');
 </script>
 <script src="js/raw_material_list.js"></script>

@@ -23,7 +23,7 @@
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 
           selMaterialCode" required="required">
-          <option value="" disabled selected hidden>Select Material Code</option>
+          <option value="" disabled selected hidden>Select Materials</option>
         </select>
       </div>
       <div>
@@ -46,14 +46,22 @@
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
           required="required" placeholder="Enter user id">
+          
+        <label for="userIdCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">User ID</label>
+        <select id="userIdCreate" name="userIdCreate" class="bg-gray-50 border border-gray-300 
+          text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
+          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 
+          userIdCreate" required="required">
+          <option value="" disabled selected hidden>Select User ID</option>
+        </select>
       </div>
       <div>
-      	<label for="branchIdCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Branch ID</label>
+      	<label for="branchIdCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Branch ID - Name</label>
         <select id="branchIdCreate" name="branchIdCreate" class="bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 
           selectBranchIdCreate" required="required">
-          <option value="" disabled selected hidden>Select Branch ID</option>
+          <option value="" disabled selected hidden>Select Branch</option>
         </select>
       </div>
     </div>
