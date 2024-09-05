@@ -1,9 +1,9 @@
 function getMaterialCode(){
 	let html = '';
 		$.each(materialCode, function(index, data) {
-			html+= '<option value="' + data.materialCd + '">' + data.materialCd + '</option>'
+			html+= '<option value="' + data.materialCd + '">' + data.materialCd + ' - ' + data.materialCodeName + '</option>'
 		});
-		$('.selectMaterialCode').html(html);
+		$('.selMaterialCode').append(html);
 }
 
 getMaterialCode();
@@ -13,7 +13,7 @@ function getBranchId(){
 		$.each(branchId, function(index, data) {
 			html+= '<option value="' + data.branchId + '">' + data.branchId + '</option>'
 		});
-		$('.selectBranchIdCreate').html(html);
+		$('.selectBranchIdCreate').append(html);
 }
 
 getBranchId();
@@ -39,7 +39,8 @@ var divTable = new Tabulator("#divTableTabulator" , {
 	selectableRows:1,
 	columns: [
 		{title:"ID", field: 'materialListId'},
-		{title:"Material Code", field: 'materialCd'},
+		{title:"Code", field: 'materialCd'},
+		{title:"Name", field: 'materialName.materialCodeName'},
 		{title:"Quantity", field: 'quantity'},
 		{title:"Date Receive", field: 'dateReceive'},
 		{title:"User ID", field: 'userId'},
@@ -98,7 +99,7 @@ $('#deleteSaveModalButton').click(function(event){
 			closeDeleteModal();
 			$('#btnShowRawMaterialList').click();
 		} else {
-			$('.errorMessage').text("Unable to save changes");
+			$('.errorMessage').text(response);
 		}
 	});
 });	
@@ -145,13 +146,13 @@ function validate(data) {
 		$('.errorMessage').text("Branch ID should be less than 51");
 		valid = false;
 	} else if (!(/^\d+$/.test(data.materialListId))) {
-	    $('.errorMessage').text("Material List ID should only contain numbers");
+	    $('.errorMessage').text("Material List ID should only contain positive numbers");
 		valid = false;
 	} else if (!(/^\d+$/.test(data.quantity))) {
-	    $('.errorMessage').text("Quantity should only contain numbers");
+	    $('.errorMessage').text("Quantity should only contain positive numbers");
 		valid = false;
 	} else if (!(/^\d+$/.test(data.branchId))) {
-	    $('.errorMessage').text("Branch ID should only contain numbers");
+	    $('.errorMessage').text("Branch ID should only contain positive numbers");
 		valid = false;
 	} else if (!(!isNaN(Date.parse(data.dateReceive)) && (new Date(data.dateReceive).toISOString().startsWith(data.dateReceive)))) {
 	    $('.errorMessage').text("Please enter valid date");
@@ -171,7 +172,7 @@ function sendData(data){
 				closeEditModal();
 				$('#btnShowRawMaterialList').click();
 			} else {
-				$('.errorMessage').text("Unable to save changes");
+				$('.errorMessage').text(response);
 			}
 		});
 	}

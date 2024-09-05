@@ -25,11 +25,11 @@
           required="required" placeholder="Type raw material list id" readonly="readonly">
       </div>
       <div>
-      	<label for="materialCodeUpdate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Material Code</label>
+      	<label for="materialCodeUpdate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Material</label>
         <select id="materialCodeUpdate" name="materialCodeUpdate" class="bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 
-          selectMaterialCode" required="required">
+          selMaterialCode" required="required">
           <option value="" disabled selected hidden>Select Material Code</option>
         </select>
       </div>

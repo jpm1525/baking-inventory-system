@@ -25,7 +25,7 @@ if (typeof observer === 'undefined' || observer === null) {let observer = "";}
 var editButton = function(value, data, cell, row, options){
 	let thisButton = '<button class="px-4 py-2 text-white bg-indigo-500 rounded editModalButton"> Edit </button>';
 		thisButton +='<button class="px-4 py-2 ml-5 text-white bg-red-500 rounded deleteModalButton"> Delete </button>'	;
-		thisButton +='<button class="px-4 py-2 ml-5 text-white bg-green-500 rounded" id=""> Add Materials for Production Plan </button>'
+		thisButton +='<button class="px-4 py-2 ml-5 text-white bg-green-500 rounded openAddModalButton"> View Materials</button>'
     return thisButton;
 };
 
