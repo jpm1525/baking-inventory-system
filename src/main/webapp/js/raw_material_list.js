@@ -48,14 +48,14 @@ var divTable = new Tabulator("#divTableTabulator" , {
 	paginationCounter:"rows",
 	selectableRows:1,
 	columns: [
-		{title:"ID", field: 'materialListId'},
-		{title:"Code", field: 'materialCd'},
-		{title:"Name", field: 'materialName.materialCodeName'},
-		{title:"Quantity", field: 'quantity'},
-		{title:"Date Receive", field: 'dateReceive'},
-		{title:"User ID", field: 'userId'},
-		{title:"Branch", field: 'branch.branchName'},
-		{title:"Action", headerSort:false, formatter:editButton, minWidth:75},
+		{title:"ID", field: 'materialListId', minWidth:50},
+		{title:"Code", field: 'materialCd', minWidth:50},
+		{title:"Name", field: 'materialName.materialCodeName', minWidth:100},
+		{title:"Quantity", field: 'quantity', minWidth:50},
+		{title:"Date Receive", field: 'dateReceive', minWidth:100},
+		{title:"User ID", field: 'userId', minWidth:50},
+		{title:"Branch", field: 'branch.branchName', minWidth:100},
+		{title:"Action", headerSort:false, formatter:editButton, minWidth:200},
 	],
 });
 
@@ -137,37 +137,37 @@ function validate(data) {
 		data.dateReceive === '' || data.userId === '' || data.branchId === '') {
 		$('.errorMessage').text("Please correctly fill-out all required fields");
 		valid = false;
-	} else if (data.materialListId.length > 50){
-		$('.errorMessage').text("Material List ID characters should be less than 51");
-		valid = false;
-	} else if (data.materialCd.length > 50){
-		$('.errorMessage').text("Material Code characters should be less than 51");
-		valid = false;
-	} else if (data.quantity.length > 50){
-		$('.errorMessage').text("Quantity characters should be less than 51");
-		valid = false;
-	} else if (data.dateReceive.length > 20){
-		$('.errorMessage').text("Please put proper data in date receive");
-		valid = false;
-	} else if (data.userId.length > 50){
-		$('.errorMessage').text("User ID characters should be less than 51");
-		valid = false;
-	} else if (data.branchId.length > 50){
-		$('.errorMessage').text("Branch ID should be less than 51");
-		valid = false;
-	} else if (!(/^\d+$/.test(data.materialListId))) {
+	} else if (!(/^[0-9]\d*$/.test(data.materialListId))) {
 	    $('.errorMessage').text("Material List ID should only contain positive numbers");
 		valid = false;
-	} else if (!(/^\d+$/.test(data.quantity))) {
-	    $('.errorMessage').text("Quantity should only contain positive numbers");
+	} else if (data.materialListId > 9223372036854775807n){
+		$('.errorMessage').text("Material List ID value is too large");
 		valid = false;
-	} else if (!(/^\d+$/.test(data.branchId))) {
-	    $('.errorMessage').text("Branch ID should only contain positive numbers");
+	}else if (data.materialCd.length > 50){
+		$('.errorMessage').text("Material Code characters should be less than 51");
+		valid = false;
+	} else if (!(/^[0-9]\d*$/.test(data.quantity))) {
+	    $('.errorMessage').text("Quantity should only contain positive numbers and zero");
+		valid = false;
+	} else if (data.quantity > 9223372036854775807n){
+		$('.errorMessage').text("Quantity value is too large");
 		valid = false;
 	} else if (!(!isNaN(Date.parse(data.dateReceive)) && (new Date(data.dateReceive).toISOString().startsWith(data.dateReceive)))) {
 	    $('.errorMessage').text("Please enter valid date");
 		valid = false;
-	} 
+	} else if (!(/^[1-9][0-9]*$/.test(data.userId))) {
+	    $('.errorMessage').text("User ID should only contain positive numbers");
+		valid = false;
+	} else if (data.userId > 9223372036854775807n){
+		$('.errorMessage').text("User ID value is too large");
+		valid = false;
+	} else if (!(/^[1-9][0-9]*$/.test(data.branchId))) {
+	    $('.errorMessage').text("Branch ID should only contain positive numbers");
+		valid = false;
+	} else if (data.branchId > 9223372036854775807n){
+		$('.errorMessage').text("Branch ID value is too large");
+		valid = false;
+	}
 	return valid;
 }
 
