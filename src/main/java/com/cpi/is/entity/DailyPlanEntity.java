@@ -2,6 +2,9 @@ package com.cpi.is.entity;
 
 import java.util.Date;
 
+import com.cpi.is.entity.maintenance.BranchEntity;
+import com.cpi.is.entity.maintenance.SkuCodeEntity;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,10 +34,14 @@ public class DailyPlanEntity {
     private String skuCd;
     private Integer quantity;
     private String status;
+
+    @ManyToOne
+	@JoinColumn(name="SKU_CD", insertable=false, updatable=false)
+	private SkuCodeEntity skuName;
     
-//    @ManyToOne
-//    @JoinColumn(name = "DPP_ID", insertable = false, updatable = false)
-//    private ProductionMaterialEntity dPP;
+    @ManyToOne
+	@JoinColumn(name="BRANCH_ID", insertable=false, updatable=false)
+	private BranchEntity branch;
     
     
     public DailyPlanEntity() {
@@ -50,9 +57,7 @@ public class DailyPlanEntity {
 		this.skuCd = skuCd;
 		this.quantity = quantity;
 		this.status = status;
-	}
-
-	
+	}	
 
 	public Integer getDppId() {
 		return dppId;
@@ -100,6 +105,22 @@ public class DailyPlanEntity {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public SkuCodeEntity getSkuName() {
+		return skuName;
+	}
+
+	public void setSkuName(SkuCodeEntity skuName) {
+		this.skuName = skuName;
+	}
+
+	public BranchEntity getBranch() {
+		return branch;
+	}
+
+	public void setBranch(BranchEntity branch) {
+		this.branch = branch;
 	}
 
 	@Override

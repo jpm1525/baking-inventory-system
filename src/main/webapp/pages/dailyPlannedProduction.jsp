@@ -61,7 +61,7 @@
                 style="min-width: 40px; width: 14%; height: 45px;">
                 <div class="tabulator-col-content">
                   <div class="tabulator-col-title-holder">
-                    <div class="tabulator-col-title">Branch ID</div>
+                    <div class="tabulator-col-title">Branch Name</div>
                     <div class="tabulator-col-sorter">
                       <div class="tabulator-arrow"></div>
                     </div>
@@ -77,6 +77,19 @@
                 <div class="tabulator-col-content">
                   <div class="tabulator-col-title-holder">
                     <div class="tabulator-col-title">SKU Code</div>
+                    <div class="tabulator-col-sorter">
+                      <div class="tabulator-arrow"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="tabulator-col tabulator-sortable tabulator-col-sorter-element"
+                role="columnheader" aria-sort="none"
+                style="min-width: 40px; width: 14%; height: 45px;">
+                <div class="tabulator-col-content">
+                  <div class="tabulator-col-title-holder">
+                    <div class="tabulator-col-title">Name</div>
                     <div class="tabulator-col-sorter">
                       <div class="tabulator-arrow"></div>
                     </div>
