@@ -22,14 +22,14 @@
         <input type="text" name="branchIdUpdate" id="branchIdUpdate" class="bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
-          required="required" readonly="readonly" maxlength="50" minlength="1">
+          required="required" readonly="readonly" maxlength="10" minlength="1">
       </div>
       <div>
         <label for="branchNameUpdate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Name</label>
         <input type="text" name="branchNameUpdate" id="branchNameUpdate" class="bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
-          required="required" placeholder="Type branch name" maxlength="200" minlength="1">
+          required="required" placeholder="Type branch name" maxlength="50" minlength="1">
       </div>
     </div>
   
