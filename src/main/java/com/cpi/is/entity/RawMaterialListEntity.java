@@ -26,17 +26,17 @@ public class RawMaterialListEntity {
     @Id
     @Column (name="MATERIAL_ID_LIST")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer materialListId;
+    private Long materialListId;
     @Column (name="MATERIAL_CD")
     private String materialCd;
-    private Integer quantity;
+    private Long quantity;
     @Column (name="USER_ID")
-    private Integer userId;
+    private Long userId;
     @Column (name="DATE_RECEIVE")
     @Temporal(TemporalType.DATE)
     private Date dateReceive;
     @Column (name="BRANCH_ID")
-    private Integer branchId;
+    private Long branchId;
     
     @ManyToOne
 	@JoinColumn(name="MATERIAL_CD", insertable=false, updatable=false)
@@ -50,8 +50,8 @@ public class RawMaterialListEntity {
 		super();
 	}
     
-	public RawMaterialListEntity(Integer materialListId, String materialCd, Integer quantity, Integer userId,
-			Date dateReceive, Integer branchId) {
+	public RawMaterialListEntity(Long materialListId, String materialCd, Long quantity, Long userId,
+			Date dateReceive, Long branchId) {
 		super();
 		this.materialListId = materialListId;
 		this.materialCd = materialCd;
@@ -63,11 +63,11 @@ public class RawMaterialListEntity {
     
     // Getters and Setters
 
-    public Integer getMaterialListId() {
+    public Long getMaterialListId() {
         return materialListId;
     }
 
-    public void setMaterialListId(Integer materialListId) {
+    public void setMaterialListId(Long materialListId) {
         this.materialListId = materialListId;
     }
 
@@ -79,19 +79,19 @@ public class RawMaterialListEntity {
         this.materialCd = materialCd;
     }
 
-    public Integer getQuantity() {
+    public Long getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(Long quantity) {
         this.quantity = quantity;
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -103,11 +103,11 @@ public class RawMaterialListEntity {
         this.dateReceive = dateReceive;
     }
 
-    public Integer getBranchId() {
+    public Long getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(Integer branchId) {
+    public void setBranchId(Long branchId) {
         this.branchId = branchId;
     }
     

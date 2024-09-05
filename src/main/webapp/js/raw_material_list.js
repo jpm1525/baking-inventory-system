@@ -18,16 +18,6 @@ function getBranchId(){
 
 getBranchId();
 
-/*function getUserId(){
-	let html = '';
-		$.each(userId, function(index, data) {
-			html+= '<option value="' + data.userId + '">' + data.userId + '</option>'
-		});
-		$('.userIdCreate').append(html);
-}
-
-getUserId();*/
-
 if (typeof data === 'undefined' || data === null) {let data = "";}
 if (typeof callback === 'undefined' || callback === null) {let callback = "";}
 if (typeof observer === 'undefined' || observer === null) {let observer = "";}
