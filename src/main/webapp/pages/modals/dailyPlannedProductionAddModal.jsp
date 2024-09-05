@@ -24,21 +24,21 @@
           dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date">
       </div>
       <div>
-      	<label for="dailyPlannedProductionBranchIdCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Branch ID</label>
+      	<label for="dailyPlannedProductionBranchIdCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Branch ID - Name</label>
         <select id="dailyPlannedProductionBranchIdCreate" name="dailyPlannedProductionBranchIdCreate" class="bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 
           dailyPlannedProductionBranchIdCreate" required="required">
-          <option value="" disabled selected hidden>Select Branch ID</option>
+          <option value="" disabled selected hidden>Select Branch</option>
         </select>
       </div>
        <div>          
-        <label for="dailyPlannedProductionSkuCdCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">SKU Code</label>
+        <label for="dailyPlannedProductionSkuCdCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">SKU</label>
         <select id="dailyPlannedProductionSkuCdCreate" name="dailyPlannedProductionSkuCdCreate" class="bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 
           dailyPlannedProductionSkuCdCreate" required="required">
-          <option value="" disabled selected hidden>Select SKU Code</option>
+          <option value="" disabled selected hidden>Select SKU</option>
         </select>
       </div>
       <div>

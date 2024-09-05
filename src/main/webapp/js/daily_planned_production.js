@@ -1,9 +1,9 @@
 function getBranchId(){
 	let html = '';
 		$.each(branchId, function(index, data) {
-			html+= '<option value="' + data.branchId + '">' + data.branchId + '</option>'
+			html+= '<option value="' + data.branchId + '">' + data.branchId + ' - ' + data.branchName + '</option>'
 		});
-		$('.dailyPlannedProductionBranchIdCreate').html(html);
+		$('.dailyPlannedProductionBranchIdCreate').append(html);
 }
 
 getBranchId();
@@ -11,9 +11,9 @@ getBranchId();
 function getSkuCd(){
 	let html = '';
 		$.each(skuCd, function(index, data) {
-			html+= '<option value="' + data.skuCd + '">' + data.skuCd + '</option>'
+			html+= '<option value="' + data.skuCd + '">' + data.skuCd + ' - ' + data.skuCodeName + '</option>'
 		});
-		$('.dailyPlannedProductionSkuCdCreate').html(html);
+		$('.dailyPlannedProductionSkuCdCreate').append(html);
 }
 
 getSkuCd();
@@ -25,7 +25,7 @@ if (typeof observer === 'undefined' || observer === null) {let observer = "";}
 var editButton = function(value, data, cell, row, options){
 	let thisButton = '<button class="px-4 py-2 text-white bg-indigo-500 rounded editModalButton"> Edit </button>';
 		thisButton +='<button class="px-4 py-2 ml-5 text-white bg-red-500 rounded deleteModalButton"> Delete </button>'	;
-		thisButton +='<button class="px-4 py-2 ml-5 text-white bg-green-500 rounded openAddModalButton"> View Materials</button>'
+		thisButton +='<button class="px-4 py-2 ml-5 text-white bg-green-500 rounded openAddModalButton"> View Details</button>'
     return thisButton;
 };
 
@@ -39,10 +39,10 @@ var divTable = new Tabulator("#divTableTabulator" , {
 	paginationCounter:"rows",
 	selectableRows:1,
 	columns: [
-		{title:"ID", field: 'dppId'},
-		{title:"Production Data", field: 'productionDate'},
-		{title:"Branch ID", field: 'branchId'},
+		{title:"Production Date", field: 'productionDate'},
+		{title:"Branch Name", field:'branch.branchName'},
 		{title:"SKU Code", field: 'skuCd'},
+		{title:"Name", field: 'skuName.skuCodeName'},
 		{title:"Quantity", field: 'quantity'},
 		{title:"Status", field: 'status'},
 		{title:"Action" , headerSort:false, formatter:editButton},

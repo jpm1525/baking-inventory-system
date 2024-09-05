@@ -40,12 +40,12 @@ public class RawMaterialListServiceImpl implements RawMaterialListService {
 			e.printStackTrace();
 		}
 		return new RawMaterialListEntity(
-		        Integer.parseInt(json.getString("materialListId")),
+		        Long.parseLong(json.getString("materialListId")),
 		        json.getString("materialCd"), 
-		        Integer.parseInt(json.getString("quantity")), 
-		        Integer.parseInt(json.getString("userId")), 
+		        Long.parseLong(json.getString("quantity")), 
+		        Long.parseLong(json.getString("userId")), 
 		        date1, 
-		        Integer.parseInt(json.getString("branchId")));
+		        Long.parseLong(json.getString("branchId")));
 	}
 
 	@Override
