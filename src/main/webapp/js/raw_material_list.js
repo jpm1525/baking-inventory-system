@@ -11,12 +11,22 @@ getMaterialCode();
 function getBranchId(){
 	let html = '';
 		$.each(branchId, function(index, data) {
-			html+= '<option value="' + data.branchId + '">' + data.branchId + '</option>'
+			html+= '<option value="' + data.branchId + '">' + data.branchId + ' - ' + data.branchName + '</option>'
 		});
 		$('.selectBranchIdCreate').append(html);
 }
 
 getBranchId();
+
+/*function getUserId(){
+	let html = '';
+		$.each(userId, function(index, data) {
+			html+= '<option value="' + data.userId + '">' + data.userId + '</option>'
+		});
+		$('.userIdCreate').append(html);
+}
+
+getUserId();*/
 
 if (typeof data === 'undefined' || data === null) {let data = "";}
 if (typeof callback === 'undefined' || callback === null) {let callback = "";}
@@ -44,7 +54,7 @@ var divTable = new Tabulator("#divTableTabulator" , {
 		{title:"Quantity", field: 'quantity'},
 		{title:"Date Receive", field: 'dateReceive'},
 		{title:"User ID", field: 'userId'},
-		{title:"Branch ID", field: 'branchId'},
+		{title:"Branch", field: 'branch.branchName'},
 		{title:"Action", headerSort:false, formatter:editButton, minWidth:75},
 	],
 });

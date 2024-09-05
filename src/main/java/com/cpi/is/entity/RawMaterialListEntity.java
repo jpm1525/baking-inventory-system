@@ -15,6 +15,7 @@ import jakarta.persistence.TemporalType;
 
 import java.util.Date;
 
+import com.cpi.is.entity.maintenance.BranchEntity;
 import com.cpi.is.entity.maintenance.DispatchTypeEntity;
 import com.cpi.is.entity.maintenance.MaterialCodeEntity;
 
@@ -38,8 +39,12 @@ public class RawMaterialListEntity {
     private Integer branchId;
     
     @ManyToOne
-	@JoinColumn(name="material_cd", insertable=false, updatable=false)
+	@JoinColumn(name="MATERIAL_CD", insertable=false, updatable=false)
 	private MaterialCodeEntity materialName;
+    
+    @ManyToOne
+	@JoinColumn(name="BRANCH_ID", insertable=false, updatable=false)
+	private BranchEntity branch;
 
 	public RawMaterialListEntity() {
 		super();
@@ -112,6 +117,14 @@ public class RawMaterialListEntity {
 
 	public void setMaterialName(MaterialCodeEntity materialName) {
 		this.materialName = materialName;
+	}
+
+	public BranchEntity getBranch() {
+		return branch;
+	}
+
+	public void setBranch(BranchEntity branch) {
+		this.branch = branch;
 	}
 
 	@Override
