@@ -66,11 +66,11 @@ public class SkuCodeServiceImpl implements SkuCodeService {
 			validation = "Please fill-out the sku code form properly";
 		} else if (!json.has("unitOfMeasurement") || !(json.get("unitOfMeasurement") instanceof String)) {
 			validation = "Please fill-out the sku code form properly";
-		} else if (json.getString("skuCd").length() < 1 || json.getString("skuCd").length() > 50) {
+		} else if (json.getString("skuCd").length() < 1 || json.getString("skuCd").length() > 10) {
 			validation = "Please fill-out the sku code form properly";
-		} else if (json.getString("skuCodeName").length() < 1 || json.getString("skuCodeName").length() > 200) {
+		} else if (json.getString("skuCodeName").length() < 1 || json.getString("skuCodeName").length() > 50) {
 			validation = "Please fill-out the sku code form properly";
-		} else if (json.getString("unitOfMeasurement").length() < 1 || json.getString("unitOfMeasurement").length() > 100) {
+		} else if (json.getString("unitOfMeasurement").length() < 1 || json.getString("unitOfMeasurement").length() > 50) {
 			validation = "Please fill-out the sku code form properly";
 		}
 		

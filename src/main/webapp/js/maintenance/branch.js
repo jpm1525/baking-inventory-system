@@ -95,11 +95,11 @@ function validate(data) {
 	} else if (!(/^[0-9]\d*$/.test(data.branchId))) {
 	    $('.errorMessage').text("Branch ID should only contain positive numbers");
 		valid = false;
-	} else if (data.branchId > 9223372036854775807n){
+	} else if (data.branchId > 99999999999999){
 		$('.errorMessage').text("Branch ID value is too large");
 		valid = false;
-	} else if (data.branchName.length > 200){
-		$('.errorMessage').text("Branch Name characters should be less than 201");
+	} else if (data.branchName.length > 50){
+		$('.errorMessage').text("Branch Name characters should be less than 51");
 		valid = false;
 	} 
 	return valid;

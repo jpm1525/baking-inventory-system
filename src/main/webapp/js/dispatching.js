@@ -127,23 +127,23 @@ function validate(data) {
 	} else if (!(!isNaN(Date.parse(data.dispatchDate)) && (new Date(data.dispatchDate).toISOString().startsWith(data.dispatchDate)))) {
 	    $('.errorMessage').text("Please enter valid date");
 		valid = false;
-	} else if (data.dispatchTrackId > 9223372036854775807n){
+	} else if (data.dispatchTrackId > 99999999999999){
 		$('.errorMessage').text("Dispatch Track ID value is too large");
 		valid = false;
-	} else if (data.dispatchTypeCd.length > 50){
-		$('.errorMessage').text("Dispatch Type Code characters should be less than 51");
+	} else if (data.dispatchTypeCd.length > 10){
+		$('.errorMessage').text("Dispatch Type Code characters should be less than 11");
 		valid = false;
-	} else if (data.fplId > 9223372036854775807n){
+	} else if (data.fplId > 99999999999999){
 		$('.errorMessage').text("FPL ID value is too large");
 		valid = false;
-	} else if (data.quantity > 9223372036854775807n){
+	} else if (data.quantity > 99999999999999){
 		$('.errorMessage').text("Quantity value is too large");
 		valid = false;
-	} else if (data.branchId > 9223372036854775807n){
+	} else if (data.branchId > 99999999999999){
 		$('.errorMessage').text("Branch ID value is too large");
 		valid = false;
-	} else if (data.destination.length > 200){
-		$('.errorMessage').text("Destination characters should be less than 201");
+	} else if (data.destination.length > 50){
+		$('.errorMessage').text("Destination characters should be less than 51");
 		valid = false;
 	}
 	return valid;

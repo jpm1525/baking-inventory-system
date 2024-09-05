@@ -130,16 +130,16 @@ function validate(data) {
 	} else if (!(/^[0-9]\d*$/.test(data.materialListId))) {
 	    $('.errorMessage').text("Material List ID should only contain positive numbers");
 		valid = false;
-	} else if (data.materialListId > 9223372036854775807n){
+	} else if (data.materialListId > 99999999999999){
 		$('.errorMessage').text("Material List ID value is too large");
 		valid = false;
-	}else if (data.materialCd.length > 50){
-		$('.errorMessage').text("Material Code characters should be less than 51");
+	}else if (data.materialCd.length > 10){
+		$('.errorMessage').text("Material Code characters should be less than 11");
 		valid = false;
 	} else if (!(/^[0-9]\d*$/.test(data.quantity))) {
 	    $('.errorMessage').text("Quantity should only contain positive numbers and zero");
 		valid = false;
-	} else if (data.quantity > 9223372036854775807n){
+	} else if (data.quantity > 99999999999999){
 		$('.errorMessage').text("Quantity value is too large");
 		valid = false;
 	} else if (!(!isNaN(Date.parse(data.dateReceive)) && (new Date(data.dateReceive).toISOString().startsWith(data.dateReceive)))) {
@@ -148,13 +148,13 @@ function validate(data) {
 	} else if (!(/^[1-9][0-9]*$/.test(data.userId))) {
 	    $('.errorMessage').text("User ID should only contain positive numbers");
 		valid = false;
-	} else if (data.userId > 9223372036854775807n){
+	} else if (data.userId > 99999999999999){
 		$('.errorMessage').text("User ID value is too large");
 		valid = false;
 	} else if (!(/^[1-9][0-9]*$/.test(data.branchId))) {
 	    $('.errorMessage').text("Branch ID should only contain positive numbers");
 		valid = false;
-	} else if (data.branchId > 9223372036854775807n){
+	} else if (data.branchId > 99999999999999){
 		$('.errorMessage').text("Branch ID value is too large");
 		valid = false;
 	}

@@ -96,33 +96,25 @@ public class DispatchingServiceImpl implements DispatchingService {
 			validation = "Please fill-out the dispatching form properly";
 		} else if (!json.has("dispatchDate") || !(json.get("dispatchDate") instanceof String)) {
 			validation = "Please fill-out the dispatching form properly";
-		} else if (json.getString("dispatchTrackId").length() < 1 || json.getString("dispatchTrackId").length() > 19) {
+		} else if (json.getString("dispatchTrackId").length() < 1 || json.getString("dispatchTrackId").length() > 14) {
 			validation = "Please fill-out the dispatching form properly";
 		} else if (!json.getString("dispatchTrackId").matches("^[0-9]\\d*$")) {
 			validation = "Please fill-out the dispatching form properly";
-		} else if ((new BigInteger(json.getString("dispatchTrackId"))).compareTo(new BigInteger("9223372036854775807")) == 1) {
-			validation = "Please fill-out the dispatching form properly";
-		} else if (json.getString("fplId").length() < 1 || json.getString("fplId").length() > 19) {
+		} else if (json.getString("fplId").length() < 1 || json.getString("fplId").length() > 14) {
 			validation = "Please fill-out the dispatching form properly";
 		} else if (!json.getString("fplId").matches("^[1-9]\\d*$")) {
 			validation = "Please fill-out the dispatching form properly";
-		} else if ((new BigInteger(json.getString("fplId"))).compareTo(new BigInteger("9223372036854775807")) == 1) {
-			validation = "Please fill-out the dispatching form properly";
-		} else if (json.getString("quantity").length() < 1 || json.getString("quantity").length() > 19) {
+		} else if (json.getString("quantity").length() < 1 || json.getString("quantity").length() > 14) {
 			validation = "Please fill-out the dispatching form properly";
 		} else if (!json.getString("quantity").matches("^[0-9]+$")) {
 			validation = "Please fill-out the dispatching form properly";
-		} else if ((new BigInteger(json.getString("quantity"))).compareTo(new BigInteger("9223372036854775807")) == 1) {
-			validation = "Please fill-out the dispatching form properly";
-		} else if (json.getString("branchId").length() < 1 || json.getString("branchId").length() > 19) {
+		} else if (json.getString("branchId").length() < 1 || json.getString("branchId").length() > 14) {
 			validation = "Please fill-out the dispatching form properly";
 		} else if (!json.getString("branchId").matches("^[1-9]\\d*$")) {
 			validation = "Please fill-out the dispatching form properly";
-		} else if ((new BigInteger(json.getString("branchId"))).compareTo(new BigInteger("9223372036854775807")) == 1) {
+		} else if (json.getString("dispatchTypeCd").length() < 1 || json.getString("dispatchTypeCd").length() > 10) {
 			validation = "Please fill-out the dispatching form properly";
-		} else if (json.getString("dispatchTypeCd").length() < 1 || json.getString("dispatchTypeCd").length() > 50) {
-			validation = "Please fill-out the dispatching form properly";
-		} else if (json.getString("destination").length() < 1 || json.getString("destination").length() > 200) {
+		} else if (json.getString("destination").length() < 1 || json.getString("destination").length() > 50) {
 			validation = "Please fill-out the dispatching form properly";
 		} else {
 	        try {

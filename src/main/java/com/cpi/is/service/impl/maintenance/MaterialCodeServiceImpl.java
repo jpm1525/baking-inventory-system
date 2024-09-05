@@ -66,11 +66,11 @@ public class MaterialCodeServiceImpl implements MaterialCodeService {
 			validation = "Please fill-out the material code form properly";
 		} else if (!json.has("unitOfMeasurement") || !(json.get("unitOfMeasurement") instanceof String)) {
 			validation = "Please fill-out the material code form properly";
-		} else if (json.getString("materialCd").length() < 1 || json.getString("materialCd").length() > 50) {
+		} else if (json.getString("materialCd").length() < 1 || json.getString("materialCd").length() > 10) {
 			validation = "Please fill-out the material code form properly";
-		} else if (json.getString("materialCodeName").length() < 1 || json.getString("materialCodeName").length() > 200) {
+		} else if (json.getString("materialCodeName").length() < 1 || json.getString("materialCodeName").length() > 50) {
 			validation = "Please fill-out the material code form properly";
-		} else if (json.getString("unitOfMeasurement").length() < 1 || json.getString("unitOfMeasurement").length() > 100) {
+		} else if (json.getString("unitOfMeasurement").length() < 1 || json.getString("unitOfMeasurement").length() > 50) {
 			validation = "Please fill-out the material code form properly";
 		}
 		
