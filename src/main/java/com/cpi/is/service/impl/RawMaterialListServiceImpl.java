@@ -1,10 +1,12 @@
 package com.cpi.is.service.impl;
 
 import java.util.List;
+import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -89,30 +91,39 @@ public class RawMaterialListServiceImpl implements RawMaterialListService {
 			validation = "Please fill-out the raw material list form properly";
 		} else if (!json.has("branchId") || !(json.get("branchId") instanceof String)) {
 			validation = "Please fill-out the raw material list form properly";
-		} else if (json.getString("materialListId").length() < 1 || json.getString("materialListId").length() > 50) {
+		} else if (json.getString("materialListId").length() < 1 || json.getString("materialListId").length() > 19) {
+			validation = "Please fill-out the raw material list form properly";
+		} else if (!json.getString("materialListId").matches("^[0-9]\\d*$")) {
+			validation = "Please fill-out the raw material list form properly";
+		} else if ((new BigInteger(json.getString("materialListId"))).compareTo(new BigInteger("9223372036854775807")) == 1) {
 			validation = "Please fill-out the raw material list form properly";
 		} else if (json.getString("materialCd").length() < 1 || json.getString("materialCd").length() > 50) {
 			validation = "Please fill-out the raw material list form properly";
-		} else if (json.getString("quantity").length() < 1 || json.getString("quantity").length() > 50) {
+		} else if (json.getString("quantity").length() < 1 || json.getString("quantity").length() > 19) {
 			validation = "Please fill-out the raw material list form properly";
-		} else if (json.getString("userId").length() < 1 || json.getString("userId").length() > 50) {
+		} else if (!json.getString("quantity").matches("^[0-9]+$")) {
 			validation = "Please fill-out the raw material list form properly";
-		} else if (json.getString("dateReceive").length() < 1 || json.getString("dateReceive").length() > 200) {
+		} else if ((new BigInteger(json.getString("quantity"))).compareTo(new BigInteger("9223372036854775807")) == 1) {
 			validation = "Please fill-out the raw material list form properly";
-		} else if (json.getString("branchId").length() < 1 || json.getString("branchId").length() > 50) {
+		} else if (json.getString("userId").length() < 1 || json.getString("userId").length() > 19) {
 			validation = "Please fill-out the raw material list form properly";
-		} else if (!json.getString("materialListId").matches("\\d+")) {
+		} else if (!json.getString("userId").matches("^[1-9]\\d*$")) {
 			validation = "Please fill-out the raw material list form properly";
-		} else if (!json.getString("quantity").matches("\\d+")) {
+		} else if ((new BigInteger(json.getString("userId"))).compareTo(new BigInteger("9223372036854775807")) == 1) {
 			validation = "Please fill-out the raw material list form properly";
-		} else if (!json.getString("userId").matches("\\d+")) {
+		} else if (json.getString("branchId").length() < 1 || json.getString("branchId").length() > 19) {
 			validation = "Please fill-out the raw material list form properly";
-		} else if (!json.getString("branchId").matches("\\d+")) {
+		} else if (!json.getString("branchId").matches("^[1-9]\\d*$")) {
 			validation = "Please fill-out the raw material list form properly";
-		} else if (LocalDate.parse(json.getString("dateReceive"), DateTimeFormatter.ofPattern("yyyy-MM-dd")) == null) {
+		} else if ((new BigInteger(json.getString("branchId"))).compareTo(new BigInteger("9223372036854775807")) == 1) {
 			validation = "Please fill-out the raw material list form properly";
+		} else {
+	        try {
+	        	LocalDate.parse(json.getString("dateReceive"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+	        } catch (DateTimeParseException e) {
+	        	validation = "Please fill-out the raw material list form properly";
+	        }
 		}
-		
 		return validation;
 	}
 
