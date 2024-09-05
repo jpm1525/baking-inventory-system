@@ -173,3 +173,11 @@ function updateData() {
 
 $('#btnCreateDailyPlannedProduction').click(addData);
 $('#btnUpdateDailyPlannedProduction').click(updateData);
+
+$("#openProductionMaterial").click(function(){
+	$.get("ProductionMaterialController",{
+		action: "showProductionMaterial"
+		}, function(response){
+		$("#divContent").html(response)
+	});
+});

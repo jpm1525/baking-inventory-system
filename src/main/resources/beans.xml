@@ -23,6 +23,11 @@
     <property name ="rawMaterialListDAO" ref="rawMaterialListDAO"/>
   </bean>
   
+  <bean id="productionMaterialDAO" class="com.cpi.is.dao.impl.ProductionMaterialDAOImpl"></bean>
+  <bean id="productionMaterialService" class="com.cpi.is.service.impl.ProductionMaterialServiceImpl" depends-on="productionMaterialDAO">
+    <property name="productionMaterialDAO" ref="productionMaterialDAO" />
+  </bean>
+  
   <bean id="dailyPlanDAO" class="com.cpi.is.dao.impl.DailyPlanDAOImpl"></bean>
   <bean id="dailyPlanService" class="com.cpi.is.service.impl.DailyPlanServiceImpl" depends-on="dailyPlanDAO">
     <property name ="dailyPlanDAO" ref="dailyPlanDAO"/>
