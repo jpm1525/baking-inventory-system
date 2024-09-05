@@ -63,9 +63,9 @@ public class DispatchTypeServiceImpl implements DispatchTypeService {
 			validation = "Please fill-out the dispatch type form properly";
 		} else if(!json.has("dispatchTypeName") || !(json.get("dispatchTypeName") instanceof String)) {
 			validation = "Please fill-out the dispatch type form properly";
-		} else if (json.getString("dispatchTypeCd").length() < 1 || json.getString("dispatchTypeCd").length() > 50) {
+		} else if (json.getString("dispatchTypeCd").length() < 1 || json.getString("dispatchTypeCd").length() > 10) {
 			validation = "Please fill-out the dispatch type form properly";
-		} else if (json.getString("dispatchTypeName").length() < 1 || json.getString("dispatchTypeName").length() > 200) {
+		} else if (json.getString("dispatchTypeName").length() < 1 || json.getString("dispatchTypeName").length() > 50) {
 			validation = "Please fill-out the dispatch type form properly";
 		}
 		

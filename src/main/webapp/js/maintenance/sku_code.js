@@ -95,14 +95,14 @@ function validate(data) {
 	if (data.skuCd === '' || data.skuCodeName === '' || data.unitOfMeasurement === '') {
 		$('.errorMessage').text("Please correctly fill-out all required fields");
 		valid = false;
-	} else if (data.skuCd.length > 50){
-		$('.errorMessage').text("SKU Code characters should be less than 51");
+	} else if (data.skuCd.length > 10){
+		$('.errorMessage').text("SKU Code characters should be less than 11");
 		valid = false;
-	} else if (data.skuCodeName.length > 200){
-		$('.errorMessage').text("SKU Code Name characters should be less than 201");
+	} else if (data.skuCodeName.length > 50){
+		$('.errorMessage').text("SKU Code Name characters should be less than 51");
 		valid = false;
-	} else if (data.unitOfMeasurement.length > 100){
-		$('.errorMessage').text("Unit of Measurement characters should be less than 101");
+	} else if (data.unitOfMeasurement.length > 50){
+		$('.errorMessage').text("Unit of Measurement characters should be less than 51");
 		valid = false;
 	}
 	return valid;
