@@ -55,6 +55,20 @@
                   </div>
                 </div>
               </div>
+              <div
+                class="tabulator-col tabulator-sortable tabulator-col-sorter-element"
+                role="columnheader" aria-sort="none"
+                tabulator-field="materialCd"
+                style="min-width: 40px; width: 14%; height: 45px;">
+                <div class="tabulator-col-content">
+                  <div class="tabulator-col-title-holder">
+                    <div class="tabulator-col-title">Material Name</div>
+                    <div class="tabulator-col-sorter">
+                      <div class="tabulator-arrow"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <span class="tabulator-col-resize-handle"
                 style="height: 45px;"></span>
               <div

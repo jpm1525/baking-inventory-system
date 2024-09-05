@@ -7,11 +7,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
 import java.util.Date;
+
+import com.cpi.is.entity.maintenance.DispatchTypeEntity;
+import com.cpi.is.entity.maintenance.MaterialCodeEntity;
 
 @Entity
 @Table(name = "qkc_raw_material_list")
@@ -31,6 +36,10 @@ public class RawMaterialListEntity {
     private Date dateReceive;
     @Column (name="BRANCH_ID")
     private Integer branchId;
+    
+    @ManyToOne
+	@JoinColumn(name="material_cd", insertable=false, updatable=false)
+	private MaterialCodeEntity materialName;
 
 	public RawMaterialListEntity() {
 		super();
@@ -96,6 +105,14 @@ public class RawMaterialListEntity {
     public void setBranchId(Integer branchId) {
         this.branchId = branchId;
     }
+    
+    public MaterialCodeEntity getMaterialName() {
+		return materialName;
+	}
+
+	public void setMaterialName(MaterialCodeEntity materialName) {
+		this.materialName = materialName;
+	}
 
 	@Override
 	public String toString() {
