@@ -92,14 +92,14 @@ function validate(data) {
 	if (data.branchId === '' || data.branchName === '') {
 		alert('Please correctly fill-out all required fields');
 		valid = false;
-	} else if (data.branchId.length > 50){
-		$('.errorMessage').text("Branch ID characters should be less than 51");
+	} else if (!(/^[0-9]\d*$/.test(data.branchId))) {
+	    $('.errorMessage').text("Branch ID should only contain positive numbers");
+		valid = false;
+	} else if (data.branchId > 9223372036854775807n){
+		$('.errorMessage').text("Branch ID value is too large");
 		valid = false;
 	} else if (data.branchName.length > 200){
 		$('.errorMessage').text("Branch Name characters should be less than 201");
-		valid = false;
-	} else if (!(/^\d+$/.test(data.branchId))) {
-	    $('.errorMessage').text("Branch ID should only contain numbers");
 		valid = false;
 	} 
 	return valid;
