@@ -37,7 +37,26 @@ public class ReportGenerationController extends HttpServlet {
 		
 				if("showReportGeneration".equals(action)) {
 					page = "pages/reportGeneration.jsp";
-					}
+					
+				}else if("showReportFinished".equals(action)) {
+					page = "pages/reports/reportsFinished.jsp";
+				}else if("showReportPlanned".equals(action)) {
+					page = "pages/reports/reportsPlanned.jsp";
+				}else if("showReportProduction".equals(action)) {
+					page = "pages/reports/reportsProduction.jsp";
+				}else if("showReportReceived".equals(action)) {
+					page = "pages/reports/reportsReceived.jsp";
+					
+				}else if("showFin".equals(action)) {
+					page = "pages/reports/reportsFinished.jsp";
+				}else if("showPlan".equals(action)) {
+					page = "pages/reports/reportsPlanned.jsp";
+				}else if("showPro".equals(action)) {
+					page = "pages/reports/reportsProduction.jsp";
+				}else if("showRec".equals(action)) {
+					page = "pages/reports/reportsReceived.jsp";
+				}
+				
 				
 				} else {
 					page = "pages/reload.jsp";

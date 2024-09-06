@@ -11,15 +11,26 @@ import com.cpi.is.util.HBUtil;
 
 public class DispatchingDAOImpl implements DispatchingDAO {
 
+//	@Override
+//	public List<DispatchingEntity> getData() throws Exception {
+//		List<DispatchingEntity> dispatching = null;
+//		try (Session session = HBUtil.getSessionFactory().openSession()) {
+//			dispatching = (List<DispatchingEntity>) 
+//					session.createQuery("From DispatchingEntity T ORDER BY T.dispatchTrackId ASC", DispatchingEntity.class).list();
+//		}
+//		return dispatching;
+//	}
+	
 	@Override
-	public List<DispatchingEntity> getData() throws Exception {
-		List<DispatchingEntity> dispatching = null;
-		try (Session session = HBUtil.getSessionFactory().openSession()) {
-			dispatching = (List<DispatchingEntity>) 
-					session.createQuery("From DispatchingEntity T ORDER BY T.dispatchTrackId ASC", DispatchingEntity.class).list();
-		}
-		return dispatching;
-	}
+    public List<DispatchingEntity> getData(Long branchId) throws Exception {
+        List<DispatchingEntity> dispatching = null;
+        try (Session session = HBUtil.getSessionFactory().openSession()) {
+            dispatching = session.createQuery("SELECT T FROM DispatchingEntity T JOIN T.branch J WHERE T.branchId = :branchId AND J.branchId = T.branchId ORDER BY T.dispatchTrackId ASC", DispatchingEntity.class)
+                                 .setParameter("branchId", branchId)
+                                 .list();
+        }
+        return dispatching;
+    }
 
 	@Override
 	public String saveData(DispatchingEntity data) throws Exception {

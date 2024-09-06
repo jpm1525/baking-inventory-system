@@ -6,6 +6,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.cpi.is.entity.UserEntity;
+import com.cpi.is.util.SessionUtil;
 
 /**
  * Servlet implementation class DashboardController
@@ -27,13 +31,33 @@ public class DashboardController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			
+			if (SessionUtil.checkUserSession(request)) {
+				HttpSession session = request.getSession();
+				UserEntity user = (UserEntity) session.getAttribute("user");
 
-		action = request.getParameter("action");
-		
-		if("showDashboard".equals(action)) {
-			page = "pages/dashboard.jsp";
+				action = request.getParameter("action");
+
+				if ("showDashboard".equals(action)) {
+					if(user == null) {
+						page = "pages/reload.jsp";
+					} else {
+						request.setAttribute("userId", user.getUserId());
+						request.setAttribute("username", user.getUsername());
+						request.setAttribute("branchId", user.getBranchId());
+						request.setAttribute("branch", user.getBranch());
+						page = "pages/dashboard.jsp";
+					}
+				}
+			} else {
+				page = "pages/reload.jsp";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			request.getRequestDispatcher(page).forward(request, response);
 		}
-		request.getRequestDispatcher(page).forward(request,response);
 	}
 
 	/**

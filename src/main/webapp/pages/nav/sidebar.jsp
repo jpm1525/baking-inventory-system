@@ -20,15 +20,16 @@
       
                 <div class="my-2">
                     <div class="inline-flex">
-                        <div class="w-[40px] align-middle"><i class="fas fa-file-alt p-2"></i></div>
+                        <div class="w-[40px] align-middle "><i class="fas fa-file-alt p-2"></i></div>
                         <button id="dropdownButtonReport">
                             Report Generation <i id="dropdownIconReport" class="fas fa-angle-down ml-1"></i>
                         </button>
                     </div>
                     <ul id="dropdownMenuReport" class="bg-base-100 rounded-box z-[1] w-68 p-2 hidden">
-                        <li><a id="btnReportGeneration" class="hover:bg-[#f95757] hover:text-white">Planned Raw Materials Inventory by Date</a></li>
-                        <li><a class="hover:bg-[#f95757] hover:text-white">Production Report by Date</a></li>
-                        <li><a class="hover:bg-[#f95757] hover:text-white">Received Inventory Report by Date</a></li>
+                        <li><a id="btnReportFinished" class="hover:bg-[#f95757] hover:text-white">Finished Inventory</a></li>
+                        <li><a id="btnReportPlanned" class="hover:bg-[#f95757] hover:text-white">Planned Raw Materials Inventory</a></li>
+                        <li><a id="btnReportProduction" class="hover:bg-[#f95757] hover:text-white">Production Report</a></li>
+                        <li><a id="btnReportReceived" class="hover:bg-[#f95757] hover:text-white">Received Inventory Report</a></li>
                     </ul>
                 </div>
                 
@@ -40,12 +41,11 @@
                       </button>
                     </div>
                     <ul id="dropdownMenuMaintenance" class="bg-base-100 rounded-box z-[1] w-68 p-2 hidden">
-                          <li><a id="btnDispatch" class="hover:bg-[#7db7ce] hover:text-white">Manage Dispatch Types</a></li>
-                          <li><a id="btnBranches" class="hover:bg-[#7db7ce] hover:text-white">Manage Branches</a></li>
-                          <li><a id="btnSkuCodes" class="hover:bg-[#7db7ce] hover:text-white">Manage SKU Codes</a></li>
-                          <li><a id="btnMaterialCodes" class="hover:bg-[#7db7ce] hover:text-white">Manage Material Codes</a></li>
+                          <li><a id="btnDispatch" class="hover:bg-[#7db7ce] hover:text-white">Dispatch Types</a></li>
+                          <li><a id="btnBranches" class="hover:bg-[#7db7ce] hover:text-white">Branches</a></li>
+                          <li><a id="btnSkuCodes" class="hover:bg-[#7db7ce] hover:text-white">SKU Codes</a></li>
+                          <li><a id="btnMaterialCodes" class="hover:bg-[#7db7ce] hover:text-white">Material Codes</a></li>
                     </ul>
                 </div>
 </nav>
-<script src="js/menu.js"></script>
 <script src="js/nav_dropdown.js"></script>

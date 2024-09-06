@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
 import org.springframework.context.ApplicationContext;
@@ -49,9 +50,11 @@ public class DispatchingController extends HttpServlet {
 			if (SessionUtil.checkUserSession(request)) {
 			
 				action = request.getParameter("action");
+				HttpSession session = request.getSession();
+				Long branchId = Long.parseLong(session.getAttribute("branchId").toString());
 		
 			if ("showDispatching".equals(action)) {
-				request.setAttribute("dispatching", new JSONArray(dispatchingService.getData()));
+				request.setAttribute("dispatching", new JSONArray(dispatchingService.getData(branchId)));
 				request.setAttribute("dispatchType", new JSONArray(dispatchTypeService.getData()));
 				request.setAttribute("branch",new JSONArray(branchService.getData()));
 				request.setAttribute("skuCode",new JSONArray(skuCodeService.getData()));
