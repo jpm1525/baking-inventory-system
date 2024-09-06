@@ -37,9 +37,16 @@ public class MaterialCodeServiceImpl implements MaterialCodeService {
 	@Override
 	public String saveData(HttpServletRequest request) throws Exception {
 		String validation = validateData(request);
-		if(validation.equals("Success")) {
-			return materialCodeDAO.saveData(
-					jsonToEntity(new JSONObject(request.getParameter("data"))));
+		String results = "";
+		
+		if(validation.equals("success")) {
+			results = 	materialCodeDAO.saveData(
+							jsonToEntity(new JSONObject(request.getParameter("data"))));
+			if(results.equals("success")) {
+				return results;
+			} else {
+				return "Unable to save Material Code Data";
+			}
 		} else {
 			return validation;
 		}
@@ -48,30 +55,38 @@ public class MaterialCodeServiceImpl implements MaterialCodeService {
 	@Override
 	public String deleteData(HttpServletRequest request) throws Exception {
 		String validation = validateData(request);
-		if(validation.equals("Success")) {
-			return materialCodeDAO.deleteData(
-					jsonToEntity(new JSONObject(request.getParameter("data"))));
+		String results = "";
+		
+		if(validation.equals("success")) {
+			results = 	materialCodeDAO.deleteData(
+							jsonToEntity(new JSONObject(request.getParameter("data"))));
+			if(results.equals("success")) {
+				return results;
+			} else {
+				return "Unable to delete Material Code Data";
+			}
 		} else {
-			return "Unable to delete data";
+			return "Unable to delete Material Code data";
 		}
 	}
 	
 	public String validateData(HttpServletRequest request) throws Exception{
 		JSONObject json = new JSONObject(request.getParameter("data"));
-		String validation = "Success";
+		String validation = "success";
+		String errorResult = "Please fill-out the material code form properly";
 		
 		if (!json.has("materialCd") || !(json.get("materialCd") instanceof String)) {
-			validation = "Please fill-out the material code form properly";
+			validation = errorResult;
 		} else if (!json.has("materialCodeName") || !(json.get("materialCodeName") instanceof String)) {
-			validation = "Please fill-out the material code form properly";
+			validation = errorResult;
 		} else if (!json.has("unitOfMeasurement") || !(json.get("unitOfMeasurement") instanceof String)) {
-			validation = "Please fill-out the material code form properly";
+			validation = errorResult;
 		} else if (json.getString("materialCd").length() < 1 || json.getString("materialCd").length() > 10) {
-			validation = "Please fill-out the material code form properly";
+			validation = errorResult;
 		} else if (json.getString("materialCodeName").length() < 1 || json.getString("materialCodeName").length() > 50) {
-			validation = "Please fill-out the material code form properly";
+			validation = errorResult;
 		} else if (json.getString("unitOfMeasurement").length() < 1 || json.getString("unitOfMeasurement").length() > 50) {
-			validation = "Please fill-out the material code form properly";
+			validation = errorResult;
 		}
 		
 		return validation;

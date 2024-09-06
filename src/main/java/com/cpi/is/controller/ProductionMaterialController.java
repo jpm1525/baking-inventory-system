@@ -11,6 +11,7 @@ import org.json.JSONArray;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.cpi.is.service.impl.DailyPlanServiceImpl;
 import com.cpi.is.service.impl.ProductionMaterialServiceImpl;
 import com.cpi.is.service.impl.RawMaterialListServiceImpl;
 import com.cpi.is.service.impl.maintenance.MaterialCodeServiceImpl;
@@ -30,7 +31,8 @@ public class ProductionMaterialController extends HttpServlet {
 	private ProductionMaterialServiceImpl productionMaterialService = (ProductionMaterialServiceImpl) context.getBean("productionMaterialService");
 	private MaterialCodeServiceImpl materialCodeService = (MaterialCodeServiceImpl) context.getBean("materialCodeService");
 	private RawMaterialListServiceImpl rawMaterialListService = (RawMaterialListServiceImpl) context.getBean("rawMaterialListService");
-
+	private DailyPlanServiceImpl dailyPlanService = (DailyPlanServiceImpl) context.getBean("dailyPlanService");
+	
 	/**
      * @see HttpServlet#HttpServlet()
      */
@@ -46,10 +48,16 @@ public class ProductionMaterialController extends HttpServlet {
 			if (SessionUtil.checkUserSession(request)) {
 				action = request.getParameter("action");
 				if ("showProductionMaterial".equals(action)) {
-					request.setAttribute("productionMaterial", new JSONArray(productionMaterialService.getData()));
-					request.setAttribute("materialCode", new JSONArray(materialCodeService.getData()));
-					request.setAttribute("rawMaterialList", new JSONArray(rawMaterialListService.getData()));
-					page = "pages/productionMaterial.jsp";
+					if(productionMaterialService.validateDppId(request)) {
+						request.setAttribute("productionMaterial", new JSONArray(productionMaterialService.getData(request.getParameter("dppIdInput"))));
+						request.setAttribute("materialCode", new JSONArray(materialCodeService.getData()));
+						request.setAttribute("rawMaterialList", new JSONArray(rawMaterialListService.getData()));
+						request.setAttribute("dailyPlannedProduction", new JSONArray(dailyPlanService.getData()));
+						request.setAttribute("dppIdInput", request.getParameter("dppIdInput"));
+						page = "pages/productionMaterial.jsp";
+					} else {
+						page = "pages/reload.jsp";
+					}
 				} else if ("saveData".equals(action)) {
 					request.setAttribute("message", productionMaterialService.saveData(request));
 					page = "pages/message.jsp";

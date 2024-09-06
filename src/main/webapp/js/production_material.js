@@ -1,4 +1,4 @@
-/*function getMaterialCode(){
+function getMaterialCode(){
 	let html = '';
 		$.each(materialCode, function(index, data) {
 			html+= '<option value="' + data.materialCd + '">' + data.materialCd + ' - ' + data.materialCodeName + '</option>'
@@ -8,15 +8,15 @@
 
 getMaterialCode();
 
-function getBranchId(){
+function getDppId(){
 	let html = '';
-		$.each(branchId, function(index, data) {
-			html+= '<option value="' + data.branchId + '">' + data.branchId + ' - ' + data.branchName + '</option>'
+		$.each(dailyPlannedProduction, function(index, data) {
+			html+= '<option value="' + data.dppId + '">' + data.dppId + '</option>'
 		});
-		$('.selectBranchIdCreate').append(html);
+		$('.selDppId').append(html);
 }
 
-getBranchId();*/
+getDppId();
 
 if (typeof data === 'undefined' || data === null) {let data = "";}
 if (typeof callback === 'undefined' || callback === null) {let callback = "";}
@@ -81,11 +81,21 @@ observer.observe(document.getElementById('divTableTabulator'), { childList: true
 
 $("#btnShowProductionMaterial").click(function(){
 	$.get("ProductionMaterialController",{
-		action: "showProductionMaterial"
+		action: "showProductionMaterial",
+		dppIdInput: dppIdInp,
 		}, function(response){
 		$("#divContent").html(response)
 	});
 });
+
+$("#btnShowDailyPlannedProduction").click(function(){
+	$.get("DailyPlannedProductionController",{
+		action: "showDailyPlannedProduction"
+		}, function(response){
+		$("#divContent").html(response)
+	});
+});
+
 
 $('#deleteSaveModalButton').click(function(event){
 	event.stopImmediatePropagation();
@@ -103,57 +113,44 @@ $('#deleteSaveModalButton').click(function(event){
 });	
 
 function populateForm(row) {
-	$('#productionMaterialIdUpdate').val(row.materialListId);
+	$('#productionMaterialIdUpdate').val(row.pmId);
+	$('#productionMaterialDppIdUpdate').val(row.dppId);
 	$('#materialCodeUpdate').val(row.materialCd);
-	$('#productionMaterialQuantityUpdate').val(row.quantity);
-	$('#productionMaterialDateReceiveUpdate').val(row.dateReceive);
-	$('#userIdUpdate').val(row.userId);
-	$('#branchIdUpdate').val(row.branchId);
+	$('#productionMaterialQuantityToUseUpdate').val(row.quantityToUse);
 	data = {
-		materialListId: row.materialListId.toString(),
+		pmId: row.pmId.toString(),
+		dppId: row.dppId.toString(),
 		materialCd: row.materialCd.toString(),
-		quantity: row.quantity.toString(),
-		dateReceive: row.dateReceive.toString(),
-		userId: row.userId.toString(),
-		branchId: row.branchId.toString()
+		quantityToUse: row.quantityToUse.toString(),
 	};
 }
 
 function validate(data) {
 	let valid = true;
-	if (data.materialListId === '' || data.materialCd === '' || data.quantity === '' || 
-		data.dateReceive === '' || data.userId === '' || data.branchId === '') {
+	if (data.pmId === '' || data.dppId === '' || 
+		data.materialCd === '' || data.quantityToUse === '') {
 		$('.errorMessage').text("Please correctly fill-out all required fields");
 		valid = false;
-	} else if (!(/^[0-9]\d*$/.test(data.materialListId))) {
-	    $('.errorMessage').text("Material List ID should only contain positive numbers");
+	} else if (!(/^[0-9]\d*$/.test(data.pmId))) {
+	    $('.errorMessage').text("Production Material ID should only contain positive numbers");
 		valid = false;
-	} else if (data.materialListId > 99999999999999){
-		$('.errorMessage').text("Material List ID value is too large");
+	} else if (data.pmId > 99999999999999){
+		$('.errorMessage').text("Production Material  ID value is too large");
 		valid = false;
-	}else if (data.materialCd.length > 10){
+	} else if (!(/^[1-9][0-9]*$/.test(data.dppId))) {
+	    $('.errorMessage').text("Daily Planned Production ID should only contain positive numbers");
+		valid = false;
+	} else if (data.dppId > 99999999999999){
+		$('.errorMessage').text("Daily Planned Production ID value is too large");
+		valid = false;
+	} else if (data.materialCd.length > 10){
 		$('.errorMessage').text("Material Code characters should be less than 11");
 		valid = false;
-	} else if (!(/^[0-9]\d*$/.test(data.quantity))) {
-	    $('.errorMessage').text("Quantity should only contain positive numbers and zero");
+	} else if (!(/^[0-9]\d*$/.test(data.quantityToUse))) {
+	    $('.errorMessage').text("Quantity value should only contain positive numbers and zero");
 		valid = false;
-	} else if (data.quantity > 99999999999999){
+	} else if (data.quantityToUse > 99999999999999){
 		$('.errorMessage').text("Quantity value is too large");
-		valid = false;
-	} else if (!(!isNaN(Date.parse(data.dateReceive)) && (new Date(data.dateReceive).toISOString().startsWith(data.dateReceive)))) {
-	    $('.errorMessage').text("Please enter valid date");
-		valid = false;
-	} else if (!(/^[1-9][0-9]*$/.test(data.userId))) {
-	    $('.errorMessage').text("User ID should only contain positive numbers");
-		valid = false;
-	} else if (data.userId > 99999999999999){
-		$('.errorMessage').text("User ID value is too large");
-		valid = false;
-	} else if (!(/^[1-9][0-9]*$/.test(data.branchId))) {
-	    $('.errorMessage').text("Branch ID should only contain positive numbers");
-		valid = false;
-	} else if (data.branchId > 99999999999999){
-		$('.errorMessage').text("Branch ID value is too large");
 		valid = false;
 	}
 	return valid;
@@ -178,24 +175,20 @@ function sendData(data){
 
 function addData() {
 	let data = {
-		materialListId: "0",
-		materialCd: $('#selMaterialCode').val().toString(),
-		quantity: $('#productionMaterialQuantityCreate').val().toString(),
-		dateReceive: $('#productionMaterialDateReceiveCreate').val().toString(),
-		userId: $('#userIdCreate').val(),
-		branchId: $('#branchIdCreate').val()
+		pmId: "0",
+		dppId: $('#productionMaterialDppIdCreate').val().toString(),
+		materialCd: $('#materialCodeCreate').val().toString(),
+		quantityToUse: $('#productionMaterialQuantityToUseCreate').val().toString()
 	};
 	sendData(data);
 }
 
 function updateData() {
 	let data = {
-		materialListId: $('#productionMaterialIdUpdate').val().toString(),
+		pmId: $('#productionMaterialIdUpdate').val().toString(),
+		dppId: $('#productionMaterialDppIdUpdate').val().toString(),
 		materialCd: $('#materialCodeUpdate').val().toString(),
-		quantity: $('#productionMaterialQuantityUpdate').val().toString(),
-		dateReceive: $('#productionMaterialDateReceiveUpdate').val().toString(),
-		userId: $('#userIdUpdate').val().toString(),
-		branchId: $('#branchIdUpdate').val().toString()
+		quantityToUse: $('#productionMaterialQuantityToUseUpdate').val().toString()
 	};
 	sendData(data);
 }

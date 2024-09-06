@@ -58,9 +58,16 @@ public class DispatchingServiceImpl implements DispatchingService {
 	public String saveData(HttpServletRequest request) throws Exception {
 		// TODO Auto-generated method stub
 		String validation = validateData(request);
-		if(validation.equals("Success")) {		
-			return dispatchingDAO.saveData(
-				jsonToEntity(new JSONObject(request.getParameter("data"))));
+		String results = "";
+		
+		if(validation.equals("success")) {
+			results = 	dispatchingDAO.saveData(
+							jsonToEntity(new JSONObject(request.getParameter("data"))));
+			if(results.equals("success")) {
+				return results;
+			} else {
+				return "Unable to save Dispatching Data";
+			}
 		} else {
 			return validation;
 		}
@@ -70,57 +77,65 @@ public class DispatchingServiceImpl implements DispatchingService {
 	public String deleteData(HttpServletRequest request) throws Exception {
 		// TODO Auto-generated method stub
 		String validation = validateData(request);
-		if(validation.equals("Success")) {
-			return dispatchingDAO.deleteData(
-					jsonToEntity(new JSONObject(request.getParameter("data"))));
+		String results = "";
+		
+		if(validation.equals("success")) {
+			results = 	dispatchingDAO.deleteData(
+							jsonToEntity(new JSONObject(request.getParameter("data"))));
+			if(results.equals("success")) {
+				return results;
+			} else {
+				return "Unable to delete Dispatching Data";
+			}
 		} else {
-			return "Unable to delete data";
+			return "Unable to delete Dispatching data";
 		}
 	}
 	
 	public String validateData(HttpServletRequest request) throws Exception{
 		JSONObject json = new JSONObject(request.getParameter("data"));
-		String validation = "Success";
+		String validation = "success";
+		String errorResult = "Please fill-out the dispatching form properly";
 		
 		if (!json.has("dispatchTrackId") || !(json.get("dispatchTrackId") instanceof String)) {
-			validation = "Please fill-out the dispatching form properly";
+			validation = errorResult;
 		} else if (!json.has("dispatchTypeCd") || !(json.get("dispatchTypeCd") instanceof String)) {
-			validation = "Please fill-out the dispatching form properly";
+			validation = errorResult;
 		} else if (!json.has("fplId") || !(json.get("fplId") instanceof String)) {
-			validation = "Please fill-out the dispatching form properly";
+			validation = errorResult;
 		} else if (!json.has("quantity") || !(json.get("quantity") instanceof String)) {
-			validation = "Please fill-out the dispatching form properly";
+			validation = errorResult;
 		} else if (!json.has("branchId") || !(json.get("branchId") instanceof String)) {
-			validation = "Please fill-out the dispatching form properly";
+			validation = errorResult;
 		} else if (!json.has("destination") || !(json.get("destination") instanceof String)) {
-			validation = "Please fill-out the dispatching form properly";
+			validation = errorResult;
 		} else if (!json.has("dispatchDate") || !(json.get("dispatchDate") instanceof String)) {
-			validation = "Please fill-out the dispatching form properly";
+			validation = errorResult;
 		} else if (json.getString("dispatchTrackId").length() < 1 || json.getString("dispatchTrackId").length() > 14) {
-			validation = "Please fill-out the dispatching form properly";
+			validation = errorResult;
 		} else if (!json.getString("dispatchTrackId").matches("^[0-9]\\d*$")) {
-			validation = "Please fill-out the dispatching form properly";
+			validation = errorResult;
 		} else if (json.getString("fplId").length() < 1 || json.getString("fplId").length() > 14) {
-			validation = "Please fill-out the dispatching form properly";
+			validation = errorResult;
 		} else if (!json.getString("fplId").matches("^[1-9]\\d*$")) {
-			validation = "Please fill-out the dispatching form properly";
+			validation = errorResult;
 		} else if (json.getString("quantity").length() < 1 || json.getString("quantity").length() > 14) {
-			validation = "Please fill-out the dispatching form properly";
+			validation = errorResult;
 		} else if (!json.getString("quantity").matches("^[0-9]+$")) {
-			validation = "Please fill-out the dispatching form properly";
+			validation = errorResult;
 		} else if (json.getString("branchId").length() < 1 || json.getString("branchId").length() > 14) {
-			validation = "Please fill-out the dispatching form properly";
+			validation = errorResult;
 		} else if (!json.getString("branchId").matches("^[1-9]\\d*$")) {
-			validation = "Please fill-out the dispatching form properly";
+			validation = errorResult;
 		} else if (json.getString("dispatchTypeCd").length() < 1 || json.getString("dispatchTypeCd").length() > 10) {
-			validation = "Please fill-out the dispatching form properly";
+			validation = errorResult;
 		} else if (json.getString("destination").length() < 1 || json.getString("destination").length() > 50) {
-			validation = "Please fill-out the dispatching form properly";
+			validation = errorResult;
 		} else {
 	        try {
 	        	LocalDate.parse(json.getString("dispatchDate"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 	        } catch (DateTimeParseException e) {
-	        	validation = "Please fill-out the dispatching form properly";
+	        	validation = errorResult;
 	        }
 		}
 		

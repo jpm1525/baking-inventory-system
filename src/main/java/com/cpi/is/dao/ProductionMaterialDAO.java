@@ -6,7 +6,7 @@ import com.cpi.is.entity.ProductionMaterialEntity;
 
 public interface ProductionMaterialDAO {
 	
-	List<ProductionMaterialEntity> getData() throws Exception;
+	List<ProductionMaterialEntity> getData(Long dppIdInput) throws Exception;
 	String saveData(ProductionMaterialEntity item) throws Exception;
 	String deleteData(ProductionMaterialEntity item) throws Exception;
 

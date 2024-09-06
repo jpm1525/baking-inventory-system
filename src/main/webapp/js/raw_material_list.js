@@ -64,11 +64,13 @@ divTable.on('rowClick',function() {
 callback = function(mutationsList, observer) {
     for(let mutation of mutationsList) {
         if (mutation.type === 'childList') {
+			$(".editModalButton").off("click");
             $(".editModalButton").on('click', function(){
                 editModal.classList.remove("closing");
                 editModal.showModal();
                 editModal.classList.add("showing");
             });
+			$(".deleteModalButton").off("click");
             $(".deleteModalButton").on('click', function(){
                 $("#deleteModal").removeClass("closing")
                 deleteModal.showModal();
@@ -133,7 +135,7 @@ function validate(data) {
 	} else if (data.materialListId > 99999999999999){
 		$('.errorMessage').text("Material List ID value is too large");
 		valid = false;
-	}else if (data.materialCd.length > 10){
+	} else if (data.materialCd.length > 10){
 		$('.errorMessage').text("Material Code characters should be less than 11");
 		valid = false;
 	} else if (!(/^[0-9]\d*$/.test(data.quantity))) {
@@ -184,8 +186,8 @@ function addData() {
 		materialCd: $('#selMaterialCode').val().toString(),
 		quantity: $('#rawMaterialListQuantityCreate').val().toString(),
 		dateReceive: $('#rawMaterialListDateReceiveCreate').val().toString(),
-		userId: $('#userIdCreate').val(),
-		branchId: $('#branchIdCreate').val()
+		userId: $('#userIdCreate').val().toString(),
+		branchId: $('#branchIdCreate').val().toString()
 	};
 	sendData(data);
 }
