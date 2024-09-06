@@ -50,6 +50,7 @@ public class UserController extends HttpServlet {
 				if (user != null) {
 					HttpSession session = request.getSession();
 					session.setAttribute("user", user);
+					session.setAttribute("branchId", user.getBranchId());
 					
 					request.setAttribute("username", user.getUsername());
 					userService.saveSession(request);

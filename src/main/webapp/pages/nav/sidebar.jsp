@@ -47,5 +47,4 @@
                     </ul>
                 </div>
 </nav>
-<script src="js/menu.js"></script>
 <script src="js/nav_dropdown.js"></script>

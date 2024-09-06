@@ -258,6 +258,7 @@
 	var dispatching = JSON.parse('${dispatching}');
 	var dispatchType = JSON.parse('${dispatchType}');
 	var branch = JSON.parse('${branch}');
+	var branchId = '${branchId}';
 	var skuCode = JSON.parse('${skuCode}');
 </script>
 <script src="js/dispatching.js"></script>
