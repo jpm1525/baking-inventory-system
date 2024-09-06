@@ -19,19 +19,19 @@ public class SessionUtil {
 		HttpSession session = request.getSession();
 		UserEntity user = (UserEntity) session.getAttribute("user");
 		UserEntity userId = (UserEntity) session.getAttribute("userId");
-		UserEntity branchId = (UserEntity) session.getAttribute("branchId");
+		Integer branchId = (Integer) session.getAttribute("branchId");
 		Boolean exist = true;
 		if (user != null) {
 			request.setAttribute("username", user.getUsername());
 			request.setAttribute("userId", userId.getUserId());
-			request.setAttribute("branchid", branchId.getBranchId());
+			request.setAttribute("branchid", branchId);
 
 		} else {
 			SessionEntity userSession = userService.validateSession(request);
 			if (userSession != null) {
 				request.setAttribute("username", userSession.getUsername());
 				request.setAttribute("userId", userSession.getUserId());
-				request.setAttribute("branchid", userSession.getBranchId());
+				request.setAttribute("branchid", branchId);
 
 			} else {
 				exist = false;
