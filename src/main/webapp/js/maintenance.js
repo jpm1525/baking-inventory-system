@@ -1,4 +1,3 @@
-
 $("#btnDis").click(function(){
 	$.get("MaintenanceController",{
 		action: "showDis"

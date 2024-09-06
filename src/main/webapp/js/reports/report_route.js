@@ -1,4 +1,3 @@
-
 $("#btnFin").click(function(){
 $.get("ReportGenerationController",{
 	action: "showFin"

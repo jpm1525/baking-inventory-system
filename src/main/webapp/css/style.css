@@ -12,6 +12,10 @@ body {
     overflow-x: hidden;
 }
 
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
 img{
   -webkit-user-select: none;
 -khtml-user-select: none;
