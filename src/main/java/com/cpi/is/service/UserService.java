@@ -10,7 +10,7 @@ import com.cpi.is.entity.UserEntity;
 public interface UserService {
 
 
-	List<UserEntity> getData() throws Exception;
+	//List<UserEntity> getData() throws Exception;
 	UserEntity authenticate(HttpServletRequest request) throws Exception;
 	void saveSession(HttpServletRequest request) throws Exception;
 	SessionEntity validateSession(HttpServletRequest request) throws Exception;

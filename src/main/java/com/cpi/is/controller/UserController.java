@@ -48,6 +48,7 @@ public class UserController extends HttpServlet {
 				UserEntity user = userService.authenticate(request);
 				if (user != null) {
 					HttpSession session = request.getSession();
+					
 					session.setAttribute("user", user);
 					session.setAttribute("userId", user);
 					session.setAttribute("branchId", user.getBranchId());
