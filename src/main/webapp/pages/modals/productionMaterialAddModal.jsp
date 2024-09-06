@@ -17,14 +17,12 @@
     </div>
     
     <div class="grid gap-4 mb-4 sm:grid-cols-2 mt-5">
-      <div class="col-span-2">
+   	  <div class="col-span-2">
         <label for="productionMaterialDppIdCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">DPP ID</label>
-        <select id="productionMaterialDppIdCreate" name="productionMaterialDppIdCreate" class="bg-gray-50 border border-gray-300 
+        <input type="text" name="productionMaterialDppIdCreate" id="productionMaterialDppIdCreate" class="bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
-          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 
-          selDppId" required="required">
-          <option value="" disabled selected hidden>Select DPP ID</option>
-        </select>
+          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500
+          selDppId" required="required" readonly="readonly">
       </div>
       <div>
       	<label for="materialCodeCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Material</label>

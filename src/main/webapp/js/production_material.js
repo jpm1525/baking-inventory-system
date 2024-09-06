@@ -8,15 +8,7 @@ function getMaterialCode(){
 
 getMaterialCode();
 
-function getDppId(){
-	let html = '';
-		$.each(dailyPlannedProduction, function(index, data) {
-			html+= '<option value="' + data.dppId + '">' + data.dppId + '</option>'
-		});
-		$('.selDppId').append(html);
-}
-
-getDppId();
+$('#productionMaterialDppIdCreate').val(dppIdInp);
 
 if (typeof data === 'undefined' || data === null) {let data = "";}
 if (typeof callback === 'undefined' || callback === null) {let callback = "";}
@@ -46,7 +38,6 @@ var divTable = new Tabulator("#divTableTabulator" , {
 		{title:"Action", headerSort:false, formatter:editButton, minWidth:200},
 	],
 });
-
 
 $(".productionMaterialForm").submit(function(e){
 	e.preventDefault();
@@ -114,12 +105,12 @@ $('#deleteSaveModalButton').click(function(event){
 
 function populateForm(row) {
 	$('#productionMaterialIdUpdate').val(row.pmId);
-	$('#productionMaterialDppIdUpdate').val(row.dppId);
+	$('#productionMaterialDppIdUpdate').val(dppIdInp);
 	$('#materialCodeUpdate').val(row.materialCd);
 	$('#productionMaterialQuantityToUseUpdate').val(row.quantityToUse);
 	data = {
 		pmId: row.pmId.toString(),
-		dppId: row.dppId.toString(),
+		dppId: dppIdInp.toString(),
 		materialCd: row.materialCd.toString(),
 		quantityToUse: row.quantityToUse.toString(),
 	};
@@ -176,7 +167,7 @@ function sendData(data){
 function addData() {
 	let data = {
 		pmId: "0",
-		dppId: $('#productionMaterialDppIdCreate').val().toString(),
+		dppId: dppIdInp.toString(),
 		materialCd: $('#materialCodeCreate').val().toString(),
 		quantityToUse: $('#productionMaterialQuantityToUseCreate').val().toString()
 	};
@@ -186,7 +177,7 @@ function addData() {
 function updateData() {
 	let data = {
 		pmId: $('#productionMaterialIdUpdate').val().toString(),
-		dppId: $('#productionMaterialDppIdUpdate').val().toString(),
+		dppId: dppIdInp.toString(),
 		materialCd: $('#materialCodeUpdate').val().toString(),
 		quantityToUse: $('#productionMaterialQuantityToUseUpdate').val().toString()
 	};
