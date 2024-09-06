@@ -6,7 +6,7 @@ import com.cpi.is.entity.RawMaterialListEntity;
 
 public interface RawMaterialListDAO {
 	
-	List<RawMaterialListEntity> getData() throws Exception;
+	List<RawMaterialListEntity> getData(Long branchId) throws Exception;
 	String saveData(RawMaterialListEntity item) throws Exception;
 	String deleteData(RawMaterialListEntity item) throws Exception;
 

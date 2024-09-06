@@ -12,11 +12,13 @@ import com.cpi.is.util.HBUtil;
 public class RawMaterialListDAOImpl implements RawMaterialListDAO {
 	
 	@Override
-	public List<RawMaterialListEntity> getData() throws Exception {
+	public List<RawMaterialListEntity> getData(Long branchId) throws Exception {
 		List<RawMaterialListEntity> rawMaterialList = null;
 		try (Session session = HBUtil.getSessionFactory().openSession()) {
 			rawMaterialList = (List<RawMaterialListEntity>) 
-					session.createQuery("From RawMaterialListEntity T ORDER BY T.materialListId DESC", RawMaterialListEntity.class).list();
+					session.createQuery("From RawMaterialListEntity T WHERE T.branchId = :branchId ORDER BY T.materialListId DESC", RawMaterialListEntity.class)
+					.setParameter("branchId", branchId)
+					.list();
 		}
 		return rawMaterialList;
 	}
