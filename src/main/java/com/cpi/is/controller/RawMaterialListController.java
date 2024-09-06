@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
 import org.springframework.context.ApplicationContext;
@@ -45,8 +46,11 @@ public class RawMaterialListController extends HttpServlet {
 		try {
 			if (SessionUtil.checkUserSession(request)) {
 				action = request.getParameter("action");
+				HttpSession session = request.getSession();
+				Long branchId = Long.parseLong(session.getAttribute("branchId").toString());
+				
 				if ("showRawMaterialList".equals(action)) {
-					request.setAttribute("rawMaterialList", new JSONArray(rawMaterialListService.getData()));
+					request.setAttribute("rawMaterialList", new JSONArray(rawMaterialListService.getData(branchId)));
 					request.setAttribute("materialCode", new JSONArray(materialCodeService.getData()));
 					request.setAttribute("branchId", new JSONArray(branchService.getData()));
 					page = "pages/rawMaterialList.jsp";

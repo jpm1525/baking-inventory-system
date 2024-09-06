@@ -40,11 +40,15 @@ public class DashboardController extends HttpServlet {
 				action = request.getParameter("action");
 
 				if ("showDashboard".equals(action)) {
-					request.setAttribute("userId", user.getUserId());
-					request.setAttribute("username", user.getUsername());
-					request.setAttribute("branchId", user.getBranchId());
-					request.setAttribute("branch", user.getBranch());
-					page = "pages/dashboard.jsp";
+					if(user == null) {
+						page = "pages/reload.jsp";
+					} else {
+						request.setAttribute("userId", user.getUserId());
+						request.setAttribute("username", user.getUsername());
+						request.setAttribute("branchId", user.getBranchId());
+						request.setAttribute("branch", user.getBranch());
+						page = "pages/dashboard.jsp";
+					}
 				}
 			} else {
 				page = "pages/reload.jsp";

@@ -49,8 +49,8 @@ public class RawMaterialListServiceImpl implements RawMaterialListService {
 	}
 
 	@Override
-	public List<RawMaterialListEntity> getData() throws Exception {
-		return rawMaterialListDAO.getData();
+	public List<RawMaterialListEntity> getData(Long branchId) throws Exception {
+		return rawMaterialListDAO.getData(branchId);
 	}
 
 	@Override
