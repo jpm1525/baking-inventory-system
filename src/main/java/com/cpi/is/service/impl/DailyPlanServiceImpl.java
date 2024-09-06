@@ -48,8 +48,8 @@ public class DailyPlanServiceImpl implements DailyPlanService{
 	}
 
 	@Override
-	public List<DailyPlanEntity> getData() throws Exception {
-		return dailyPlanDAO.getData();
+	public List<DailyPlanEntity> getData(Long branchId) throws Exception {
+		return dailyPlanDAO.getData(branchId);
 	}
 
 	@Override

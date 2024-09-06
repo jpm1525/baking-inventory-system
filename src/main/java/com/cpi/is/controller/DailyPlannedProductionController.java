@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
 import org.springframework.context.ApplicationContext;
@@ -47,9 +48,11 @@ public class DailyPlannedProductionController extends HttpServlet {
 			if (SessionUtil.checkUserSession(request)) {
 			
 				action = request.getParameter("action");
+				HttpSession session = request.getSession();
+				Long branchId = Long.parseLong(session.getAttribute("branchId").toString());
 				
 				if("showDailyPlannedProduction".equals(action)) {
-					request.setAttribute("dailyPlannedProduction", new JSONArray(dailyPlanService.getData()));
+					request.setAttribute("dailyPlannedProduction", new JSONArray(dailyPlanService.getData(branchId)));
 					request.setAttribute("branchId", new JSONArray(branchService.getData()));
 					request.setAttribute("skuCd", new JSONArray(skuCodeService.getData()));
 					page = "pages/dailyPlannedProduction.jsp";
