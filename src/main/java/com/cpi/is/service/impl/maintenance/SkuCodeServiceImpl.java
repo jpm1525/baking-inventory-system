@@ -37,9 +37,16 @@ public class SkuCodeServiceImpl implements SkuCodeService {
 	@Override
 	public String saveData(HttpServletRequest request) throws Exception {
 		String validation = validateData(request);
-		if(validation.equals("Success")) {
-			return skuCodeDAO.saveData(
-					jsonToEntity(new JSONObject(request.getParameter("data"))));
+		String results = "";
+		
+		if(validation.equals("success")) {
+			results = 	skuCodeDAO.saveData(
+							jsonToEntity(new JSONObject(request.getParameter("data"))));
+			if(results.equals("success")) {
+				return results;
+			} else {
+				return "Unable to save SKU Code Data";
+			}
 		} else {
 			return validation;
 		}
@@ -48,30 +55,38 @@ public class SkuCodeServiceImpl implements SkuCodeService {
 	@Override
 	public String deleteData(HttpServletRequest request) throws Exception {
 		String validation = validateData(request);
-		if(validation.equals("Success")) {
-			return skuCodeDAO.deleteData(
-					jsonToEntity(new JSONObject(request.getParameter("data"))));
+		String results = "";
+		
+		if(validation.equals("success")) {
+			results = 	skuCodeDAO.deleteData(
+							jsonToEntity(new JSONObject(request.getParameter("data"))));
+			if(results.equals("success")) {
+				return results;
+			} else {
+				return "Unable to delete SKU Code Data";
+			}
 		} else {
-			return "Unable to delete data";
+			return "Unable to delete SKU Code data";
 		}
 	}
 	
 	public String validateData(HttpServletRequest request) throws Exception{
 		JSONObject json = new JSONObject(request.getParameter("data"));
-		String validation = "Success";
+		String validation = "success";
+		String errorResult = "Please fill-out the sku code form properly";
 		
 		if (!json.has("skuCd") || !(json.get("skuCd") instanceof String)) {
-			validation = "Please fill-out the sku code form properly 1";
+			validation = errorResult;
 		} else if (!json.has("skuCodeName") || !(json.get("skuCodeName") instanceof String)) {
-			validation = "Please fill-out the sku code form properly 2";
+			validation = errorResult;
 		} else if (!json.has("unitOfMeasurement") || !(json.get("unitOfMeasurement") instanceof String)) {
-			validation = "Please fill-out the sku code form properly 3";
-		} else if (json.getString("skuCd").length() < 1 || json.getString("skuCd").length() > 50) {
-			validation = "Please fill-out the sku code form properly 4";
-		} else if (json.getString("skuCodeName").length() < 1 || json.getString("skuCodeName").length() > 200) {
-			validation = "Please fill-out the sku code form properly 5";
-		} else if (json.getString("unitOfMeasurement").length() < 1 || json.getString("unitOfMeasurement").length() > 100) {
-			validation = "Please fill-out the sku code form properly 6";
+			validation = errorResult;
+		} else if (json.getString("skuCd").length() < 1 || json.getString("skuCd").length() > 10) {
+			validation = errorResult;
+		} else if (json.getString("skuCodeName").length() < 1 || json.getString("skuCodeName").length() > 50) {
+			validation = errorResult;
+		} else if (json.getString("unitOfMeasurement").length() < 1 || json.getString("unitOfMeasurement").length() > 50) {
+			validation = errorResult;
 		}
 		
 		return validation;

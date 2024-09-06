@@ -1,10 +1,10 @@
 <link rel="stylesheet" href="css/modal.css" type="text/css" />
 
 <dialog id="addModal" class="relative p-6 bg-white dark:bg-gray-700 rounded-lg shadow-lg max-w-2xl">
-  <form class="dailyPlannedProductionForm">
+  <form class="productionMaterialForm">
     <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
       <h3 class="text-3xl font-semibold text-gray-900 dark:text-white">
-          Add Daily Planned Production
+          Add Production Material
       </h3>
       <button type="button" id="closeAddModalButton" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 
         rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 
@@ -18,49 +18,29 @@
     
     <div class="grid gap-4 mb-4 sm:grid-cols-2 mt-5">
       <div class="col-span-2">
-        <label for="dailyPlannedProductionDateCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Production Date</label>
-        <input id="dailyPlannedProductionDateCreate" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
-          rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 
-          dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date">
-      </div>
-      <div>
-      	<label for="dailyPlannedProductionBranchIdCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Branch ID - Name</label>
-        <select id="dailyPlannedProductionBranchIdCreate" name="dailyPlannedProductionBranchIdCreate" class="bg-gray-50 border border-gray-300 
+        <label for="productionMaterialDppIdCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">DPP ID</label>
+        <select id="productionMaterialDppIdCreate" name="productionMaterialDppIdCreate" class="bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 
-          dailyPlannedProductionBranchIdCreate" required="required">
-          <option value="" disabled selected hidden>Select Branch</option>
-        </select>
-      </div>
-       <div>          
-        <label for="dailyPlannedProductionSkuCdCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">SKU</label>
-        <select id="dailyPlannedProductionSkuCdCreate" name="dailyPlannedProductionSkuCdCreate" class="bg-gray-50 border border-gray-300 
-          text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
-          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 
-          dailyPlannedProductionSkuCdCreate" required="required">
-          <option value="" disabled selected hidden>Select SKU</option>
+          selDppId" required="required">
+          <option value="" disabled selected hidden>Select DPP ID</option>
         </select>
       </div>
       <div>
-        <label for="dailyPlannedProductionQuantityCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Quantity</label>
-        <input type="number" name="dailyPlannedProductionQuantityCreate" id="dailyPlannedProductionQuantityCreate" class="bg-gray-50 border border-gray-300 
+      	<label for="materialCodeCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Material</label>
+        <select id="materialCodeCreate" name="materialCodeCreate" class="bg-gray-50 border border-gray-300 
+          text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
+          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 
+          selMaterialCode" required="required">
+          <option value="" disabled selected hidden>Select Material Code</option>
+        </select>
+      </div>
+      <div>
+        <label for="productionMaterialQuantityToUseCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Quantity to Use</label>
+        <input type="number" name="productionMaterialQuantityToUseCreate" id="productionMaterialQuantityToUseCreate" class="bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
-          required="required" placeholder="Enter quantity">
-      </div>
-      <div>
-        <label for="dailyPlannedProductionStatusCreate"
-        class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Status</label>
-        <select id="dailyPlannedProductionStatusCreate"
-        		name="dailyPlannedProductionStatusCreate"
-        		class="input bg-gray-50 border border-gray-300 
-          		text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
-          		dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-        	<option value="" disabled selected hidden>Select Status</option>
-        	<option>Planned
-	        <option>In Progress
-	        <option>Completed
-        </select>
+          required="required" placeholder="Type quantity" min="0" max="99999999999999">
       </div>
     </div>
   
@@ -77,7 +57,7 @@
         dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
         Cancel
       </button>
-      <button id="btnCreateDailyPlannedProduction" type="submit" class="text-white inline-flex items-center bg-blue-700 
+      <button id="btnCreateProductionMaterial" type="submit" class="text-white inline-flex items-center bg-blue-700 
         hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium 
         rounded px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 
         dark:focus:ring-blue-800">

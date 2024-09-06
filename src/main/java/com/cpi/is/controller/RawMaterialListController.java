@@ -12,6 +12,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.cpi.is.service.impl.RawMaterialListServiceImpl;
+import com.cpi.is.service.impl.maintenance.BranchServiceImpl;
+import com.cpi.is.service.impl.maintenance.MaterialCodeServiceImpl;
 import com.cpi.is.util.SessionUtil;
 
 /**
@@ -26,6 +28,8 @@ public class RawMaterialListController extends HttpServlet {
        
     private ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
 	private RawMaterialListServiceImpl rawMaterialListService = (RawMaterialListServiceImpl) context.getBean("rawMaterialListService");
+	private MaterialCodeServiceImpl materialCodeService = (MaterialCodeServiceImpl) context.getBean("materialCodeService");
+	private BranchServiceImpl branchService = (BranchServiceImpl) context.getBean("branchService");
 
 	/**
      * @see HttpServlet#HttpServlet()
@@ -39,13 +43,12 @@ public class RawMaterialListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			
-	
 			if (SessionUtil.checkUserSession(request)) {
 				action = request.getParameter("action");
-				
 				if ("showRawMaterialList".equals(action)) {
 					request.setAttribute("rawMaterialList", new JSONArray(rawMaterialListService.getData()));
+					request.setAttribute("materialCode", new JSONArray(materialCodeService.getData()));
+					request.setAttribute("branchId", new JSONArray(branchService.getData()));
 					page = "pages/rawMaterialList.jsp";
 				} else if ("saveData".equals(action)) {
 					request.setAttribute("message", rawMaterialListService.saveData(request));
@@ -57,8 +60,6 @@ public class RawMaterialListController extends HttpServlet {
 			} else {
 				page = "pages/reload.jsp";
 			}
-			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

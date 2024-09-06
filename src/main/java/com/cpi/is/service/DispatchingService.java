@@ -11,5 +11,6 @@ public interface DispatchingService {
 	List<DispatchingEntity> getData(Integer branchId) throws Exception;
 	String saveData(HttpServletRequest request) throws Exception;
 	String deleteData(HttpServletRequest request) throws Exception;
+	String validateData(HttpServletRequest request) throws Exception;
 
 }
