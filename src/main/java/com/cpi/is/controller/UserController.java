@@ -107,13 +107,13 @@ public class UserController extends HttpServlet {
 				HttpSession session = request.getSession();
 				UserEntity user = (UserEntity) session.getAttribute("user");
 				UserEntity userId = (UserEntity) session.getAttribute("userId");
-				UserEntity branchId = (UserEntity) session.getAttribute("branchId");
+				Integer branchId = (Integer) session.getAttribute("branchId");
 				page = "pages/inner-pages/mainMenu.jsp";
 				
 				if (user != null) {
 					request.setAttribute("username", user.getUsername());
 					request.setAttribute("userId", userId.getUserId());
-					request.setAttribute("branchId", branchId.getBranchId());
+					request.setAttribute("branchId", branchId);
 					
 				} else {
 					SessionEntity userSession = userService.validateSession(request);
