@@ -56,7 +56,7 @@ public class ProductionMaterialController extends HttpServlet {
 						request.setAttribute("productionMaterial", new JSONArray(productionMaterialService.getData(request.getParameter("dppIdInput"))));
 						request.setAttribute("materialCode", new JSONArray(materialCodeService.getData()));
 						request.setAttribute("rawMaterialList", new JSONArray(rawMaterialListService.getData(branchId)));
-						request.setAttribute("dailyPlannedProduction", new JSONArray(dailyPlanService.getData()));
+						request.setAttribute("dailyPlannedProduction", new JSONArray(dailyPlanService.getData(branchId)));
 						request.setAttribute("dppIdInput", request.getParameter("dppIdInput"));
 						page = "pages/productionMaterial.jsp";
 					} else {
