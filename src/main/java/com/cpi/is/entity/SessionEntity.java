@@ -17,15 +17,21 @@ public class SessionEntity implements Serializable {
 	@Column(name="session_id")
 	private String sessionId;
 	private String username;
+	@Column(name="user_id")
+	private String userId;
+	@Column(name="branch_id")
+	private String branchId;
 	
 	public SessionEntity() {
 		super();
 	}
-
-	public SessionEntity(String sessionId, String username) {
+	
+	public SessionEntity(String sessionId, String username, String userId, String branchId) {
 		super();
 		this.sessionId = sessionId;
 		this.username = username;
+		this.userId = userId;
+		this.branchId = branchId;
 	}
 
 	public String getSessionId() {
@@ -44,10 +50,26 @@ public class SessionEntity implements Serializable {
 		this.username = username;
 	}
 
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getBranchId() {
+		return branchId;
+	}
+
+	public void setBranchId(String branchId) {
+		this.branchId = branchId;
+	}
+
 	@Override
 	public String toString() {
-		return "{sessionId=" + sessionId 
-			 + ", username=" + username + "}";
+		return "SessionEntity [sessionId=" + sessionId + ", username=" + username + ", userId=" + userId + ", branchId="
+				+ branchId + "]";
 	}
 	
 }

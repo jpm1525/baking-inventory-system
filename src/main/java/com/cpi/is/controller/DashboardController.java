@@ -31,14 +31,6 @@ public class DashboardController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-//		action = request.getParameter("action");
-//		
-//		if("showDashboard".equals(action)) {
-//			page = "pages/dashboard.jsp";
-//		}
-//		request.getRequestDispatcher(page).forward(request,response);
-		
 		try {
 			
 			if (SessionUtil.checkUserSession(request)) {

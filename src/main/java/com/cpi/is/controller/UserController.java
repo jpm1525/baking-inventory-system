@@ -46,18 +46,28 @@ public class UserController extends HttpServlet {
 			action = request.getParameter("action");
 			if ("login".equals(action)) {
 				UserEntity user = userService.authenticate(request);
-				
 				if (user != null) {
 					HttpSession session = request.getSession();
 					session.setAttribute("user", user);
+					session.setAttribute("userId", user);
 					session.setAttribute("branchId", user.getBranchId());
 					
 					request.setAttribute("username", user.getUsername());
+					request.setAttribute("userId", user.getUserId());
+					request.setAttribute("branchId", user.getBranchId());
 					userService.saveSession(request);
 
 					Cookie userCookie = new Cookie("user", user.getUsername());
 					userCookie.setMaxAge(12*60);
 					response.addCookie(userCookie);
+					
+					Cookie userIdCookie = new Cookie("userId", user.getUserId().toString());
+					userIdCookie.setMaxAge(12*60);
+					response.addCookie(userIdCookie);
+					
+					Cookie branchCookie = new Cookie("branchId", user.getBranchId().toString());
+					branchCookie.setMaxAge(12*60);
+					response.addCookie(branchCookie);
 
 					Cookie sessionCookie = new Cookie("sessionId", request.getSession().getId());
 					sessionCookie.setMaxAge(12*60);
@@ -74,7 +84,7 @@ public class UserController extends HttpServlet {
 				session.invalidate();
 				userService.deleteSession(request);
 
-				Cookie userCookie = new Cookie("user", "");
+	 			Cookie userCookie = new Cookie("user", "");
 				userCookie.setMaxAge(0);
 				response.addCookie(userCookie);
 
@@ -82,21 +92,35 @@ public class UserController extends HttpServlet {
 				sessionCookie.setMaxAge(0);
 				response.addCookie(sessionCookie);
 				
+				Cookie userIdCookie = new Cookie("userId","");
+				userIdCookie.setMaxAge(0);
+				response.addCookie(userIdCookie);
+				
+				Cookie branchCookie = new Cookie("branchId", "");
+				branchCookie.setMaxAge(0);
+				response.addCookie(branchCookie);
+				
 				page = "pages/login.jsp";
 				
 			} else if ("checkUserSession".equals(action)) {
 				HttpSession session = request.getSession();
 				UserEntity user = (UserEntity) session.getAttribute("user");
+				UserEntity userId = (UserEntity) session.getAttribute("userId");
+				UserEntity branchId = (UserEntity) session.getAttribute("branchId");
 				page = "pages/inner-pages/mainMenu.jsp";
 				
 				if (user != null) {
 					request.setAttribute("username", user.getUsername());
+					request.setAttribute("userId", userId.getUserId());
+					request.setAttribute("branchId", branchId.getBranchId());
 					
 				} else {
 					SessionEntity userSession = userService.validateSession(request);
 					
 					if (userSession != null) {
 						request.setAttribute("username", userSession.getUsername());
+						request.setAttribute("userId", userSession.getUserId());
+						request.setAttribute("branchId", userSession.getBranchId());
 						
 					} else {
 						page = "pages/login.jsp";

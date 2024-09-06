@@ -88,6 +88,19 @@ public class MaintenanceController extends HttpServlet {
 				} else if ("deleteMaterialCodeData".equals(action)) {
 					request.setAttribute("message", materialCodeService.deleteData(request));
 					page = "pages/message.jsp";
+					
+				} else if ("showDis".equals(action)) {
+					request.setAttribute("dispatchType", new JSONArray(dispatchTypeService.getData()));
+					page = "pages/maintenance/dispatch.jsp";
+				} else if ("showBra".equals(action)) {
+					request.setAttribute("branch",new JSONArray(branchService.getData()));
+					page = "pages/maintenance/branch.jsp";
+				} else if ("showSku".equals(action)) {
+					request.setAttribute("skuCode",new JSONArray(skuCodeService.getData()));
+					page = "pages/maintenance/skuCode.jsp";
+				} else if ("showMat".equals(action)) {
+					request.setAttribute("materialCode",new JSONArray(materialCodeService.getData()));
+					page = "pages/maintenance/materialCode.jsp";
 				}
 				
 			} else {

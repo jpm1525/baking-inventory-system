@@ -1,30 +1,31 @@
-$("#btnDispatch").click(function(){
+
+$("#btnDis").click(function(){
 	$.get("MaintenanceController",{
-		action: "showDispatch"
+		action: "showDis"
 		}, function(response){
 		$("#divContent").html(response)
 	});
 });	
 
-$("#btnBranches").click(function(){
+$("#btnBra").click(function(){
 	$.get("MaintenanceController",{
-		action: "showBranches"
+		action: "showBra"
 		}, function(response){
 		$("#divContent").html(response)
 	});
 });	
 
-$("#btnSkuCodes").click(function(){
+$("#btnSku").click(function(){
 	$.get("MaintenanceController",{
-		action: "showSkuCodes"
+		action: "showSku"
 		}, function(response){
 		$("#divContent").html(response)
 	});
 });	
 
-$("#btnMaterialCodes").click(function(){
+$("#btnMat").click(function(){
 	$.get("MaintenanceController",{
-		action: "showMaterialCodes"
+		action: "showMat"
 		}, function(response){
 		$("#divContent").html(response)
 	});
