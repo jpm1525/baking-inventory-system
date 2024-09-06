@@ -44,8 +44,7 @@ public class UserEntity implements Serializable{
 		public void setBranch(BranchEntity branch) {
 			this.branch = branch;
 		}
-		
-		
+
 		public UserEntity() {
 			super();
 			// TODO Auto-generated constructor stub
@@ -81,11 +80,18 @@ public class UserEntity implements Serializable{
 		public void setPassword(String password) {
 			this.password = password;
 		}
-		
+
 		@Override
 		public String toString() {
 			return "UserEntity [userId=" + userId + ", username=" + username + ", password=" + password + ", branchId="
 					+ branchId + "]";
 		}
-	
+		
+//		@Override
+//		public String toString() {
+//			return "{userId=" + userId 
+//				 + ", username=" + username 
+//				 + ", password=" + password + "}";
+//		}
+		
 }

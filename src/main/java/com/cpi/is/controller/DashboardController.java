@@ -31,7 +31,6 @@ public class DashboardController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		try {
 			
 			if (SessionUtil.checkUserSession(request)) {
@@ -43,7 +42,6 @@ public class DashboardController extends HttpServlet {
 				if ("showDashboard".equals(action)) {
 					request.setAttribute("userId", user.getUserId());
 					request.setAttribute("username", user.getUsername());
-					request.setAttribute("password", user.getPassword());
 					request.setAttribute("branchId", user.getBranchId());
 					request.setAttribute("branch", user.getBranch());
 					page = "pages/dashboard.jsp";

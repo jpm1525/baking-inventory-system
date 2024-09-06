@@ -36,9 +36,16 @@ public class DispatchTypeServiceImpl implements DispatchTypeService {
 	@Override
 	public String saveData(HttpServletRequest request) throws Exception {
 		String validation = validateData(request);
-		if(validation.equals("Success")) {
-			return dispatchTypeDAO.saveData(
-					jsonToEntity(new JSONObject(request.getParameter("data"))));
+		String results = "";
+		
+		if(validation.equals("success")) {
+			results = 	dispatchTypeDAO.saveData(
+							jsonToEntity(new JSONObject(request.getParameter("data"))));
+			if(results.equals("success")) {
+				return results;
+			} else {
+				return "Unable to save Dispatch Type Data";
+			}
 		} else {
 			return validation;
 		}
@@ -47,26 +54,35 @@ public class DispatchTypeServiceImpl implements DispatchTypeService {
 	@Override
 	public String deleteData(HttpServletRequest request) throws Exception {
 		String validation = validateData(request);
-		if(validation.equals("Success")) {
-			return dispatchTypeDAO.deleteData(
-					jsonToEntity(new JSONObject(request.getParameter("data"))));
+		String results = "";
+		
+		if(validation.equals("success")) {
+			results = 	dispatchTypeDAO.deleteData(
+							jsonToEntity(new JSONObject(request.getParameter("data"))));
+			if(results.equals("success")) {
+				return results;
+			} else {
+				return "Unable to delete Dispatch Type Data";
+			}
 		} else {
-			return "Unable to delete data";
+			return "Unable to delete Dispatch Type data";
 		}
 	}
 	
 	public String validateData(HttpServletRequest request) throws Exception{
 		JSONObject json = new JSONObject(request.getParameter("data"));
-		String validation = "Success";
+		String validation = "success";
+		String errorResult = "Please fill-out the dispatch type form properly";
+		
 		
 		if (!json.has("dispatchTypeCd") || !(json.get("dispatchTypeCd") instanceof String)) {
-			validation = "Please fill-out the dispatch type form properly";
+			validation = errorResult;
 		} else if(!json.has("dispatchTypeName") || !(json.get("dispatchTypeName") instanceof String)) {
-			validation = "Please fill-out the dispatch type form properly";
-		} else if (json.getString("dispatchTypeCd").length() < 1 || json.getString("dispatchTypeCd").length() > 50) {
-			validation = "Please fill-out the dispatch type form properly";
-		} else if (json.getString("dispatchTypeName").length() < 1 || json.getString("dispatchTypeName").length() > 200) {
-			validation = "Please fill-out the dispatch type form properly";
+			validation = errorResult;
+		} else if (json.getString("dispatchTypeCd").length() < 1 || json.getString("dispatchTypeCd").length() > 10) {
+			validation = errorResult;
+		} else if (json.getString("dispatchTypeName").length() < 1 || json.getString("dispatchTypeName").length() > 50) {
+			validation = errorResult;
 		}
 		
 		return validation;

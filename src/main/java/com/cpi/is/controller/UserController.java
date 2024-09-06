@@ -50,7 +50,7 @@ public class UserController extends HttpServlet {
 					HttpSession session = request.getSession();
 					session.setAttribute("user", user);
 					session.setAttribute("userId", user);
-					session.setAttribute("branchId", user);
+					session.setAttribute("branchId", user.getBranchId());
 					
 					request.setAttribute("username", user.getUsername());
 					request.setAttribute("userId", user.getUserId());

@@ -22,21 +22,21 @@
         <input type="text" name="materialCodeCreate" id="materialCodeCreate" class="bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
-          required="required" placeholder="Type material code" maxlength="50" minlength="1">
+          required="required" placeholder="Type material code" maxlength="10" minlength="1">
       </div>
       <div>
         <label for="materialCodeNameCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Name</label>
         <input type="text" name="materialCodeNameCreate" id="materialCodeNameCreate" class="bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
-          required="required" placeholder="Type material code name" maxlength="200" minlength="1">
+          required="required" placeholder="Type material code name" maxlength="50" minlength="1">
       </div>
       <div>
         <label for="materialCodeUnitOfMeasurementCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Unit of Measurement</label>
         <input type="text" name="materialCodeUnitOfMeasurementCreate" id="materialCodeUnitOfMeasurementCreate" class="bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
-          required="required" placeholder="Type unit of measurement" maxlength="100" minlength="1">
+          required="required" placeholder="Type unit of measurement" maxlength="10" minlength="1">
       </div>
     </div>
   

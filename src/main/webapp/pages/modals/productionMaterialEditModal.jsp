@@ -1,10 +1,10 @@
 <link rel="stylesheet" href="css/modal.css" type="text/css" />
 
 <dialog id="editModal" class="relative p-6 bg-white dark:bg-gray-700 rounded-lg shadow-lg max-w-2xl">
-  <form class="dailyPlannedProductionForm">
+  <form class="productionMaterialForm">
     <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
       <h3 class="text-3xl font-semibold text-gray-900 dark:text-white">
-          Edit Daily Planned Production
+          Update Production Material
       </h3>
       <button type="button" id="closeEditModalButton" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 
         rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 
@@ -18,56 +18,36 @@
     
     <div class="grid gap-4 mb-4 sm:grid-cols-2 mt-5">
       <div>
-        <label for="dailyPlannedProductionIdUpdate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">ID</label>
-        <input type="text" name="dailyPlannedProductionIdUpdate" id="dailyPlannedProductionIdUpdate" class="bg-gray-50 border border-gray-300 
+        <label for="productionMaterialIdUpdate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Material ID</label>
+        <input type="text" name="productionMaterialIdUpdate" id="productionMaterialIdUpdate" class="bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
           required="required" placeholder="Type raw material list id" readonly="readonly">
       </div>
       <div>
-        <label for="dailyPlannedProductionDateUpdate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Production Date</label>
-        <input id="dailyPlannedProductionDateUpdate" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
-          rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 
-          dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date">
-      </div>
-      <div>          
-        <label for="dailyPlannedProductionBranchIdUpdate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Branch ID - Name</label>
-        <select id="dailyPlannedProductionBranchIdUpdate" name="dailyPlannedProductionBranchIdUpdate" class="bg-gray-50 border border-gray-300 
+        <label for="productionMaterialDppIdUpdate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">DPP ID</label>
+        <select id="productionMaterialDppIdUpdate" name="productionMaterialDppIdUpdate" class="bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 
-          dailyPlannedProductionBranchIdCreate" required="required">
-          <option value="" disabled selected hidden>Select Branch</option>
-        </select>
-      </div>
-       <div>          
-        <label for="dailyPlannedProductionSkuCdUpdate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">SKU</label>
-        <select id="dailyPlannedProductionSkuCdUpdate" name="dailyPlannedProductionSkuCdUpdate" class="bg-gray-50 border border-gray-300 
-          text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
-          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 
-          dailyPlannedProductionSkuCdCreate" required="required">
-          <option value="" disabled selected hidden>Select SKU</option>
+          selDppId" required="required">
+          <option value="" disabled selected hidden>Select DPP ID</option>
         </select>
       </div>
       <div>
-        <label for="dailyPlannedProductionQuantityUpdate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Quantity</label>
-        <input type="number" name="dailyPlannedProductionQuantityUpdate" id="dailyPlannedProductionQuantityUpdate" class="bg-gray-50 border border-gray-300 
+      	<label for="materialCodeUpdate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Material</label>
+        <select id="materialCodeUpdate" name="materialCodeUpdate" class="bg-gray-50 border border-gray-300 
+          text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
+          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 
+          selMaterialCode" required="required">
+          <option value="" disabled selected hidden>Select Material Code</option>
+        </select>
+      </div>
+      <div>
+        <label for="productionMaterialQuantityToUseUpdate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Quantity to Use</label>
+        <input type="number" name="productionMaterialQuantityToUseUpdate" id="productionMaterialQuantityToUseUpdate" class="bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
-          required="required" placeholder="Type quantity">
-      </div>
-      <div>
-      	<label for="dailyPlannedProductionStatusUpdate"
-        class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Status</label>
-        <select id="dailyPlannedProductionStatusUpdate"
-        		name="dailyPlannedProductionStatusUpdate"
-        		class="input bg-gray-50 border border-gray-300 
-          		text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
-          		dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-        	<option value="" disabled selected hidden>Select Status</option>
-        	<option>Planned
-	        <option>In Progress
-	        <option>Completed
-        </select>
+          required="required" placeholder="Type quantity" min="0" max="99999999999999">
       </div>
     </div>
   
@@ -84,7 +64,7 @@
         dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
         Cancel
       </button>
-      <button id="btnUpdateDailyPlannedProduction" type="submit" class="text-white inline-flex items-center bg-blue-700 
+      <button id="btnUpdateProductionMaterial" type="submit" class="text-white inline-flex items-center bg-blue-700 
         hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium 
         rounded px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 
         dark:focus:ring-blue-800">

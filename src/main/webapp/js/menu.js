@@ -7,16 +7,6 @@ $.get("RegistrationController",{
 		});
 		});	
 
-$("#btnLogout").click(function() {
-	$.post("UserController", {
-		action: "logout"
-	}, function(response) {
-		$("#divMain").html(response);
-		$("#divMenu").html("");
-		/*history.go();*/
-	});
-});
-
 $("#btnDashboard").click(function(){
 $.get("DashboardController",{
 			action: "showDashboard"

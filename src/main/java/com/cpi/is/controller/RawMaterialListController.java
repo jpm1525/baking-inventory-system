@@ -30,7 +30,7 @@ public class RawMaterialListController extends HttpServlet {
 	private RawMaterialListServiceImpl rawMaterialListService = (RawMaterialListServiceImpl) context.getBean("rawMaterialListService");
 	private MaterialCodeServiceImpl materialCodeService = (MaterialCodeServiceImpl) context.getBean("materialCodeService");
 	private BranchServiceImpl branchService = (BranchServiceImpl) context.getBean("branchService");
-	
+
 	/**
      * @see HttpServlet#HttpServlet()
      */

@@ -9,9 +9,14 @@
   <div>
     <h1
       class="text-blacktext-[#68411b] dark:text-white text-center text-5xl font-bold m-10"
-      id="btnShowRawMaterialList">Raw Material List</h1>
+      id="btnShowProductionMaterial">Production Material</h1>
   </div>
-  <div class="flex justify-end">
+  <div class="flex justify-between">
+    <button type="button" id="btnShowDailyPlannedProduction" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 
+      to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 
+      dark:focus:ring-blue-800 font-medium rounded px-4 py-2 m-2">
+      &lt;Back to Daily Planned Production
+    </button>
     <button id="openAddModalButton"
       class="px-4 py-2 m-2 text-white bg-indigo-500 rounded">
       <i class="fas fa-plus"></i>
@@ -29,7 +34,7 @@
                 class="tabulator-col tabulator-sortable tabulator-col-sorter-element"
                 role="columnheader" aria-sort="none"
                 tabulator-field="materialListId"
-                style="min-width: 40px; width: 14%; height: 45px;">
+                style="min-width: 40px; width: 16%; height: 45px;">
                 <div class="tabulator-col-content">
                   <div class="tabulator-col-title-holder">
                     <div class="tabulator-col-title">ID</div>
@@ -45,10 +50,10 @@
                 class="tabulator-col tabulator-sortable tabulator-col-sorter-element"
                 role="columnheader" aria-sort="none"
                 tabulator-field="materialCd"
-                style="min-width: 40px; width: 14%; height: 45px;">
+                style="min-width: 40px; width: 16%; height: 45px;">
                 <div class="tabulator-col-content">
                   <div class="tabulator-col-title-holder">
-                    <div class="tabulator-col-title">Material Code</div>
+                    <div class="tabulator-col-title">DPP ID</div>
                     <div class="tabulator-col-sorter">
                       <div class="tabulator-arrow"></div>
                     </div>
@@ -59,7 +64,23 @@
                 class="tabulator-col tabulator-sortable tabulator-col-sorter-element"
                 role="columnheader" aria-sort="none"
                 tabulator-field="materialCd"
-                style="min-width: 40px; width: 14%; height: 45px;">
+                style="min-width: 40px; width: 16%; height: 45px;">
+                <div class="tabulator-col-content">
+                  <div class="tabulator-col-title-holder">
+                    <div class="tabulator-col-title">Material Code</div>
+                    <div class="tabulator-col-sorter">
+                      <div class="tabulator-arrow"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <span class="tabulator-col-resize-handle"
+                style="height: 45px;"></span>
+              <div
+                class="tabulator-col tabulator-sortable tabulator-col-sorter-element"
+                role="columnheader" aria-sort="none"
+                tabulator-field="quantity"
+                style="min-width: 40px; width: 16%; height: 45px;">
                 <div class="tabulator-col-content">
                   <div class="tabulator-col-title-holder">
                     <div class="tabulator-col-title">Material Name</div>
@@ -74,59 +95,11 @@
               <div
                 class="tabulator-col tabulator-sortable tabulator-col-sorter-element"
                 role="columnheader" aria-sort="none"
-                tabulator-field="quantity"
-                style="min-width: 40px; width: 14%; height: 45px;">
-                <div class="tabulator-col-content">
-                  <div class="tabulator-col-title-holder">
-                    <div class="tabulator-col-title">Quantity</div>
-                    <div class="tabulator-col-sorter">
-                      <div class="tabulator-arrow"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <span class="tabulator-col-resize-handle"
-                style="height: 45px;"></span>
-              <div
-                class="tabulator-col tabulator-sortable tabulator-col-sorter-element"
-                role="columnheader" aria-sort="none"
                 tabulator-field="dateReceive"
-                style="min-width: 40px; width: 14%; height: 45px;">
+                style="min-width: 40px; width: 16%; height: 45px;">
                 <div class="tabulator-col-content">
                   <div class="tabulator-col-title-holder">
-                    <div class="tabulator-col-title">Date Receive</div>
-                    <div class="tabulator-col-sorter">
-                      <div class="tabulator-arrow"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <span class="tabulator-col-resize-handle"
-                style="height: 45px;"></span>
-              <div
-                class="tabulator-col tabulator-sortable tabulator-col-sorter-element"
-                role="columnheader" aria-sort="none"
-                tabulator-field="userId"
-                style="min-width: 40px; width: 14%; height: 45px;">
-                <div class="tabulator-col-content">
-                  <div class="tabulator-col-title-holder">
-                    <div class="tabulator-col-title">User ID</div>
-                    <div class="tabulator-col-sorter">
-                      <div class="tabulator-arrow"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <span class="tabulator-col-resize-handle"
-                style="height: 45px;"></span>
-              <div
-                class="tabulator-col tabulator-sortable tabulator-col-sorter-element"
-                role="columnheader" aria-sort="none"
-                tabulator-field="branchId"
-                style="min-width: 40px; width: 14%; height: 45px;">
-                <div class="tabulator-col-content">
-                  <div class="tabulator-col-title-holder">
-                    <div class="tabulator-col-title">Branch ID</div>
+                    <div class="tabulator-col-title">Quantity to Use</div>
                     <div class="tabulator-col-sorter">
                       <div class="tabulator-arrow"></div>
                     </div>
@@ -210,14 +183,15 @@
   </div>
 </div>
 
-<jsp:include page="../pages/modals/rawMaterialListAddModal.jsp"></jsp:include>
-<jsp:include page="../pages/modals/rawMaterialListEditModal.jsp"></jsp:include>
+<jsp:include page="../pages/modals/productionMaterialAddModal.jsp"></jsp:include>
+<jsp:include page="../pages/modals/productionMaterialEditModal.jsp"></jsp:include>
 <jsp:include page="../pages/modals/maintenance/deleteModal.jsp"></jsp:include>
 
 <script type="text/javascript">
-	var materialCode = JSON.parse('${materialCode}');
+	var productionMaterial = JSON.parse('${productionMaterial}');
 	var rawMaterialList = JSON.parse('${rawMaterialList}');
-	var branchId = JSON.parse('${branchId}');
-	var userId = JSON.parse('${userId}');
+	var materialCode = JSON.parse('${materialCode}');
+	var dailyPlannedProduction = JSON.parse('${dailyPlannedProduction}');
+	var dppIdInp = JSON.parse('${dppIdInput}');
 </script>
-<script src="js/raw_material_list.js"></script>
+<script src="js/production_material.js"></script>
