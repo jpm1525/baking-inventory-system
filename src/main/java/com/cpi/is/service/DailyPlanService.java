@@ -8,7 +8,7 @@ import com.cpi.is.entity.DailyPlanEntity;
 
 public interface DailyPlanService {
 	
-	List<DailyPlanEntity> getData() throws Exception;
+	List<DailyPlanEntity> getData(Long branchId) throws Exception;
 	String saveData(HttpServletRequest request) throws Exception;
 	String deleteData(HttpServletRequest request) throws Exception;
 	String validateData(HttpServletRequest request) throws Exception;
