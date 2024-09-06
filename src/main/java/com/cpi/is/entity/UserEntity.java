@@ -2,9 +2,13 @@ package com.cpi.is.entity;
 
 import java.io.Serializable;
 
+import com.cpi.is.entity.maintenance.BranchEntity;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,6 +22,29 @@ public class UserEntity implements Serializable{
 		private Integer userId;
 		private String username;
 		private String password;
+		@Column(name="BRANCH_ID")
+		private Integer branchId;
+		
+		@ManyToOne
+		@JoinColumn(name="BRANCH_ID", insertable=false, updatable=false)
+		private BranchEntity branch;
+		
+		public Integer getBranchId() {
+			return branchId;
+		}
+
+		public void setBranchId(Integer branchId) {
+			this.branchId = branchId;
+		}
+
+		public BranchEntity getBranch() {
+			return branch;
+		}
+
+		public void setBranch(BranchEntity branch) {
+			this.branch = branch;
+		}
+		
 		
 		public UserEntity() {
 			super();
@@ -57,9 +84,8 @@ public class UserEntity implements Serializable{
 		
 		@Override
 		public String toString() {
-			return "{userId=" + userId 
-				 + ", username=" + username 
-				 + ", password=" + password + "}";
+			return "UserEntity [userId=" + userId + ", username=" + username + ", password=" + password + ", branchId="
+					+ branchId + "]";
 		}
 	
 }

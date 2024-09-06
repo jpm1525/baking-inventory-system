@@ -12,6 +12,22 @@ body {
     overflow-x: hidden;
 }
 
+img{
+  -webkit-user-select: none;
+-khtml-user-select: none;
+-moz-user-select: none;
+-o-user-select: none;
+-ms-user-select: none;
+user-select: none;
+
+-webkit-user-drag: none;
+-khtml-user-drag: none;
+-moz-user-drag: none;
+-o-user-drag: none;
+-ms-user-drag: none;
+user-drag: none;
+}
+
 form h1 {
   text-align:center;
   font-family: 'Courier New';
@@ -26,7 +42,7 @@ form h1 {
 
 label{
 font-size:18px;
-color:#68411b;
+color:#422308;
 font-weight:bold;
 }
 
@@ -40,6 +56,10 @@ footer {
     text-align: center;
 }
 
+.reports{
+    display:inline;
+    border-radius: 5px;
+}
 
 @media screen{
   .dashboardbox{
@@ -48,6 +68,7 @@ footer {
   min-height: 300px;
   }
 }
+
 .dashboardbox{
   display:flex;
   flex-grow:1;
@@ -95,6 +116,19 @@ footer {
     overflow: auto;
 }
 
+.dashTitle{
+  font-weight:bold;
+  font-size:30px;
+}
+
+.dashContent label{
+  font-weight:bold;
+  font-size:25px;
+}
+
+.dashContent p{
+  font-size:25px;
+}
 #divContent h1{
   margin:5px;
 }
@@ -111,14 +145,21 @@ footer {
   overflow: auto;
   transition: width 0.3s ease; /* Smooth transition for width change */
   box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4);
-
+  user-select: none;
 }
+
 
 /* Adjusted width when sidebar is hidden */
 #divContent.sidebar-adjusted {
   width: calc(100vw - 40px); /* Full width when sidebar is hidden */
 }
 
+.menuBtn{
+  margin-top: 80px;
+  width: 100%;
+  height: calc(100% - 90px);
+  overflow: auto;
+}
 /* Sidebar styles */
 .sidebar {
   overflow: auto;

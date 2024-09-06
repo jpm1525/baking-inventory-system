@@ -31,7 +31,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void saveSession(HttpServletRequest request) throws Exception {
 		userDAO.saveSession(new SessionEntity(
-				request.getSession().getId(), request.getAttribute("username").toString()));
+				request.getSession().getId(), 
+				request.getAttribute("username").toString(), 
+				request.getAttribute("userId").toString(), 
+				request.getAttribute("branchId").toString()));
 		
 	}
 
@@ -39,14 +42,18 @@ public class UserServiceImpl implements UserService {
 	public SessionEntity validateSession(HttpServletRequest request) throws Exception {
 		return userDAO.validateSession(new SessionEntity(
 				CookieUtil.getCookieValue(request.getCookies(), "sessionId"), 
-				CookieUtil.getCookieValue(request.getCookies(), "user")));
+				CookieUtil.getCookieValue(request.getCookies(), "user"), 
+				CookieUtil.getCookieValue(request.getCookies(), "userId"), 
+				CookieUtil.getCookieValue(request.getCookies(), "branchId")));
 	}
 
 	@Override
 	public void deleteSession(HttpServletRequest request) throws Exception {
 		userDAO.deleteSession(new SessionEntity(
 				CookieUtil.getCookieValue(request.getCookies(), "sessionId"), 
-				CookieUtil.getCookieValue(request.getCookies(), "user")));		
+				CookieUtil.getCookieValue(request.getCookies(), "user"), 
+				CookieUtil.getCookieValue(request.getCookies(), "userId"), 
+				CookieUtil.getCookieValue(request.getCookies(), "branchId")));		
 	}
 
 	public boolean isSessionValid(HttpServletRequest request) {

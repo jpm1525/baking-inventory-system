@@ -18,13 +18,21 @@ public class SessionUtil {
 	public static Boolean checkUserSession(HttpServletRequest request) throws Exception {
 		HttpSession session = request.getSession();
 		UserEntity user = (UserEntity) session.getAttribute("user");
+		UserEntity userId = (UserEntity) session.getAttribute("userId");
+		UserEntity branchId = (UserEntity) session.getAttribute("branchId");
 		Boolean exist = true;
 		if (user != null) {
 			request.setAttribute("username", user.getUsername());
+			request.setAttribute("userId", userId.getUserId());
+			request.setAttribute("branchid", branchId.getBranchId());
+
 		} else {
 			SessionEntity userSession = userService.validateSession(request);
 			if (userSession != null) {
 				request.setAttribute("username", userSession.getUsername());
+				request.setAttribute("userId", userSession.getUserId());
+				request.setAttribute("branchid", userSession.getBranchId());
+
 			} else {
 				exist = false;
 			}
