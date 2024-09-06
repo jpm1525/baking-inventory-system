@@ -49,9 +49,9 @@ public class DispatchingServiceImpl implements DispatchingService {
 	}
 	
 	@Override
-	public List<DispatchingEntity> getData(Integer branchId) throws Exception {
+	public List<DispatchingEntity> getData() throws Exception {
 		// TODO Auto-generated method stub
-		return dispatchingDAO.getData(branchId);
+		return dispatchingDAO.getData();
 	}
 
 	@Override

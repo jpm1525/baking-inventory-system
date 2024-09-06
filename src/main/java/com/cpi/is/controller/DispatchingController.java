@@ -50,11 +50,10 @@ public class DispatchingController extends HttpServlet {
 			if (SessionUtil.checkUserSession(request)) {
 			
 				action = request.getParameter("action");
-				HttpSession session = request.getSession();
-				Integer branchId = (Integer) session.getAttribute("branchId");
+				
 		
 			if ("showDispatching".equals(action)) {
-				request.setAttribute("dispatching", new JSONArray(dispatchingService.getData(branchId)));
+				request.setAttribute("dispatching", new JSONArray(dispatchingService.getData()));
 				request.setAttribute("dispatchType", new JSONArray(dispatchTypeService.getData()));
 				request.setAttribute("branch",new JSONArray(branchService.getData()));
 				request.setAttribute("skuCode",new JSONArray(skuCodeService.getData()));
