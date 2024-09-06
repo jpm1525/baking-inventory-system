@@ -12,11 +12,13 @@ import com.cpi.is.util.HBUtil;
 public class DailyPlanDAOImpl implements DailyPlanDAO {
 	
 	@Override
-	public List<DailyPlanEntity> getData() throws Exception {
+	public List<DailyPlanEntity> getData(Long branchId) throws Exception {
 		List<DailyPlanEntity> dailyplannedproduction = null;
 		try (Session session = HBUtil.getSessionFactory().openSession()) {
 			dailyplannedproduction = (List<DailyPlanEntity>) 
-				session.createQuery("From DailyPlanEntity T ORDER BY T.dppId DESC", DailyPlanEntity.class).list();
+				session.createQuery("From DailyPlanEntity T WHERE T.branchId = :branchId ORDER BY T.dppId DESC", DailyPlanEntity.class)
+				.setParameter("branchId", branchId)
+				.list();
 		}
 		return dailyplannedproduction;
 	}
