@@ -39,11 +39,13 @@ divTable.on('rowClick',function() {
 callback = function(mutationsList, observer) {
     for(let mutation of mutationsList) {
         if (mutation.type === 'childList') {
+			$(".editModalButton").off("click");
             $(".editModalButton").on('click', function(){
                 editModal.classList.remove("closing");
                 editModal.showModal();
                 editModal.classList.add("showing");
             });
+			$(".deleteModalButton").off("click");
             $(".deleteModalButton").on('click', function(){
                 $("#deleteModal").removeClass("closing")
                 deleteModal.showModal();

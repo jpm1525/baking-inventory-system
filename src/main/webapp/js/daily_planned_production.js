@@ -18,6 +18,7 @@ function getSkuCd(){
 
 getSkuCd();
 
+if (typeof dppIdInput === 'undefined' || dppIdInput === null) {let dppIdInput = "";}
 if (typeof data === 'undefined' || data === null) {let data = "";}
 if (typeof callback === 'undefined' || callback === null) {let callback = "";}
 if (typeof observer === 'undefined' || observer === null) {let observer = "";}
@@ -25,7 +26,7 @@ if (typeof observer === 'undefined' || observer === null) {let observer = "";}
 var editButton = function(value, data, cell, row, options){
 	let thisButton = '<button class="px-4 py-2 text-white bg-indigo-500 rounded editModalButton"> Edit </button>';
 		thisButton +='<button class="px-4 py-2 ml-5 text-white bg-red-500 rounded deleteModalButton"> Delete </button>'	;
-		thisButton +='<button class="px-4 py-2 ml-5 text-white bg-green-500 rounded openAddModalButton"> View Details</button>'
+		thisButton +='<button class="px-4 py-2 ml-5 text-white bg-green-500 rounded viewButton"> View Details</button>'
     return thisButton;
 };
 
@@ -39,6 +40,7 @@ var divTable = new Tabulator("#divTableTabulator" , {
 	paginationCounter:"rows",
 	selectableRows:1,
 	columns: [
+		{title:"Id", field: 'dppId', visible: false},
 		{title:"Production Date", field: 'productionDate'},
 		{title:"Branch Name", field:'branch.branchName'},
 		{title:"SKU Code", field: 'skuCd'},
@@ -63,16 +65,29 @@ divTable.on('rowClick',function() {
 callback = function(mutationsList, observer) {
     for(let mutation of mutationsList) {
         if (mutation.type === 'childList') {
+			$(".editModalButton").off("click");
             $(".editModalButton").on('click', function(){
                 editModal.classList.remove("closing");
                 editModal.showModal();
                 editModal.classList.add("showing");
             });
+			$(".deleteModalButton").off("click");
             $(".deleteModalButton").on('click', function(){
                 $("#deleteModal").removeClass("closing")
                 deleteModal.showModal();
                 $("#deleteModal").addClass("showing")
             });
+			$(".viewButton").off("click");
+			$(".viewButton").on('click', function(){
+				setTimeout(function() { 
+					$.post("ProductionMaterialController",{
+						action: "showProductionMaterial",
+						dppIdInput: JSON.stringify(dppIdInput),
+						}, function(response){
+						$("#divContent").html(response)
+					});
+				}, 100);
+			});
         }
     }
 };
@@ -118,6 +133,7 @@ function populateForm(row) {
 		quantity: row.quantity.toString(),
 		status: row.status.toString()
 	};
+	dppIdInput = row.dppId;
 }
 
 function validate(data) {
@@ -125,6 +141,33 @@ function validate(data) {
 	if (data.dppId === '' || data.productionDate === '' || data.branchId === '' || 
 		data.skuCd === '' || data.quantity === '' || data.status === '') {
 		$('.errorMessage').text("Please correctly fill-out all required fields");
+		valid = false;
+	} else if (!(/^[0-9]\d*$/.test(data.dppId))) {
+	    $('.errorMessage').text("Daily Planned Production ID should only contain positive numbers");
+		valid = false;
+	} else if (data.dppId > 99999999999999){
+		$('.errorMessage').text("Daily Planned Production ID value is too large");
+		valid = false;
+	} else if (!(!isNaN(Date.parse(data.productionDate)) && (new Date(data.productionDate).toISOString().startsWith(data.productionDate)))) {
+	    $('.errorMessage').text("Please enter a valid date");
+		valid = false;
+	} else if (!(/^[1-9][0-9]*$/.test(data.branchId))) {
+	    $('.errorMessage').text("Branch ID should only contain positive numbers");
+		valid = false;
+	} else if (data.branchId > 99999999999999){
+		$('.errorMessage').text("Branch ID value is too large");
+		valid = false;
+	} else if (data.skuCd.length > 10){
+		$('.errorMessage').text("SKU Code characters should be less than 11");
+		valid = false;
+	} else if (!(/^[0-9]\d*$/.test(data.quantity))) {
+	    $('.errorMessage').text("Quantity should only contain positive numbers and zero");
+		valid = false;
+	} else if (data.quantity > 99999999999999){
+		$('.errorMessage').text("Quantity value is too large");
+		valid = false;
+	} else if (data.status.length > 20){
+		$('.errorMessage').text("Status characters should be less than 21");
 		valid = false;
 	} 
 	return valid;
@@ -173,11 +216,3 @@ function updateData() {
 
 $('#btnCreateDailyPlannedProduction').click(addData);
 $('#btnUpdateDailyPlannedProduction').click(updateData);
-
-$("#openProductionMaterial").click(function(){
-	$.get("ProductionMaterialController",{
-		action: "showProductionMaterial"
-		}, function(response){
-		$("#divContent").html(response)
-	});
-});

@@ -11,12 +11,6 @@
       class="text-[#68411b]  dark:text-white text-center text-5xl font-bold m-10"
       id="btnShowDailyPlannedProduction">Daily Planned Production</h1>
   </div>
-  <div class="flex justify-start">
-    <button id="openProductionMaterial"
-      class="px-4 py-2 m-2 text-white bg-indigo-500 rounded">
-      THIS is Production Material YO
-    </button>
-  </div>
   <div class="flex justify-end">
     <button id="openAddModalButton"
       class="px-4 py-2 m-2 text-white bg-indigo-500 rounded">

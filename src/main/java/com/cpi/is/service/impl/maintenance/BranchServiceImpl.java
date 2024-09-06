@@ -37,9 +37,16 @@ public class BranchServiceImpl implements BranchService {
 	@Override
 	public String saveData(HttpServletRequest request) throws Exception {
 		String validation = validateData(request);
-		if(validation.equals("Success")) {
-			return branchDAO.saveData(
-					jsonToEntity(new JSONObject(request.getParameter("data"))));
+		String results = "";
+		
+		if(validation.equals("success")) {
+			results = 	branchDAO.saveData(
+							jsonToEntity(new JSONObject(request.getParameter("data"))));
+			if(results.equals("success")) {
+				return results;
+			} else {
+				return "Unable to save Branch Data";
+			}
 		} else {
 			return validation;
 		}
@@ -48,27 +55,36 @@ public class BranchServiceImpl implements BranchService {
 	@Override
 	public String deleteData(HttpServletRequest request) throws Exception {
 		String validation = validateData(request);
-		if(validation.equals("Success")) {
-			return branchDAO.deleteData(
-					jsonToEntity(new JSONObject(request.getParameter("data"))));
+		String results = "";
+		
+		if(validation.equals("success")) {
+			results = 	branchDAO.deleteData(
+							jsonToEntity(new JSONObject(request.getParameter("data"))));
+			if(results.equals("success")) {
+				return results;
+			} else {
+				return "Unable to delete Branch Data";
+			}
 		} else {
-			return "Unable to delete data";
+			return "Unable to delete Branch data";
 		}
 	}
 	
 	public String validateData(HttpServletRequest request) throws Exception{
 		JSONObject json = new JSONObject(request.getParameter("data"));
-		String validation = "Success";
+		String validation = "success";
+		String errorResult = "Please fill-out the branch form properly";
+		
 		if (!json.has("branchId") || !(json.get("branchId") instanceof String)) {
-			validation = "Please fill-out the branch form properly";
+			validation = errorResult;
 		} else if(!json.has("branchName") || !(json.get("branchName") instanceof String)) {
-			validation = "Please fill-out the branch form properly";
+			validation = errorResult;
 		} else if (json.getString("branchId").length() < 1 || json.getString("branchId").length() > 14) {
-			validation = "Please fill-out the branch form properly";
+			validation = errorResult;
 		} else if (!json.getString("branchId").matches("^[0-9]\\d*$")) {
-			validation = "Please fill-out the branch form properly";
+			validation = errorResult;
 		} else if (json.getString("branchName").length() < 1 && json.getString("branchName").length() > 50) {
-			validation = "Please fill-out the branch form properly";
+			validation = errorResult;
 		} 
 		
 		return validation;

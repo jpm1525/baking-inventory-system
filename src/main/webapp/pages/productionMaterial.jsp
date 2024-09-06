@@ -11,7 +11,12 @@
       class="text-blacktext-[#68411b] dark:text-white text-center text-5xl font-bold m-10"
       id="btnShowProductionMaterial">Production Material</h1>
   </div>
-  <div class="flex justify-end">
+  <div class="flex justify-between">
+    <button type="button" id="btnShowDailyPlannedProduction" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 
+      to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 
+      dark:focus:ring-blue-800 font-medium rounded px-4 py-2 m-2">
+      &lt;Back to Daily Planned Production
+    </button>
     <button id="openAddModalButton"
       class="px-4 py-2 m-2 text-white bg-indigo-500 rounded">
       <i class="fas fa-plus"></i>
@@ -178,13 +183,15 @@
   </div>
 </div>
 
-<%-- <jsp:include page="../pages/modals/productionMaterialAddModal.jsp"></jsp:include>
+<jsp:include page="../pages/modals/productionMaterialAddModal.jsp"></jsp:include>
 <jsp:include page="../pages/modals/productionMaterialEditModal.jsp"></jsp:include>
-<jsp:include page="../pages/modals/maintenance/deleteModal.jsp"></jsp:include> --%>
+<jsp:include page="../pages/modals/maintenance/deleteModal.jsp"></jsp:include>
 
 <script type="text/javascript">
 	var productionMaterial = JSON.parse('${productionMaterial}');
 	var rawMaterialList = JSON.parse('${rawMaterialList}');
 	var materialCode = JSON.parse('${materialCode}');
+	var dailyPlannedProduction = JSON.parse('${dailyPlannedProduction}');
+	var dppIdInp = JSON.parse('${dppIdInput}');
 </script>
 <script src="js/production_material.js"></script>
