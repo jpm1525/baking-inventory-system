@@ -34,11 +34,25 @@
         </select>
       </div>
       <div>
+        <label for="productionMaterialInitialStockCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Initial Stock</label>
+        <input type="number" name="productionMaterialInitialStockCreate" id="productionMaterialInitialStockCreate" class="bg-gray-50 border border-gray-300 
+          text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
+          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
+          required="required" placeholder="Initial Stock" min="0" max="0" readonly="readonly" value="0">
+      </div>
+      <div>
         <label for="productionMaterialQuantityToUseCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Quantity to Use</label>
         <input type="number" name="productionMaterialQuantityToUseCreate" id="productionMaterialQuantityToUseCreate" class="bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
-          required="required" placeholder="Type quantity" min="0" max="99999999999999">
+          required="required" placeholder="Type quantity" min="0" max="0" value = "0">
+      </div>
+      <div>
+        <label for="productionMaterialResultingStockCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Resulting Stock</label>
+        <input type="number" name="productionMaterialResultingStockCreate" id="productionMaterialResultingStockCreate" class="bg-gray-50 border border-gray-300 
+          text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
+          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
+          required="required" placeholder="Resulting Stock" min="0" max="0" readonly="readonly" value="0">
       </div>
     </div>
   

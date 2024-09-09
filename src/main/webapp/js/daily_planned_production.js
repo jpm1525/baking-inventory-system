@@ -18,6 +18,8 @@ function getSkuCd(){
 
 getSkuCd();
 
+$('#dailyPlannedProductionBranchIdCreate').val(branchIdInput);
+
 if (typeof dppIdInput === 'undefined' || dppIdInput === null) {let dppIdInput = "";}
 if (typeof data === 'undefined' || data === null) {let data = "";}
 if (typeof callback === 'undefined' || callback === null) {let callback = "";}
@@ -121,7 +123,7 @@ $('#deleteSaveModalButton').click(function(event){
 function populateForm(row) {
 	$('#dailyPlannedProductionIdUpdate').val(row.dppId);
 	$('#dailyPlannedProductionDateUpdate').val(row.productionDate);
-	$('#dailyPlannedProductionBranchIdUpdate').val(row.branchId);
+	$('#dailyPlannedProductionBranchIdUpdate').val(branchIdInput);
 	$('#dailyPlannedProductionSkuCdUpdate').val(row.skuCd);
 	$('#dailyPlannedProductionQuantityUpdate').val(row.quantity);
 	$('#dailyPlannedProductionStatusUpdate').val(row.status);
