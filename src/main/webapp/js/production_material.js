@@ -1,15 +1,39 @@
-function getMaterialCode(){
+function getMaterialCodeCreate(){
 	let html = '';
 		$.each(rawMaterialList, function(index, data) {
 			$.each(materialCode, function(index2, data2) {
-				if(data.materialCd == data2.materialCd)
-				html+= '<option index="' + index + '"value="' + data.materialCd + '">' + data.materialCd + ' - ' + data2.materialCodeName + '</option>'
+				if(data.materialCd == data2.materialCd){
+					html+= '<option materialListId="' + data.materialListId +  '"index="' + index + 
+						'"value="' + data.materialCd + '">' + data.materialCd + ' - ' + 
+						data2.materialCodeName + ' - ' + data.dateReceive + '</option>';
+				}
 			});
 		});
-	$('.selMaterialCode').append(html);
+	$('#materialCodeCreate').append(html);
 }
 
-getMaterialCode();
+getMaterialCodeCreate();
+
+function getMaterialCodeUpdate(materialListIdInput, quantityInput){
+	let html = '';
+		$.each(rawMaterialList, function(index, data) {
+			$.each(materialCode, function(index2, data2) {
+				if(data.materialCd == data2.materialCd){
+					if(materialListIdInput == data.materialListId){
+						html+= '<option qty="' + (data.quantity + quantityInput) + '" materialListId="' + data.materialListId +  
+							'" index="' + index + '" value="' + data.materialCd + '">' + data.materialCd + ' - ' + 
+							data2.materialCodeName + ' - ' + data.dateReceive + '</option>';
+					}else{
+						html+= '<option qty="' + data.quantity + '" materialListId="' + data.materialListId +  
+							'" index="' + index + '" value="' + data.materialCd + '">' + data.materialCd + ' - ' + 
+							data2.materialCodeName + ' - ' + data.dateReceive + '</option>';				
+					}
+				}
+			});
+		});
+	$('#materialCodeUpdate').html(html);
+}
+
 
 $('#productionMaterialDppIdCreate').val(dppIdInp);
 
@@ -107,22 +131,29 @@ $('#deleteSaveModalButton').click(function(event){
 });	
 
 function populateForm(row) {
+	getMaterialCodeUpdate(row.materialList.materialListId, row.quantityToUse);
 	$('#productionMaterialIdUpdate').val(row.pmId);
 	$('#productionMaterialDppIdUpdate').val(dppIdInp);
 	$('#materialCodeUpdate').val(row.materialCd);
 	$('#productionMaterialQuantityToUseUpdate').val(row.quantityToUse);
+	UpdateStocksOnEdit();
+	$('#productionMaterialQuantityToUseUpdate').val(row.quantityToUse);
+	$('#productionMaterialResultingStockUpdate').val(
+		$('#productionMaterialInitialStockUpdate').val() - 
+		$('#productionMaterialQuantityToUseUpdate').val());
 	data = {
 		pmId: row.pmId.toString(),
 		dppId: dppIdInp.toString(),
 		materialCd: row.materialCd.toString(),
 		quantityToUse: row.quantityToUse.toString(),
+		materialListId: row.materialList.materialListId.toString()
 	};
 }
 
 function validate(data) {
 	let valid = true;
-	if (data.pmId === '' || data.dppId === '' || 
-		data.materialCd === '' || data.quantityToUse === '') {
+	if (data.pmId === '' || data.dppId === '' || data.materialCd === '' || 
+		data.materialListId === '' || data.quantityToUse === '') {
 		$('.errorMessage').text("Please correctly fill-out all required fields");
 		valid = false;
 	} else if (!(/^[0-9]\d*$/.test(data.pmId))) {
@@ -140,7 +171,13 @@ function validate(data) {
 	} else if (data.materialCd.length > 10){
 		$('.errorMessage').text("Material Code characters should be less than 11");
 		valid = false;
-	} else if (!(/^[0-9]\d*$/.test(data.quantityToUse))) {
+	} else if (!(/^[1-9][0-9]*$/.test(data.materialListId))) {
+	    $('.errorMessage').text("Daily Planned Production ID should only contain positive numbers");
+		valid = false;
+	} else if (data.materialListId > 99999999999999){
+		$('.errorMessage').text("Daily Planned Production ID value is too large");
+		valid = false;
+	}  else if (!(/^[0-9]\d*$/.test(data.quantityToUse))) {
 	    $('.errorMessage').text("Quantity value should only contain positive numbers and zero");
 		valid = false;
 	} else if (data.quantityToUse > 99999999999999){
@@ -172,7 +209,8 @@ function addData() {
 		pmId: "0",
 		dppId: dppIdInp.toString(),
 		materialCd: $('#materialCodeCreate').val().toString(),
-		quantityToUse: $('#productionMaterialQuantityToUseCreate').val().toString()
+		quantityToUse: $('#productionMaterialQuantityToUseCreate').val().toString(),
+		materialListId: $('#materialCodeCreate').find(':selected').attr('materialListId').toString() 
 	};
 	sendData(data);
 }
@@ -182,7 +220,8 @@ function updateData() {
 		pmId: $('#productionMaterialIdUpdate').val().toString(),
 		dppId: dppIdInp.toString(),
 		materialCd: $('#materialCodeUpdate').val().toString(),
-		quantityToUse: $('#productionMaterialQuantityToUseUpdate').val().toString()
+		quantityToUse: $('#productionMaterialQuantityToUseUpdate').val().toString(),
+		materialListId: $('#materialCodeUpdate').find(':selected').attr('materialListId').toString() 
 	};
 	sendData(data);
 }
@@ -208,6 +247,24 @@ $('#productionMaterialQuantityToUseCreate').on("input", function() {
 	}
 });
 
+$('#productionMaterialQuantityToUseUpdate').on("input", function() {
+	if (!(/^[0-9]\d*$/.test($('#productionMaterialQuantityToUseUpdate').val()))){
+		$('#productionMaterialQuantityToUseUpdate').val(0);
+	}else if($('#productionMaterialQuantityToUseUpdate').val() > parseInt($('#productionMaterialInitialStockUpdate').val())){
+		console.log("GREATER THAN");
+		$('#productionMaterialQuantityToUseUpdate').val($('#productionMaterialInitialStockUpdate').val());
+		$('#productionMaterialResultingStockUpdate').val(0);
+	}else if($('#productionMaterialQuantityToUseUpdate').val() < 0){
+		console.log("LESS THAN");
+		$('#productionMaterialQuantityToUseUpdate').val(0);
+		$('#productionMaterialResultingStockUpdate').val($('#productionMaterialInitialStockUpdate').val());
+	}else{
+		$('#productionMaterialResultingStockUpdate').val(
+			$('#productionMaterialInitialStockUpdate').val() - 
+			$('#productionMaterialQuantityToUseUpdate').val());
+	}
+});
+
 $('#materialCodeCreate').on("input", function() {
 	let index = 0;
 	let initialStock = 0;
@@ -223,4 +280,26 @@ $('#materialCodeCreate').on("input", function() {
 	$('#productionMaterialQuantityToUseCreate').prop('max', initialStock);
 	$('#productionMaterialResultingStockCreate').val(initialStock);
 	$('#productionMaterialQuantityToUseCreate').prop('max', initialStock);
+});
+
+
+function UpdateStocksOnEdit(){
+	let index = 0;
+	let initialStock = 0;
+	if(!($('#materialCodeUpdate').find(':selected').attr('index') == 'undefined')){
+		index = $('#materialCodeUpdate').find(':selected').attr('index');
+	}
+	if(!($('#materialCodeUpdate').find(':selected').attr('qty') == 'undefined')){
+		initialStock = $('#materialCodeUpdate').find(':selected').attr('qty');
+	}
+	$('#productionMaterialInitialStockUpdate').val(initialStock);
+	$('#productionMaterialInitialStockUpdate').prop('max', initialStock);
+	$('#productionMaterialQuantityToUseUpdate').val(0);
+	$('#productionMaterialQuantityToUseUpdate').prop('max', initialStock);
+	$('#productionMaterialResultingStockUpdate').val(initialStock);
+	$('#productionMaterialQuantityToUseUpdate').prop('max', initialStock);
+}
+
+$('#materialCodeUpdate').on("input", function() {
+	UpdateStocksOnEdit();
 });

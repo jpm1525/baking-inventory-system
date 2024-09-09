@@ -35,6 +35,7 @@ public class ProductionMaterialServiceImpl implements ProductionMaterialService 
 		        Long.parseLong(json.getString("pmId")), 
 		        Long.parseLong(json.getString("dppId")), 
 		        json.getString("materialCd"),
+		        Long.parseLong(json.getString("materialListId")), 
 		        Long.parseLong(json.getString("quantityToUse")));
 	}
 
@@ -90,6 +91,8 @@ public class ProductionMaterialServiceImpl implements ProductionMaterialService 
 			validation = errorResult;
 		} else if (!json.has("materialCd") || !(json.get("materialCd") instanceof String)) {
 			validation = errorResult;
+		} else if (!json.has("materialListId") || !(json.get("materialListId") instanceof String)) {
+			validation = errorResult;
 		} else if (!json.has("quantityToUse") || !(json.get("quantityToUse") instanceof String)) {
 			validation = errorResult;
 		} else if (json.getString("pmId").length() < 1 || json.getString("pmId").length() > 14) {
@@ -98,11 +101,15 @@ public class ProductionMaterialServiceImpl implements ProductionMaterialService 
 			validation = errorResult;
 		} else if (json.getString("dppId").length() < 1 || json.getString("dppId").length() > 14) {
 			validation = errorResult;
-		} else if (!json.getString("dppId").matches("^[0-9]\\d*$")) {
+		} else if (!json.getString("dppId").matches("^[1-9]\\d*$")) {
 			validation = errorResult;
 		} else if (json.getString("materialCd").length() < 1 || json.getString("materialCd").length() > 10) {
 			validation = errorResult;
-		} else if (json.getString("quantityToUse").length() < 1 || json.getString("quantityToUse").length() > 14) {
+		} else if (json.getString("materialListId").length() < 1 || json.getString("materialListId").length() > 14) {
+			validation = errorResult;
+		} else if (!json.getString("materialListId").matches("^[1-9]\\d*$")) {
+			validation = errorResult;
+		}  else if (json.getString("quantityToUse").length() < 1 || json.getString("quantityToUse").length() > 14) {
 			validation = errorResult;
 		} else if (!json.getString("quantityToUse").matches("^[0-9]\\d*$")) {
 			validation = errorResult;

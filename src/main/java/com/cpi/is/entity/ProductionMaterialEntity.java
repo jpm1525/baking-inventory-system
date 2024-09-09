@@ -1,6 +1,7 @@
 package com.cpi.is.entity;
 
 import com.cpi.is.entity.maintenance.MaterialCodeEntity;
+import com.cpi.is.entity.RawMaterialListEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,20 +30,44 @@ public class ProductionMaterialEntity {
     @Column(name = "quantity_to_use")
     private Long quantityToUse;
     
+    @Column(name = "material_list_id")
+    private Long materialListId;
+    
 	@ManyToOne
 	@JoinColumn(name = "material_cd", insertable = false, updatable = false)
 	private MaterialCodeEntity materialCode;
+	
+	@ManyToOne
+	@JoinColumn(name = "material_list_id", insertable = false, updatable = false)
+	private RawMaterialListEntity materialList;
     
 	public ProductionMaterialEntity() {
 		super();
 	}
 
-	public ProductionMaterialEntity(Long pmId, Long dppId, String materialCd, Long quantityToUse) {
+	public ProductionMaterialEntity(Long pmId, Long dppId, String materialCd, Long materialListId, Long quantityToUse) {
 		super();
 		this.pmId = pmId;
 		this.dppId = dppId;
 		this.materialCd = materialCd;
 		this.quantityToUse = quantityToUse;
+		this.materialListId = materialListId;
+	}
+
+	public Long getMaterialListId() {
+		return materialListId;
+	}
+
+	public void setMaterialListId(Long materialListId) {
+		this.materialListId = materialListId;
+	}
+
+	public RawMaterialListEntity getMaterialList() {
+		return materialList;
+	}
+
+	public void setMaterialList(RawMaterialListEntity materialList) {
+		this.materialList = materialList;
 	}
 
 	public Long getPmId() {
@@ -88,7 +113,8 @@ public class ProductionMaterialEntity {
 	@Override
 	public String toString() {
 		return "ProductionMaterialEntity [pmId=" + pmId + ", dppId=" + dppId + ", materialCd=" + materialCd
-				+ ", quantityToUse=" + quantityToUse + ", materialCode=" + materialCode + "]";
+				+ ", quantityToUse=" + quantityToUse + ", materialListId=" + materialListId + "]";
 	}
+
 	
 }
