@@ -24,7 +24,7 @@ import com.cpi.is.entity.maintenance.MaterialCodeEntity;
 public class RawMaterialListEntity {
 
     @Id
-    @Column (name="MATERIAL_ID_LIST")
+    @Column (name="MATERIAL_LIST_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long materialListId;
     @Column (name="MATERIAL_CD")

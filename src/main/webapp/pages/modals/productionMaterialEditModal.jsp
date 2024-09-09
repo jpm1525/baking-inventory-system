@@ -31,23 +31,21 @@
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
           disabled selected hidden required="required" readonly="readonly">
       </div>
-      <!-- <div>
-        <label for="productionMaterialDppIdUpdate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">DPP ID</label>
-        <select id="productionMaterialDppIdUpdate" name="productionMaterialDppIdUpdate" class="bg-gray-50 border border-gray-300 
-          text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
-          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 
-          selDppId" required="required">
-          <option value="" disabled selected hidden>Select DPP ID</option>
-        </select>
-      </div> -->
       <div>
       	<label for="materialCodeUpdate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Material</label>
         <select id="materialCodeUpdate" name="materialCodeUpdate" class="bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 
           selMaterialCode" required="required">
-          <option value="" disabled selected hidden>Select Material Code</option>
+          <option value="" disabled selected hidden>Select Material</option>
         </select>
+      </div>
+      <div>
+        <label for="productionMaterialInitialStockUpdate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Initial Stock</label>
+        <input type="number" name="productionMaterialInitialStockUpdate" id="productionMaterialInitialStockUpdate" class="bg-gray-50 border border-gray-300 
+          text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
+          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
+          required="required" placeholder="Initial Stock" min="0" max="0" readonly="readonly" value="0">
       </div>
       <div>
         <label for="productionMaterialQuantityToUseUpdate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Quantity to Use</label>
@@ -55,6 +53,13 @@
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
           required="required" placeholder="Type quantity" min="0" max="99999999999999">
+      </div>
+      <div>
+        <label for="productionMaterialResultingStockUpdate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Resulting Stock</label>
+        <input type="number" name="productionMaterialResultingStockUpdate" id="productionMaterialResultingStockUpdate" class="bg-gray-50 border border-gray-300 
+          text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
+          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
+          required="required" placeholder="Resulting Stock" min="0" max="0" readonly="readonly" value="0">
       </div>
     </div>
   
