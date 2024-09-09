@@ -58,6 +58,7 @@ public class DispatchingController extends HttpServlet {
 				request.setAttribute("dispatchType", new JSONArray(dispatchTypeService.getData()));
 				request.setAttribute("branch",new JSONArray(branchService.getData()));
 				request.setAttribute("skuCode",new JSONArray(skuCodeService.getData()));
+				request.setAttribute("branchIdUser", branchId);
 				page = "pages/dispatching.jsp";
 			} else if ("saveData".equals(action)) {
 				request.setAttribute("message", dispatchingService.saveData(request));

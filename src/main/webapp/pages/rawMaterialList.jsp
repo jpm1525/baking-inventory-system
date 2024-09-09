@@ -3,7 +3,8 @@
   type="text/css">
 <link rel="stylesheet" href="css/tabulator_tailwind.css" type="text/css">
 <script type="text/javascript" src="js/tabulator.min.js"></script>
-<script src="js/modal/modal.js"></script>
+<script src="js/modal/modal.js"></script> 
+<script src="js/modal/input_number.js"></script>
 
 <div class="flex place-content-center flex-col ">
   <div>
@@ -219,5 +220,6 @@
 	var rawMaterialList = JSON.parse('${rawMaterialList}');
 	var branchId = JSON.parse('${branchId}');
 	var userId = JSON.parse('${userId}');
+	var branchIdUser = JSON.parse('${branchIdUser}');
 </script>
 <script src="js/raw_material_list.js"></script>

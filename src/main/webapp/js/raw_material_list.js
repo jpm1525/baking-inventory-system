@@ -1,3 +1,14 @@
+function getBranchId(){
+	$.each(branchId, function(index, data) {
+		if(data.branchId == branchIdUser){
+			$('.inputBranchId').val(data.branchId + ' - ' + data.branchName);
+			$('.inputBranchId').attr("dataBranchId",data.branchId);
+		}
+	});
+}
+
+getBranchId();
+
 function getMaterialCode(){
 	let html = '';
 		$.each(materialCode, function(index, data) {
@@ -8,15 +19,9 @@ function getMaterialCode(){
 
 getMaterialCode();
 
-function getBranchId(){
-	let html = '';
-		$.each(branchId, function(index, data) {
-			html+= '<option value="' + data.branchId + '">' + data.branchId + ' - ' + data.branchName + '</option>'
-		});
-		$('.selectBranchIdCreate').append(html);
-}
+$('.rawUserId').val(userId);
 
-getBranchId();
+
 
 if (typeof data === 'undefined' || data === null) {let data = "";}
 if (typeof callback === 'undefined' || callback === null) {let callback = "";}
@@ -186,8 +191,8 @@ function addData() {
 		materialCd: $('#selMaterialCode').val().toString(),
 		quantity: $('#rawMaterialListQuantityCreate').val().toString(),
 		dateReceive: $('#rawMaterialListDateReceiveCreate').val().toString(),
-		userId: $('#userIdCreate').val().toString(),
-		branchId: $('#branchIdCreate').val().toString()
+		userId: userId.toString(),
+		branchId: branchIdUser.toString()
 	};
 	sendData(data);
 }
@@ -199,7 +204,7 @@ function updateData() {
 		quantity: $('#rawMaterialListQuantityUpdate').val().toString(),
 		dateReceive: $('#rawMaterialListDateReceiveUpdate').val().toString(),
 		userId: $('#userIdUpdate').val().toString(),
-		branchId: $('#branchIdUpdate').val().toString()
+		branchId: branchIdUser.toString()
 	};
 	sendData(data);
 }

@@ -12,6 +12,7 @@ import org.json.JSONArray;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.cpi.is.entity.UserEntity;
 import com.cpi.is.service.impl.RawMaterialListServiceImpl;
 import com.cpi.is.service.impl.maintenance.BranchServiceImpl;
 import com.cpi.is.service.impl.maintenance.MaterialCodeServiceImpl;
@@ -47,12 +48,15 @@ public class RawMaterialListController extends HttpServlet {
 			if (SessionUtil.checkUserSession(request)) {
 				action = request.getParameter("action");
 				HttpSession session = request.getSession();
+				UserEntity user = (UserEntity) session.getAttribute("user");
 				Long branchId = Long.parseLong(session.getAttribute("branchId").toString());
 				
 				if ("showRawMaterialList".equals(action)) {
 					request.setAttribute("rawMaterialList", new JSONArray(rawMaterialListService.getData(branchId)));
 					request.setAttribute("materialCode", new JSONArray(materialCodeService.getData()));
 					request.setAttribute("branchId", new JSONArray(branchService.getData()));
+					request.setAttribute("userId", user.getUserId());
+					request.setAttribute("branchIdUser", branchId);
 					page = "pages/rawMaterialList.jsp";
 				} else if ("saveData".equals(action)) {
 					request.setAttribute("message", rawMaterialListService.saveData(request));

@@ -35,7 +35,7 @@
       </div>
       <div>
         <label for="rawMaterialListQuantityUpdate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Quantity</label>
-        <input type="number" name="rawMaterialListQuantityUpdate" id="rawMaterialListQuantityUpdate" class="bg-gray-50 border border-gray-300 
+        <input type="number" name="rawMaterialListQuantityUpdate" id="rawMaterialListQuantityUpdate" class="num-input bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
           required="required" placeholder="Type quantity" min="0" max="9223372036854775807">
@@ -51,16 +51,14 @@
         <input type="text" name="userIdUpdate" id="userIdUpdate" class="bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
-          required="required" placeholder="Type user id">
+          required="required" placeholder="Type user id" readonly="readonly" >
       </div>
       <div>          
-        <label for="branchIdUpdate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Branch ID - Name</label>
-        <select id="branchIdUpdate" name="branchIdUpdate" class="bg-gray-50 border border-gray-300 
+        <label for="branchIdUpdate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Branch ID</label>
+        <input type="text" name="branchIdCreate" id="branchIdCreate" dataBranchId="" class="bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 
-          selectBranchIdCreate" required="required">
-          <option value="" disabled selected hidden>Select Branch</option>
-        </select>
+          inputBranchId" required="required" readonly="readonly">  
       </div>
     </div>
   

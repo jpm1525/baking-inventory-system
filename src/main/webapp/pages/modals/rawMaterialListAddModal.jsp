@@ -28,7 +28,7 @@
       </div>
       <div>
         <label for="rawMaterialListQuantityCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Quantity</label>
-        <input type="number" name="rawMaterialListQuantityCreate" id="rawMaterialListQuantityCreate" class="bg-gray-50 border border-gray-300 
+        <input type="number" name="rawMaterialListQuantityCreate" id="rawMaterialListQuantityCreate" class="num-input bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
           required="required" placeholder="Enter quantity" maxlength="50" minlength="1">
@@ -43,17 +43,15 @@
         <label for="userIdCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">User ID</label>
         <input type="text" name="userIdCreate" id="userIdCreate" class="bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
-          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
-          required="required" placeholder="Enter user id">
+          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 
+          rawUserId"required="required" placeholder="Enter user id" readonly="readonly">
       </div>
       <div>
-      	<label for="branchIdCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Branch ID - Name</label>
-        <select id="branchIdCreate" name="branchIdCreate" class="bg-gray-50 border border-gray-300 
-          text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
-          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 
-          selectBranchIdCreate" required="required">
-          <option value="" disabled selected hidden>Select Branch</option>
-        </select>
+      	<label for="branchIdCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Branch</label>
+           <input id="branchIdCreate" name="branchIdCreate" dataBranchId="" type="text" class="bg-gray-50 border border-gray-300 
+              text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
+              dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 
+              inputBranchId" required="required" readonly="readonly">
       </div>
     </div>
   

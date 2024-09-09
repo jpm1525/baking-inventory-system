@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="css/tabulator_tailwind.css" type="text/css">
 <script type="text/javascript" src="js/tabulator.min.js"></script>
 <script src="js/modal/modal.js"></script>
+<script src="js/modal/input_number.js"></script>
 
 <div class="flex place-content-center flex-col ">
   <div>
@@ -259,5 +260,6 @@
 	var dispatchType = JSON.parse('${dispatchType}');
 	var branch = JSON.parse('${branch}');
 	var skuCode = JSON.parse('${skuCode}');
+	var branchIdUser = JSON.parse('${branchIdUser}');
 </script>
 <script src="js/dispatching.js"></script>
