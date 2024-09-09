@@ -1,9 +1,12 @@
 function getMaterialCode(){
 	let html = '';
-		$.each(materialCode, function(index, data) {
-			html+= '<option value="' + data.materialCd + '">' + data.materialCd + ' - ' + data.materialCodeName + '</option>'
+		$.each(rawMaterialList, function(index, data) {
+			$.each(materialCode, function(index2, data2) {
+				if(data.materialCd == data2.materialCd)
+				html+= '<option index="' + index + '"value="' + data.materialCd + '">' + data.materialCd + ' - ' + data2.materialCodeName + '</option>'
+			});
 		});
-		$('.selMaterialCode').append(html);
+	$('.selMaterialCode').append(html);
 }
 
 getMaterialCode();
@@ -186,3 +189,38 @@ function updateData() {
 
 $('#btnCreateProductionMaterial').click(addData);
 $('#btnUpdateProductionMaterial').click(updateData);
+
+$('#productionMaterialQuantityToUseCreate').on("input", function() {
+	if (!(/^[0-9]\d*$/.test($('#productionMaterialQuantityToUseCreate').val()))){
+		$('#productionMaterialQuantityToUseCreate').val(0);
+	}else if($('#productionMaterialQuantityToUseCreate').val() > parseInt($('#productionMaterialInitialStockCreate').val())){
+		console.log("GREATER THAN");
+		$('#productionMaterialQuantityToUseCreate').val($('#productionMaterialInitialStockCreate').val());
+		$('#productionMaterialResultingStockCreate').val(0);
+	}else if($('#productionMaterialQuantityToUseCreate').val() < 0){
+		console.log("LESS THAN");
+		$('#productionMaterialQuantityToUseCreate').val(0);
+		$('#productionMaterialResultingStockCreate').val($('#productionMaterialInitialStockCreate').val());
+	}else{
+		$('#productionMaterialResultingStockCreate').val(
+		$('#productionMaterialInitialStockCreate').val() - 
+		$('#productionMaterialQuantityToUseCreate').val());
+	}
+});
+
+$('#materialCodeCreate').on("input", function() {
+	let index = 0;
+	let initialStock = 0;
+	if(!($('#materialCodeCreate').find(':selected').attr('index') == 'undefined')){
+		index = $('#materialCodeCreate').find(':selected').attr('index');
+	}
+	if(!(typeof rawMaterialList[index].quantity == 'undefined')){
+		initialStock = rawMaterialList[index].quantity;
+	}
+	$('#productionMaterialInitialStockCreate').val(initialStock);
+	$('#productionMaterialInitialStockCreate').prop('max', initialStock);
+	$('#productionMaterialQuantityToUseCreate').val(0);
+	$('#productionMaterialQuantityToUseCreate').prop('max', initialStock);
+	$('#productionMaterialResultingStockCreate').val(initialStock);
+	$('#productionMaterialQuantityToUseCreate').prop('max', initialStock);
+});
