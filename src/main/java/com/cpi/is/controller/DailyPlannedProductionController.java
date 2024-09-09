@@ -55,7 +55,7 @@ public class DailyPlannedProductionController extends HttpServlet {
 					request.setAttribute("dailyPlannedProduction", new JSONArray(dailyPlanService.getData(branchId)));
 					request.setAttribute("branchId", new JSONArray(branchService.getData()));
 					request.setAttribute("skuCd", new JSONArray(skuCodeService.getData()));
-					request.setAttribute("branchIdUser", branchId);
+					request.setAttribute("branchIdInput", branchId);
 					page = "pages/dailyPlannedProduction.jsp";
 				} else if ("saveData".equals(action)) {
 					request.setAttribute("message", dailyPlanService.saveData(request));

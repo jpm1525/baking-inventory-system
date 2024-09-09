@@ -1,6 +1,6 @@
 function getBranchId(){
 	$.each(branchId, function(index, data) {
-		if(data.branchId == branchIdUser){
+		if(data.branchId == branchIdInput){
 			$('.dailyPlannedProductionBranchId').val(data.branchId + ' - ' + data.branchName);
 			$('.dailyPlannedProductionBranchId').attr("dataBranchId",data.branchId);
 		}
@@ -122,7 +122,7 @@ $('#deleteSaveModalButton').click(function(event){
 function populateForm(row) {
 	$('#dailyPlannedProductionIdUpdate').val(row.dppId);
 	$('#dailyPlannedProductionDateUpdate').val(row.productionDate);
-	$('#dailyPlannedProductionBranchIdUpdate').val(row.branchId);
+	$('#dailyPlannedProductionBranchIdUpdate').val(branchIdInput);
 	$('#dailyPlannedProductionSkuCdUpdate').val(row.skuCd);
 	$('#dailyPlannedProductionQuantityUpdate').val(row.quantity);
 	$('#dailyPlannedProductionStatusUpdate').val(row.status);
@@ -195,7 +195,7 @@ function addData() {
 	let data = {
 		dppId: "0",
 		productionDate: $('#dailyPlannedProductionDateCreate').val().toString(),
-		branchId: branchIdUser.toString(),
+		branchId: branchIdInput.toString(),
 		skuCd: $('#dailyPlannedProductionSkuCdCreate').val().toString(),
 		quantity: $('#dailyPlannedProductionQuantityCreate').val(),
 		status: $('#dailyPlannedProductionStatusCreate').val()
@@ -207,7 +207,7 @@ function updateData() {
 	let data = {
 		dppId: $('#dailyPlannedProductionIdUpdate').val().toString(),
 		productionDate: $('#dailyPlannedProductionDateUpdate').val().toString(),
-		branchId: branchIdUser.toString(),
+		branchId: branchIdInput.toString(),
 		skuCd: $('#dailyPlannedProductionSkuCdUpdate').val().toString(),
 		quantity: $('#dailyPlannedProductionQuantityUpdate').val(),
 		status: $('#dailyPlannedProductionStatusUpdate').val()

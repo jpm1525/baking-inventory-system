@@ -24,11 +24,13 @@
           dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date">
       </div>
       <div>
-      	<label for="dailyPlannedProductionBranchId" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Branch ID - Name</label>
-        <input id="dailyPlannedProductionBranchId" dataBranchId="" name="dailyPlannedProductionBranchId" class="bg-gray-50 border border-gray-300 
+      	<label for="dailyPlannedProductionBranchIdCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Branch ID - Name</label>
+        <input id="dailyPlannedProductionBranchIdCreate" dataBranchId="" name="dailyPlannedProductionBranchIdCreate" class="bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 
-          dailyPlannedProductionBranchId" required="required" readonly="readonly">
+          dailyPlannedProductionBranchId" required="required" readonly = "readonly">
+          <option value="" disabled selected hidden>Select Branch</option>
+        </select>
       </div>
        <div>          
         <label for="dailyPlannedProductionSkuCdCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">SKU</label>
