@@ -105,4 +105,3 @@ function closeDeleteModal() {
   );
   $('.errorMessage').empty();
 }
-

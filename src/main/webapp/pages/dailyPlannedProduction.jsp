@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="css/tabulator_tailwind.css" type="text/css">
 <script type="text/javascript" src="js/tabulator.min.js"></script>
 <script src="js/modal/modal.js"></script>
+<script src="js/modal/input_number.js"></script>
 
 <div class="flex place-content-center flex-col ">
   <div>
@@ -209,7 +210,8 @@
 
 <script type="text/javascript">
 	var dailyPlannedProduction = JSON.parse('${dailyPlannedProduction}');
-	var branchId = JSON.parse('${branchId}');
 	var skuCd = JSON.parse('${skuCd}');
+	var branchId = JSON.parse('${branchId}');
+	var branchIdUser = JSON.parse('${branchIdUser}');
 </script>
 <script src="js/daily_planned_production.js"></script>

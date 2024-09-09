@@ -1,9 +1,10 @@
 function getBranchId(){
-	let html = '';
-		$.each(branchId, function(index, data) {
-			html+= '<option value="' + data.branchId + '">' + data.branchId + ' - ' + data.branchName + '</option>'
-		});
-		$('.dailyPlannedProductionBranchIdCreate').append(html);
+	$.each(branchId, function(index, data) {
+		if(data.branchId == branchIdUser){
+			$('.dailyPlannedProductionBranchId').val(data.branchId + ' - ' + data.branchName);
+			$('.dailyPlannedProductionBranchId').attr("dataBranchId",data.branchId);
+		}
+	});
 }
 
 getBranchId();
@@ -194,7 +195,7 @@ function addData() {
 	let data = {
 		dppId: "0",
 		productionDate: $('#dailyPlannedProductionDateCreate').val().toString(),
-		branchId: $('#dailyPlannedProductionBranchIdCreate').val().toString(),
+		branchId: branchIdUser.toString(),
 		skuCd: $('#dailyPlannedProductionSkuCdCreate').val().toString(),
 		quantity: $('#dailyPlannedProductionQuantityCreate').val(),
 		status: $('#dailyPlannedProductionStatusCreate').val()
@@ -206,7 +207,7 @@ function updateData() {
 	let data = {
 		dppId: $('#dailyPlannedProductionIdUpdate').val().toString(),
 		productionDate: $('#dailyPlannedProductionDateUpdate').val().toString(),
-		branchId: $('#dailyPlannedProductionBranchIdUpdate').val().toString(),
+		branchId: branchIdUser.toString(),
 		skuCd: $('#dailyPlannedProductionSkuCdUpdate').val().toString(),
 		quantity: $('#dailyPlannedProductionQuantityUpdate').val(),
 		status: $('#dailyPlannedProductionStatusUpdate').val()

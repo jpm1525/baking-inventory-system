@@ -175,7 +175,7 @@ function addData() {
 		dispatchTypeCd: $('#dispatchingTypeNameCreate').val().toString(),
 		fplId: $('#dispatchingFinishedProductListIdCreate').val().toString(),
 		quantity: $('#dispatchingQuantityCreate').val().toString(),
-		branchId: $('#dispatchingBranchNameCreate').val().toString(),
+		branchId: branchIdUser.toString(),
 		destination: $('#dispatchingDestinationCreate').val().toString(),
 		dispatchDate: $('#dispatchingDateCreate').val().toString()
 	};
@@ -188,7 +188,7 @@ function updateData() {
 		dispatchTypeCd: $('#dispatchingTypeNameUpdate').val().toString(),
 		fplId: $('#dispatchingFinishedProductListIdUpdate').val().toString(),
 		quantity: $('#dispatchingQuantityUpdate').val().toString(),
-		branchId: $('#dispatchingBranchNameUpdate').val().toString(),
+		branchId: branchIdUser.toString(),
 		destination: $('#dispatchingDestinationUpdate').val().toString(),
 		dispatchDate: $('#dispatchingDateUpdate').val().toString()
 	};
@@ -206,13 +206,25 @@ function getDispatchType() {
 	$('.selectDispatchingTypeName').append(html);
 }
 
-function getBranchName() {
+function getBranchName(){
+	$.each(branchId, function(index, data) {
+		if(data.branchId == branchIdUser){
+			$('.selectDispatchingBranch').val(data.branchName);
+			$('.selectDispatchingBranch').attr("dataBranchName",data.branchName);
+		}
+	});
+}
+
+
+/*function getBranchName() {
 	let html = '';
 	$.each(branch, function(index, data) {
-		html += '<option value="' + data.branchId + '">' + data.branchName + '</option>'
+		if(data.branchId == branchIdUser){
+		html += '<option selected value="' + data.branchId + '">' + data.branchName + '</option>'
+		}
 	});
 	$('.selectDispatchingBranch').append(html);
 }
-
+*/
 getDispatchType();
 getBranchName();
