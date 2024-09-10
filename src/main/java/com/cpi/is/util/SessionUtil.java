@@ -33,7 +33,6 @@ public class SessionUtil {
 		} else {
 			exist = false;
 		}
-		System.out.println(exist);
 		return exist;
 	}
 	
