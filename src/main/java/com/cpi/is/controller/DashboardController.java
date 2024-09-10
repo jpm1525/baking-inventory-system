@@ -8,7 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.cpi.is.entity.SessionEntity;
 import com.cpi.is.entity.UserEntity;
+import com.cpi.is.service.impl.maintenance.BranchServiceImpl;
 import com.cpi.is.util.SessionUtil;
 
 /**
@@ -19,6 +25,9 @@ public class DashboardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private static String page = "";
     private static String action = "";
+    
+    private ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+    private BranchServiceImpl branchService = (BranchServiceImpl) context.getBean("branchService");
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -35,20 +44,16 @@ public class DashboardController extends HttpServlet {
 			
 			if (SessionUtil.checkUserSession(request)) {
 				HttpSession session = request.getSession();
-				UserEntity user = (UserEntity) session.getAttribute("user");
-
 				action = request.getParameter("action");
 
 				if ("showDashboard".equals(action)) {
-					if(user == null) {
-						page = "pages/reload.jsp";
-					} else {
-						request.setAttribute("userId", user.getUserId());
-						request.setAttribute("username", user.getUsername());
-						request.setAttribute("branchId", user.getBranchId());
-						request.setAttribute("branch", user.getBranch());
-						page = "pages/dashboard.jsp";
-					}
+					request.setAttribute("branch", new JSONArray(branchService.getData()));
+					request.setAttribute("userId", session.getAttribute("userId").toString());
+					request.setAttribute("username", session.getAttribute("username").toString());
+					request.setAttribute("branchId", session.getAttribute("branchId").toString());
+					page = "pages/dashboard.jsp";
+				} else {
+					page = "pages/reload.jsp";
 				}
 			} else {
 				page = "pages/reload.jsp";

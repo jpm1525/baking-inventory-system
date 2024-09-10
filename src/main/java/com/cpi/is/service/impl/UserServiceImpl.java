@@ -32,28 +32,27 @@ public class UserServiceImpl implements UserService {
 	public void saveSession(HttpServletRequest request) throws Exception {
 		userDAO.saveSession(new SessionEntity(
 				request.getSession().getId(), 
-				request.getAttribute("username").toString(), 
-				request.getAttribute("userId").toString(), 
-				request.getAttribute("branchId").toString()));
+				request.getAttribute("username").toString()));
 		
+	}
+	
+	public UserEntity getUser(String username) throws Exception {
+		return userDAO.getUser(username);
 	}
 
 	@Override
 	public SessionEntity validateSession(HttpServletRequest request) throws Exception {
-		return userDAO.validateSession(new SessionEntity(
+		SessionEntity result  = userDAO.validateSession(new SessionEntity(
 				CookieUtil.getCookieValue(request.getCookies(), "sessionId"), 
-				CookieUtil.getCookieValue(request.getCookies(), "user"), 
-				CookieUtil.getCookieValue(request.getCookies(), "userId"), 
-				CookieUtil.getCookieValue(request.getCookies(), "branchId")));
+				CookieUtil.getCookieValue(request.getCookies(), "username")));
+		return result;
 	}
 
 	@Override
 	public void deleteSession(HttpServletRequest request) throws Exception {
 		userDAO.deleteSession(new SessionEntity(
 				CookieUtil.getCookieValue(request.getCookies(), "sessionId"), 
-				CookieUtil.getCookieValue(request.getCookies(), "user"), 
-				CookieUtil.getCookieValue(request.getCookies(), "userId"), 
-				CookieUtil.getCookieValue(request.getCookies(), "branchId")));		
+				CookieUtil.getCookieValue(request.getCookies(), "username")));		
 	}
 
 	public boolean isSessionValid(HttpServletRequest request) {
