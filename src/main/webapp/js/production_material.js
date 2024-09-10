@@ -251,11 +251,9 @@ $('#productionMaterialQuantityToUseUpdate').on("input", function() {
 	if (!(/^[0-9]\d*$/.test($('#productionMaterialQuantityToUseUpdate').val()))){
 		$('#productionMaterialQuantityToUseUpdate').val(0);
 	}else if($('#productionMaterialQuantityToUseUpdate').val() > parseInt($('#productionMaterialInitialStockUpdate').val())){
-		console.log("GREATER THAN");
 		$('#productionMaterialQuantityToUseUpdate').val($('#productionMaterialInitialStockUpdate').val());
 		$('#productionMaterialResultingStockUpdate').val(0);
 	}else if($('#productionMaterialQuantityToUseUpdate').val() < 0){
-		console.log("LESS THAN");
 		$('#productionMaterialQuantityToUseUpdate').val(0);
 		$('#productionMaterialResultingStockUpdate').val($('#productionMaterialInitialStockUpdate').val());
 	}else{
