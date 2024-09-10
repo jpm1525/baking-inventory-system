@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import com.cpi.is.dao.impl.maintenance.SkuCodeDAOImpl;
 import com.cpi.is.entity.maintenance.SkuCodeEntity;
 import com.cpi.is.service.maintenance.SkuCodeService;
+import com.cpi.is.util.JsonEscapeUtil;
 
 public class SkuCodeServiceImpl implements SkuCodeService {
 
@@ -31,7 +32,13 @@ public class SkuCodeServiceImpl implements SkuCodeService {
 
 	@Override
 	public List<SkuCodeEntity> getData() throws Exception {
-		return skuCodeDAO.getData();
+		List<SkuCodeEntity> skuCodes = skuCodeDAO.getData();
+		for (SkuCodeEntity skuCode: skuCodes) {
+			skuCode.setSkuCd(JsonEscapeUtil.escape(skuCode.getSkuCd()));
+			skuCode.setSkuCodeName(JsonEscapeUtil.escape(skuCode.getSkuCodeName()));
+			skuCode.setUnitOfMeasurement(JsonEscapeUtil.escape(skuCode.getUnitOfMeasurement()));
+		}
+		return skuCodes;
 	}
 
 	@Override

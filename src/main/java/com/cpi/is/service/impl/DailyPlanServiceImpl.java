@@ -15,7 +15,9 @@ import org.json.JSONObject;
 
 import com.cpi.is.dao.impl.DailyPlanDAOImpl;
 import com.cpi.is.entity.DailyPlanEntity;
+import com.cpi.is.entity.maintenance.DispatchTypeEntity;
 import com.cpi.is.service.DailyPlanService;
+import com.cpi.is.util.JsonEscapeUtil;
 
 public class DailyPlanServiceImpl implements DailyPlanService{
 
@@ -49,7 +51,12 @@ public class DailyPlanServiceImpl implements DailyPlanService{
 
 	@Override
 	public List<DailyPlanEntity> getData(Long branchId) throws Exception {
-		return dailyPlanDAO.getData(branchId);
+		List<DailyPlanEntity> dailyPlans = dailyPlanDAO.getData(branchId);
+		for (DailyPlanEntity dailyPlan: dailyPlans) {
+			dailyPlan.setSkuCd(JsonEscapeUtil.escape(dailyPlan.getSkuCd()));
+			dailyPlan.setStatus(JsonEscapeUtil.escape(dailyPlan.getStatus()));
+		}
+		return dailyPlans;
 	}
 
 	@Override

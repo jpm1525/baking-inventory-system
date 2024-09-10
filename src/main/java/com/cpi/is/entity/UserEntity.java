@@ -87,11 +87,4 @@ public class UserEntity implements Serializable{
 					+ branchId + "]";
 		}
 		
-//		@Override
-//		public String toString() {
-//			return "{userId=" + userId 
-//				 + ", username=" + username 
-//				 + ", password=" + password + "}";
-//		}
-		
 }

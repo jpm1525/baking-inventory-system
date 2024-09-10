@@ -17,26 +17,23 @@ public class SessionUtil {
 	
 	public static Boolean checkUserSession(HttpServletRequest request) throws Exception {
 		HttpSession session = request.getSession();
-		UserEntity user = (UserEntity) session.getAttribute("user");
+		SessionEntity userSession = new SessionEntity();
 		Boolean exist = true;
-		if (user != null) {
-			request.setAttribute("username", user.getUsername());
-			request.setAttribute("userId", user.getUserId());
-			request.setAttribute("branchId", user.getBranchId());
-			request.setAttribute("branch", user.getBranch());
-
-		} else {
-			UserEntity userSession = userService.validateSession(request);
-			if (userSession != null) {
-				request.setAttribute("username", userSession.getUsername());
-				request.setAttribute("userId", userSession.getUserId());
-				request.setAttribute("branchId", userSession.getBranchId());
-				request.setAttribute("branch", userSession.getBranch());
-
-			} else {
+		
+		if(session.getAttribute("username") != null) {
+			request.setAttribute("username", session.getAttribute("username"));
+			userSession = userService.validateSession(request);
+			if (userSession == null) {
 				exist = false;
+			}else {
+				UserEntity user = userService.getUser(session.getAttribute("username").toString());
+				session.setAttribute("userId", user.getUserId());
+				session.setAttribute("branchId", user.getBranchId());
 			}
+		} else {
+			exist = false;
 		}
+		System.out.println(exist);
 		return exist;
 	}
 	

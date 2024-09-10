@@ -1,6 +1,5 @@
 package com.cpi.is.service.impl.maintenance;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +9,7 @@ import org.json.JSONObject;
 import com.cpi.is.dao.impl.maintenance.BranchDAOImpl;
 import com.cpi.is.entity.maintenance.BranchEntity;
 import com.cpi.is.service.maintenance.BranchService;
+import com.cpi.is.util.JsonEscapeUtil;
 
 public class BranchServiceImpl implements BranchService {
 
@@ -31,7 +31,11 @@ public class BranchServiceImpl implements BranchService {
 
 	@Override
 	public List<BranchEntity> getData() throws Exception {
-		return branchDAO.getData();
+		List<BranchEntity> branches = branchDAO.getData();
+		for (BranchEntity branch: branches) {
+			branch.setBranchName(JsonEscapeUtil.escape(branch.getBranchName()));
+		}
+		return branches;
 	}
 
 	@Override

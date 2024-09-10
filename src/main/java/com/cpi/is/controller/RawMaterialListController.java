@@ -48,14 +48,13 @@ public class RawMaterialListController extends HttpServlet {
 			if (SessionUtil.checkUserSession(request)) {
 				action = request.getParameter("action");
 				HttpSession session = request.getSession();
-				UserEntity user = (UserEntity) session.getAttribute("user");
 				Long branchId = Long.parseLong(session.getAttribute("branchId").toString());
 				
 				if ("showRawMaterialList".equals(action)) {
 					request.setAttribute("rawMaterialList", new JSONArray(rawMaterialListService.getData(branchId)));
 					request.setAttribute("materialCode", new JSONArray(materialCodeService.getData()));
 					request.setAttribute("branchId", new JSONArray(branchService.getData()));
-					request.setAttribute("userId", user.getUserId());
+					request.setAttribute("userId", session.getAttribute("userId").toString());
 					request.setAttribute("branchIdUser", branchId);
 					page = "pages/rawMaterialList.jsp";
 				} else if ("saveData".equals(action)) {

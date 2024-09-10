@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
 import com.cpi.is.entity.SessionEntity;
 import com.cpi.is.entity.UserEntity;
 import com.cpi.is.service.impl.UserServiceImpl;
+import com.cpi.is.util.CookieUtil;
+import com.cpi.is.util.SessionUtil;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -49,26 +51,16 @@ public class UserController extends HttpServlet {
 				if (user != null) {
 					HttpSession session = request.getSession();
 					
-					session.setAttribute("user", user);
+					session.setAttribute("username", user.getUsername());
 					session.setAttribute("userId", user.getUserId());
 					session.setAttribute("branchId", user.getBranchId());
 					
 					request.setAttribute("username", user.getUsername());
-					request.setAttribute("userId", user.getUserId());
-					request.setAttribute("branchId", user.getBranchId());
 					userService.saveSession(request);
 
-					Cookie userCookie = new Cookie("user", user.getUsername());
+					Cookie userCookie = new Cookie("username", user.getUsername());
 					userCookie.setMaxAge(12*60);
 					response.addCookie(userCookie);
-					
-					Cookie userIdCookie = new Cookie("userId", user.getUserId().toString());
-					userIdCookie.setMaxAge(12*60);
-					response.addCookie(userIdCookie);
-					
-					Cookie branchCookie = new Cookie("branchId", user.getBranchId().toString());
-					branchCookie.setMaxAge(12*60);
-					response.addCookie(branchCookie);
 
 					Cookie sessionCookie = new Cookie("sessionId", request.getSession().getId());
 					sessionCookie.setMaxAge(12*60);
@@ -85,7 +77,7 @@ public class UserController extends HttpServlet {
 				session.invalidate();
 				userService.deleteSession(request);
 
-	 			Cookie userCookie = new Cookie("user", "");
+	 			Cookie userCookie = new Cookie("username", "");
 				userCookie.setMaxAge(0);
 				response.addCookie(userCookie);
 
@@ -93,48 +85,32 @@ public class UserController extends HttpServlet {
 				sessionCookie.setMaxAge(0);
 				response.addCookie(sessionCookie);
 				
-				Cookie userIdCookie = new Cookie("userId","");
-				userIdCookie.setMaxAge(0);
-				response.addCookie(userIdCookie);
-				
-				Cookie branchCookie = new Cookie("branchId", "");
-				branchCookie.setMaxAge(0);
-				response.addCookie(branchCookie);
-				
 				page = "pages/login.jsp";
 				
 			} else if ("checkUserSession".equals(action)) {
-				HttpSession session = request.getSession();
-				UserEntity user = (UserEntity) session.getAttribute("user");
-				page = "pages/inner-pages/mainMenu.jsp";
-				
-				if (user != null) {
-					request.setAttribute("username", user.getUsername());
-					request.setAttribute("userId", user.getUserId());
-					request.setAttribute("branchId", user.getBranchId());
+				if (SessionUtil.checkUserSession(request)) {
+					page = "pages/inner-pages/mainMenu.jsp";
+				}else{
+					HttpSession session = request.getSession();
 					
-				} else {
-					UserEntity userSession = userService.validateSession(request);
+					session.setAttribute("username", CookieUtil.getCookieValue(request.getCookies(), "username"));
 					
-					if (userSession != null) {
-						request.setAttribute("username", userSession.getUsername());
-						request.setAttribute("userId", userSession.getUserId());
-						request.setAttribute("branchId", userSession.getBranchId());
+					if(SessionUtil.checkUserSession(request)) {
+						request.setAttribute("username", session.getAttribute("username"));
+						userService.saveSession(request);
+						userService.deleteSession(request);
+						Cookie sessionCookie = new Cookie("sessionId", request.getSession().getId());
+						sessionCookie.setMaxAge(12*60);
+						response.addCookie(sessionCookie);
 						
-					} else {
+						page = "pages/inner-pages/mainMenu.jsp";
+					}else {
 						page = "pages/login.jsp";
-						
 					}
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			if (e.getMessage().contains("Cannot invoke *hibernate")) {
-				request.setAttribute("message", "Unable to connect to database");
-			} else {
-				request.setAttribute("message", "Something went wrong");
-			}
-			page = "pages/message.jsp";
 		} finally {
 			request.getRequestDispatcher(page).forward(request, response);
 		}
