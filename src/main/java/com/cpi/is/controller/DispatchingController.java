@@ -53,20 +53,20 @@ public class DispatchingController extends HttpServlet {
 				HttpSession session = request.getSession();
 				Long branchId = Long.parseLong(session.getAttribute("branchId").toString());
 		
-			if ("showDispatching".equals(action)) {
-				request.setAttribute("dispatching", new JSONArray(dispatchingService.getData(branchId)));
-				request.setAttribute("dispatchType", new JSONArray(dispatchTypeService.getData()));
-				request.setAttribute("branch",new JSONArray(branchService.getData()));
-				request.setAttribute("skuCode",new JSONArray(skuCodeService.getData()));
-				request.setAttribute("branchIdUser", branchId);
-				page = "pages/dispatching.jsp";
-			} else if ("saveData".equals(action)) {
-				request.setAttribute("message", dispatchingService.saveData(request));
-				page = "pages/message.jsp";
-			} else if ("deleteData".equals(action)) {
-				request.setAttribute("message", dispatchingService.deleteData(request));
-				page = "pages/message.jsp";
-			}
+				if ("showDispatching".equals(action)) {
+					request.setAttribute("dispatching", new JSONArray(dispatchingService.getData(branchId)));
+					request.setAttribute("dispatchType", new JSONArray(dispatchTypeService.getData()));
+					request.setAttribute("branch",new JSONArray(branchService.getData()));
+					request.setAttribute("skuCode",new JSONArray(skuCodeService.getData()));
+					request.setAttribute("branchIdUser", branchId);
+					page = "pages/dispatching.jsp";
+				} else if ("saveData".equals(action)) {
+					request.setAttribute("message", dispatchingService.saveData(request));
+					page = "pages/message.jsp";
+				} else if ("deleteData".equals(action)) {
+					request.setAttribute("message", dispatchingService.deleteData(request));
+					page = "pages/message.jsp";
+				}
 			} else {
 				page = "pages/reload.jsp";
 			}
