@@ -27,6 +27,20 @@ public class UserDAOImpl implements UserDAO{
 		}
 		return authenticated;
 	}
+	
+	public UserEntity getUser(String username) throws Exception {
+		UserEntity result = null;
+		try (Session session = HBUtil.getSessionFactory().openSession()) {
+			List<UserEntity> results = (List<UserEntity>) session
+					.createQuery("FROM UserEntity T WHERE T.username = :username", UserEntity.class)
+					.setParameter("username", username)
+					.list();
+			if (results.size() > 0) {
+				result = results.get(0);
+			}
+		}
+		return result;
+	}
 
 	@Override
 	public void saveSession(SessionEntity userSession) throws Exception {

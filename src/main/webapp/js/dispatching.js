@@ -207,7 +207,7 @@ function getDispatchType() {
 }
 
 function getBranchName(){
-	$.each(branchId, function(index, data) {
+	$.each(branch, function(index, data) {
 		if(data.branchId == branchIdUser){
 			$('.selectDispatchingBranch').val(data.branchName);
 			$('.selectDispatchingBranch').attr("dataBranchName",data.branchName);
@@ -215,16 +215,5 @@ function getBranchName(){
 	});
 }
 
-
-/*function getBranchName() {
-	let html = '';
-	$.each(branch, function(index, data) {
-		if(data.branchId == branchIdUser){
-		html += '<option selected value="' + data.branchId + '">' + data.branchName + '</option>'
-		}
-	});
-	$('.selectDispatchingBranch').append(html);
-}
-*/
 getDispatchType();
 getBranchName();
