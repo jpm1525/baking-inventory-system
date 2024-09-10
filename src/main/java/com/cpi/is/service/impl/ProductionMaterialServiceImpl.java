@@ -1,22 +1,14 @@
 package com.cpi.is.service.impl;
 
 import java.util.List;
-import java.math.BigInteger;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Date;
-
 import javax.servlet.http.HttpServletRequest;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.cpi.is.dao.impl.ProductionMaterialDAOImpl;
 import com.cpi.is.entity.ProductionMaterialEntity;
 import com.cpi.is.service.ProductionMaterialService;
+import com.cpi.is.util.JsonEscapeUtil;
 
 public class ProductionMaterialServiceImpl implements ProductionMaterialService {
 
@@ -41,7 +33,11 @@ public class ProductionMaterialServiceImpl implements ProductionMaterialService 
 
 	@Override
 	public List<ProductionMaterialEntity> getData(String dppIdInput) throws Exception {
-		return productionMaterialDAO.getData(Long.parseLong(dppIdInput));
+		List<ProductionMaterialEntity> productionMaterials = productionMaterialDAO.getData(Long.parseLong(dppIdInput));
+		for (ProductionMaterialEntity productionMaterial: productionMaterials) {
+			productionMaterial.setMaterialCd(JsonEscapeUtil.escape(productionMaterial.getMaterialCd()));
+		}
+		return productionMaterials;
 	}
 
 	@Override
