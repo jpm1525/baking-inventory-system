@@ -34,15 +34,12 @@ public class DashboardController extends HttpServlet {
 		try {
 			
 			if (SessionUtil.checkUserSession(request)) {
+				action = request.getParameter("action");
 				HttpSession session = request.getSession();
 				UserEntity user = (UserEntity) session.getAttribute("user");
-
-				action = request.getParameter("action");
-
+				
 				if ("showDashboard".equals(action)) {
-					if(user == null) {
-						page = "pages/reload.jsp";
-					} else {
+					if(user != null) {
 						request.setAttribute("userId", user.getUserId());
 						request.setAttribute("username", user.getUsername());
 						request.setAttribute("branchId", user.getBranchId());

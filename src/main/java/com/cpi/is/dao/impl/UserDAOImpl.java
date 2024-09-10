@@ -43,9 +43,25 @@ public class UserDAOImpl implements UserDAO{
 		}		
 	}
 
+//	@Override
+//	public SessionEntity validateSession(SessionEntity userSession) throws Exception {
+//		SessionEntity validated = null;
+//		try (Session session = HBUtil.getSessionFactory().openSession()) {
+//			List<SessionEntity> results = session
+//					.createQuery("FROM SessionEntity T WHERE T.sessionId = :sessionId AND T.username = :username", SessionEntity.class)
+//					.setParameter("sessionId", userSession.getSessionId())
+//					.setParameter("username", userSession.getUsername())
+//					.list();
+//			if (results.size() > 0) {
+//				validated = results.get(0);
+//			}
+//		}
+//		return validated;
+//	}
+	
 	@Override
-	public SessionEntity validateSession(SessionEntity userSession) throws Exception {
-		SessionEntity validated = null;
+	public UserEntity validateSession(SessionEntity userSession) throws Exception {
+		UserEntity validated = null;
 		try (Session session = HBUtil.getSessionFactory().openSession()) {
 			List<SessionEntity> results = session
 					.createQuery("FROM SessionEntity T WHERE T.sessionId = :sessionId AND T.username = :username", SessionEntity.class)
@@ -53,7 +69,12 @@ public class UserDAOImpl implements UserDAO{
 					.setParameter("username", userSession.getUsername())
 					.list();
 			if (results.size() > 0) {
-				validated = results.get(0);
+				List<UserEntity> userResult = (List<UserEntity>) session
+						.createQuery("FROM UserEntity T WHERE T.username = :username AND T.userId = :userId", UserEntity.class)
+						.setParameter("username", userSession.getUsername())
+						.setParameter("userId", userSession.getUserId())
+						.list();
+				validated = userResult.get(0);
 			}
 		}
 		return validated;

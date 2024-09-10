@@ -207,7 +207,7 @@ function getDispatchType() {
 }
 
 function getBranchName(){
-	$.each(branchId, function(index, data) {
+	$.each(branch, function(index, data) {
 		if(data.branchId == branchIdUser){
 			$('.selectDispatchingBranch').val(data.branchName);
 			$('.selectDispatchingBranch').attr("dataBranchName",data.branchName);

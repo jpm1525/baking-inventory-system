@@ -50,7 +50,7 @@ public class UserController extends HttpServlet {
 					HttpSession session = request.getSession();
 					
 					session.setAttribute("user", user);
-					session.setAttribute("userId", user);
+					session.setAttribute("userId", user.getUserId());
 					session.setAttribute("branchId", user.getBranchId());
 					
 					request.setAttribute("username", user.getUsername());
@@ -106,17 +106,15 @@ public class UserController extends HttpServlet {
 			} else if ("checkUserSession".equals(action)) {
 				HttpSession session = request.getSession();
 				UserEntity user = (UserEntity) session.getAttribute("user");
-				UserEntity userId = (UserEntity) session.getAttribute("userId");
-				Integer branchId = (Integer) session.getAttribute("branchId");
 				page = "pages/inner-pages/mainMenu.jsp";
 				
 				if (user != null) {
 					request.setAttribute("username", user.getUsername());
-					request.setAttribute("userId", userId.getUserId());
-					request.setAttribute("branchId", branchId);
+					request.setAttribute("userId", user.getUserId());
+					request.setAttribute("branchId", user.getBranchId());
 					
 				} else {
-					SessionEntity userSession = userService.validateSession(request);
+					UserEntity userSession = userService.validateSession(request);
 					
 					if (userSession != null) {
 						request.setAttribute("username", userSession.getUsername());
@@ -131,6 +129,12 @@ public class UserController extends HttpServlet {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			if (e.getMessage().contains("Cannot invoke *hibernate")) {
+				request.setAttribute("message", "Unable to connect to database");
+			} else {
+				request.setAttribute("message", "Something went wrong");
+			}
+			page = "pages/message.jsp";
 		} finally {
 			request.getRequestDispatcher(page).forward(request, response);
 		}

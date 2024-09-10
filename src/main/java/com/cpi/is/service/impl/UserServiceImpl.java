@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public SessionEntity validateSession(HttpServletRequest request) throws Exception {
+	public UserEntity validateSession(HttpServletRequest request) throws Exception {
 		return userDAO.validateSession(new SessionEntity(
 				CookieUtil.getCookieValue(request.getCookies(), "sessionId"), 
 				CookieUtil.getCookieValue(request.getCookies(), "user"), 
