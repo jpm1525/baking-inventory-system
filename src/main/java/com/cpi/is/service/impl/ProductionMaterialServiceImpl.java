@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 import com.cpi.is.dao.impl.ProductionMaterialDAOImpl;
 import com.cpi.is.entity.ProductionMaterialEntity;
+import com.cpi.is.entity.RawMaterialListEntity;
 import com.cpi.is.service.ProductionMaterialService;
 import com.cpi.is.util.JsonEscapeUtil;
 
@@ -41,16 +42,18 @@ public class ProductionMaterialServiceImpl implements ProductionMaterialService 
 	}
 
 	@Override
-	public String saveData(HttpServletRequest request) throws Exception {
+	public String saveData(HttpServletRequest request, List<RawMaterialListEntity> rawMaterialList) throws Exception {
 		String validation = validateData(request);
-		String results = "";
+		String results = "";	
 		
 		if(validation.equals("success")) {
-			try {
-				results = 	productionMaterialDAO.saveData(
-						jsonToEntity(new JSONObject(request.getParameter("data"))));
-			} catch(Exception e) {
-				e.printStackTrace();
+			if(validateQuantity(request, rawMaterialList).equals("success")) {
+				try {
+					results = 	productionMaterialDAO.saveData(
+							jsonToEntity(new JSONObject(request.getParameter("data"))));
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
 			}
 			
 			if(results.equals("success")) {
@@ -90,7 +93,7 @@ public class ProductionMaterialServiceImpl implements ProductionMaterialService 
 		JSONObject json = new JSONObject(request.getParameter("data"));
 		String validation = "success";
 		String errorResult = "Please fill-out the production material form properly";
-		
+
 		if (!json.has("pmId") || !(json.get("pmId") instanceof String)) {
 			validation = errorResult;
 		} else if (!json.has("dppId") || !(json.get("dppId") instanceof String)) {
@@ -115,11 +118,36 @@ public class ProductionMaterialServiceImpl implements ProductionMaterialService 
 			validation = errorResult;
 		} else if (!json.getString("materialListId").matches("^[1-9]\\d*$")) {
 			validation = errorResult;
-		}  else if (json.getString("quantityToUse").length() < 1 || json.getString("quantityToUse").length() > 14) {
+		} else if (json.getString("quantityToUse").length() < 1 || json.getString("quantityToUse").length() > 14) {
 			validation = errorResult;
 		} else if (!json.getString("quantityToUse").matches("^[0-9]\\d*$")) {
 			validation = errorResult;
 		} 
+		
+		return validation;
+	}
+	
+	public String validateQuantity(HttpServletRequest request, List<RawMaterialListEntity> rawMaterialList) throws Exception{
+		JSONObject json = new JSONObject(request.getParameter("data"));
+		String validation = "success";
+		String errorResult = "Please fill-out the production material form properly";
+
+		List<ProductionMaterialEntity> productionMaterials = getData(json.getString("dppId"));
+		outerloop:
+        for (RawMaterialListEntity rawMaterial : rawMaterialList) {
+	    	if(rawMaterial.getMaterialListId() == Long.parseLong(json.getString("materialListId"))) {
+	    		for(ProductionMaterialEntity productionMaterial : productionMaterials) {
+	    			if(productionMaterial.getPmId() == Long.parseLong(json.getString("pmId"))) {
+			    		if((rawMaterial.getQuantity() + productionMaterial.getQuantityToUse()) 
+			    				< Long.parseLong(json.getString("quantityToUse"))) {
+			    			validation = "not enough stocks";
+			    			break outerloop;
+			    		}
+	    			}
+	    		}	
+	    	}
+        }
+
 		return validation;
 	}
 	

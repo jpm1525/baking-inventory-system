@@ -63,7 +63,7 @@ public class ProductionMaterialController extends HttpServlet {
 						page = "pages/reload.jsp";
 					}
 				} else if ("saveData".equals(action)) {
-					request.setAttribute("message", productionMaterialService.saveData(request));
+					request.setAttribute("message", productionMaterialService.saveData(request, rawMaterialListService.getData(branchId)));
 					page = "pages/message.jsp";
 				} else if ("deleteData".equals(action)) {
 					request.setAttribute("message", productionMaterialService.deleteData(request));
