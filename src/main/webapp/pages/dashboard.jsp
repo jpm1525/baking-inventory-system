@@ -35,8 +35,3 @@
     </div>
 
 </div>
-<script type="text/javascript">
-  var branchName = JSON.parse('${branchName}');
-  var branchIdUser = JSON.parse('${branchId}');
-</script>
-<script src="js/dashboard.js"></script>

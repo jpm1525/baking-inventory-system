@@ -25,9 +25,6 @@ public class DashboardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private static String page = "";
     private static String action = "";
-    
-    private ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
-    private BranchServiceImpl branchService = (BranchServiceImpl) context.getBean("branchService");
        
     /**
      * @see HttpServlet#HttpServlet()

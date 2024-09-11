@@ -15,6 +15,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "QKC_FINISHED_PRODUCT_LIST")
@@ -37,6 +39,7 @@ public class FinishedProductListEntity implements Serializable {
     private Long branchId;
     
     @Column(name = "DATE_FINISHED")
+    @Temporal(TemporalType.DATE)
     private Date dateFinished;
 
     @ManyToOne

@@ -12,10 +12,9 @@ import org.json.JSONArray;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.cpi.is.entity.UserEntity;
 import com.cpi.is.service.impl.FinishedProductListServiceImpl;
 import com.cpi.is.service.impl.maintenance.BranchServiceImpl;
-import com.cpi.is.service.impl.maintenance.MaterialCodeServiceImpl;
+import com.cpi.is.service.impl.maintenance.SkuCodeServiceImpl;
 import com.cpi.is.util.SessionUtil;
 
 /**
@@ -30,8 +29,7 @@ public class FinishedProductListController extends HttpServlet {
        
     private ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
 	private FinishedProductListServiceImpl finishedProductListService = (FinishedProductListServiceImpl) context.getBean("finishedProductListService");
-	private MaterialCodeServiceImpl materialCodeService = (MaterialCodeServiceImpl) context.getBean("materialCodeService");
-	private BranchServiceImpl branchService = (BranchServiceImpl) context.getBean("branchService");
+	private SkuCodeServiceImpl skuCodeService = (SkuCodeServiceImpl) context.getBean("skuCodeService");
 
 	/**
      * @see HttpServlet#HttpServlet()
@@ -52,8 +50,7 @@ public class FinishedProductListController extends HttpServlet {
 				
 				if ("showFinishedProductList".equals(action)) {
 					request.setAttribute("finishedProductList", new JSONArray(finishedProductListService.getData(branchId)));
-					request.setAttribute("materialCode", new JSONArray(materialCodeService.getData()));
-					request.setAttribute("branch", new JSONArray(branchService.getData()));
+					request.setAttribute("sku", new JSONArray(skuCodeService.getData()));
 					request.setAttribute("userId", session.getAttribute("userId").toString());
 					request.setAttribute("branchIdUser", branchId);
 					request.setAttribute("branchNameUser", session.getAttribute("branchName").toString());
