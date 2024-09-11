@@ -259,7 +259,8 @@
 	var dispatching = JSON.parse('${dispatching}');
 	var dispatchType = JSON.parse('${dispatchType}');
 	var branch = JSON.parse('${branch}');
-	var skuCode = JSON.parse('${skuCode}');
+	var finishedProductList = JSON.parse('${finishedProductList}');
+	var currentInventory = JSON.parse('${currentInventory}');
 	var branchIdUser = JSON.parse('${branchIdUser}');
 </script>
 <script src="js/dispatching.js"></script>

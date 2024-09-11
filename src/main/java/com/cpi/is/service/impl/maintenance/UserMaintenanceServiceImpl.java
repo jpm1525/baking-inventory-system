@@ -25,10 +25,10 @@ public class UserMaintenanceServiceImpl {
 	
 	private UserEntity jsonToEntity(JSONObject json) {
 		return new UserEntity(
-				json.getInt("userId"),
+				json.getLong("userId"),
 				json.getString("username"),
 				json.getString("password"),
-				json.getInt("branchId"));
+				json.getLong("branchId"));
 	}
 	
 	public List<UserEntity> getData() throws Exception {
