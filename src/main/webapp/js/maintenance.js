@@ -29,3 +29,11 @@ $("#btnMat").click(function(){
 		$("#divContent").html(response)
 	});
 });	
+
+$("#btnUserMain").click(function(){
+	$.get("MaintenanceController",{
+		action: "showUserMain"
+		}, function(response){
+		$("#divContent").html(response)
+	});
+});	
