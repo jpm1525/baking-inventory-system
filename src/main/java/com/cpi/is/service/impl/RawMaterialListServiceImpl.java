@@ -1,7 +1,6 @@
 package com.cpi.is.service.impl;
 
 import java.util.List;
-import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -16,7 +15,6 @@ import org.json.JSONObject;
 
 import com.cpi.is.dao.impl.RawMaterialListDAOImpl;
 import com.cpi.is.entity.RawMaterialListEntity;
-import com.cpi.is.entity.maintenance.SkuCodeEntity;
 import com.cpi.is.service.RawMaterialListService;
 import com.cpi.is.util.JsonEscapeUtil;
 
