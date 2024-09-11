@@ -47,4 +47,9 @@
   <bean id="materialCodeService" class="com.cpi.is.service.impl.maintenance.MaterialCodeServiceImpl" depends-on="materialCodeDAO">
     <property name="materialCodeDAO" ref="materialCodeDAO" />
   </bean>
+  
+  <bean id="userMaintenanceDAO" class="com.cpi.is.dao.impl.maintenance.UserMaintenanceDAOImpl"></bean>
+  <bean id="userMaintenanceService" class="com.cpi.is.service.impl.maintenance.UserMaintenanceServiceImpl" depends-on="userMaintenanceDAO">
+    <property name="userMaintenanceDAO" ref="userMaintenanceDAO" />
+  </bean>
 </beans>

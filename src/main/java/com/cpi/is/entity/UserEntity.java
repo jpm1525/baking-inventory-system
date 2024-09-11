@@ -6,6 +6,8 @@ import com.cpi.is.entity.maintenance.BranchEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -19,6 +21,7 @@ public class UserEntity implements Serializable{
 		
 		@Id
 		@Column(name="USER_ID")
+	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 		private Integer userId;
 		private String username;
 		private String password;
@@ -50,11 +53,12 @@ public class UserEntity implements Serializable{
 			// TODO Auto-generated constructor stub
 		}
 
-		public UserEntity(Integer userId, String username, String password) {
+		public UserEntity(Integer userId, String username, String password, Integer branchId) {
 			super();
 			this.userId = userId;
 			this.username = username;
 			this.password = password;
+			this.branchId = branchId;
 		}
 
 		public Integer getUserId() {

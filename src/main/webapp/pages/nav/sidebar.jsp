@@ -45,6 +45,7 @@
                           <li><a id="btnBranches" class="hover:bg-[#7db7ce] hover:text-white">Branches</a></li>
                           <li><a id="btnSkuCodes" class="hover:bg-[#7db7ce] hover:text-white">SKU Codes</a></li>
                           <li><a id="btnMaterialCodes" class="hover:bg-[#7db7ce] hover:text-white">Material Codes</a></li>
+                          <li><a id="btnUserMaintenance" class="hover:bg-[#7db7ce] hover:text-white">User Maintenance</a></li>
                     </ul>
                 </div>
 </nav>
