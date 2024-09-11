@@ -63,8 +63,13 @@ public class FinishedProductListServiceImpl implements FinishedProductListServic
 		String results = "";
 		
 		if(validation.equals("success")) {
-			results = 	finishedProductListDAO.saveData(
-							jsonToEntity(new JSONObject(request.getParameter("data"))));
+			try {
+				results = 	finishedProductListDAO.saveData(
+						jsonToEntity(new JSONObject(request.getParameter("data"))));
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			
 			if(results.equals("success")) {
 				return results;
 			} else {
@@ -81,8 +86,13 @@ public class FinishedProductListServiceImpl implements FinishedProductListServic
 		String results = "";
 		
 		if(validation.equals("success")) {
-			results = 	finishedProductListDAO.deleteData(
-							jsonToEntity(new JSONObject(request.getParameter("data"))));
+			try {
+				results = 	finishedProductListDAO.deleteData(
+						jsonToEntity(new JSONObject(request.getParameter("data"))));
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			
 			if(results.equals("success")) {
 				return results;
 			} else {

@@ -61,10 +61,15 @@ public class RawMaterialListServiceImpl implements RawMaterialListService {
 	public String saveData(HttpServletRequest request) throws Exception {
 		String validation = validateData(request);
 		String results = "";
-		
+
 		if(validation.equals("success")) {
-			results = 	rawMaterialListDAO.saveData(
-							jsonToEntity(new JSONObject(request.getParameter("data"))));
+			try {
+				results = 	rawMaterialListDAO.saveData(
+						jsonToEntity(new JSONObject(request.getParameter("data"))));
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			
 			if(results.equals("success")) {
 				return results;
 			} else {
@@ -81,8 +86,13 @@ public class RawMaterialListServiceImpl implements RawMaterialListService {
 		String results = "";
 		
 		if(validation.equals("success")) {
-			results = 	rawMaterialListDAO.deleteData(
-							jsonToEntity(new JSONObject(request.getParameter("data"))));
+			try {
+				results = 	rawMaterialListDAO.deleteData(
+						jsonToEntity(new JSONObject(request.getParameter("data"))));
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+
 			if(results.equals("success")) {
 				return results;
 			} else {

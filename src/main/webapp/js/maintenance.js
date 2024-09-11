@@ -1,6 +1,6 @@
 $("#btnDis").click(function(){
 	$.get("MaintenanceController",{
-		action: "showDis"
+		action: "showDispatch"
 		}, function(response){
 		$("#divContent").html(response)
 	});
@@ -8,7 +8,7 @@ $("#btnDis").click(function(){
 
 $("#btnBra").click(function(){
 	$.get("MaintenanceController",{
-		action: "showBra"
+		action: "showBranches"
 		}, function(response){
 		$("#divContent").html(response)
 	});
@@ -16,7 +16,7 @@ $("#btnBra").click(function(){
 
 $("#btnSku").click(function(){
 	$.get("MaintenanceController",{
-		action: "showSku"
+		action: "showSkuCodes"
 		}, function(response){
 		$("#divContent").html(response)
 	});
@@ -24,7 +24,7 @@ $("#btnSku").click(function(){
 
 $("#btnMat").click(function(){
 	$.get("MaintenanceController",{
-		action: "showMat"
+		action: "showMaterialCodes"
 		}, function(response){
 		$("#divContent").html(response)
 	});

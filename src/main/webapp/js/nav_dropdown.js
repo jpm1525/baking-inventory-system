@@ -84,3 +84,11 @@ $("#btnMaterialCodes").click(function(){
 		$("#divContent").html(response)
 	});
 });	
+
+$("#btnUserMaintenance").click(function(){
+	$.get("MaintenanceController",{
+		action: "showUserMain"
+		}, function(response){
+		$("#divContent").html(response)
+	});
+});	
