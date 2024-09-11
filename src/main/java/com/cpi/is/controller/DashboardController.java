@@ -25,9 +25,6 @@ public class DashboardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private static String page = "";
     private static String action = "";
-    
-    private ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
-    private BranchServiceImpl branchService = (BranchServiceImpl) context.getBean("branchService");
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -47,7 +44,7 @@ public class DashboardController extends HttpServlet {
 				action = request.getParameter("action");
 
 				if ("showDashboard".equals(action)) {
-					request.setAttribute("branch", new JSONArray(branchService.getData()));
+					request.setAttribute("branchName", session.getAttribute("branchName").toString());
 					request.setAttribute("userId", session.getAttribute("userId").toString());
 					request.setAttribute("username", session.getAttribute("username").toString());
 					request.setAttribute("branchId", session.getAttribute("branchId").toString());

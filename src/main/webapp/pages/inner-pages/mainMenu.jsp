@@ -19,6 +19,11 @@
          <img class="w-[300px] h-[260px] ml-[180px] mt-[20px]" src="images/dash-icons/plan_icon.png" ondragstart="return false;">
       </div>
       
+      <div class="dashboardbox bg-[#e4ac4f] hover:bg-[#AA813B] menu-btn transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:transform-none" id="btnToFinishedProductList">
+        <h1>Finished Product<br>List</h1>
+         <img class="w-[400px] h-[400px] ml-[100px] mt-[-20px]" src="images/dash-icons/truck_icon.png" ondragstart="return false;">
+      </div>
+      
       <div class="dashboardbox bg-[#e4ac4f] hover:bg-[#AA813B] menu-btn transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:transform-none" id="btnToDispatching">
         <h1>Dispatching</h1>
          <img class="w-[400px] h-[400px] ml-[100px] mt-[-20px]" src="images/dash-icons/truck_icon.png" ondragstart="return false;">

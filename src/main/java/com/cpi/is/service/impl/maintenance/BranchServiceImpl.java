@@ -44,8 +44,13 @@ public class BranchServiceImpl implements BranchService {
 		String results = "";
 		
 		if(validation.equals("success")) {
-			results = 	branchDAO.saveData(
-							jsonToEntity(new JSONObject(request.getParameter("data"))));
+			try {
+				results = 	branchDAO.saveData(
+						jsonToEntity(new JSONObject(request.getParameter("data"))));
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			
 			if(results.equals("success")) {
 				return results;
 			} else {
@@ -62,8 +67,13 @@ public class BranchServiceImpl implements BranchService {
 		String results = "";
 		
 		if(validation.equals("success")) {
-			results = 	branchDAO.deleteData(
-							jsonToEntity(new JSONObject(request.getParameter("data"))));
+			try {
+				results = 	branchDAO.deleteData(
+						jsonToEntity(new JSONObject(request.getParameter("data"))));
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			
 			if(results.equals("success")) {
 				return results;
 			} else {

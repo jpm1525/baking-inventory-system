@@ -1,7 +1,6 @@
 package com.cpi.is.service.impl;
 
 import java.util.List;
-import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -16,7 +15,6 @@ import org.json.JSONObject;
 
 import com.cpi.is.dao.impl.RawMaterialListDAOImpl;
 import com.cpi.is.entity.RawMaterialListEntity;
-import com.cpi.is.entity.maintenance.SkuCodeEntity;
 import com.cpi.is.service.RawMaterialListService;
 import com.cpi.is.util.JsonEscapeUtil;
 
@@ -63,10 +61,15 @@ public class RawMaterialListServiceImpl implements RawMaterialListService {
 	public String saveData(HttpServletRequest request) throws Exception {
 		String validation = validateData(request);
 		String results = "";
-		
+
 		if(validation.equals("success")) {
-			results = 	rawMaterialListDAO.saveData(
-							jsonToEntity(new JSONObject(request.getParameter("data"))));
+			try {
+				results = 	rawMaterialListDAO.saveData(
+						jsonToEntity(new JSONObject(request.getParameter("data"))));
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			
 			if(results.equals("success")) {
 				return results;
 			} else {
@@ -83,8 +86,13 @@ public class RawMaterialListServiceImpl implements RawMaterialListService {
 		String results = "";
 		
 		if(validation.equals("success")) {
-			results = 	rawMaterialListDAO.deleteData(
-							jsonToEntity(new JSONObject(request.getParameter("data"))));
+			try {
+				results = 	rawMaterialListDAO.deleteData(
+						jsonToEntity(new JSONObject(request.getParameter("data"))));
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+
 			if(results.equals("success")) {
 				return results;
 			} else {

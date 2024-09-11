@@ -17,7 +17,7 @@
     </div>
     
     <div class="grid gap-4 mb-4 sm:grid-cols-2 mt-5">
-      <div>
+      <div class="col-span-2">
         <label for="dispatchingTypeNameCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Name</label>
         <select id="dispatchingTypeNameCreate" name="dispatchingTypeNameCreate" class="bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
@@ -33,20 +33,29 @@
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
           required="required" placeholder="Type finished product id list" maxlength="10" minlength="1">
       </div>
-      <!-- <div>
+      <div class="col-span-2">
+        <label for="fplFinishedProductListIdCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Another FPL ID</label>
+        <select type="text" name="fplFinishedProductListIdCreate" id="fplFinishedProductListIdCreate" class="bg-gray-50 border border-gray-300 
+          text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
+          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
+          required="required" placeholder="Type finished product id list" maxlength="10" minlength="1">
+          	<option value="" disabled selected hidden>Select SKU Code or FPL</option>
+          </select>
+      </div>
+      <div>
         <label for="fplQuantityCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">FPL Quantity</label>
-        <input type="number" name="dispatchingQuantityCreate" id="dispatchingQuantityCreate" class="num-input bg-gray-50 border border-gray-300 
+        <input type="number" name="fplQuantityCreate" id="fplQuantityCreate" class="num-input bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500
           [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
-          required="required" placeholder="Type quantity" maxlength="99999999999999" minlength="1">
+          required="required" maxlength="99999999999999" minlength="1">
       </div>
       <div>
         <label for="fplDateCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">FPL Dispatch Date</label>
-        <input id="dispatchingDateCreate" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
+        <input id="fplDateCreate" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
           rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 
-          dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date">
-      </div> -->
+          dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+      </div>
       <div>
         <label for="dispatchingQuantityCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Quantity</label>
         <input type="number" name="dispatchingQuantityCreate" id="dispatchingQuantityCreate" class="num-input bg-gray-50 border border-gray-300 
@@ -57,7 +66,7 @@
       </div>
       <div>
         <label for="dispatchingBranchNameCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Branch Name</label>
-        <input id="dispatchingBranchNameCreate" name="dispatchingBranchNameCreate" dataBranchName=""class="bg-gray-50 border border-gray-300 
+        <input type="text" id="dispatchingBranchNameCreate" name="dispatchingBranchNameCreate" dataBranchName=""class="bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 
           selectDispatchingBranch" required="required"  readonly="readonly">

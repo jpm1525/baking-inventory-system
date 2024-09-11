@@ -5,13 +5,15 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import com.cpi.is.entity.ProductionMaterialEntity;
+import com.cpi.is.entity.RawMaterialListEntity;
 
 public interface ProductionMaterialService {
 	
 	List<ProductionMaterialEntity> getData(String dppIdInput) throws Exception;
-	String saveData(HttpServletRequest request) throws Exception;
+	String saveData(HttpServletRequest request, List<RawMaterialListEntity> rawMaterialList) throws Exception;
 	String deleteData(HttpServletRequest request) throws Exception;
 	String validateData(HttpServletRequest request) throws Exception;
+	String validateQuantity(HttpServletRequest request, List<RawMaterialListEntity> rawMaterialList) throws Exception;
 	Boolean validateDppId(HttpServletRequest request) throws Exception;
 	
 }

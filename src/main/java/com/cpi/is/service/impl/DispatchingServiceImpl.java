@@ -40,7 +40,7 @@ public class DispatchingServiceImpl implements DispatchingService {
 		return new DispatchingEntity(
 				Long.parseLong(json.getString("dispatchTrackId")),
 				json.getString("dispatchTypeCd"),
-				json.getString("fplId"),
+				Long.parseLong(json.getString("fplId")),
 				Long.parseLong(json.getString("quantity")),
 				Long.parseLong(json.getString("branchId")),
 				json.getString("destination"),
@@ -52,6 +52,11 @@ public class DispatchingServiceImpl implements DispatchingService {
 		// TODO Auto-generated method stub
 		return dispatchingDAO.getData(branchId);
 	}
+	
+	@Override
+    public List<Object[]> getCurrentInventory(Long branchId) throws Exception {
+        return dispatchingDAO.getCurrentInventory(branchId);
+    }
 
 	@Override
 	public String saveData(HttpServletRequest request) throws Exception {
@@ -60,8 +65,13 @@ public class DispatchingServiceImpl implements DispatchingService {
 		String results = "";
 		
 		if(validation.equals("success")) {
-			results = 	dispatchingDAO.saveData(
-							jsonToEntity(new JSONObject(request.getParameter("data"))));
+			try {
+				results = 	dispatchingDAO.saveData(
+						jsonToEntity(new JSONObject(request.getParameter("data"))));
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			
 			if(results.equals("success")) {
 				return results;
 			} else {
@@ -79,8 +89,13 @@ public class DispatchingServiceImpl implements DispatchingService {
 		String results = "";
 		
 		if(validation.equals("success")) {
-			results = 	dispatchingDAO.deleteData(
-							jsonToEntity(new JSONObject(request.getParameter("data"))));
+			try {
+				results = 	dispatchingDAO.deleteData(
+						jsonToEntity(new JSONObject(request.getParameter("data"))));
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			
 			if(results.equals("success")) {
 				return results;
 			} else {

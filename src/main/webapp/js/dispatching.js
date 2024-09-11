@@ -1,6 +1,7 @@
 if (typeof data === 'undefined' || data === null) {let data = "";}
 if (typeof callback === 'undefined' || callback === null) {let callback = "";}
 if (typeof observer === 'undefined' || observer === null) {let observer = "";}
+if (typeof branchName === 'undefined' || branchName === null) {let branchName = "";}
 
 var editButton = function(value, data, cell, row, options){
 	let thisButton = '<button class="px-4 py-2 text-white bg-indigo-500 rounded editModalButton"> Edit </button>';
@@ -93,7 +94,7 @@ function populateForm(row) {
 	$('#dispatchingTypeNameUpdate').val(row.dispatchTypeCd);
 	$('#dispatchingFinishedProductListIdUpdate').val(row.fplId);
 	$('#dispatchingQuantityUpdate').val(row.quantity);
-	$('#dispatchingBranchNameUpdate').val(row.branchId);
+	$('#dispatchingBranchNameUpdate').val(branchName);
 	$('#dispatchingDestinationUpdate').val(row.destination);
 	$('#dispatchingDateUpdate').val(row.dispatchDate);
 	data = {
@@ -210,10 +211,52 @@ function getBranchName(){
 	$.each(branch, function(index, data) {
 		if(data.branchId == branchIdUser){
 			$('.selectDispatchingBranch').val(data.branchName);
-			$('.selectDispatchingBranch').attr("dataBranchName",data.branchName);
+			branchName=data.branchName;
 		}
 	});
 }
 
 getDispatchType();
 getBranchName();
+
+function getCurrentDate() {
+    let date = new Date();
+    let day = String(date.getDate()).padStart(2, '0');
+    let month = String(date.getMonth() + 1).padStart(2, '0'); // January is 0!
+    let year = date.getFullYear();
+    return `${year}-${month}-${day}`; // Format as "yyyy-MM-dd"
+}
+
+function getFplID() {
+    console.log("Fetching FPL ID");
+    let currentDate = new Date(getCurrentDate());
+    let html = '<option value="">';
+
+    let skuToQuantityMap = {};
+    $.each(currentInventory, function(index, data) {
+        skuToQuantityMap[data[0]] = data[1];
+    });
+
+    $.each(finishedProductList, function(index, data) {
+        let dateFinished = new Date(data.dateFinished);
+        if (dateFinished <= currentDate) {
+            html += '<option value="' + data.fplId + '" data-sku-code="' + data.sku.skuCd + '" data-sku-name="' + data.sku.skuCodeName + '" data-quantity="' + data.quantity + '" data-date-finished="' + data.dateFinished + '">' + data.fplId + " " + data.sku.skuCodeName + '</option>';
+			console.log(html);
+        }
+    });
+	
+    $('#fplFinishedProductListIdCreate').html(html);
+
+    $('#fplFinishedProductListIdCreate').change(function() {
+        console.log("Updating currentQuantity on Add");
+        let selectedOption = $(this).find('option:selected');
+        let skuCode = selectedOption.data('sku-code');
+        totalQuantityAdd = skuToQuantityMap[skuCode] || 0;
+
+        $('#fplQuantityCreate').val(totalQuantityAdd);
+        $('#fplDateCreate').val(selectedOption.data('date-finished'));
+        
+    });
+}
+
+getFplID();

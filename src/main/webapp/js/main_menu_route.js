@@ -22,6 +22,12 @@ $(document).ready(function(){
                 $("#divVeryOuter").hide();
                 $("#divOuter").show(); 
                 break;
+			case 'btnToFinishedProductList':
+			    url = 'FinishedProductListController';
+			    action = 'showFinishedProductList';
+			    $("#divVeryOuter").hide();
+			    $("#divOuter").show();
+			    break;
             case 'btnToDispatching':
                 url = 'DispatchingController';
                 action = 'showDispatching';

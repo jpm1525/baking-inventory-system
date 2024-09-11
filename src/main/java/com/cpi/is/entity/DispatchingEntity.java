@@ -30,7 +30,7 @@ public class DispatchingEntity implements Serializable {
 	@Column(name="dispatch_type_cd")
 	private String dispatchTypeCd;
 	@Column(name="fpl_id")
-	private String fplId;
+	private Long fplId;
 	private Long quantity;
 	@Column(name="branch_id")
 	private Long branchId;
@@ -54,7 +54,7 @@ public class DispatchingEntity implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public DispatchingEntity(Long dispatchTrackId, String dispatchTypeCd, String fplId, Long quantity, Long branchId,
+	public DispatchingEntity(Long dispatchTrackId, String dispatchTypeCd, Long fplId, Long quantity, Long branchId,
 			String destination, Date dispatchDate) {
 		super();
 		this.dispatchTrackId = dispatchTrackId;
@@ -82,11 +82,11 @@ public class DispatchingEntity implements Serializable {
 		this.dispatchTypeCd = dispatchTypeCd;
 	}
 
-	public String getFplId() {
+	public Long getFplId() {
 		return fplId;
 	}
 
-	public void setFplId(String fplId) {
+	public void setFplId(Long fplId) {
 		this.fplId = fplId;
 	}
 

@@ -12,32 +12,29 @@ import org.json.JSONArray;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.cpi.is.service.impl.DailyPlanServiceImpl;
-import com.cpi.is.service.impl.ProductionMaterialServiceImpl;
-import com.cpi.is.service.impl.RawMaterialListServiceImpl;
-import com.cpi.is.service.impl.maintenance.MaterialCodeServiceImpl;
+import com.cpi.is.service.impl.FinishedProductListServiceImpl;
+import com.cpi.is.service.impl.maintenance.BranchServiceImpl;
+import com.cpi.is.service.impl.maintenance.SkuCodeServiceImpl;
 import com.cpi.is.util.SessionUtil;
 
 /**
  * Servlet implementation class DashboardController
  */
-@WebServlet("/ProductionMaterialController")
-public class ProductionMaterialController extends HttpServlet {
+@WebServlet("/FinishedProductListController")
+public class FinishedProductListController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
     private static String page = "";
     private static String action = "";
        
     private ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
-	private ProductionMaterialServiceImpl productionMaterialService = (ProductionMaterialServiceImpl) context.getBean("productionMaterialService");
-	private MaterialCodeServiceImpl materialCodeService = (MaterialCodeServiceImpl) context.getBean("materialCodeService");
-	private RawMaterialListServiceImpl rawMaterialListService = (RawMaterialListServiceImpl) context.getBean("rawMaterialListService");
-	private DailyPlanServiceImpl dailyPlanService = (DailyPlanServiceImpl) context.getBean("dailyPlanService");
-	
+	private FinishedProductListServiceImpl finishedProductListService = (FinishedProductListServiceImpl) context.getBean("finishedProductListService");
+	private SkuCodeServiceImpl skuCodeService = (SkuCodeServiceImpl) context.getBean("skuCodeService");
+
 	/**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductionMaterialController() {
+    public FinishedProductListController() {
         super();
     }
 
@@ -51,22 +48,18 @@ public class ProductionMaterialController extends HttpServlet {
 				HttpSession session = request.getSession();
 				Long branchId = Long.parseLong(session.getAttribute("branchId").toString());
 				
-				if ("showProductionMaterial".equals(action)) {
-					if(productionMaterialService.validateDppId(request)) {
-						request.setAttribute("productionMaterial", new JSONArray(productionMaterialService.getData(request.getParameter("dppIdInput"))));
-						request.setAttribute("materialCode", new JSONArray(materialCodeService.getData()));
-						request.setAttribute("rawMaterialList", new JSONArray(rawMaterialListService.getData(branchId)));
-						request.setAttribute("dailyPlannedProduction", new JSONArray(dailyPlanService.getData(branchId)));
-						request.setAttribute("dppIdInput", request.getParameter("dppIdInput"));
-						page = "pages/productionMaterial.jsp";
-					} else {
-						page = "pages/reload.jsp";
-					}
+				if ("showFinishedProductList".equals(action)) {
+					request.setAttribute("finishedProductList", new JSONArray(finishedProductListService.getData(branchId)));
+					request.setAttribute("sku", new JSONArray(skuCodeService.getData()));
+					request.setAttribute("userId", session.getAttribute("userId").toString());
+					request.setAttribute("branchIdUser", branchId);
+					request.setAttribute("branchNameUser", session.getAttribute("branchName").toString());
+					page = "pages/finishedProductList.jsp";
 				} else if ("saveData".equals(action)) {
-					request.setAttribute("message", productionMaterialService.saveData(request, rawMaterialListService.getData(branchId)));
+					request.setAttribute("message", finishedProductListService.saveData(request));
 					page = "pages/message.jsp";
 				} else if ("deleteData".equals(action)) {
-					request.setAttribute("message", productionMaterialService.deleteData(request));
+					request.setAttribute("message", finishedProductListService.deleteData(request));
 					page = "pages/message.jsp";
 				}
 			} else {

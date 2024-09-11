@@ -47,7 +47,7 @@ public class UserDAOImpl implements UserDAO{
 		Transaction transaction = null;
 		try (Session session = HBUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
-			session.persist(userSession);
+			session.merge(userSession);
 			transaction.commit();
 		} catch (Exception e) {
 			if (transaction != null) {
