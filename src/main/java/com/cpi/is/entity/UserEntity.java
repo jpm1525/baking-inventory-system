@@ -23,17 +23,17 @@ public class UserEntity implements Serializable{
 		private String username;
 		private String password;
 		@Column(name="BRANCH_ID")
-		private Integer branchId;
+		private Long branchId;
 		
 		@ManyToOne
 		@JoinColumn(name="BRANCH_ID", insertable=false, updatable=false)
 		private BranchEntity branch;
 		
-		public Integer getBranchId() {
+		public Long getBranchId() {
 			return branchId;
 		}
 
-		public void setBranchId(Integer branchId) {
+		public void setBranchId(Long branchId) {
 			this.branchId = branchId;
 		}
 

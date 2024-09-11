@@ -13,6 +13,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.cpi.is.service.impl.DispatchingServiceImpl;
+import com.cpi.is.service.impl.FinishedProductListServiceImpl;
 import com.cpi.is.service.impl.maintenance.BranchServiceImpl;
 import com.cpi.is.service.impl.maintenance.DispatchTypeServiceImpl;
 import com.cpi.is.service.impl.maintenance.SkuCodeServiceImpl;
@@ -31,7 +32,7 @@ public class DispatchingController extends HttpServlet {
 	private DispatchingServiceImpl dispatchingService = (DispatchingServiceImpl) context.getBean("dispatchingService");
 	private DispatchTypeServiceImpl dispatchTypeService = (DispatchTypeServiceImpl) context.getBean("dispatchTypeService");
 	private BranchServiceImpl branchService = (BranchServiceImpl) context.getBean("branchService");
-	private SkuCodeServiceImpl skuCodeService = (SkuCodeServiceImpl) context.getBean("skuCodeService");
+	private FinishedProductListServiceImpl finishedProductListService = (FinishedProductListServiceImpl) context.getBean("finishedProductListService");
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -57,7 +58,8 @@ public class DispatchingController extends HttpServlet {
 					request.setAttribute("dispatching", new JSONArray(dispatchingService.getData(branchId)));
 					request.setAttribute("dispatchType", new JSONArray(dispatchTypeService.getData()));
 					request.setAttribute("branch",new JSONArray(branchService.getData()));
-					request.setAttribute("skuCode",new JSONArray(skuCodeService.getData()));
+					request.setAttribute("finishedProductList",new JSONArray(finishedProductListService.getData(branchId)));
+					request.setAttribute("currentInventory",new JSONArray(dispatchingService.getCurrentInventory(branchId)));
 					request.setAttribute("branchIdUser", branchId);
 					page = "pages/dispatching.jsp";
 				} else if ("saveData".equals(action)) {

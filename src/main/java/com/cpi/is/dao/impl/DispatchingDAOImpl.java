@@ -31,6 +31,26 @@ public class DispatchingDAOImpl implements DispatchingDAO {
         }
         return dispatching;
     }
+	
+	@Override
+	public List<Object[]> getCurrentInventory(Long branchId) throws Exception {
+	    List<Object[]> result = null;
+	    try (Session session = HBUtil.getSessionFactory().openSession()) {
+	        result = session.createQuery(
+	            "SELECT fpl.skuCD, " +
+	            "(COALESCE(MAX(fpl.quantity), 0) - COALESCE(SUM(dispatch.quantity), 0)), " +
+	            "sku.skuCodeName " +
+	            "FROM FinishedProductListEntity fpl " +
+	            "LEFT JOIN DispatchingEntity dispatch ON fpl.fplId = dispatch.fplId " +
+	            "AND dispatch.dispatchDate <= current_date " +
+	            "JOIN fpl.sku sku " +
+	            "WHERE fpl.dateFinished <= current_date AND fpl.branchId = :branchId " +  // Fixed branchId and space issue
+	            "GROUP BY fpl.skuCD, sku.skuCodeName " +
+	            "ORDER BY fpl.skuCD",
+	            Object[].class).setParameter("branchId", branchId).list();
+	    }
+	    return result;
+	}
 
 	@Override
 	public String saveData(DispatchingEntity data) throws Exception {

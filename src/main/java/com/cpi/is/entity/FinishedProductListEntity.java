@@ -30,7 +30,7 @@ public class FinishedProductListEntity implements Serializable {
     private String skuCD;
 
     @Column(name = "QUANTITY")
-    private Integer quantity;
+    private Long quantity;
     
     @Column(name = "BRANCH_ID")
     private Long branchId;
@@ -47,7 +47,7 @@ public class FinishedProductListEntity implements Serializable {
         super();
     }
 
-    public FinishedProductListEntity(Long fplId, String skuCD, Integer quantity, Long branchId, Date dateFinished) {
+    public FinishedProductListEntity(Long fplId, String skuCD, Long quantity, Long branchId, Date dateFinished) {
         super();
         this.fplId = fplId;
         this.skuCD = skuCD;
@@ -72,11 +72,11 @@ public class FinishedProductListEntity implements Serializable {
         this.skuCD = skuCD;
     }
 
-    public Integer getQuantity() {
+    public Long getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(Long quantity) {
         this.quantity = quantity;
     }
 
