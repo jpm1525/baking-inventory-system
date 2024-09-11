@@ -37,7 +37,7 @@ public class DispatchingDAOImpl implements DispatchingDAO {
 	    List<Object[]> result = null;
 	    try (Session session = HBUtil.getSessionFactory().openSession()) {
 	        result = session.createQuery(
-	            "SELECT fpl.skuCD, " +
+	            "SELECT fpl.skuCd, " +
 	            "(COALESCE(MAX(fpl.quantity), 0) - COALESCE(SUM(dispatch.quantity), 0)), " +
 	            "sku.skuCodeName " +
 	            "FROM FinishedProductListEntity fpl " +
@@ -45,8 +45,8 @@ public class DispatchingDAOImpl implements DispatchingDAO {
 	            "AND dispatch.dispatchDate <= current_date " +
 	            "JOIN fpl.sku sku " +
 	            "WHERE fpl.dateFinished <= current_date AND fpl.branchId = :branchId " +  // Fixed branchId and space issue
-	            "GROUP BY fpl.skuCD, sku.skuCodeName " +
-	            "ORDER BY fpl.skuCD",
+	            "GROUP BY fpl.skuCd, sku.skuCodeName " +
+	            "ORDER BY fpl.skuCd",
 	            Object[].class).setParameter("branchId", branchId).list();
 	    }
 	    return result;
