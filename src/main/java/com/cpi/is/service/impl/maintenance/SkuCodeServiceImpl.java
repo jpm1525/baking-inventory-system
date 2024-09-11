@@ -47,8 +47,13 @@ public class SkuCodeServiceImpl implements SkuCodeService {
 		String results = "";
 		
 		if(validation.equals("success")) {
-			results = 	skuCodeDAO.saveData(
-							jsonToEntity(new JSONObject(request.getParameter("data"))));
+			try {
+				results = 	skuCodeDAO.saveData(
+						jsonToEntity(new JSONObject(request.getParameter("data"))));
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			
 			if(results.equals("success")) {
 				return results;
 			} else {
@@ -65,8 +70,13 @@ public class SkuCodeServiceImpl implements SkuCodeService {
 		String results = "";
 		
 		if(validation.equals("success")) {
-			results = 	skuCodeDAO.deleteData(
-							jsonToEntity(new JSONObject(request.getParameter("data"))));
+			try {
+				results = 	skuCodeDAO.deleteData(
+						jsonToEntity(new JSONObject(request.getParameter("data"))));
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			
 			if(results.equals("success")) {
 				return results;
 			} else {

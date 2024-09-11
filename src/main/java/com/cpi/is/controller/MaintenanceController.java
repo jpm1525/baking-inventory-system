@@ -13,6 +13,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.cpi.is.service.impl.maintenance.DispatchTypeServiceImpl;
 import com.cpi.is.service.impl.maintenance.SkuCodeServiceImpl;
+import com.cpi.is.service.impl.maintenance.UserMaintenanceServiceImpl;
 import com.cpi.is.util.SessionUtil;
 import com.cpi.is.service.impl.maintenance.BranchServiceImpl;
 import com.cpi.is.service.impl.maintenance.MaterialCodeServiceImpl;
@@ -31,6 +32,7 @@ public class MaintenanceController extends HttpServlet {
 	private BranchServiceImpl branchService = (BranchServiceImpl) context.getBean("branchService");
 	private SkuCodeServiceImpl skuCodeService = (SkuCodeServiceImpl) context.getBean("skuCodeService");
 	private MaterialCodeServiceImpl materialCodeService = (MaterialCodeServiceImpl) context.getBean("materialCodeService");
+	private UserMaintenanceServiceImpl userMaintenanceService = (UserMaintenanceServiceImpl) context.getBean("userMaintenanceService");
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -88,19 +90,15 @@ public class MaintenanceController extends HttpServlet {
 				} else if ("deleteMaterialCodeData".equals(action)) {
 					request.setAttribute("message", materialCodeService.deleteData(request));
 					page = "pages/message.jsp";
-					
-				} else if ("showDis".equals(action)) {
-					request.setAttribute("dispatchType", new JSONArray(dispatchTypeService.getData()));
-					page = "pages/maintenance/dispatch.jsp";
-				} else if ("showBra".equals(action)) {
-					request.setAttribute("branch",new JSONArray(branchService.getData()));
-					page = "pages/maintenance/branch.jsp";
-				} else if ("showSku".equals(action)) {
-					request.setAttribute("skuCode",new JSONArray(skuCodeService.getData()));
-					page = "pages/maintenance/skuCode.jsp";
-				} else if ("showMat".equals(action)) {
-					request.setAttribute("materialCode",new JSONArray(materialCodeService.getData()));
-					page = "pages/maintenance/materialCode.jsp";
+				} else if ("showUserMain".equals(action)) {
+					request.setAttribute("userMain",new JSONArray(userMaintenanceService.getData()));
+					page = "pages/maintenance/userMaintenance.jsp";
+				} else if ("saveUserMaintenanceData".equals(action)) {
+					request.setAttribute("message", userMaintenanceService.saveData(request));
+					page = "pages/message.jsp";
+				} else if ("deleteUserMaintenanceData".equals(action)) {
+					request.setAttribute("message", userMaintenanceService.deleteData(request));
+					page = "pages/message.jsp";
 				}
 				
 			} else {
@@ -109,9 +107,9 @@ public class MaintenanceController extends HttpServlet {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			request.getRequestDispatcher(page).forward(request,response);
 		}
-
-		request.getRequestDispatcher(page).forward(request,response);
 	}
 
 	/**

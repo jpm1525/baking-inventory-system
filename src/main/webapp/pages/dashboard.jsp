@@ -24,7 +24,7 @@
             
             <div class="flex">
                 <label class="dark:text-white mr-3">Branch Name:</label>
-                <p id="dashboardBranch"></p>
+                <p>${branchName}</p>
             </div>
       
         </div>
@@ -35,8 +35,3 @@
     </div>
 
 </div>
-<script type="text/javascript">
-  var branch = JSON.parse('${branch}');
-  var branchIdUser = JSON.parse('${branchId}');
-</script>
-<script src="js/dashboard.js"></script>
