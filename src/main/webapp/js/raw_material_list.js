@@ -117,7 +117,7 @@ function populateForm(row) {
 	$('#rawMaterialListQuantityUpdate').val(row.quantity);
 	$('#rawMaterialListDateReceiveUpdate').val(row.dateReceive);
 	$('#userIdUpdate').val(row.userId);
-	$('#branchIdUpdate').val(row.branchId);
+	$('#branchIdUpdate').val(row.branchId + " - " + row.branch.branchName);
 	data = {
 		materialListId: row.materialListId.toString(),
 		materialCd: row.materialCd.toString(),

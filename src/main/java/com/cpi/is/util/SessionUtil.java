@@ -29,11 +29,11 @@ public class SessionUtil {
 				UserEntity user = userService.getUser(session.getAttribute("username").toString());
 				session.setAttribute("userId", user.getUserId());
 				session.setAttribute("branchId", user.getBranchId());
+				session.setAttribute("branchName", user.getBranch().getBranchName());			
 			}
 		} else {
 			exist = false;
 		}
-		System.out.println(exist);
 		return exist;
 	}
 	
