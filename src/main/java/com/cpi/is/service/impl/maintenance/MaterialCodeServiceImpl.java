@@ -48,8 +48,13 @@ public class MaterialCodeServiceImpl implements MaterialCodeService {
 		String results = "";
 		
 		if(validation.equals("success")) {
-			results = 	materialCodeDAO.saveData(
-							jsonToEntity(new JSONObject(request.getParameter("data"))));
+			try {
+				results = 	materialCodeDAO.saveData(
+						jsonToEntity(new JSONObject(request.getParameter("data"))));
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			
 			if(results.equals("success")) {
 				return results;
 			} else {
@@ -66,8 +71,13 @@ public class MaterialCodeServiceImpl implements MaterialCodeService {
 		String results = "";
 		
 		if(validation.equals("success")) {
-			results = 	materialCodeDAO.deleteData(
-							jsonToEntity(new JSONObject(request.getParameter("data"))));
+			try {
+				results = 	materialCodeDAO.deleteData(
+						jsonToEntity(new JSONObject(request.getParameter("data"))));
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			
 			if(results.equals("success")) {
 				return results;
 			} else {

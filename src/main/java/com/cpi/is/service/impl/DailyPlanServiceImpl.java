@@ -65,8 +65,13 @@ public class DailyPlanServiceImpl implements DailyPlanService{
 		String results = "";
 		
 		if(validation.equals("success")) {
-			results = 	dailyPlanDAO.saveData(
-							jsonToEntity(new JSONObject(request.getParameter("data"))));
+			try {
+				results = 	dailyPlanDAO.saveData(
+						jsonToEntity(new JSONObject(request.getParameter("data"))));
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			
 			if(results.equals("success")) {
 				return results;
 			} else {
@@ -83,8 +88,13 @@ public class DailyPlanServiceImpl implements DailyPlanService{
 		String results = "";
 		
 		if(validation.equals("success")) {
-			results = 	dailyPlanDAO.deleteData(
-							jsonToEntity(new JSONObject(request.getParameter("data"))));
+			try {
+				results = 	dailyPlanDAO.deleteData(
+						jsonToEntity(new JSONObject(request.getParameter("data"))));
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			
 			if(results.equals("success")) {
 				return results;
 			} else {

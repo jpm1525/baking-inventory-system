@@ -45,8 +45,12 @@ public class UserMaintenanceServiceImpl {
 		String results = "";
 		
 		if(validation.equals("success")) {
-			results = 	userMaintenanceDAO.saveData(
-							jsonToEntity(new JSONObject(request.getParameter("data"))));
+			try {
+				results = 	userMaintenanceDAO.saveData(
+								jsonToEntity(new JSONObject(request.getParameter("data"))));
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
 			if(results.equals("success")) {
 				return results;
 			} else {
@@ -62,8 +66,12 @@ public class UserMaintenanceServiceImpl {
 		String results = "";
 		
 		if(validation.equals("success")) {
-			results = 	userMaintenanceDAO.deleteData(
-							jsonToEntity(new JSONObject(request.getParameter("data"))));
+			try {
+				results = 	userMaintenanceDAO.deleteData(
+								jsonToEntity(new JSONObject(request.getParameter("data"))));
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
 			if(results.equals("success")) {
 				return results;
 			} else {
@@ -91,7 +99,9 @@ public class UserMaintenanceServiceImpl {
 			validation = errorResult;
 		} else if (json.getString("branchId").length() < 1 || json.getString("branchId").length() > 50) {
 			validation = errorResult;
-		}
+		} else if (!json.getString("branchId").matches("^[1-9]\\d*$")) {
+			validation = errorResult;
+		} 
 		
 		return validation;
 	}

@@ -46,8 +46,13 @@ public class DispatchTypeServiceImpl implements DispatchTypeService {
 		String results = "";
 		
 		if(validation.equals("success")) {
-			results = 	dispatchTypeDAO.saveData(
-							jsonToEntity(new JSONObject(request.getParameter("data"))));
+			try {
+				results = 	dispatchTypeDAO.saveData(
+						jsonToEntity(new JSONObject(request.getParameter("data"))));
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			
 			if(results.equals("success")) {
 				return results;
 			} else {
@@ -64,8 +69,13 @@ public class DispatchTypeServiceImpl implements DispatchTypeService {
 		String results = "";
 		
 		if(validation.equals("success")) {
-			results = 	dispatchTypeDAO.deleteData(
-							jsonToEntity(new JSONObject(request.getParameter("data"))));
+			try {
+				results = 	dispatchTypeDAO.deleteData(
+						jsonToEntity(new JSONObject(request.getParameter("data"))));
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			
 			if(results.equals("success")) {
 				return results;
 			} else {
