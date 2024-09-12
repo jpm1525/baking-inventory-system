@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import com.cpi.is.dao.impl.DispatchingDAOImpl;
 import com.cpi.is.entity.DispatchingEntity;
+import com.cpi.is.entity.FinishedProductListEntity;
 import com.cpi.is.service.DispatchingService;
 
 public class DispatchingServiceImpl implements DispatchingService {
@@ -54,17 +55,22 @@ public class DispatchingServiceImpl implements DispatchingService {
 	}
 
 	@Override
-	public String saveData(HttpServletRequest request) throws Exception {
+	public String saveData(HttpServletRequest request, List<FinishedProductListEntity> finishedProductList) throws Exception {
 		// TODO Auto-generated method stub
 		String validation = validateData(request);
 		String results = "";
 		
 		if(validation.equals("success")) {
-			try {
-				results = 	dispatchingDAO.saveData(
-						jsonToEntity(new JSONObject(request.getParameter("data"))));
-			} catch(Exception e) {
-				e.printStackTrace();
+			String quantityValidation = validateQuantity(request, finishedProductList);
+			if(quantityValidation.equals("success")) {
+				try {
+					results = 	dispatchingDAO.saveData(
+							jsonToEntity(new JSONObject(request.getParameter("data"))));
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
+			} else {
+				return quantityValidation;
 			}
 			
 			if(results.equals("success")) {
@@ -150,5 +156,30 @@ public class DispatchingServiceImpl implements DispatchingService {
 		
 		return validation;
 	}
+	
+	public String validateQuantity(HttpServletRequest request, List<FinishedProductListEntity> finishedProductList) throws Exception{
+		JSONObject json = new JSONObject(request.getParameter("data"));
+		String validation = "success";
+		String errorResult = "Please fill-out the dispatching form properly";
+
+		List<DispatchingEntity> dispatchingEntities = getData(Long.parseLong(json.getString("branchId")));
+		outerloop:
+        for (FinishedProductListEntity finishedProduct : finishedProductList) {
+	    	if(finishedProduct.getFplId() == Long.parseLong(json.getString("fplId"))) {
+	    		for(DispatchingEntity dispatchingEntity : dispatchingEntities) {
+	    			if(dispatchingEntity.getDispatchTrackId() == Long.parseLong(json.getString("dispatchTrackId"))) {
+			    		if((finishedProduct.getQuantity() + dispatchingEntity.getQuantity()) 
+			    				< Long.parseLong(json.getString("quantity"))) {
+			    			validation = errorResult;
+			    			break outerloop;
+			    		}
+	    			}
+	    		}	
+	    	}
+        }
+
+		return validation;
+	}
+	
 
 }

@@ -59,7 +59,7 @@ public class DispatchingController extends HttpServlet {
 					request.setAttribute("branchNameUser", session.getAttribute("branchName").toString());
 					page = "pages/dispatching.jsp";
 				} else if ("saveData".equals(action)) {
-					request.setAttribute("message", dispatchingService.saveData(request));
+					request.setAttribute("message", dispatchingService.saveData(request, finishedProductListService.getData(branchId)));
 					page = "pages/message.jsp";
 				} else if ("deleteData".equals(action)) {
 					request.setAttribute("message", dispatchingService.deleteData(request));
