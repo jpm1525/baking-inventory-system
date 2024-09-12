@@ -1,7 +1,6 @@
 if (typeof data === 'undefined' || data === null) {let data = "";}
 if (typeof callback === 'undefined' || callback === null) {let callback = "";}
 if (typeof observer === 'undefined' || observer === null) {let observer = "";}
-if (typeof branchName === 'undefined' || branchName === null) {let branchName = "";}
 
 var editButton = function(value, data, cell, row, options){
 	let thisButton = '<button class="px-4 py-2 text-white bg-indigo-500 rounded editModalButton"> Edit </button>';
@@ -90,13 +89,61 @@ $('#deleteSaveModalButton').click(function(event){
 });	
 
 function populateForm(row) {
+	var initialStock = 0;
 	$('#dispatchingIdUpdate').val(row.dispatchTrackId);
 	$('#dispatchingTypeNameUpdate').val(row.dispatchTypeCd);
-	$('#dispatchingFinishedProductListIdUpdate').val(row.fplId);
+	$('#fplDateUpdate').val(row.fpl.dateFinished);
 	$('#dispatchingQuantityUpdate').val(row.quantity);
-	$('#dispatchingBranchNameUpdate').val(branchName);
+	$('#dispatchingBranchUpdate').val(branchNameUser);
 	$('#dispatchingDestinationUpdate').val(row.destination);
 	$('#dispatchingDateUpdate').val(row.dispatchDate);
+	let html = '<option value="" disabled selected hidden>Select Product</option>';
+	$.each(finishedProductList, function(index, data) {
+		if(data.dateFinished <= $('#dispatchingDateUpdate').val()){
+			if(row.fplId == data.fplId){
+				initialStock = data.quantity + row.quantity;
+				html += '<option selected value="' + data.fplId + '" data-quantity="' + initialStock + 
+					'" data-date-finished="' + data.dateFinished + '">' + data.fplId + " - " + 
+					data.sku.skuCodeName + ' - [' + data.dateFinished + ']' + '</option>';
+			}else{
+				html += '<option value="' + data.fplId + '" data-quantity="' + data.quantity + 
+					'" data-date-finished="' + data.dateFinished + '">' + data.fplId + " - " + 
+					data.sku.skuCodeName + ' - [' + data.dateFinished + ']' + '</option>';
+			}
+		}
+	});
+	$('#dispatchingFinishedProductListIdUpdate').html(html);
+	$('#dispatchingFinishedProductListIdUpdate').val(row.fplId);
+	$('#fplQuantityUpdate').val(initialStock);
+	$('#fplQuantityUpdate').prop('max', initialStock);
+	$('#dispatchingQuantityUpdate').prop('max', initialStock);
+	$('#fplResultingStockUpdate').val(initialStock - row.quantity);
+	$('#fplResultingStockUpdate').prop('max', initialStock);
+
+	$('#dispatchingDateUpdate').off('change');
+	$('#dispatchingDateUpdate').on('change',function() {
+		let html = '<option value="" disabled selected hidden>Select Product</option>';
+		$.each(finishedProductList, function(index, data) {
+			if(data.dateFinished <= $('#dispatchingDateUpdate').val()){
+				if(row.fplId == data.fplId){
+					initialStock = data.quantity + row.quantity;
+					html += '<option value="' + data.fplId + '" data-quantity="' + initialStock + 
+						'" data-date-finished="' + data.dateFinished + '">' + data.fplId + " - " + 
+						data.sku.skuCodeName + ' - [' + data.dateFinished + ']' + '</option>';
+				}else{
+					html += '<option value="' + data.fplId + '" data-quantity="' + data.quantity + 
+						'" data-date-finished="' + data.dateFinished + '">' + data.fplId + " - " + 
+						data.sku.skuCodeName + ' - [' + data.dateFinished + ']' + '</option>';
+				}
+			}
+		});
+		$('#dispatchingFinishedProductListIdUpdate').html(html);	
+		$('#fplDateUpdate').val(0);
+		$('#dispatchingQuantityUpdate').val(0);
+		$('#fplResultingStockUpdate').val(0);
+		$('#fplQuantityUpdate').val(0);
+	});
+	
 	data = {
 		dispatchTrackId: row.dispatchTrackId.toString(),
 		dispatchTypeCd: row.dispatchTypeCd.toString(),
@@ -202,61 +249,104 @@ $('#btnUpdateDispatching').click(updateData);
 function getDispatchType() {
 	let html = '';
 	$.each(dispatchType, function(index, data) {
-		html+= '<option value="' + data.dispatchTypeCd + '">' + data.dispatchTypeName + '</option>'
+		html+= '<option value="' + data.dispatchTypeCd + '">' + data.dispatchTypeCd + ' - ' + data.dispatchTypeName + '</option>'
 	});
 	$('.selectDispatchingTypeName').append(html);
 }
 
-function getBranchName(){
-	$.each(branch, function(index, data) {
-		if(data.branchId == branchIdUser){
-			$('.selectDispatchingBranch').val(data.branchName);
-			branchName=data.branchName;
+getDispatchType();
+
+function getCurrentDate(){
+	var today = new Date();
+    today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
+    today = today.toISOString().slice(0,10);
+	$('#dispatchingDateCreate').val(today);
+}
+
+function getFplCreateOption(){
+	let html = '<option value="" disabled selected hidden>Select Product</option>';
+	$.each(finishedProductList, function(index, data) {
+		if(data.dateFinished <= $('#dispatchingDateCreate').val()){
+	        html += '<option value="' + data.fplId + '" data-quantity="' + data.quantity + 
+				'" data-date-finished="' + data.dateFinished + '">' + data.fplId + " - " + 
+				data.sku.skuCodeName + '</option>';
+		}
+	});
+	$('#dispatchingFinishedProductListIdCreate').html(html);
+}
+
+function initializeAddModal() {
+	$('#dispatchingBranchCreate').val(branchNameUser);
+	getCurrentDate();
+	getFplCreateOption();
+	
+
+	$('#dispatchingDateCreate').change(function() {
+		getFplCreateOption();
+		$('#dispatchingQuantityCreate').val(0);
+		$('#fplDateCreate').val(0);
+		$('#fplQuantityCreate').val(0);
+		$('#fplResultingStockCreate').val(0);
+	});
+	
+    $('#dispatchingFinishedProductListIdCreate').change(function() {
+		let initialStock = $('#dispatchingFinishedProductListIdCreate').find(':selected').attr('data-quantity');
+		$('#fplQuantityCreate').val(initialStock);
+		$('#fplQuantityCreate').prop('max', initialStock);
+		$('#dispatchingQuantityCreate').val(0);
+		$('#dispatchingQuantityCreate').prop('max', initialStock);
+		$('#c').val(initialStock);
+		$('#fplResultingStockCreate').prop('max', initialStock);
+        $('#fplDateCreate').val($('#dispatchingFinishedProductListIdCreate').find(':selected').attr('data-date-finished'));
+        
+    });
+	
+	$('#dispatchingQuantityCreate').on("input", function() {
+		if (!(/^[0-9]\d*$/.test($('#dispatchingQuantityCreate').val()))){
+			$('#dispatchingQuantityCreate').val(0);
+		}else if($('#dispatchingQuantityCreate').val() > parseInt($('#fplQuantityCreate').val())){
+			$('#dispatchingQuantityCreate').val($('#fplQuantityCreate').val());
+			$('#fplResultingStockCreate').val(0);
+		}else if($('#dispatchingQuantityCreate').val() < 0){
+			$('#dispatchingQuantityCreate').val(0);
+			$('#fplResultingStockCreate').val($('#fplQuantityCreate').val());
+		}else{
+			$('#fplResultingStockCreate').val(
+			$('#fplQuantityCreate').val() - 
+			$('#dispatchingQuantityCreate').val());
 		}
 	});
 }
 
-getDispatchType();
-getBranchName();
+initializeAddModal();
 
-function getCurrentDate() {
-    let date = new Date();
-    let day = String(date.getDate()).padStart(2, '0');
-    let month = String(date.getMonth() + 1).padStart(2, '0'); // January is 0!
-    let year = date.getFullYear();
-    return `${year}-${month}-${day}`; // Format as "yyyy-MM-dd"
-}
-
-function getFplID() {
-    console.log("Fetching FPL ID");
-    let currentDate = new Date(getCurrentDate());
-    let html = '<option value="">';
-
-    let skuToQuantityMap = {};
-    $.each(currentInventory, function(index, data) {
-        skuToQuantityMap[data[0]] = data[1];
-    });
-
-    $.each(finishedProductList, function(index, data) {
-        let dateFinished = new Date(data.dateFinished);
-        if (dateFinished <= currentDate) {
-            html += '<option value="' + data.fplId + '" data-sku-code="' + data.sku.skuCd + '" data-sku-name="' + data.sku.skuCodeName + '" data-quantity="' + data.quantity + '" data-date-finished="' + data.dateFinished + '">' + data.fplId + " " + data.sku.skuCodeName + '</option>';
-			console.log(html);
-        }
+function initializeEditModal() {
+    $('#dispatchingFinishedProductListIdUpdate').change(function() {
+		var initialStock = $('#dispatchingFinishedProductListIdUpdate').find(':selected').attr('data-quantity');
+			$('#fplQuantityUpdate').val(initialStock);
+			$('#fplQuantityUpdate').prop('max', initialStock);
+			$('#dispatchingQuantityUpdate').val(0);
+			$('#dispatchingQuantityUpdate').prop('max', initialStock);
+			$('#fplResultingStockUpdate').val(initialStock);
+			$('#fplResultingStockUpdate').prop('max', initialStock);
+	        $('#fplDateUpdate').val($('#dispatchingFinishedProductListIdUpdate').find(':selected').attr('data-date-finished'));
     });
 	
-    $('#fplFinishedProductListIdCreate').html(html);
-
-    $('#fplFinishedProductListIdCreate').change(function() {
-        console.log("Updating currentQuantity on Add");
-        let selectedOption = $(this).find('option:selected');
-        let skuCode = selectedOption.data('sku-code');
-        totalQuantityAdd = skuToQuantityMap[skuCode] || 0;
-
-        $('#fplQuantityCreate').val(totalQuantityAdd);
-        $('#fplDateCreate').val(selectedOption.data('date-finished'));
-        
-    });
+	$('#dispatchingQuantityUpdate').on("input", function() {
+		if (!(/^[0-9]\d*$/.test($('#dispatchingQuantityUpdate').val()))){
+			$('#dispatchingQuantityUpdate').val(0);
+		}else if($('#dispatchingQuantityUpdate').val() > parseInt($('#fplQuantityUpdate').val())){
+			$('#dispatchingQuantityUpdate').val($('#fplQuantityUpdate').val());
+			$('#fplResultingStockUpdate').val(0);
+		}else if($('#dispatchingQuantityUpdate').val() < 0){
+			$('#dispatchingQuantityUpdate').val(0);
+			$('#fplResultingStockUpdate').val($('#fplQuantityUpdate').val());
+		}else{
+			$('#fplResultingStockUpdate').val(
+			$('#fplQuantityUpdate').val() - 
+			$('#dispatchingQuantityUpdate').val());
+		}
+	});
 }
 
-getFplID();
+initializeEditModal();

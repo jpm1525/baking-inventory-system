@@ -52,11 +52,6 @@ public class DispatchingServiceImpl implements DispatchingService {
 		// TODO Auto-generated method stub
 		return dispatchingDAO.getData(branchId);
 	}
-	
-	@Override
-    public List<Object[]> getCurrentInventory(Long branchId) throws Exception {
-        return dispatchingDAO.getCurrentInventory(branchId);
-    }
 
 	@Override
 	public String saveData(HttpServletRequest request) throws Exception {
