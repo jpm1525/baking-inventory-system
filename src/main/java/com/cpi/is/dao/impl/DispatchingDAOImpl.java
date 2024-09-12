@@ -10,47 +10,19 @@ import com.cpi.is.entity.DispatchingEntity;
 import com.cpi.is.util.HBUtil;
 
 public class DispatchingDAOImpl implements DispatchingDAO {
-
-//	@Override
-//	public List<DispatchingEntity> getData() throws Exception {
-//		List<DispatchingEntity> dispatching = null;
-//		try (Session session = HBUtil.getSessionFactory().openSession()) {
-//			dispatching = (List<DispatchingEntity>) 
-//					session.createQuery("From DispatchingEntity T ORDER BY T.dispatchTrackId ASC", DispatchingEntity.class).list();
-//		}
-//		return dispatching;
-//	}
 	
 	@Override
     public List<DispatchingEntity> getData(Long branchId) throws Exception {
         List<DispatchingEntity> dispatching = null;
         try (Session session = HBUtil.getSessionFactory().openSession()) {
-            dispatching = session.createQuery("SELECT T FROM DispatchingEntity T JOIN T.branch J WHERE T.branchId = :branchId AND J.branchId = T.branchId ORDER BY T.dispatchTrackId ASC", DispatchingEntity.class)
+            dispatching = session.createQuery("FROM DispatchingEntity T "
+            		+ "WHERE T.branchId = :branchId ORDER BY "
+            		+ "T.dispatchTrackId ASC", DispatchingEntity.class)
                                  .setParameter("branchId", branchId)
                                  .list();
         }
         return dispatching;
     }
-	
-	@Override
-	public List<Object[]> getCurrentInventory(Long branchId) throws Exception {
-	    List<Object[]> result = null;
-	    try (Session session = HBUtil.getSessionFactory().openSession()) {
-	        result = session.createQuery(
-	            "SELECT fpl.skuCd, " +
-	            "(COALESCE(MAX(fpl.quantity), 0) - COALESCE(SUM(dispatch.quantity), 0)), " +
-	            "sku.skuCodeName " +
-	            "FROM FinishedProductListEntity fpl " +
-	            "LEFT JOIN DispatchingEntity dispatch ON fpl.fplId = dispatch.fplId " +
-	            "AND dispatch.dispatchDate <= current_date " +
-	            "JOIN fpl.sku sku " +
-	            "WHERE fpl.dateFinished <= current_date AND fpl.branchId = :branchId " +  // Fixed branchId and space issue
-	            "GROUP BY fpl.skuCd, sku.skuCodeName " +
-	            "ORDER BY fpl.skuCd",
-	            Object[].class).setParameter("branchId", branchId).list();
-	    }
-	    return result;
-	}
 
 	@Override
 	public String saveData(DispatchingEntity data) throws Exception {

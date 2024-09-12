@@ -23,38 +23,39 @@
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 
           selectDispatchingTypeName" required="required">
-          <option value="" disabled selected hidden>Select Dispatch Name</option>
+          <option value="" disabled selected hidden>Select Dispatch Type</option>
         </select>
       </div>
       <div>
-        <label for="dispatchingFinishedProductListIdCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">FPL ID</label>
-        <input type="text" name="dispatchingFinishedProductListIdCreate" id="dispatchingFinishedProductListIdCreate" class="bg-gray-50 border border-gray-300 
-          text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
-          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
-          required="required" placeholder="Type finished product id list" maxlength="10" minlength="1">
-      </div>
-      <div class="col-span-2">
-        <label for="fplFinishedProductListIdCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Another FPL ID</label>
-        <select type="text" name="fplFinishedProductListIdCreate" id="fplFinishedProductListIdCreate" class="bg-gray-50 border border-gray-300 
-          text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
-          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
-          required="required" placeholder="Type finished product id list" maxlength="10" minlength="1">
-          	<option value="" disabled selected hidden>Select SKU Code or FPL</option>
-          </select>
+        <label for="dispatchingFinishedProductListIdCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Product ID</label>
+        <select type="text" name="dispatchingFinishedProductListIdCreate" id="dispatchingFinishedProductListIdCreate" 
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block 
+          w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 
+          dark:focus:border-primary-500" required="required">
+          	<option value="" disabled selected hidden>Select Product</option>
+        </select>
       </div>
       <div>
-        <label for="fplQuantityCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">FPL Quantity</label>
+        <label for="fplDateCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Product Batch Date</label>
+        <input id="fplDateCreate" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
+          rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 
+          dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" readonly="readonly">
+      </div>
+      <div>
+        <label for="fplQuantityCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Stock</label>
         <input type="number" name="fplQuantityCreate" id="fplQuantityCreate" class="num-input bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500
           [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
-          required="required" maxlength="99999999999999" minlength="1">
+          required="required" max="0" min="0" readonly="readonly" value="0">
       </div>
       <div>
-        <label for="fplDateCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">FPL Dispatch Date</label>
-        <input id="fplDateCreate" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
-          rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 
-          dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <label for="fplResultingStockCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Resulting Stock</label>
+        <input type="number" name="fplResultingStockCreate" id="fplResultingStockCreate" class="num-input bg-gray-50 border border-gray-300 
+          text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
+          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500
+          [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
+          required="required" max="0" min="0" readonly="readonly" value="0">
       </div>
       <div>
         <label for="dispatchingQuantityCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Quantity</label>
@@ -62,14 +63,14 @@
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500
           [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
-          required="required" placeholder="Type quantity" maxlength="99999999999999" minlength="1">
+          required="required" placeholder="Type quantity" max="0" min="0" value="0">
       </div>
       <div>
-        <label for="dispatchingBranchNameCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Branch Name</label>
-        <input type="text" id="dispatchingBranchNameCreate" name="dispatchingBranchNameCreate" dataBranchName=""class="bg-gray-50 border border-gray-300 
+        <label for="dispatchingBranchCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Branch</label>
+        <input type="text" id="dispatchingBranchCreate" name="dispatchingBranchCreate" class="bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 
-          selectDispatchingBranch" required="required"  readonly="readonly">
+          " required="required"  readonly="readonly">
       </div>
       <div>
         <label for="dispatchingDestinationCreate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Destination</label>
