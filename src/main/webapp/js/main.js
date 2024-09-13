@@ -1,5 +1,7 @@
 if (typeof dropdowns === 'undefined' || dropdowns === null) {let dropdowns = "";}
 
+if (typeof form === 'undefined' || form === null) {let form = "";}
+if (typeof loginButton === 'undefined' || loginButton === null) {let loginButton = "";}
 //=============================================|| ADD RAW MODAL ||==================================================//
 // Add Raw Modal elements
 if (typeof addModal === 'undefined' || addModal === null) {let addModal = "";}
@@ -19,3 +21,4 @@ if (typeof openDeleteModalButton === 'undefined' || openDeleteModalButton === nu
 if (typeof closeDeleteModalButtons === 'undefined' || closeDeleteModalButtons === null) {let closeDeleteModalButtons = "";}
 if (typeof yesDeleteButton === 'undefined' || yesDeleteButton === null) {let yesDeleteButton = "";}
 //===================================================================================================================//
+

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.json.JSONObject;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.cpi.is.dao.impl.maintenance.UserMaintenanceDAOImpl;
 import com.cpi.is.entity.UserEntity;
@@ -14,6 +15,15 @@ import com.cpi.is.util.JsonEscapeUtil;
 public class UserMaintenanceServiceImpl {
 	
 	private UserMaintenanceDAOImpl userMaintenanceDAO;
+	private BCryptPasswordEncoder passwordEncoder;
+	
+	public BCryptPasswordEncoder getPasswordEncoder() {
+		return passwordEncoder;
+	}
+
+	public void setPasswordEncoder(BCryptPasswordEncoder passwordEncoder) {
+		this.passwordEncoder = passwordEncoder;
+	}
 	
 	public UserMaintenanceDAOImpl getUserMaintenanceDAO() {
 		return userMaintenanceDAO;
@@ -27,7 +37,7 @@ public class UserMaintenanceServiceImpl {
 		return new UserEntity(
 				json.getLong("userId"),
 				json.getString("username"),
-				json.getString("password"),
+				passwordEncoder.encode(json.getString("password")),
 				json.getLong("branchId"));
 	}
 	
@@ -95,7 +105,7 @@ public class UserMaintenanceServiceImpl {
 			validation = errorResult;
 		} else if (json.getString("username").length() < 1 || json.getString("username").length() > 10) {
 			validation = errorResult;
-		} else if (json.getString("password").length() < 1 || json.getString("password").length() > 50) {
+		} else if (json.getString("password").length() < 1 || json.getString("password").length() > 100) {
 			validation = errorResult;
 		} else if (json.getString("branchId").length() < 1 || json.getString("branchId").length() > 50) {
 			validation = errorResult;

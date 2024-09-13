@@ -9,6 +9,8 @@
       <form class="m-5">
         <fieldset
           class="px-8 pb-4 pt-5 rounded-lg"> 
+          <!-- <p class="text-red-500 flex w-full justify-center" style="display: none;">Invalid Username or Password</p> -->
+          <div class="flex w-full justify-center text-red-500" id="errorResponse"></div>
           <table class="m-5">
             <tr>
               <td class="pr-5"><label for="login-username">Username</label></td>
@@ -42,7 +44,18 @@
       </div>
     </div>
   </div>
+  
+<div id="loading-screen" style="display: none;">
+  <div class="relative flex justify-center items-center align-center h-screen w-screen">
+    <div class="absolute animate-spin rounded-full h-40 w-40 border-t-4 border-b-4 border-black mb-12"></div>
+      <div class="grid">
+         <img src="images/banners/log_img.png"  class="h-28 w-28 grid-rows-1">
+          <p class="animate-pulse text-xl font-bold grid-rows-2 mt-8">Loading . . .</p>
+      </div>
+    </div>
+  </div>
 </div>
+          
 <jsp:include page="nav/footer.jsp"></jsp:include>
 
 <script src="js/login.js"></script>

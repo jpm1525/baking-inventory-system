@@ -54,41 +54,41 @@ document.getElementById("sidebarToggle").addEventListener("click", function() {
 });
 
 $("#btnDispatch").click(function(){
-	$.get("MaintenanceController",{
-		action: "showDispatch"
-		}, function(response){
-		$("#divContent").html(response)
-	});
-});	
+    showLoading();
+    $.get("MaintenanceController", { action: "showDispatch" }, function(response) {
+        $("#divContent").html(response);
+        hideLoading();
+    });
+});
 
 $("#btnBranches").click(function(){
-	$.get("MaintenanceController",{
-		action: "showBranches"
-		}, function(response){
-		$("#divContent").html(response)
-	});
-});	
+    showLoading();
+    $.get("MaintenanceController", { action: "showBranches" }, function(response) {
+        $("#divContent").html(response);
+        hideLoading();
+    });
+});
 
 $("#btnSkuCodes").click(function(){
-	$.get("MaintenanceController",{
-		action: "showSkuCodes"
-		}, function(response){
-		$("#divContent").html(response)
-	});
-});	
+    showLoading();
+    $.get("MaintenanceController", { action: "showSkuCodes" }, function(response) {
+        $("#divContent").html(response);
+        hideLoading();
+    });
+});
 
 $("#btnMaterialCodes").click(function(){
-	$.get("MaintenanceController",{
-		action: "showMaterialCodes"
-		}, function(response){
-		$("#divContent").html(response)
-	});
-});	
+    showLoading();
+    $.get("MaintenanceController", { action: "showMaterialCodes" }, function(response) {
+        $("#divContent").html(response);
+        hideLoading();
+    });
+});
 
 $("#btnUserMaintenance").click(function(){
-	$.get("MaintenanceController",{
-		action: "showUserMain"
-		}, function(response){
-		$("#divContent").html(response)
-	});
-});	
+    showLoading();
+    $.get("MaintenanceController", { action: "showUserMain" }, function(response) {
+        $("#divContent").html(response);
+        hideLoading();
+    });
+});

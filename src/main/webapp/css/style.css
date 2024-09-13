@@ -124,19 +124,34 @@ footer {
     overflow: auto;
 }
 
-.dashTitle{
-  font-weight:bold;
-  font-size:30px;
+/* @media screen{
+  .dashInfo{
+  flex-wrap:wrap;
+  min-width: 180px;
+  min-height: 180px;
+  }
+} */
+
+.dashInfo{
+    width:180px;
+    height:180px;
+    border-radius: 10px;
+    padding:12px;
 }
 
-.dashContent label{
-  font-weight:bold;
-  font-size:25px;
+.dashInfo p{
+    position: absolute;
+    z-index:4;
+    text-shadow:1px 1px 4px rgba(0, 0, 0, 0.81);
 }
 
-.dashContent p{
-  font-size:25px;
+.dashInfo img{
+    display:flex;
+    position: absolute;
+    z-index:2;
+    opacity:0.1;
 }
+
 #divContent h1{
   margin:5px;
 }
@@ -230,6 +245,9 @@ footer {
   border-radius: 10px;
   box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4);
 
+}
+.topbar p{
+  font-size:10px;
 }
 .topbar-right{
   position: absolute; 

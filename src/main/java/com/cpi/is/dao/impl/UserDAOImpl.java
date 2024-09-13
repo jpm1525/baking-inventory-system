@@ -28,12 +28,12 @@ public class UserDAOImpl implements UserDAO{
 		return authenticated;
 	}
 	
-	public UserEntity getUser(UserEntity user) throws Exception {
+	public UserEntity getUser(String username) throws Exception {
 		UserEntity result = null;
 		try (Session session = HBUtil.getSessionFactory().openSession()) {
 			List<UserEntity> results = (List<UserEntity>) session
 					.createQuery("FROM UserEntity T WHERE T.username = :username", UserEntity.class)
-					.setParameter("username", user)
+					.setParameter("username", username)
 					.list();
 			if (results.size() > 0) {
 				result = results.get(0);
@@ -86,12 +86,6 @@ public class UserDAOImpl implements UserDAO{
 			}
 			throw e;
 		}		
-	}
-
-	@Override
-	public UserEntity getUser(String username) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

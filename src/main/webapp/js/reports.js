@@ -1,35 +1,31 @@
 $("#btnReportFinished").click(function(){
-$.get("ReportGenerationController",{
-	action: "showReportFinished"
-	}, function(response){
-	$("#divContent").html(response)
-
-});
+	showLoading();
+	$.get("ReportGenerationController",{ action: "showReportFinished" }, function(response){
+		$("#divContent").html(response)
+		hideLoading();
+	});
 });	
 
 $("#btnReportPlanned").click(function(){
-$.get("ReportGenerationController",{
-	action: "showReportPlanned"
-	}, function(response){
-	$("#divContent").html(response)
-
-});
+	showLoading();
+	$.get("ReportGenerationController",{ action: "showReportPlanned" }, function(response){
+		$("#divContent").html(response)
+		hideLoading();
+	});
 });	
 
 $("#btnReportProduction").click(function(){
-$.get("ReportGenerationController",{
-	action: "showReportProduction"
-	}, function(response){
-	$("#divContent").html(response)
-
-});
+	showLoading();
+	$.get("ReportGenerationController",{ action: "showReportProduction" }, function(response){
+		$("#divContent").html(response)
+		hideLoading();
+	});
 });	
 
 $("#btnReportReceived").click(function(){
-$.get("ReportGenerationController",{
-	action: "showReportReceived"
-	}, function(response){
-	$("#divContent").html(response)
-
-});
+	showLoading();
+	$.get("ReportGenerationController",{ action: "showReportReceived" }, function(response){
+		$("#divContent").html(response)
+		hideLoading();
+	});
 });	

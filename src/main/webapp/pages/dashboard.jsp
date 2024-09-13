@@ -4,34 +4,32 @@
     <div class="dashTitle flex dark:text-white justify-center text-3xl m-5">User Info</div>
     <div class="grid">
       <div class="row-start-2 flex justify-center">
-        <div class="bg-[#f9e4ad] dark:bg-gray-400 flex p-10 rounded-lg">
-          <img src="images/dash-pfp.jpg" class="w-[155px] h-[155px] mr-5" ondragstart="return false;">
+        <div class="bg-[#f9e4ad] dark:bg-[#34455d] flex p-8 rounded-lg">
+          <img src="images/dash-pfp.jpg" class="w-[140px] h-[140px] mr-5 rounded-lg " ondragstart="return false;">
           <div class="row-start-2">
+          
             <div class="flex">
                 <label class="dark:text-white mr-3">User ID:</label>
                 <p>${userId}</p>
             </div>
             
-            <div class="flex">
+            <div class="flex pt-2">
                 <label class="dark:text-white mr-3">Name:</label>
                 <p>${username}</p>
             </div>
             
-            <div class="flex">
+            <div class="flex pt-2">
                 <label class="dark:text-white mr-3">Branch ID:</label>
                 <p>${branchId}</p>
             </div>
             
-            <div class="flex">
+            <div class="flex pt-2">
                 <label class="dark:text-white mr-3">Branch Name:</label>
                 <p>${branchName}</p>
             </div>
-      
+            
+          </div>
         </div>
       </div>
-      
-        
-      </div>
     </div>
-
 </div>
