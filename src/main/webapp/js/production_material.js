@@ -1,13 +1,22 @@
+if (typeof dppDate === 'undefined' || dppDate === null) {let dppDate = "";}
+$.each(dailyPlannedProduction, function(index, data) {
+	if(data.dppId == dppIdInp){
+		dppDate = data.productionDate;
+	}
+});
 function getMaterialCodeCreate(){
 	let html = '';
+
 		$.each(rawMaterialList, function(index, data) {
-			$.each(materialCode, function(index2, data2) {
-				if(data.materialCd == data2.materialCd){
-					html+= '<option materialListId="' + data.materialListId +  '"index="' + index + 
-						'"value="' + data.materialCd + '">' + data.materialCd + ' - ' + 
-						data2.materialCodeName + ' - ' + data.dateReceive + '</option>';
-				}
-			});
+			if(dppDate >= data.dateReceive){
+				$.each(materialCode, function(index2, data2) {
+					if(data.materialCd == data2.materialCd){
+						html+= '<option materialListId="' + data.materialListId +  '"index="' + index + 
+							'"value="' + data.materialCd + '">' + data.materialCd + ' - ' + 
+							data2.materialCodeName + ' - ' + data.dateReceive + '</option>';
+					}
+				});
+			}
 		});
 	$('#materialCodeCreate').append(html);
 }
@@ -17,19 +26,21 @@ getMaterialCodeCreate();
 function getMaterialCodeUpdate(materialListIdInput, quantityInput){
 	let html = '';
 		$.each(rawMaterialList, function(index, data) {
-			$.each(materialCode, function(index2, data2) {
-				if(data.materialCd == data2.materialCd){
-					if(materialListIdInput == data.materialListId){
-						html+= '<option qty="' + (data.quantity + quantityInput) + '" materialListId="' + data.materialListId +  
-							'" index="' + index + '" value="' + data.materialCd + '">' + data.materialCd + ' - ' + 
-							data2.materialCodeName + ' - ' + data.dateReceive + '</option>';
-					}else{
-						html+= '<option qty="' + data.quantity + '" materialListId="' + data.materialListId +  
-							'" index="' + index + '" value="' + data.materialCd + '">' + data.materialCd + ' - ' + 
-							data2.materialCodeName + ' - ' + data.dateReceive + '</option>';				
+			if(dppDate >= data.dateReceive){
+				$.each(materialCode, function(index2, data2) {
+					if(data.materialCd == data2.materialCd){
+						if(materialListIdInput == data.materialListId){
+							html+= '<option qty="' + (data.quantity + quantityInput) + '" materialListId="' + data.materialListId +  
+								'" index="' + index + '" value="' + data.materialCd + '">' + data.materialCd + ' - ' + 
+								data2.materialCodeName + ' - ' + data.dateReceive + '</option>';
+						}else{
+							html+= '<option qty="' + data.quantity + '" materialListId="' + data.materialListId +  
+								'" index="' + index + '" value="' + data.materialCd + '">' + data.materialCd + ' - ' + 
+								data2.materialCodeName + ' - ' + data.dateReceive + '</option>';				
+						}
 					}
-				}
-			});
+				});
+			}
 		});
 	$('#materialCodeUpdate').html(html);
 }
@@ -233,11 +244,9 @@ $('#productionMaterialQuantityToUseCreate').on("input", function() {
 	if (!(/^[0-9]\d*$/.test($('#productionMaterialQuantityToUseCreate').val()))){
 		$('#productionMaterialQuantityToUseCreate').val(0);
 	}else if($('#productionMaterialQuantityToUseCreate').val() > parseInt($('#productionMaterialInitialStockCreate').val())){
-		console.log("GREATER THAN");
 		$('#productionMaterialQuantityToUseCreate').val($('#productionMaterialInitialStockCreate').val());
 		$('#productionMaterialResultingStockCreate').val(0);
 	}else if($('#productionMaterialQuantityToUseCreate').val() < 0){
-		console.log("LESS THAN");
 		$('#productionMaterialQuantityToUseCreate').val(0);
 		$('#productionMaterialResultingStockCreate').val($('#productionMaterialInitialStockCreate').val());
 	}else{

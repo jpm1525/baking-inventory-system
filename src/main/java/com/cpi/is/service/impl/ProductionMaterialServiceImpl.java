@@ -47,13 +47,16 @@ public class ProductionMaterialServiceImpl implements ProductionMaterialService 
 		String results = "";	
 		
 		if(validation.equals("success")) {
-			if(validateQuantity(request, rawMaterialList).equals("success")) {
+			String quantityValidation = validateQuantity(request, rawMaterialList);
+			if(quantityValidation.equals("success")) {
 				try {
 					results = 	productionMaterialDAO.saveData(
 							jsonToEntity(new JSONObject(request.getParameter("data"))));
 				} catch(Exception e) {
 					e.printStackTrace();
 				}
+			} else {
+				return quantityValidation;
 			}
 			
 			if(results.equals("success")) {
@@ -140,7 +143,7 @@ public class ProductionMaterialServiceImpl implements ProductionMaterialService 
 	    			if(productionMaterial.getPmId() == Long.parseLong(json.getString("pmId"))) {
 			    		if((rawMaterial.getQuantity() + productionMaterial.getQuantityToUse()) 
 			    				< Long.parseLong(json.getString("quantityToUse"))) {
-			    			validation = "not enough stocks";
+			    			validation = errorResult;
 			    			break outerloop;
 			    		}
 	    			}

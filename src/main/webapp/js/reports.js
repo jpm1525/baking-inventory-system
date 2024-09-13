@@ -3,6 +3,7 @@ $("#btnReportFinished").click(function() {
 		action: "showReportFinished"
 	}, function(response) {
 		$("#divContent").html(response)
+		hideLoading();
 
 	});
 });
@@ -12,6 +13,7 @@ $("#btnReportPlanned").click(function() {
 		action: "showReportPlanned"
 	}, function(response) {
 		$("#divContent").html(response)
+		hideLoading();
 
 	});
 });
@@ -21,6 +23,7 @@ $("#btnReportProduction").click(function() {
 		action: "showReportProduction"
 	}, function(response) {
 		$("#divContent").html(response)
+		hideLoading();
 
 	});
 });
@@ -30,6 +33,7 @@ $("#btnReportReceived").click(function() {
 		action: "showReportReceived"
 	}, function(response) {
 		$("#divContent").html(response)
+		hideLoading();
 
 	});
 });

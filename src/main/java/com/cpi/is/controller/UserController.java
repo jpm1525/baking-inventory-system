@@ -55,7 +55,7 @@ public class UserController extends HttpServlet {
 					session.setAttribute("userId", user.getUserId());
 					session.setAttribute("branchId", user.getBranchId());
 					session.setAttribute("branchName", user.getBranch().getBranchName());
-					
+
 					request.setAttribute("username", user.getUsername());
 					userService.saveSession(request);
 

@@ -15,6 +15,10 @@ body {
 /* input[type="number"] {
     -moz-appearance: textfield;
 } */
+.hidden {
+  display: none;
+}
+
 
 img{
   -webkit-user-select: none;
@@ -120,19 +124,34 @@ footer {
     overflow: auto;
 }
 
-.dashTitle{
-  font-weight:bold;
-  font-size:30px;
+/* @media screen{
+  .dashInfo{
+  flex-wrap:wrap;
+  min-width: 180px;
+  min-height: 180px;
+  }
+} */
+
+.dashInfo{
+    width:180px;
+    height:180px;
+    border-radius: 10px;
+    padding:12px;
 }
 
-.dashContent label{
-  font-weight:bold;
-  font-size:25px;
+.dashInfo p{
+    position: absolute;
+    z-index:4;
+    text-shadow:1px 1px 4px rgba(0, 0, 0, 0.81);
 }
 
-.dashContent p{
-  font-size:25px;
+.dashInfo img{
+    display:flex;
+    position: absolute;
+    z-index:2;
+    opacity:0.1;
 }
+
 #divContent h1{
   margin:5px;
 }
@@ -140,14 +159,14 @@ footer {
 /* Content area styles */
 #divContent {
   position: fixed;
-  top: 110px;
-  right: 20px; 
-  height: calc(100% - 130px);
-  width: calc(100% - (50vh - 50px) - 15px); /* Adjusted width based on sidebar */
+  top: 90px;
+  right: 5px;
+  height: calc(100% - 95px);
+  width: calc(100% - (50vh - 95px) - 15px);
   padding: 20px;
   border-radius: 10px;
   overflow: auto;
-  transition: width 0.3s ease; /* Smooth transition for width change */
+  transition: width 0.3s ease;
   box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4);
   user-select: none;
 }
@@ -155,7 +174,7 @@ footer {
 
 /* Adjusted width when sidebar is hidden */
 #divContent.sidebar-adjusted {
-  width: calc(100vw - 40px); /* Full width when sidebar is hidden */
+  width: calc(100% - 10px); /* Full width when sidebar is hidden */
 }
 
 .menuBtn{
@@ -170,15 +189,15 @@ footer {
   overflow: auto;
   font-size: 2vh;
   box-sizing: border-box;
-  padding:10px;
+  padding: 10px;
   user-select: none;
   display: flex;
   flex-direction: column;
   align-self: center;
-  margin-left: 20px;
-  height: calc(100% - 130px);
+  margin-left: 5px;
+  height: calc(100% - 95px);
   width: calc(46vh - 70px);
-  margin-top: 110px;
+  margin-top: 90px;
   border-radius: 10px;
   transform: translateX(0); 
   opacity: 1; 
@@ -214,9 +233,9 @@ footer {
 /*TOP BAR*/
 .topbar {
   position: fixed;
-  top: 15px;
-  width: calc(100% - 40px);
-  margin-left: 20px;
+  top: 10px;
+  width: calc(100% - 10px);
+  margin-left: 5px;
   margin-right: 20px;
   height: 70px;
   display: flex;
@@ -226,6 +245,9 @@ footer {
   border-radius: 10px;
   box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4);
 
+}
+.topbar p{
+  font-size:10px;
 }
 .topbar-right{
   position: absolute; 
@@ -258,8 +280,17 @@ dialog.closing {
   animation: fadeOut 0.3s forwards;
 }
 
+/* Fade-in and fade-out animations */
+.fade-in {
+    animation: fadeIn 0.5s forwards;
+}
+
+.fade-out {
+    animation: fadeOut 0.5s forwards;
+}
+
 @keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.9); }
+  from { opacxity: 0; transform: scale(0.9); }
   to { opacity: 1; transform: scale(1); }
 }
 
@@ -279,3 +310,5 @@ dialog.closing {
   .relative:focus-within .dropdown-content {
     display: block;
   } */
+  
+ 

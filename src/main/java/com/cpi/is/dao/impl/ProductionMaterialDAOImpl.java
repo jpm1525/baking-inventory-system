@@ -16,8 +16,10 @@ public class ProductionMaterialDAOImpl implements ProductionMaterialDAO {
 		List<ProductionMaterialEntity> productionMaterial = null;
 		try (Session session = HBUtil.getSessionFactory().openSession()) {
 			productionMaterial = (List<ProductionMaterialEntity>) 
-				session.createQuery("From ProductionMaterialEntity T WHERE T.dppId = :dppIdInput ORDER BY T.pmId ASC", 
-						ProductionMaterialEntity.class).setParameter("dppIdInput", dppIdInput).list();
+				session.createQuery("From ProductionMaterialEntity T WHERE T.dppId ="
+						+ " :dppIdInput ORDER BY T.pmId ASC", ProductionMaterialEntity.class)
+					.setParameter("dppIdInput", dppIdInput)
+					.list();
 		}
 		return productionMaterial;
 	}
