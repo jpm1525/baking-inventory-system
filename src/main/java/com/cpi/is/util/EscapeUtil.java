@@ -25,14 +25,45 @@ public class EscapeUtil {
 				continue;
 			} finally {
 				if (obj != null && obj instanceof String) {
+					StringBuilder escaped = new StringBuilder();
 					String value = obj.toString();
-					if (value.contains("'")) {
-						value = value.replaceAll("'", "&apos;");
-						jsonObject.put(key, value);
-					} else if (value.contains("\"")) {
-						value = value.replaceAll("\"", "&quot;");
-						jsonObject.put(key, value);
-					}
+					
+					for (char c : value.toCharArray()) {
+			            switch (c) {
+			                case '\\':
+			                    escaped.append("\\\\");
+			                    break;
+			                case '\'':
+			                    escaped.append("’"); 
+			                    break;
+			                case '"':
+			                    escaped.append("\\\"");
+			                    break;
+			                case '\b':
+			                    escaped.append("\\b");
+			                    break;
+			                case '\f':
+			                    escaped.append("\\f");
+			                    break;
+			                case '\n':
+			                    escaped.append("\\n");
+			                    break;
+			                case '\r':
+			                    escaped.append("\\r");
+			                    break;
+			                case '\t':
+			                    escaped.append("\\t");
+			                    break;
+			                default:
+			                    if (c < 32 || c > 127) {  // non-printable ASCII and non-ASCII
+			                        escaped.append(String.format("\\u%04x", (int) c));
+			                    } else {
+			                        escaped.append(c);
+			                    }
+			                    break;
+			            }
+			        }
+					jsonObject.put(key, escaped);
 				}
 			}
 		}

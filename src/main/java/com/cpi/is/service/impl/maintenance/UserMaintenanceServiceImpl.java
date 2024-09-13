@@ -9,7 +9,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.cpi.is.dao.impl.maintenance.UserMaintenanceDAOImpl;
 import com.cpi.is.entity.UserEntity;
-import com.cpi.is.util.JsonEscapeUtil;
 
 
 public class UserMaintenanceServiceImpl {
@@ -43,10 +42,6 @@ public class UserMaintenanceServiceImpl {
 	
 	public List<UserEntity> getData() throws Exception {
 		List<UserEntity> userIds = userMaintenanceDAO.getData();
-		for (UserEntity userId: userIds) {
-			userId.setUsername(JsonEscapeUtil.escape(userId.getUsername()));
-			userId.setPassword(JsonEscapeUtil.escape(userId.getPassword()));
-		}
 		return userIds;
 	}
 
