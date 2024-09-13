@@ -17,7 +17,6 @@ import org.json.JSONObject;
 import com.cpi.is.dao.impl.FinishedProductListDAOImpl;
 import com.cpi.is.entity.FinishedProductListEntity;
 import com.cpi.is.service.FinishedProductListService;
-import com.cpi.is.util.JsonEscapeUtil;
 
 public class FinishedProductListServiceImpl implements FinishedProductListService {
 
@@ -51,9 +50,6 @@ public class FinishedProductListServiceImpl implements FinishedProductListServic
 	@Override
 	public List<FinishedProductListEntity> getData(Long branchId) throws Exception {
 		List<FinishedProductListEntity> finishedProductLists = finishedProductListDAO.getData(branchId);
-		for (FinishedProductListEntity finishedProductList: finishedProductLists) {
-			finishedProductList.setSkuCd(JsonEscapeUtil.escape(finishedProductList.getSkuCd()));
-		}
 		return finishedProductLists;
 	}
 

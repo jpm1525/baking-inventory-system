@@ -159,22 +159,37 @@ public class DispatchingServiceImpl implements DispatchingService {
 	
 	public String validateQuantity(HttpServletRequest request, List<FinishedProductListEntity> finishedProductList) throws Exception{
 		JSONObject json = new JSONObject(request.getParameter("data"));
-		String validation = "success";
-		String errorResult = "Please fill-out the dispatching form properly";
+		String validation = "Please fill-out the dispatching form properly test";
 
 		List<DispatchingEntity> dispatchingEntities = getData(Long.parseLong(json.getString("branchId")));
+		
 		outerloop:
         for (FinishedProductListEntity finishedProduct : finishedProductList) {
 	    	if(finishedProduct.getFplId() == Long.parseLong(json.getString("fplId"))) {
-	    		for(DispatchingEntity dispatchingEntity : dispatchingEntities) {
-	    			if(dispatchingEntity.getDispatchTrackId() == Long.parseLong(json.getString("dispatchTrackId"))) {
-			    		if((finishedProduct.getQuantity() + dispatchingEntity.getQuantity()) 
-			    				< Long.parseLong(json.getString("quantity"))) {
-			    			validation = errorResult;
-			    			break outerloop;
-			    		}
-	    			}
-	    		}	
+	        	if(finishedProduct.getDateFinished().getTime() > 
+	        			(new SimpleDateFormat("yyyy-MM-dd").parse(json.getString("dispatchDate")).getTime())) {
+	    			break outerloop;
+	        	}
+	    		if(Long.parseLong(json.getString("dispatchTrackId")) == 0){
+	    			if(finishedProduct.getQuantity() < Long.parseLong(json.getString("quantity"))) {
+		    			break outerloop;
+		    		} else {
+		    			validation = "success";
+		    			break outerloop;
+		    		}
+	    		}else {
+		    		for(DispatchingEntity dispatchingEntity : dispatchingEntities) {
+		    			if(dispatchingEntity.getDispatchTrackId() == Long.parseLong(json.getString("dispatchTrackId"))) {
+				    		if((finishedProduct.getQuantity() + dispatchingEntity.getQuantity()) 
+				    				< Long.parseLong(json.getString("quantity"))) {
+				    			break outerloop;
+				    		} else {
+				    			validation = "success";
+				    			break outerloop;
+				    		}
+		    			}
+		    		}	
+	    		}
 	    	}
         }
 
