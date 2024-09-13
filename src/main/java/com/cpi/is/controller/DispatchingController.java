@@ -15,6 +15,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.cpi.is.service.impl.DispatchingServiceImpl;
 import com.cpi.is.service.impl.FinishedProductListServiceImpl;
 import com.cpi.is.service.impl.maintenance.DispatchTypeServiceImpl;
+import com.cpi.is.util.EscapeUtil;
 import com.cpi.is.util.SessionUtil;
 
 /**
@@ -52,9 +53,9 @@ public class DispatchingController extends HttpServlet {
 				Long branchId = Long.parseLong(session.getAttribute("branchId").toString());
 		
 				if ("showDispatching".equals(action)) {
-					request.setAttribute("dispatching", new JSONArray(dispatchingService.getData(branchId)));
-					request.setAttribute("dispatchType", new JSONArray(dispatchTypeService.getData()));
-					request.setAttribute("finishedProductList",new JSONArray(finishedProductListService.getData(branchId)));
+					request.setAttribute("dispatching", EscapeUtil.escapeQuotes(new JSONArray(dispatchingService.getData(branchId))));
+					request.setAttribute("dispatchType", EscapeUtil.escapeQuotes(new JSONArray(dispatchTypeService.getData())));
+					request.setAttribute("finishedProductList",EscapeUtil.escapeQuotes(new JSONArray(finishedProductListService.getData(branchId))));
 					request.setAttribute("branchIdUser", branchId);
 					request.setAttribute("branchNameUser", session.getAttribute("branchName").toString());
 					page = "pages/dispatching.jsp";
