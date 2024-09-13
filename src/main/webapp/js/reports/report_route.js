@@ -1,6 +1,8 @@
 $("#btnFin").click(function(){
 	showLoading();
-	$.get("ReportGenerationController",{ action: "showFin" }, function(response){
+	$.get("ReportGenerationController",{ 
+		action: "showReportFinished" 
+	}, function(response){
 		$("#divContent").html(response)
 		hideLoading();
 	});
@@ -9,7 +11,7 @@ $("#btnFin").click(function(){
 $("#btnPlan").click(function(){
 	showLoading();
 $.get("ReportGenerationController",{
-	action: "showPlan"
+	action: "showReportPlanned"
 	}, function(response){
 	$("#divContent").html(response)
 	hideLoading();
@@ -20,7 +22,7 @@ $.get("ReportGenerationController",{
 $("#btnPro").click(function(){
 	showLoading();
 $.get("ReportGenerationController",{
-	action: "showPro"
+	action: "showReportProduction"
 	}, function(response){
 	$("#divContent").html(response)
 	hideLoading();
@@ -31,7 +33,7 @@ $.get("ReportGenerationController",{
 $("#btnRec").click(function(){
 	showLoading();
 $.get("ReportGenerationController",{
-	action: "showRec"
+	action: "showReportReceived"
 	}, function(response){
 	$("#divContent").html(response)
 	hideLoading();

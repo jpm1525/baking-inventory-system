@@ -22,6 +22,7 @@
 <script src="js/jquery-3.7.1.min.js"></script>
 <script src="js/session.js"></script>
 <script src="js/anim.js"></script>
+<script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
 
 <title>Inventory System</title>
 </head>

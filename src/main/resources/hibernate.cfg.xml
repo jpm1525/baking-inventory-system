@@ -23,5 +23,9 @@
     <mapping class="com.cpi.is.entity.maintenance.BranchEntity" />
     <mapping class="com.cpi.is.entity.maintenance.SkuCodeEntity" />
     <mapping class="com.cpi.is.entity.maintenance.MaterialCodeEntity" />
+    <mapping class="com.cpi.is.entity.report.CurrentFinishedInventoryEntity" />
+    <mapping class="com.cpi.is.entity.report.PlannedRawMaterialsInventoryEntity" />
+    <mapping class="com.cpi.is.entity.report.ProductionReportEntity" />
+    <mapping class="com.cpi.is.entity.report.ReceivedInventoryReportEntity" />
   </session-factory>
 </hibernate-configuration>
