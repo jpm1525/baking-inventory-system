@@ -1,10 +1,7 @@
-<link rel="stylesheet" href="css/modal.css" type="text/css" />
 <link rel="stylesheet" href="css/tabulator_simple.min.css"
   type="text/css">
 <link rel="stylesheet" href="css/tabulator_tailwind.css" type="text/css">
 <script type="text/javascript" src="js/tabulator.min.js"></script>
-<script src="js/modal/modal.js"></script> 
-<script src="js/modal/input_number.js"></script>
 <div class="flex place-content-center flex-col ">
   <div>
     
@@ -143,8 +140,9 @@
 </div>
 	<script type="text/javascript">
 	  var reportAction = "getReportProduction";
+	  var objReportTable = {};
 	  var reportName = "";
-	  var reportCols = "";
 	  var reportData = {};
+	  var reportCols = {};
 	</script>
 	<script src="js/reports.js"></script>
