@@ -138,4 +138,7 @@ public class FinishedProductListServiceImpl implements FinishedProductListServic
 		return validation;
 	}
 
+	public Long getFinishedCount(Long branchId) throws Exception {
+	    return finishedProductListDAO.getFinishedCount(branchId);
+	}
 }

@@ -14,8 +14,12 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.cpi.is.entity.SessionEntity;
 import com.cpi.is.entity.UserEntity;
+import com.cpi.is.service.DispatchingService;
+import com.cpi.is.service.impl.DailyPlanServiceImpl;
+import com.cpi.is.service.impl.DispatchingServiceImpl;
+import com.cpi.is.service.impl.FinishedProductListServiceImpl;
+import com.cpi.is.service.impl.ProductionMaterialServiceImpl;
 import com.cpi.is.service.impl.RawMaterialListServiceImpl;
-import com.cpi.is.service.impl.maintenance.BranchServiceImpl;
 import com.cpi.is.util.SessionUtil;
 
 /**
@@ -25,7 +29,13 @@ import com.cpi.is.util.SessionUtil;
 public class DashboardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private static String page = "";
-    private static String action = "";      
+    private static String action = "";
+	
+    private ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+   	private RawMaterialListServiceImpl rawMaterialListService = (RawMaterialListServiceImpl) context.getBean("rawMaterialListService");
+   	private DailyPlanServiceImpl dailyPlanService = (DailyPlanServiceImpl) context.getBean("dailyPlanService");
+	private FinishedProductListServiceImpl finishedProductListService = (FinishedProductListServiceImpl) context.getBean("finishedProductListService");
+	private DispatchingServiceImpl dispatchingService = (DispatchingServiceImpl) context.getBean("dispatchingService");
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -41,6 +51,7 @@ public class DashboardController extends HttpServlet {
 			
 			if (SessionUtil.checkUserSession(request)) {
 				HttpSession session = request.getSession();
+				Long branchIdUser = Long.parseLong(session.getAttribute("branchId").toString());
 				
 				action = request.getParameter("action");
 
@@ -48,7 +59,12 @@ public class DashboardController extends HttpServlet {
 					request.setAttribute("branchName", session.getAttribute("branchName").toString());
 					request.setAttribute("userId", session.getAttribute("userId").toString());
 					request.setAttribute("username", session.getAttribute("username").toString());
-					request.setAttribute("branchId", session.getAttribute("branchId").toString());
+					request.setAttribute("branchId", branchIdUser);
+					request.setAttribute("materialCount", rawMaterialListService.getMaterialCount(branchIdUser));
+					request.setAttribute("dailyCount", dailyPlanService.getDailyCount(branchIdUser));
+					request.setAttribute("finishedCount", finishedProductListService.getFinishedCount(branchIdUser));
+					request.setAttribute("dispatchCount", dispatchingService.getDispatchCount(branchIdUser));
+					
 					page = "pages/dashboard.jsp";
 				} else {
 					page = "pages/reload.jsp";

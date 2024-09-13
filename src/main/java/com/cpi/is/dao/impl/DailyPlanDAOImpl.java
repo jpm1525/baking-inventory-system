@@ -61,4 +61,13 @@ public class DailyPlanDAOImpl implements DailyPlanDAO {
 		return "success";
 	}
 	
+	public Long getDailyCount(Long branchId) throws Exception {
+	    Long count = null;
+	    try (Session session = HBUtil.getSessionFactory().openSession()) {
+	        count = (Long) session.createQuery("SELECT COUNT(*) FROM DailyPlanEntity T WHERE T.branchId = :branchId")
+	                              .setParameter("branchId", branchId)
+	                              .uniqueResult();
+	    }
+	    return count;
+	}
 }

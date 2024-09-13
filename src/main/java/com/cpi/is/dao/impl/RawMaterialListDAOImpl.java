@@ -61,4 +61,15 @@ public class RawMaterialListDAOImpl implements RawMaterialListDAO {
 		return "success";
 	}
 	
+	@Override
+	public Long getMaterialCount(Long branchId) throws Exception {
+	    Long count = null;
+	    try (Session session = HBUtil.getSessionFactory().openSession()) {
+	        count = (Long) session.createQuery("SELECT COUNT(*) FROM RawMaterialListEntity T WHERE T.branchId = :branchId")
+	                              .setParameter("branchId", branchId)
+	                              .uniqueResult();
+	    }
+	    return count;
+	}
+	
 }
