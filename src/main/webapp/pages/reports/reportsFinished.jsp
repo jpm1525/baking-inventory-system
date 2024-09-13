@@ -12,17 +12,6 @@
   </div>
 	 <div class="d-flex justify-content-center">
 	  <form>
-	  <!-- <div class="row mt-2">
-	    <label for="selReportType" class="col-sm-4 col-form-label">Report Type</label>
-	    <div class="col-sm-8">
-	      <select class="form-control" id="selReportType">
-	        <option value="getCurrentFinishedInventory">Current Finished Inventory</option>
-	        <option value="getPlannedRawMaterialsInventory">Planned Raw Materials Inventory</option>
-	        <option value="getProductionReport">Production Report</option>
-	        <option value="getReceivedInventoryReport">Received Inventory Report</option>
-	      </select>
-	    </div>
-	  </div> -->
 	  <div class="relative overflow-x-auto shadow-md sm:rounded-lg basis-6/12">
 	    <div id="divReportTable">
 	      <div class="tabulator" role="grid"
@@ -188,10 +177,6 @@
 	    </div>
 	  </div>
 	  <div class="grid gap-4 mb-4 sm:grid-cols-2 mt-5">
-	    <%-- <label for="txtReportDate" class="col-sm-4 col-form-label">Report Date</label>
-	    <div class="col-sm-8">
-	      <input type="date" class="form-control" id="txtReportDate" value="${defaultDate}" />
-	    </div> --%>
 	    <label for="txtReportDate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Report Date</label>
         <input type="date" name="txtReportDate" id="txtReportDate" class="bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
@@ -201,15 +186,12 @@
 	  <div class="grid gap-4 mb-4 sm:grid-cols-2 mt-5">
 	    <label class="col-sm-4 col-form-label"></label>
 	    <div class="col-sm-8">
-	      <!-- <button type="button" class="button green" id="btnGenerateReport">Generate</button> -->
 	      <button id="btnGenerateReport" type="button" class="text-white inline-flex items-center bg-blue-700 
 	        hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium 
 	        rounded px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 
 	        dark:focus:ring-blue-800">
 	        Generate
 	      </button>
-	      <!-- <button type="button" class="button blue" id="btnPrint">Print</button> -->
-	      <!-- <button type="button" class="button blue" id="btnPrint" disabled="disabled"><i class="bi bi-printer"></i></button> -->
 	      <button id="btnPrint" type="button" class="px-4 py-2 rounded ms-3 text-gray-900 
 	        focus:outline-none bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 
 	        focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 

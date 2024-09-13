@@ -38,17 +38,6 @@ $("#btnReportReceived").click(function() {
 	});
 });
 
-/***********************************************************************/
-/*
-$('#btnGenerateReport').click(function() {
-	$.post('ReportGenerationController', {
-		action: "getReportFinished",
-		reportDate: $('#txtReportDate').val()
-	}, function(response) {
-		generateReport(response);
-	});
-});
-*/
 $('#btnGenerateReport').click(function() {
 
 	switch (reportAction) {
@@ -133,7 +122,7 @@ function generateReport(response) {
 
 	objReportTable = new Tabulator('#divReportTable', {
 		layout: "fitDataFill",
-		data: reportData, //json parse 
+		data: reportData,
 		pagination: 'local',
 		pagination: true,
 		paginationSize: 10,
@@ -144,35 +133,3 @@ function generateReport(response) {
 
 	$('#btnPrint').prop('disabled', false);
 }
-
-/**************************************************************************/
-/*
-function generateReport(response) {
-
-	reportData = JSON.parse(response)
-
-	reportName = "CurrentFinishedInventory";
-
-	divTableReportFinished = new Tabulator("#divReportFinishedTabulator", {
-		layout: "fitDataFill",
-		data: reportData, //json parse 
-		pagination: 'local',
-		pagination: true,
-		paginationSize: 10,
-		paginationSizeSelector: [5, 10, 15, 20],
-		paginationCounter: "rows",
-		selectableRows: 1,
-		columns: [
-			{ title: 'FPL ID', field: 'fplId', minWidth: 50 },
-			{ title: 'Date Finished', field: 'dateFinished', minWidth: 100 },
-			{ title: 'Quantity', field: 'quantity', minWidth: 50 },
-			{ title: 'SKU Code', field: 'skuCd', minWidth: 50 },
-			{ title: 'Branch ID', field: 'branchId', minWidth: 50 },
-			{ title: 'Material', field: 'materialName', minWidth: 100 },
-			{title:"Action", headerSort:false, formatter:editButton, minWidth:200}
-		],
-	});
-
-	$('#btnPrint').prop('disabled', false);
-}
-*/
