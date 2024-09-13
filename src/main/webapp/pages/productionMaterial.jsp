@@ -192,6 +192,6 @@
 	var rawMaterialList = JSON.parse('${rawMaterialList}');
 	var materialCode = JSON.parse('${materialCode}');
 	var dailyPlannedProduction = JSON.parse('${dailyPlannedProduction}');
-	var dppIdInp = JSON.parse('${dppIdInput}');
+	var dppIdInp = '${dppIdInput}';
 </script>
 <script src="js/production_material.js"></script>

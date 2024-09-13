@@ -40,6 +40,10 @@ public class ProductionMaterialEntity {
 	@ManyToOne
 	@JoinColumn(name = "material_list_id", insertable = false, updatable = false)
 	private RawMaterialListEntity materialList;
+	
+	@ManyToOne
+	@JoinColumn(name = "dpp_id", insertable = false, updatable = false)
+	private RawMaterialListEntity dailyPlannedProduction;
     
 	public ProductionMaterialEntity() {
 		super();
@@ -108,6 +112,14 @@ public class ProductionMaterialEntity {
 
 	public void setMaterialCode(MaterialCodeEntity materialCode) {
 		this.materialCode = materialCode;
+	}
+
+	public RawMaterialListEntity getDailyPlannedProduction() {
+		return dailyPlannedProduction;
+	}
+
+	public void setDailyPlannedProduction(RawMaterialListEntity dailyPlannedProduction) {
+		this.dailyPlannedProduction = dailyPlannedProduction;
 	}
 
 	@Override

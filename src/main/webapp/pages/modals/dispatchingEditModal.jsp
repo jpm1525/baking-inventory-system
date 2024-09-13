@@ -17,7 +17,7 @@
     </div>
     
     <div class="grid gap-4 mb-4 sm:grid-cols-2 mt-5">
-      <div class="col-span-2">
+      <div>
         <label for="dispatchingIdUpdate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">ID</label>
         <input type="text" name="dispatchingIdUpdate" id="dispatchingIdUpdate" class="bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
@@ -30,36 +30,61 @@
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 
           selectDispatchingTypeName" required="required">
-          <option value="" disabled selected hidden>Select Dispatch Name</option>
+          <option value="" disabled selected hidden>Select Dispatch Type</option>
         </select>
       </div>
       <div>
-        <label for="dispatchingFinishedProductListIdUpdate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">FPL ID</label>
-        <input type="text" name="dispatchingFinishedProductListIdUpdate" id="dispatchingFinishedProductListIdUpdate" class="bg-gray-50 border border-gray-300 
+        <label for="dispatchingFinishedProductListIdUpdate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Product ID</label>
+        <select type="text" name="dispatchingFinishedProductListIdUpdate" id="dispatchingFinishedProductListIdUpdate" 
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block 
+          w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 
+          dark:focus:border-primary-500" required="required">
+          	<option value="" disabled selected hidden>Select Product</option>
+        </select>
+      </div>
+      <div>
+        <label for="fplDateUpdate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Product Batch Date</label>
+        <input id="fplDateUpdate" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
+          rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 
+          dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" readonly="readonly">
+      </div>
+      <div>
+        <label for="fplQuantityUpdate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Stock</label>
+        <input type="number" name="fplQuantityUpdate" id="fplQuantityUpdate" class="num-input bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
-          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
-          required="required" placeholder="Type finished product id list">
+          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500
+          [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
+          required="required" max="0" min="0" readonly="readonly" value="0">
+      </div>
+      <div>
+        <label for="fplResultingStockUpdate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Resulting Stock</label>
+        <input type="number" name="fplResultingStockUpdate" id="fplResultingStockUpdate" class="num-input bg-gray-50 border border-gray-300 
+          text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
+          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500
+          [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
+          required="required" max="0" min="0" readonly="readonly" value="0">
       </div>
       <div>
         <label for="dispatchingQuantityUpdate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Quantity</label>
         <input type="number" name="dispatchingQuantityUpdate" id="dispatchingQuantityUpdate" class="num-input bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
-          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
-          required="required" placeholder="Type quantity">
+          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500
+          [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
+          required="required" placeholder="Type quantity" max="0" min="0" value="0">
       </div>
       <div>
-        <label for="dispatchingBranchNameUpdate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Branch Name</label>
-        <input type="text" id="dispatchingBranchNameUpdate" name="dispatchingBranchNameUpdate" dataBranchName=""class="bg-gray-50 border border-gray-300 
+        <label for="dispatchingBranchUpdate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Branch</label>
+        <input type="text" id="dispatchingBranchUpdate" name="dispatchingBranchUpdate" class="bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 
-          selectDispatchingBranch" required="required"  readonly="readonly">
+          " required="required"  readonly="readonly">
       </div>
       <div>
         <label for="dispatchingDestinationUpdate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Destination</label>
         <input type="text" name="dispatchingDestinationUpdate" id="dispatchingDestinationUpdate" class="bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
           dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
-          required="required" placeholder="Type destination">
+          required="required" placeholder="Type destination" maxlength="50" minlength="1">
       </div>
       <div>
         <label for="dispatchingDateUpdate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Dispatch Date</label>
