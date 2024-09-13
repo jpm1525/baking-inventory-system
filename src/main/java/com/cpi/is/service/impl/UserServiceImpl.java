@@ -2,6 +2,8 @@ package com.cpi.is.service.impl;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import com.cpi.is.dao.impl.UserDAOImpl;
 import com.cpi.is.entity.SessionEntity;
 import com.cpi.is.entity.UserEntity;
@@ -11,6 +13,15 @@ import com.cpi.is.util.CookieUtil;
 public class UserServiceImpl implements UserService {
 
 	private UserDAOImpl userDAO;
+	private BCryptPasswordEncoder passwordEncoder;
+	
+	public BCryptPasswordEncoder getPasswordEncoder() {
+		return passwordEncoder;
+	}
+
+	public void setPasswordEncoder(BCryptPasswordEncoder passwordEncoder) {
+		this.passwordEncoder = passwordEncoder;
+	}
 	
 	public UserDAOImpl getUserDAO() {
 		return userDAO;
@@ -22,10 +33,11 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public UserEntity authenticate(HttpServletRequest request) throws Exception {
-		UserEntity user = new UserEntity();
-		user.setUsername(request.getParameter("username"));
-		user.setPassword(request.getParameter("password"));
-		return userDAO.authenticate(user);
+		UserEntity user = userDAO.getUser(request.getParameter("username"));;
+		if(!(user != null && passwordEncoder.matches(request.getParameter("password"), user.getPassword()))) {
+			user = null;
+		};
+		return user;
 	}
 
 	@Override
@@ -59,5 +71,4 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 }

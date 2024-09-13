@@ -14,6 +14,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.cpi.is.entity.SessionEntity;
 import com.cpi.is.entity.UserEntity;
+import com.cpi.is.service.impl.RawMaterialListServiceImpl;
 import com.cpi.is.service.impl.maintenance.BranchServiceImpl;
 import com.cpi.is.util.SessionUtil;
 
@@ -24,8 +25,7 @@ import com.cpi.is.util.SessionUtil;
 public class DashboardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private static String page = "";
-    private static String action = "";
-       
+    private static String action = "";      
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -41,6 +41,7 @@ public class DashboardController extends HttpServlet {
 			
 			if (SessionUtil.checkUserSession(request)) {
 				HttpSession session = request.getSession();
+				
 				action = request.getParameter("action");
 
 				if ("showDashboard".equals(action)) {

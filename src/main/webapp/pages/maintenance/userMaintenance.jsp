@@ -53,22 +53,7 @@
                   </div>
                 </div>
               </div>
-              <span class="tabulator-col-resize-handle"
-                style="height: 45px;"></span>
-              <div
-                class="tabulator-col tabulator-sortable tabulator-col-sorter-element"
-                role="columnheader" aria-sort="none"
-                tabulator-field="materialCodeName"
-                style="min-width: 40px; width: 25%; height: 45px;">
-                <div class="tabulator-col-content">
-                  <div class="tabulator-col-title-holder">
-                    <div class="tabulator-col-title">Password</div>
-                    <div class="tabulator-col-sorter">
-                      <div class="tabulator-arrow"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              
               <span class="tabulator-col-resize-handle"
                 style="height: 45px;"></span>
               <div
