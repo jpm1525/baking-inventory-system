@@ -1,4 +1,5 @@
 $("#btnReportFinished").click(function() {
+	showLoading();
 	$.get("ReportGenerationController", {
 		action: "showReportFinished"
 	}, function(response) {
@@ -9,6 +10,7 @@ $("#btnReportFinished").click(function() {
 });
 
 $("#btnReportPlanned").click(function() {
+	showLoading();
 	$.get("ReportGenerationController", {
 		action: "showReportPlanned"
 	}, function(response) {
@@ -19,6 +21,7 @@ $("#btnReportPlanned").click(function() {
 });
 
 $("#btnReportProduction").click(function() {
+	showLoading();
 	$.get("ReportGenerationController", {
 		action: "showReportProduction"
 	}, function(response) {
@@ -29,6 +32,7 @@ $("#btnReportProduction").click(function() {
 });
 
 $("#btnReportReceived").click(function() {
+	showLoading();
 	$.get("ReportGenerationController", {
 		action: "showReportReceived"
 	}, function(response) {
