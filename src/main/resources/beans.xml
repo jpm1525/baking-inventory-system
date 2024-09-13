@@ -57,4 +57,9 @@
   <bean id="userMaintenanceService" class="com.cpi.is.service.impl.maintenance.UserMaintenanceServiceImpl" depends-on="userMaintenanceDAO">
     <property name="userMaintenanceDAO" ref="userMaintenanceDAO" />
   </bean>
+  
+  <bean id="reportDAO" class="com.cpi.is.dao.impl.ReportDAOImpl"></bean>
+  <bean id="reportService" class="com.cpi.is.service.impl.ReportServiceImpl" depends-on="reportDAO">
+  	<property name="reportDAO" ref="reportDAO" />
+  </bean>
 </beans>

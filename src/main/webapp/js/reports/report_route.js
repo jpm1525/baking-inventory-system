@@ -1,6 +1,6 @@
 $("#btnFin").click(function(){
 $.get("ReportGenerationController",{
-	action: "showFin"
+	action: "showReportFinished"
 	}, function(response){
 	$("#divContent").html(response)
 
@@ -9,7 +9,7 @@ $.get("ReportGenerationController",{
 
 $("#btnPlan").click(function(){
 $.get("ReportGenerationController",{
-	action: "showPlan"
+	action: "showReportPlanned"
 	}, function(response){
 	$("#divContent").html(response)
 
@@ -18,7 +18,7 @@ $.get("ReportGenerationController",{
 
 $("#btnPro").click(function(){
 $.get("ReportGenerationController",{
-	action: "showPro"
+	action: "showReportProduction"
 	}, function(response){
 	$("#divContent").html(response)
 
@@ -27,7 +27,7 @@ $.get("ReportGenerationController",{
 
 $("#btnRec").click(function(){
 $.get("ReportGenerationController",{
-	action: "showRec"
+	action: "showReportReceived"
 	}, function(response){
 	$("#divContent").html(response)
 
