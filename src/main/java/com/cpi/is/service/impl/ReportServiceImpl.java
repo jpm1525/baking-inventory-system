@@ -24,27 +24,27 @@ public class ReportServiceImpl implements ReportService {
 	}
 
 	@Override
-	public List<CurrentFinishedInventoryEntity> getCurrentFinishedInventory(HttpServletRequest request) 
+	public List<CurrentFinishedInventoryEntity> getCurrentFinishedInventory(HttpServletRequest request, Long branchId) 
 			throws Exception {
-		return reportDAO.getCurrentFinishedInventory(request.getParameter("reportDate"));
+		return reportDAO.getCurrentFinishedInventory(request.getParameter("reportDate"), branchId);
 	}
 	
 	@Override
-	public List<PlannedRawMaterialsInventoryEntity> getPlannedRawMaterialsInventory(HttpServletRequest request)
+	public List<PlannedRawMaterialsInventoryEntity> getPlannedRawMaterialsInventory(HttpServletRequest request, Long branchId)
 			throws Exception {
-		return reportDAO.getPlannedRawMaterialsInventory(request.getParameter("reportDate"));
+		return reportDAO.getPlannedRawMaterialsInventory(request.getParameter("reportDate"), branchId);
 	}
 
 	@Override
-	public List<ProductionReportEntity> getProductionReport(HttpServletRequest request) 
+	public List<ProductionReportEntity> getProductionReport(HttpServletRequest request, Long branchId) 
 			throws Exception {
-		return reportDAO.getProductionReport(request.getParameter("reportDate"));
+		return reportDAO.getProductionReport(request.getParameter("reportDate"), branchId);
 	}
 
 	@Override
-	public List<ReceivedInventoryReportEntity> getReceivedInventoryReport(HttpServletRequest request) 
+	public List<ReceivedInventoryReportEntity> getReceivedInventoryReport(HttpServletRequest request, Long branchId) 
 			throws Exception {
-		return reportDAO.getReceivedInventoryReport(request.getParameter("reportDate"));
+		return reportDAO.getReceivedInventoryReport(request.getParameter("reportDate"), branchId);
 	}
 	
 }

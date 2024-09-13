@@ -11,9 +11,9 @@ import com.cpi.is.entity.report.ReceivedInventoryReportEntity;
 
 public interface ReportService {
 
-	List<CurrentFinishedInventoryEntity> getCurrentFinishedInventory(HttpServletRequest request) throws Exception;
-	List<PlannedRawMaterialsInventoryEntity> getPlannedRawMaterialsInventory(HttpServletRequest request) throws Exception;
-	List<ProductionReportEntity> getProductionReport(HttpServletRequest request) throws Exception;
-	List<ReceivedInventoryReportEntity> getReceivedInventoryReport(HttpServletRequest request) throws Exception;
+	List<CurrentFinishedInventoryEntity> getCurrentFinishedInventory(HttpServletRequest request, Long branchId) throws Exception;
+	List<PlannedRawMaterialsInventoryEntity> getPlannedRawMaterialsInventory(HttpServletRequest request, Long branchId) throws Exception;
+	List<ProductionReportEntity> getProductionReport(HttpServletRequest request, Long branchId) throws Exception;
+	List<ReceivedInventoryReportEntity> getReceivedInventoryReport(HttpServletRequest request, Long branchId) throws Exception;
 	
 }

@@ -21,19 +21,24 @@ import com.cpi.is.util.HBUtil;
 public class ReportDAOImpl implements ReportDAO {
 
 	@Override
-	public List<CurrentFinishedInventoryEntity> getCurrentFinishedInventory(String reportDate) throws Exception {
+	public List<CurrentFinishedInventoryEntity> getCurrentFinishedInventory(String reportDate, Long branchId) throws Exception {
 		List<CurrentFinishedInventoryEntity> rows = new ArrayList<>();
 		try (Session session = HBUtil.getSessionFactory().openSession()) {
 			session.doWork(new Work() {
 				public void execute(Connection connection) throws SQLException {
 					String queryString = "SELECT a.fpl_id, a.date_finished, a.quantity, a.sku_cd, a.branch_id, d.material_name\r\n"
-							+ "  FROM qkc_finished_product_list a,\r\n" + "       qkc_daily_planned_production b,\r\n"
-							+ "       qkc_production_materials c,\r\n" + "       qkc_raw_material d\r\n"
-							+ " WHERE a.fpl_id NOT IN (SELECT fpl_id \r\n"
+							+ "  FROM qkc_finished_product_list a,\r\n" 
+							+ "       qkc_daily_planned_production b,\r\n"
+							+ "       qkc_production_materials c,\r\n" 
+							+ "       qkc_raw_material d\r\n"
+							+ " WHERE a.branch_id = " + branchId 
+							+ "   AND a.fpl_id NOT IN (SELECT fpl_id \r\n"
 							+ "                          FROM qkc_dispatch_tracking)\r\n"
 							+ "   AND TRUNC(a.date_finished) <= TO_DATE('" + reportDate + "', 'YYYY-MM-DD')\r\n"
-							+ "   AND b.sku_cd = a.sku_cd\r\n" + "   AND c.dpp_id = b.dpp_id\r\n"
-							+ "   AND d.material_cd = c.material_cd\r\n" + " ORDER BY a.fpl_id";
+							+ "   AND b.sku_cd = a.sku_cd\r\n" 
+							+ "   AND c.dpp_id = b.dpp_id\r\n"
+							+ "   AND d.material_cd = c.material_cd\r\n" 
+							+ " ORDER BY a.fpl_id";
 					try (Statement statement = connection.createStatement();
 							ResultSet resultSet = statement.executeQuery(queryString)) {
 
@@ -57,7 +62,7 @@ public class ReportDAOImpl implements ReportDAO {
 	}
 	
 	@Override
-	public List<PlannedRawMaterialsInventoryEntity> getPlannedRawMaterialsInventory(String reportDate)
+	public List<PlannedRawMaterialsInventoryEntity> getPlannedRawMaterialsInventory(String reportDate, Long branchId)
 			throws Exception {
 		List<PlannedRawMaterialsInventoryEntity> rows = new ArrayList<>();
 		try (Session session = HBUtil.getSessionFactory().openSession()) {
@@ -65,16 +70,23 @@ public class ReportDAOImpl implements ReportDAO {
 				public void execute(Connection connection) throws SQLException {
 					String queryString = "SELECT x.material_cd, x.material_name, (x.quantity - y.quantity) quantity\r\n"
 							+ "  FROM (SELECT b.material_cd, b.material_name, SUM(a.quantity) quantity\r\n"
-							+ "          FROM qkc_raw_material_list a,\r\n" + "               qkc_raw_material b\r\n"
-							+ "         WHERE TRUNC(a.date_receive) <= TO_DATE('" + reportDate + "', 'YYYY-MM-DD')\r\n"
+							+ "          FROM qkc_raw_material_list a,\r\n" 
+							+ "               qkc_raw_material b\r\n"
+							+ "         WHERE a.branch_id = " + branchId 
+							+ " 		  AND TRUNC(a.date_receive) <= TO_DATE('" + reportDate + "', 'YYYY-MM-DD')\r\n"
 							+ "           AND b.material_cd = a.material_cd\r\n"
-							+ "         GROUP BY b.material_cd, b.material_name\r\n" + "         ORDER BY b.material_cd) x,\r\n"
+							+ "         GROUP BY b.material_cd, b.material_name\r\n" 
+							+ "         ORDER BY b.material_cd) x,\r\n"
 							+ "       (SELECT c.material_cd, c.material_name, SUM(a.quantity * b.quantity_to_use) quantity\r\n"
 							+ "          FROM qkc_daily_planned_production a,\r\n"
-							+ "               qkc_production_materials b,\r\n" + "               qkc_raw_material c\r\n"
-							+ "         WHERE TRUNC(a.production_date) <= TO_DATE('" + reportDate + "', 'YYYY-MM-DD')\r\n"
-							+ "           AND b.dpp_id = a.dpp_id\r\n" + "           AND c.material_cd = b.material_cd\r\n"
-							+ "         GROUP BY c.material_cd, c.material_name\r\n" + "         ORDER BY c.material_cd) y\r\n"
+							+ "               qkc_production_materials b,\r\n" 
+							+ "               qkc_raw_material c\r\n"
+							+ "         WHERE a.branch_id = " + branchId 
+							+ " 		  AND TRUNC(a.production_date) <= TO_DATE('" + reportDate + "', 'YYYY-MM-DD')\r\n"
+							+ "           AND b.dpp_id = a.dpp_id\r\n" 
+							+ "           AND c.material_cd = b.material_cd\r\n"
+							+ "         GROUP BY c.material_cd, c.material_name\r\n" 
+							+ "         ORDER BY c.material_cd) y\r\n"
 							+ " WHERE x.material_cd = y.material_cd";
 					try (Statement statement = connection.createStatement();
 							ResultSet resultSet = statement.executeQuery(queryString)) {
@@ -96,16 +108,20 @@ public class ReportDAOImpl implements ReportDAO {
 	}
 	
 	@Override
-	public List<ProductionReportEntity> getProductionReport(String reportDate) throws Exception {
+	public List<ProductionReportEntity> getProductionReport(String reportDate, Long branchId) throws Exception {
 		List<ProductionReportEntity> rows = new ArrayList<>();
 		try (Session session = HBUtil.getSessionFactory().openSession()) {
 			session.doWork(new Work() {
 				public void execute(Connection connection) throws SQLException {
 					String queryString = "SELECT c.material_cd, c.material_name, SUM(a.quantity * b.quantity_to_use) quantity\r\n"
-							+ "  FROM qkc_daily_planned_production a,\r\n" + "       qkc_production_materials b,\r\n"
-							+ "       qkc_raw_material c\r\n" + " WHERE TRUNC(a.production_date) <= TO_DATE('" + reportDate
-							+ "', 'YYYY-MM-DD')\r\n" + "   AND b.dpp_id = a.dpp_id\r\n"
-							+ "   AND c.material_cd = b.material_cd\r\n" + " GROUP BY c.material_cd, c.material_name\r\n"
+							+ "  FROM qkc_daily_planned_production a,\r\n" 
+							+ "       qkc_production_materials b,\r\n"
+							+ "       qkc_raw_material c\r\n" 
+							+ " WHERE a.branch_id = " + branchId 
+							+ "   AND TRUNC(a.production_date) <= TO_DATE('" + reportDate+ "', 'YYYY-MM-DD')\r\n" 
+							+ "   AND b.dpp_id = a.dpp_id\r\n"
+							+ "   AND c.material_cd = b.material_cd\r\n" 
+							+ " GROUP BY c.material_cd, c.material_name\r\n"
 							+ " ORDER BY c.material_cd";
 					try (Statement statement = connection.createStatement();
 							ResultSet resultSet = statement.executeQuery(queryString)) {
@@ -127,14 +143,15 @@ public class ReportDAOImpl implements ReportDAO {
 	}
 
 	@Override
-	public List<ReceivedInventoryReportEntity> getReceivedInventoryReport(String reportDate) throws Exception {
+	public List<ReceivedInventoryReportEntity> getReceivedInventoryReport(String reportDate, Long branchId) throws Exception {
 		List<ReceivedInventoryReportEntity> rows = new ArrayList<>();
 		try (Session session = HBUtil.getSessionFactory().openSession()) {
 			session.doWork(new Work() {
 				public void execute(Connection connection) throws SQLException {
 					String queryString = "SELECT b.material_cd, b.material_name, a.quantity, a.date_receive\r\n"
 							+ "  FROM qkc_raw_material_list a,\r\n" + "       qkc_raw_material b\r\n"
-							+ " WHERE TRUNC(a.date_receive) <= TO_DATE('" + reportDate + "', 'YYYY-MM-DD')\r\n"
+							+ " WHERE a.branch_id = " + branchId 
+							+ "   AND TRUNC(a.date_receive) <= TO_DATE('" + reportDate + "', 'YYYY-MM-DD')\r\n"
 							+ "   AND b.material_cd = a.material_cd\r\n" + " ORDER BY b.material_cd";
 					try (Statement statement = connection.createStatement();
 							ResultSet resultSet = statement.executeQuery(queryString)) {
