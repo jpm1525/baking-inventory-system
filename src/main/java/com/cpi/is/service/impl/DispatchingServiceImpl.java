@@ -180,6 +180,11 @@ public class DispatchingServiceImpl implements DispatchingService {
 
 		return validation;
 	}
+
+	@Override
+	public Long getDispatchCount(Long branchId) throws Exception {
+	    return dispatchingDAO.getDispatchCount(branchId);
+	}
 	
 
 }
