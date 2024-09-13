@@ -12,5 +12,6 @@ public interface FinishedProductListService {
 	String saveData(HttpServletRequest request) throws Exception;
 	String deleteData(HttpServletRequest request) throws Exception;
 	String validateData(HttpServletRequest request) throws Exception;
+	Long getFinishedCount(Long branchId) throws Exception;
 	
 }

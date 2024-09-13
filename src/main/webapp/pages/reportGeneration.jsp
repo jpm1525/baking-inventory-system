@@ -1,5 +1,5 @@
 <h1 class="dark:text-white text-black flex justify-center text-4xl font-bold mx-10">Reports</h1>
-
+<hr class="h-px my-6 bg-gray-200 border-0 dark:bg-gray-700">
     <div class="flex flex-wrap gap-2 rounded justify-center mt-10 ">
         <div id="btnFin" class="reports bg-[#f95757] hover:bg-[#B94141] transition transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:transform-none">
             <h1 class="dark:text-white text-white">Finished Inventory by Date</h1>

@@ -60,4 +60,13 @@ public class FinishedProductListDAOImpl implements FinishedProductListDAO {
 		return "success";
 	}
 	
+	public Long getFinishedCount(Long branchId) throws Exception {
+	    Long count = null;
+	    try (Session session = HBUtil.getSessionFactory().openSession()) {
+	        count = (Long) session.createQuery("SELECT COUNT(*) FROM FinishedProductListEntity T WHERE T.branchId = :branchId")
+	                              .setParameter("branchId", branchId)
+	                              .uniqueResult();
+	    }
+	    return count;
+	}
 }

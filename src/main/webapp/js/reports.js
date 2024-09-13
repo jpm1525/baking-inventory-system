@@ -43,7 +43,7 @@ $("#btnReportReceived").click(function() {
 });
 
 $('#btnGenerateReport').click(function() {
-
+	$(".reportTable").css("display", "block");
 	switch (reportAction) {
 		case 'getReportFinished':
 			$.post('ReportGenerationController', {

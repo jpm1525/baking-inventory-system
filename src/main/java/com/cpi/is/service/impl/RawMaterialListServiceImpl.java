@@ -143,5 +143,10 @@ public class RawMaterialListServiceImpl implements RawMaterialListService {
 		}
 		return validation;
 	}
+	
+	@Override
+	public Long getMaterialCount(Long branchId) throws Exception {
+	    return rawMaterialListDAO.getMaterialCount(branchId);
+	}
 
 }

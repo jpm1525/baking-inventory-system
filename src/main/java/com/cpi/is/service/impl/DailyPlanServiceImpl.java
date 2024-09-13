@@ -143,4 +143,7 @@ public class DailyPlanServiceImpl implements DailyPlanService{
 		return validation;
 	}
 
+	public Long getDailyCount(Long branchId) throws Exception {
+	    return dailyPlanDAO.getDailyCount(branchId);
+	}
 }

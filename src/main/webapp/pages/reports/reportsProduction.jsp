@@ -6,8 +6,29 @@
   <div>
     
   <h1 class="text-[#68411b] dark:text-white text-center text-5xl font-bold m-10">Report Production</h1>
+  <hr class="h-px my-6 bg-gray-200 border-0 dark:bg-gray-700">
   </div>
-	 <div class="d-flex justify-content-center">
+      <div class="flex flex-wrap justify-center gap-4 mb-5 items-center">
+    
+        <label for="txtReportDate" class="pt-1 text-m font-medium text-gray-900 dark:text-white">Select Date:</label>
+      
+        <input type="date" name="txtReportDate" id="txtReportDate" class="w-48 bg-gray-50 border border-gray-300 
+          text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
+          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
+          required="required" placeholder="Type destination" maxlength="50" minlength="1" value="${defaultDate}">
+          
+        <button id="btnGenerateReport" type="button" class="text-white inline-flex items-center bg-blue-700 
+          hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium 
+          rounded px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 
+          dark:focus:ring-blue-800">
+          Generate
+        </button>
+        
+        <i  id="btnPrint" class="fa fa-print text-[#68411b] border border-black dark:border-white hover:text-white 
+        dark:text-white text-md hover:bg-[#fd5d18] py-2 px-2 rounded"></i>
+       
+      </div> 
+	 <div class="d-flex justify-content-center reportTable" style="display: none">
 	  <form>
 	  <div class="relative overflow-x-auto shadow-md sm:rounded-lg basis-6/12">
 	    <div id="divReportTable">
@@ -109,30 +130,6 @@
 	          </div>
 	        </div>
 	      </div>
-	    </div>
-	  </div>
-	  <div class="grid gap-4 mb-4 sm:grid-cols-2 mt-5">
-	    <label for="txtReportDate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Report Date</label>
-        <input type="date" name="txtReportDate" id="txtReportDate" class="bg-gray-50 border border-gray-300 
-          text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
-          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
-          required="required" placeholder="Type destination" maxlength="50" minlength="1" value="${defaultDate}">
-	  </div>
-	  <div class="grid gap-4 mb-4 sm:grid-cols-2 mt-5">
-	    <label class="col-sm-4 col-form-label"></label>
-	    <div class="col-sm-8">
-	      <button id="btnGenerateReport" type="button" class="text-white inline-flex items-center bg-blue-700 
-	        hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium 
-	        rounded px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 
-	        dark:focus:ring-blue-800">
-	        Generate
-	      </button>
-	      <button id="btnPrint" type="button" class="px-4 py-2 rounded ms-3 text-gray-900 
-	        focus:outline-none bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 
-	        focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 
-	        dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-	        Print
-	      </button>
 	    </div>
 	  </div>
 	  </form>

@@ -14,5 +14,6 @@ public interface DispatchingService {
 	String deleteData(HttpServletRequest request) throws Exception;
 	String validateData(HttpServletRequest request) throws Exception;
 	String validateQuantity(HttpServletRequest request, List<FinishedProductListEntity> finishedProductList) throws Exception;
+	Long getDispatchCount(Long branchId) throws Exception;
 
 }
