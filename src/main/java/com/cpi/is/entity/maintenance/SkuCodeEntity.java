@@ -37,8 +37,6 @@ public class SkuCodeEntity implements Serializable {
 		this.unitOfMeasurement = unitOfMeasurement;
 	}
 
-	// Getters and Setters
-
 	public String getSkuCd() {
 		return skuCd;
 	}

@@ -37,8 +37,6 @@ public class MaterialCodeEntity implements Serializable {
 		this.unitOfMeasurement = unitOfMeasurement;
 	}
 
-	// Getters and Setters
-
 	public String getMaterialCd() {
 		return materialCd;
 	}

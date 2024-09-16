@@ -35,7 +35,7 @@ var editButton = function(value, data, cell, row, options) {
 
 var divTable = new Tabulator("#divTableTabulator", {
 	layout: "fitDataFill",
-	data: rawMaterialList, //json parse 
+	data: rawMaterialList, 
 	pagination: 'local',
 	pagination: true,
 	paginationSize: 10,

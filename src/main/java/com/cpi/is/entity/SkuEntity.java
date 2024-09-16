@@ -33,9 +33,7 @@ public class SkuEntity {
 		this.unitOfMeasurement = unitOfMeasurement;
 		this.batchNumber = batchNumber;
 	}
-
-	// Getters and Setters
-
+	
 	public String getSkuCd() {
 		return skuCd;
 	}

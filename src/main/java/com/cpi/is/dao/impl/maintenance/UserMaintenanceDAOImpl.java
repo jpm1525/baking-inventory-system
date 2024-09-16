@@ -28,9 +28,9 @@ public class UserMaintenanceDAOImpl implements UserMaintenanceDAO {
 			transaction = session.beginTransaction();
 			if (0 == data.getUserId()) {
 				data.setUserId(null);
-				session.persist(data); // add a new record
+				session.persist(data);
 			} else {
-				session.merge(data); // update an existing record
+				session.merge(data);
 			}
 			transaction.commit();
 		} catch (Exception e) {

@@ -54,7 +54,7 @@ public class ReportDAOImpl implements ReportDAO {
 				}
 			});
 		} catch (Exception e) {
-			e.printStackTrace(); // Handle exceptions appropriately
+			e.printStackTrace();
 		}
 		return rows;
 	}
@@ -100,7 +100,7 @@ public class ReportDAOImpl implements ReportDAO {
 				}
 			});
 		} catch (Exception e) {
-			e.printStackTrace(); // Handle exceptions appropriately
+			e.printStackTrace();
 		}
 		return rows;
 	}
@@ -135,7 +135,7 @@ public class ReportDAOImpl implements ReportDAO {
 				}
 			});
 		} catch (Exception e) {
-			e.printStackTrace(); // Handle exceptions appropriately
+			e.printStackTrace();
 		}
 		return rows;
 	}
@@ -166,7 +166,7 @@ public class ReportDAOImpl implements ReportDAO {
 				}
 			});
 		} catch (Exception e) {
-			e.printStackTrace(); // Handle exceptions appropriately
+			e.printStackTrace();
 		}
 		return rows;
 	}

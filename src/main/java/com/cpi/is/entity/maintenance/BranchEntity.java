@@ -34,8 +34,6 @@ public class BranchEntity implements Serializable {
 		this.branchName = branchName;
 	}
 
-	// Getters and Setters
-
 	public Long getBranchId() {
 		return branchId;
 	}

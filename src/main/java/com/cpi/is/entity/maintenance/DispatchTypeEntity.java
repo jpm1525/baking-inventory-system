@@ -34,8 +34,6 @@ public class DispatchTypeEntity implements Serializable {
 		this.dispatchTypeName = dispatchTypeName;
 	}
 
-	// Getters and Setters
-
 	public String getDispatchTypeCd() {
 		return dispatchTypeCd;
 	}

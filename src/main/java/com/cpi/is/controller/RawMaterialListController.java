@@ -27,11 +27,9 @@ public class RawMaterialListController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	
-    // Variables for navigation and action control
     private static String page = "";
     private static String action = "";
 
-    // Load Spring beans from beans.xml
     private ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
 	private RawMaterialListServiceImpl rawMaterialListService = (RawMaterialListServiceImpl) 
 			context.getBean("rawMaterialListService");
@@ -51,13 +49,11 @@ public class RawMaterialListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			// Check if user session is active
 			if (SessionUtil.checkUserSession(request)) {
 				action = request.getParameter("action");
 				HttpSession session = request.getSession();
 				Long branchId = Long.parseLong(session.getAttribute("branchId").toString());
 
-				// If action is "showRawMaterialList", fetch the data and set it in the request attributes
 				if ("showRawMaterialList".equals(action)) {
 					request.setAttribute("rawMaterialList", 
 							EscapeUtil.escapeQuotes(new JSONArray(rawMaterialListService.getData(branchId))));

@@ -29,9 +29,9 @@ public class RawMaterialListDAOImpl implements RawMaterialListDAO {
 			transaction = session.beginTransaction();
 			if (0 == item.getMaterialListId()) {
 				item.setMaterialListId(null);
-				session.persist(item); // add a new record
+				session.persist(item);
 			} else {
-				session.merge(item); // update an existing record
+				session.merge(item);
 			}
 			transaction.commit();
 		} catch (Exception e) {

@@ -63,8 +63,6 @@ public class FinishedProductListEntity implements Serializable {
 		this.dateFinished = dateFinished;
 	}
 
-	// Getters and Setters
-
 	public Long getFplId() {
 		return fplId;
 	}

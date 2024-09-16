@@ -65,8 +65,6 @@ public class DispatchingEntity implements Serializable {
 		this.dispatchDate = dispatchDate;
 	}
 
-	// Getters and Setters
-
 	public Long getDispatchTrackId() {
 		return dispatchTrackId;
 	}

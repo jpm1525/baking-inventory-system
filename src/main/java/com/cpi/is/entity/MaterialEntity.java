@@ -30,8 +30,6 @@ public class MaterialEntity {
 		this.unitOfMeasurement = unitOfMeasurement;
 	}
 
-	// Getters and Setters
-
 	public String getMaterialCd() {
 		return materialCd;
 	}

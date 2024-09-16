@@ -28,8 +28,6 @@ public class SessionEntity implements Serializable {
 		this.username = username;
 	}
 
-	// Getters and Setters
-
 	public String getSessionId() {
 		return sessionId;
 	}

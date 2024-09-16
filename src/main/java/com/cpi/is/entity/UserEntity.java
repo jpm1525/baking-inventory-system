@@ -44,8 +44,6 @@ public class UserEntity implements Serializable {
 		this.branchId = branchId;
 	}
 
-	// Getters and Setters
-
 	public Long getBranchId() {
 		return branchId;
 	}

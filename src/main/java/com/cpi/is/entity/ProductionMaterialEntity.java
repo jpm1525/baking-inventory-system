@@ -57,8 +57,6 @@ public class ProductionMaterialEntity {
 		this.materialListId = materialListId;
 	}
 
-	// Getters and Setters
-
 	public Long getMaterialListId() {
 		return materialListId;
 	}

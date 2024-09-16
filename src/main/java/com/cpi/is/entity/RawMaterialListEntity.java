@@ -58,8 +58,6 @@ public class RawMaterialListEntity {
 		this.branchId = branchId;
 	}
 
-	// Getters and Setters
-
 	public Long getMaterialListId() {
 		return materialListId;
 	}

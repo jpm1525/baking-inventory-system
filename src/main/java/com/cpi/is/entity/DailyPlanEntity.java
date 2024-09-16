@@ -58,8 +58,6 @@ public class DailyPlanEntity {
 		this.status = status;
 	}
 
-	// Getters and Setters
-
 	public Integer getDppId() {
 		return dppId;
 	}
