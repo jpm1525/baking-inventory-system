@@ -41,6 +41,9 @@ public class FinishedProductListEntity implements Serializable {
     @Column(name = "DATE_FINISHED")
     @Temporal(TemporalType.DATE)
     private Date dateFinished;
+    
+    @Column(name = "DPP_ID")
+    private Long dppId;
 
     @ManyToOne
 	@JoinColumn(name="SKU_Cd", insertable=false, updatable=false)
@@ -53,17 +56,27 @@ public class FinishedProductListEntity implements Serializable {
 	public FinishedProductListEntity() {
         super();
     }
+	
+    public FinishedProductListEntity(Long fplId, String skuCd, Long quantity, Long branchId, Long dppId,
+    		Date dateFinished) {
+		super();
+		this.fplId = fplId;
+		this.skuCd = skuCd;
+		this.quantity = quantity;
+		this.branchId = branchId;
+		this.dateFinished = dateFinished;
+		this.dppId = dppId;
+	}
 
-    public FinishedProductListEntity(Long fplId, String skuCd, Long quantity, Long branchId, Date dateFinished) {
-        super();
-        this.fplId = fplId;
-        this.skuCd = skuCd;
-        this.quantity = quantity;
-        this.branchId = branchId;
-        this.dateFinished = dateFinished;
-    }
+	public Long getDppId() {
+		return dppId;
+	}
 
-    public Long getFplId() {
+	public void setDppId(Long dppId) {
+		this.dppId = dppId;
+	}
+
+	public Long getFplId() {
         return fplId;
     }
 
@@ -118,15 +131,11 @@ public class FinishedProductListEntity implements Serializable {
 	public void setBranch(BranchEntity branch) {
 		this.branch = branch;
 	}
+
+	@Override
+	public String toString() {
+		return "FinishedProductListEntity [fplId=" + fplId + ", skuCd=" + skuCd + ", quantity=" + quantity
+				+ ", branchId=" + branchId + ", dateFinished=" + dateFinished + ", dppId=" + dppId + "]";
+	}
 	
-    @Override
-    public String toString() {
-        return "FinishedProductListEntity{" +
-                "fplId=" + fplId +
-                ", skuCd='" + skuCd + '\'' +
-                ", quantity=" + quantity +
-                ", branchId=" + branchId +
-                ", dateFinished=" + dateFinished +
-                '}';
-    }
 }

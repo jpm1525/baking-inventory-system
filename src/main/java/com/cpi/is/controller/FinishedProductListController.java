@@ -30,7 +30,6 @@ public class FinishedProductListController extends HttpServlet {
        
     private ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
 	private FinishedProductListServiceImpl finishedProductListService = (FinishedProductListServiceImpl) context.getBean("finishedProductListService");
-	private SkuCodeServiceImpl skuCodeService = (SkuCodeServiceImpl) context.getBean("skuCodeService");
 
 	/**
      * @see HttpServlet#HttpServlet()
@@ -51,18 +50,11 @@ public class FinishedProductListController extends HttpServlet {
 				
 				if ("showFinishedProductList".equals(action)) {
 					request.setAttribute("finishedProductList", EscapeUtil.escapeQuotes(new JSONArray(finishedProductListService.getData(branchId))));
-					request.setAttribute("sku", EscapeUtil.escapeQuotes(new JSONArray(skuCodeService.getData())));
 					request.setAttribute("userId", session.getAttribute("userId").toString());
 					request.setAttribute("branchIdUser", branchId);
 					request.setAttribute("branchNameUser", session.getAttribute("branchName").toString());
 					page = "pages/finishedProductList.jsp";
-				} else if ("saveData".equals(action)) {
-					request.setAttribute("message", finishedProductListService.saveData(request));
-					page = "pages/message.jsp";
-				} else if ("deleteData".equals(action)) {
-					request.setAttribute("message", finishedProductListService.deleteData(request));
-					page = "pages/message.jsp";
-				}
+				} 
 			} else {
 				page = "pages/reload.jsp";
 			}

@@ -133,6 +133,9 @@ public class DailyPlanServiceImpl implements DailyPlanService{
 			validation = errorResult;
 		} else if (json.getString("skuCd").length() < 1 || json.getString("skuCd").length() > 20) {
 			validation = errorResult;
+		} else if (json.getString("status").equals("Planned") && json.getString("status").equals("In Progress") 
+					&& json.getString("status").equals("Completed")) {
+			validation = errorResult;
 		} else {
 	        try {
 	        	LocalDate.parse(json.getString("productionDate"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
