@@ -9,8 +9,6 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.jdbc.Work;
-import org.hibernate.query.Query;
-
 import com.cpi.is.dao.ReportDAO;
 import com.cpi.is.entity.report.CurrentFinishedInventoryEntity;
 import com.cpi.is.entity.report.PlannedRawMaterialsInventoryEntity;

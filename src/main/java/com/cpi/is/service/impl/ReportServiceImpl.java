@@ -1,5 +1,8 @@
 package com.cpi.is.service.impl;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,25 +29,60 @@ public class ReportServiceImpl implements ReportService {
 	@Override
 	public List<CurrentFinishedInventoryEntity> getCurrentFinishedInventory(HttpServletRequest request, Long branchId) 
 			throws Exception {
-		return reportDAO.getCurrentFinishedInventory(request.getParameter("reportDate"), branchId);
+		if(validateData(request.getParameter("reportDate")).equals("success")) {
+			return reportDAO.getCurrentFinishedInventory(request.getParameter("reportDate"), branchId);
+		} else {
+			return reportDAO.getCurrentFinishedInventory(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")), branchId);
+		}
 	}
 	
 	@Override
 	public List<PlannedRawMaterialsInventoryEntity> getPlannedRawMaterialsInventory(HttpServletRequest request, Long branchId)
 			throws Exception {
-		return reportDAO.getPlannedRawMaterialsInventory(request.getParameter("reportDate"), branchId);
+		if(validateData(request.getParameter("reportDate")).equals("success")) {
+			return reportDAO.getPlannedRawMaterialsInventory(request.getParameter("reportDate"), branchId);
+		} else {
+			return reportDAO.getPlannedRawMaterialsInventory(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")), branchId);
+		}
 	}
 
 	@Override
 	public List<ProductionReportEntity> getProductionReport(HttpServletRequest request, Long branchId) 
 			throws Exception {
-		return reportDAO.getProductionReport(request.getParameter("reportDate"), branchId);
+		if(validateData(request.getParameter("reportDate")).equals("success")) {
+			return reportDAO.getProductionReport(request.getParameter("reportDate"), branchId);
+		} else {
+			return reportDAO.getProductionReport(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")), branchId);
+		}
+		
 	}
 
 	@Override
 	public List<ReceivedInventoryReportEntity> getReceivedInventoryReport(HttpServletRequest request, Long branchId) 
 			throws Exception {
-		return reportDAO.getReceivedInventoryReport(request.getParameter("reportDate"), branchId);
+		if(validateData(request.getParameter("reportDate")).equals("success")) {
+			return reportDAO.getReceivedInventoryReport(request.getParameter("reportDate"), branchId);
+		} else {
+			return reportDAO.getReceivedInventoryReport(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")), branchId);
+		}
 	}
 	
+	public String validateData(String reportDate) throws Exception{
+		String validation = "success";
+		String errorResult = "Please fill-out the report generation form properly";
+	
+		if (reportDate == null) {
+			validation = errorResult;
+		} else if (reportDate.matches("^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$")) {
+			validation = errorResult;
+		} else {
+	        try {
+	        	LocalDate.parse(reportDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+	        } catch (DateTimeParseException e) {
+	        	validation = errorResult;
+	        }
+		}
+		
+		return validation;
+	}
 }
