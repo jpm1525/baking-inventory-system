@@ -104,6 +104,9 @@ function validate(data) {
 	} else if (data.username.length > 50){
 		$('.errorMessage').text("User Name characters should be less than 51");
 		valid = false;
+	} else if (!(/^[a-zA-Z0-9\s]*$/.test(data.username))){
+		$('.errorMessage').text("No symbols in username");
+		valid = false;
 	} else if (data.password.length > 50){
 		$('.errorMessage').text("Password characters should be less than 51");
 		valid = false;

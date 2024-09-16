@@ -104,6 +104,8 @@ public class UserMaintenanceServiceImpl {
 			validation = errorResult;
 		} else if (json.getString("username").length() < 1 || json.getString("username").length() > 10) {
 			validation = errorResult;
+		} else if (!json.getString("branchId").matches("^[a-zA-Z0-9\\s]*$")) {
+			validation = errorResult;
 		} else if (json.getString("password").length() < 1 || json.getString("password").length() > 100) {
 			validation = errorResult;
 		} else if (json.getString("branchId").length() < 1 || json.getString("branchId").length() > 50) {

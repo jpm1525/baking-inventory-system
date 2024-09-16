@@ -16,7 +16,7 @@ public class MaterialCodeDAOImpl implements MaterialCodeDAO {
 		List<MaterialCodeEntity> materialCode = null;
 		try (Session session = HBUtil.getSessionFactory().openSession()) {
 			materialCode = (List<MaterialCodeEntity>) 
-					session.createQuery("FROM MaterialCodeEntity T ORDER BY T.createDate DESC", MaterialCodeEntity.class).list();
+					session.createQuery("FROM MaterialCodeEntity T ORDER BY T.materialCd DESC", MaterialCodeEntity.class).list();
 		}
 		return materialCode;
 	}
