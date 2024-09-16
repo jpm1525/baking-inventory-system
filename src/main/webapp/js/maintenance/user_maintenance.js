@@ -69,7 +69,6 @@ $("#btnUserMain").click(function(){
 $('#deleteSaveModalButton').click(function(event){
 	event.stopImmediatePropagation();
 	data["password"] = $('#passwordDelete').val().toString();
-	console.log(data);
 	if(validate(data)){
 		console.log("running");
 		$.post('MaintenanceController', {
@@ -96,7 +95,6 @@ function populateForm(row) {
 		branchId: row.branchId.toString()
 	};
 }
-
 
 function validate(data) {
 	let valid = true;
