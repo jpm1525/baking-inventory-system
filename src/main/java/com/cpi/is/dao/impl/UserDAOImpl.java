@@ -16,30 +16,24 @@ public class UserDAOImpl implements UserDAO{
 	public UserEntity authenticate(UserEntity user) throws Exception {
 		UserEntity authenticated = null;
 		try (Session session = HBUtil.getSessionFactory().openSession()) {
-			List<UserEntity> results = (List<UserEntity>) session
+			authenticated = (UserEntity) session
 					.createQuery("FROM UserEntity T WHERE T.username = :username AND T.password = :password", UserEntity.class)
 					.setParameter("username", user.getUsername())
 					.setParameter("password", user.getPassword())
-					.list();
-			if (results.size() > 0) {
-				authenticated = results.get(0);
-			}
+					.getSingleResultOrNull();
 		}
 		return authenticated;
 	}
 	
 	public UserEntity getUser(String username) throws Exception {
-		UserEntity result = null;
+		UserEntity user = null;
 		try (Session session = HBUtil.getSessionFactory().openSession()) {
-			List<UserEntity> results = (List<UserEntity>) session
+			 user = (UserEntity) session
 					.createQuery("FROM UserEntity T WHERE T.username = :username", UserEntity.class)
 					.setParameter("username", username)
-					.list();
-			if (results.size() > 0) {
-				result = results.get(0);
-			}
+					.getSingleResultOrNull();
 		}
-		return result;
+		return user;
 	}
 
 	@Override

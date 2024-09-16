@@ -12,7 +12,6 @@ import org.json.JSONArray;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.cpi.is.entity.UserEntity;
 import com.cpi.is.service.impl.RawMaterialListServiceImpl;
 import com.cpi.is.service.impl.maintenance.BranchServiceImpl;
 import com.cpi.is.service.impl.maintenance.MaterialCodeServiceImpl;
