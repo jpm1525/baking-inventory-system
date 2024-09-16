@@ -28,53 +28,51 @@
         dark:text-white text-md hover:bg-[#fd5d18] py-2 px-2 rounded"></i>
        
       </div> 
-	 <div class="d-flex justify-content-center reportTable" style="display: none">
+      <div class ="text-center text-red" id="errorMessage">
+      </div>
+	 <div class="d-flex justify-content-center reportTable">
 	  <form>
 	  <div class="relative overflow-x-auto shadow-md sm:rounded-lg basis-6/12">
 	    <div id="divReportTable">
 	      <div class="tabulator" role="grid"
 	        tabulator-layout="fitData">
-	        <div class="tabulator-header" role="rowgroup">
-	          <div class="tabulator-header-contents" role="rowgroup">
-	            <div class="tabulator-headers" role="row"
-	              style="height: 45px;">
-	              <div
-	                class="tabulator-col tabulator-sortable tabulator-col-sorter-element"
-	                role="columnheader" aria-sort="none"
-	                tabulator-field="materialName"
-	                style="min-width: 40px; width: 14%; height: 45px;">
-	                <div class="tabulator-col-content">
-	                  <div class="tabulator-col-title-holder">
-	                    <div class="tabulator-col-title">Material</div>
-	                    <div class="tabulator-col-sorter">
-	                      <div class="tabulator-arrow"></div>
-	                    </div>
-	                  </div>
-	                </div>
-	              </div>
-	              <span class="tabulator-col-resize-handle"
-	                style="height: 45px;"></span>
-	              <div
-	                class="tabulator-col tabulator-sortable tabulator-col-sorter-element"
-	                role="columnheader" aria-sort="none"
-	                tabulator-field="quantity"
-	                style="min-width: 40px; width: 14%; height: 45px;">
-	                <div class="tabulator-col-content">
-	                  <div class="tabulator-col-title-holder">
-	                    <div class="tabulator-col-title">Quantity</div>
-	                    <div class="tabulator-col-sorter">
-	                      <div class="tabulator-arrow"></div>
-	                    </div>
-	                  </div>
-	                </div>
-	              </div>
-	              <span class="tabulator-col-resize-handle" style="height: 45px;"></span>
-	            </div>
-	            <br>
-	            <div class="tabulator-frozen-rows-holder"
-	              style="min-width: 0px;"></div>
-	          </div>
-	        </div>
+            <div class="tabulator-header" role="rowgroup">
+              <div class="tabulator-header-contents" role="rowgroup">
+                <div class="tabulator-headers" role="row" style="height: 45px;">
+                  <div
+                    class="tabulator-col tabulator-sortable tabulator-col-sorter-element"
+                    role="columnheader" aria-sort="none"
+                    tabulator-field="materialName"
+                    style="min-width: 150px; width: 151px; height: 45px;">
+                    <div class="tabulator-col-content">
+                      <div class="tabulator-col-title-holder">
+                        <div class="tabulator-col-title">Material</div>
+                        <div class="tabulator-col-sorter">
+                          <div class="tabulator-arrow"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <span class="tabulator-col-resize-handle" style="height: 45px;"></span>
+                  <div
+                    class="tabulator-col tabulator-sortable tabulator-col-sorter-element"
+                    role="columnheader" aria-sort="none" tabulator-field="quantity"
+                    style="min-width: 150px; width: 151px; height: 45px;">
+                    <div class="tabulator-col-content">
+                      <div class="tabulator-col-title-holder">
+                        <div class="tabulator-col-title">Quantity</div>
+                        <div class="tabulator-col-sorter">
+                          <div class="tabulator-arrow"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <span class="tabulator-col-resize-handle" style="height: 45px;"></span>
+                </div>
+                <br>
+                <div class="tabulator-frozen-rows-holder" style="min-width: 0px;"></div>
+              </div>
+            </div>
 	        <div class="tabulator-tableholder" tabindex="0" style="height: 40px;">
 	          <div class="tabulator-table" role="rowgroup" style="width: 100%;">
 	            <div class="text-center dark:bg-gray-800">
