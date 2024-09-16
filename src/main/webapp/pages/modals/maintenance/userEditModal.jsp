@@ -34,13 +34,27 @@
         readonly="readonly">
     </div>
     <div>
-      <label for="usernameUpdate"
-        class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Username</label>
-      <input type="text" name="usernameUpdate" id="usernameUpdate"
-        class="bg-gray-50 border border-gray-300 
+      <div>
+        <label for="usernameUpdate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Username</label>
+        <input type="text" name="usernameUpdate" id="usernameUpdate" class="bg-gray-50 border border-gray-300 
           text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
-          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-        required="required" maxlength="10" minlength="1">
+          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
+          required="required" maxlength="10" minlength="1">
+      </div>
+      <div>
+        <label for="passwordUpdate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Password</label>
+        <input type="password" name="passwordUpdate" id="passwordUpdate" class="bg-gray-50 border border-gray-300 
+          text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
+          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
+          required="required" placeholder="Type password" maxlength="50" minlength="1">
+      </div>
+      <div>
+        <label for="branchIdUpdate" class="block mb-2 text-m font-medium text-gray-900 dark:text-white">Branch ID</label>
+        <input type="text" name="branchIdUpdate" id="branchIdUpdate" class="bg-gray-50 border border-gray-300 
+          text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
+          dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
+          required="required" placeholder="Type branch" maxlength="10" minlength="1">
+      </div>
     </div>
     <div>
       <label for="passwordUpdate"
