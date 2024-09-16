@@ -1,84 +1,48 @@
-$("#btnReportFinished").click(function() {
-	showLoading();
-	$.get("ReportGenerationController", {
-		action: "showReportFinished"
-	}, function(response) {
-		$("#divContent").html(response)
-		hideLoading();
-
-	});
-});
-
-$("#btnReportPlanned").click(function() {
-	showLoading();
-	$.get("ReportGenerationController", {
-		action: "showReportPlanned"
-	}, function(response) {
-		$("#divContent").html(response)
-		hideLoading();
-
-	});
-});
-
-$("#btnReportProduction").click(function() {
-	showLoading();
-	$.get("ReportGenerationController", {
-		action: "showReportProduction"
-	}, function(response) {
-		$("#divContent").html(response)
-		hideLoading();
-
-	});
-});
-
-$("#btnReportReceived").click(function() {
-	showLoading();
-	$.get("ReportGenerationController", {
-		action: "showReportReceived"
-	}, function(response) {
-		$("#divContent").html(response)
-		hideLoading();
-
-	});
-});
-
 $('#btnGenerateReport').click(function() {
-	$(".reportTable").css("display", "block");
-	switch (reportAction) {
-		case 'getReportFinished':
-			$.post('ReportGenerationController', {
-				action: "getReportFinished",
-				reportDate: $('#txtReportDate').val()
-			}, function(response) {
-				generateReport(response);
-			});
-			break;
-		case 'getReportPlanned':
-			$.post('ReportGenerationController', {
-				action: "getReportPlanned",
-				reportDate: $('#txtReportDate').val()
-			}, function(response) {
-				generateReport(response);
-			});
-			break;
-		case 'getReportProduction':
-			$.post('ReportGenerationController', {
-				action: "getReportProduction",
-				reportDate: $('#txtReportDate').val()
-			}, function(response) {
-				generateReport(response);
-			});
-			break;
-		case 'getReportReceived':
-			$.post('ReportGenerationController', {
-				action: "getReportReceived",
-				reportDate: $('#txtReportDate').val()
-			}, function(response) {
-				generateReport(response);
-			});
-			break;
+	$('#errorMessage').css("display", "none");
+	let reportDate = $('#txtReportDate').val();
+	if (reportDate === '') {
+		$('#errorMessage').text("Please correctly fill-out all required fields");
+		$('#errorMessage').css("display", "block");
+	}else if (!(!isNaN(Date.parse(reportDate)) && (new Date(reportDate).toISOString().startsWith(reportDate)))) {
+	    $('#errorMessage').text("Please enter valid date");
+		$('#errorMessage').css("display", "block");
+	}else{
+		switch (reportAction) {
+			case 'getReportFinished':
+				$.post('ReportGenerationController', {
+					action: "getReportFinished",
+					reportDate: $('#txtReportDate').val()
+				}, function(response) {
+					generateReport(response);
+				});
+				break;
+			case 'getReportPlanned':
+				$.post('ReportGenerationController', {
+					action: "getReportPlanned",
+					reportDate: $('#txtReportDate').val()
+				}, function(response) {
+					generateReport(response);
+				});
+				break;
+			case 'getReportProduction':
+				$.post('ReportGenerationController', {
+					action: "getReportProduction",
+					reportDate: $('#txtReportDate').val()
+				}, function(response) {
+					generateReport(response);
+				});
+				break;
+			case 'getReportReceived':
+				$.post('ReportGenerationController', {
+					action: "getReportReceived",
+					reportDate: $('#txtReportDate').val()
+				}, function(response) {
+					generateReport(response);
+				});
+				break;
+		}
 	}
-	
 });
 
 $('#btnPrint').click(function() {
@@ -137,3 +101,7 @@ function generateReport(response) {
 
 	$('#btnPrint').prop('disabled', false);
 }
+
+$(document).ready(function() {
+    $('#btnGenerateReport').click();
+});

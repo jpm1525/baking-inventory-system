@@ -21,49 +21,11 @@ public class FinishedProductListDAOImpl implements FinishedProductListDAO {
 		}
 		return finishedProductList;
 	}
-
-	@Override
-	public String saveData(FinishedProductListEntity item) throws Exception {
-		Transaction transaction = null;
-		try (Session session = HBUtil.getSessionFactory().openSession()) {
-			transaction = session.beginTransaction();
-			if (0 == item.getFplId()) {
-				item.setFplId(null);
-				session.persist(item);	// add a new record
-			} else {
-				session.merge(item);	// update an existing record
-			}
-			transaction.commit();
-		} catch (Exception e) {
-			if (transaction != null) {
-				transaction.rollback();
-			}
-			
-			throw e;
-		}
-		return "success";
-	}
-
-	@Override
-	public String deleteData(FinishedProductListEntity item) throws Exception {
-		Transaction transaction = null;
-		try (Session session = HBUtil.getSessionFactory().openSession()) {
-			transaction = session.beginTransaction();
-			session.remove(item);
-			transaction.commit();
-		} catch (Exception e) {
-			if (transaction != null) {
-				transaction.rollback();
-			}
-			throw e;
-		}
-		return "success";
-	}
 	
 	public Long getFinishedCount(Long branchId) throws Exception {
 	    Long count = null;
 	    try (Session session = HBUtil.getSessionFactory().openSession()) {
-	        count = (Long) session.createQuery("SELECT COUNT(*) FROM FinishedProductListEntity T WHERE T.branchId = :branchId")
+	        count = (Long) session.createQuery("SELECT COUNT(*) FROM FinishedProductListEntity T WHERE T.branchId = :branchId",Long.class)
 	                              .setParameter("branchId", branchId)
 	                              .uniqueResult();
 	    }
