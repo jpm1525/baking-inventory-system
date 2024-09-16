@@ -18,40 +18,39 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
 @Entity
-@Table(name="qkc_dispatch_tracking")
+@Table(name = "qkc_dispatch_tracking")
 public class DispatchingEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@Column(name="dispatch_track_id")
+	@Column(name = "dispatch_track_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long dispatchTrackId;
-	@Column(name="dispatch_type_cd")
+	@Column(name = "dispatch_type_cd")
 	private String dispatchTypeCd;
-	@Column(name="fpl_id")
+	@Column(name = "fpl_id")
 	private Long fplId;
 	private Long quantity;
-	@Column(name="branch_id")
+	@Column(name = "branch_id")
 	private Long branchId;
 	private String destination;
-	@Column(name="dispatch_date")
+	@Column(name = "dispatch_date")
 	@Temporal(TemporalType.DATE)
 	private Date dispatchDate;
-	
+
 	@ManyToOne
-	@JoinColumn(name="BRANCH_ID", insertable=false, updatable=false)
+	@JoinColumn(name = "BRANCH_ID", insertable = false, updatable = false)
 	private BranchEntity branch;
 	@ManyToOne
-	@JoinColumn(name="DISPATCH_TYPE_CD", insertable=false, updatable=false)
+	@JoinColumn(name = "DISPATCH_TYPE_CD", insertable = false, updatable = false)
 	private DispatchTypeEntity dispatchType;
 	@ManyToOne
-	@JoinColumn(name="FPL_ID", insertable=false, updatable=false)
+	@JoinColumn(name = "FPL_ID", insertable = false, updatable = false)
 	private FinishedProductListEntity fpl;
-	
+
 	public DispatchingEntity() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public DispatchingEntity(Long dispatchTrackId, String dispatchTypeCd, Long fplId, Long quantity, Long branchId,
@@ -121,7 +120,7 @@ public class DispatchingEntity implements Serializable {
 	public void setDispatchDate(Date dispatchDate) {
 		this.dispatchDate = dispatchDate;
 	}
-	
+
 	public BranchEntity getBranch() {
 		return branch;
 	}

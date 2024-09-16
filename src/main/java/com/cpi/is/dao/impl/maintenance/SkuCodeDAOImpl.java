@@ -27,9 +27,9 @@ public class SkuCodeDAOImpl implements SkuCodeDAO {
 		try (Session session = HBUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 			if ("" == data.getSkuCd()) {
-				session.persist(data);	// add a new record
+				session.persist(data);
 			} else {
-				session.merge(data);	// update an existing record
+				session.merge(data);
 			}
 			transaction.commit();
 		} catch (Exception e) {

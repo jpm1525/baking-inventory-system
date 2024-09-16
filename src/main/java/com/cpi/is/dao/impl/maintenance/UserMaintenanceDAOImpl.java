@@ -6,12 +6,11 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.cpi.is.dao.maintenance.UserMaintenanceDAO;
-import com.cpi.is.entity.ProductionMaterialEntity;
 import com.cpi.is.entity.UserEntity;
 import com.cpi.is.util.HBUtil;
 
-public class UserMaintenanceDAOImpl implements UserMaintenanceDAO{
-	
+public class UserMaintenanceDAOImpl implements UserMaintenanceDAO {
+
 	@Override
 	public List<UserEntity> getData() throws Exception {
 		List<UserEntity> users = null;
@@ -21,7 +20,7 @@ public class UserMaintenanceDAOImpl implements UserMaintenanceDAO{
 		}
 		return users;
 	}
-	
+
 	@Override
 	public String saveData(UserEntity data) throws Exception {
 		Transaction transaction = null;
@@ -29,9 +28,9 @@ public class UserMaintenanceDAOImpl implements UserMaintenanceDAO{
 			transaction = session.beginTransaction();
 			if (0 == data.getUserId()) {
 				data.setUserId(null);
-				session.persist(data);	// add a new record
+				session.persist(data);
 			} else {
-				session.merge(data);	// update an existing record
+				session.merge(data);
 			}
 			transaction.commit();
 		} catch (Exception e) {

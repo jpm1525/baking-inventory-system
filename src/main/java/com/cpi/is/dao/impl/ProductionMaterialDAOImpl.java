@@ -31,9 +31,9 @@ public class ProductionMaterialDAOImpl implements ProductionMaterialDAO {
 			transaction = session.beginTransaction();
 			if (0 == data.getPmId()) {
 				data.setPmId(null);
-				session.persist(data);	// add a new record
+				session.persist(data);
 			} else {
-				session.merge(data);	// update an existing record
+				session.merge(data);
 			}
 			transaction.commit();
 		} catch (Exception e) {

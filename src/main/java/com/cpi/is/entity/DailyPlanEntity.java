@@ -20,34 +20,33 @@ import jakarta.persistence.TemporalType;
 @Table(name = "QKC_DAILY_PLANNED_PRODUCTION")
 
 public class DailyPlanEntity {
-	
-	@Id
-    @Column (name="DPP_ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer dppId;
-    @Column (name="PRODUCTION_DATE")
-    @Temporal(TemporalType.DATE)
-    private Date productionDate;
-    @Column (name="BRANCH_ID")
-    private Integer branchId;
-    @Column (name="SKU_CD")
-    private String skuCd;
-    private Integer quantity;
-    private String status;
 
-    @ManyToOne
-	@JoinColumn(name="SKU_CD", insertable=false, updatable=false)
+	@Id
+	@Column(name = "DPP_ID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer dppId;
+	@Column(name = "PRODUCTION_DATE")
+	@Temporal(TemporalType.DATE)
+	private Date productionDate;
+	@Column(name = "BRANCH_ID")
+	private Integer branchId;
+	@Column(name = "SKU_CD")
+	private String skuCd;
+	private Integer quantity;
+	private String status;
+
+	@ManyToOne
+	@JoinColumn(name = "SKU_CD", insertable = false, updatable = false)
 	private SkuCodeEntity skuName;
-    
-    @ManyToOne
-	@JoinColumn(name="BRANCH_ID", insertable=false, updatable=false)
+
+	@ManyToOne
+	@JoinColumn(name = "BRANCH_ID", insertable = false, updatable = false)
 	private BranchEntity branch;
-    
-    
-    public DailyPlanEntity() {
-    	super();
-    }
-    
+
+	public DailyPlanEntity() {
+		super();
+	}
+
 	public DailyPlanEntity(Integer dppId, Date productionDate, Integer branchId, String skuCd, Integer quantity,
 			String status) {
 		super();
@@ -57,7 +56,7 @@ public class DailyPlanEntity {
 		this.skuCd = skuCd;
 		this.quantity = quantity;
 		this.status = status;
-	}	
+	}
 
 	public Integer getDppId() {
 		return dppId;
@@ -128,5 +127,5 @@ public class DailyPlanEntity {
 		return "DailyPlanEntity [dppId=" + dppId + ", productionDate=" + productionDate + ", branchId=" + branchId
 				+ ", skuCd=" + skuCd + ", quantity=" + quantity + ", status=" + status + "]";
 	}
-	
+
 }

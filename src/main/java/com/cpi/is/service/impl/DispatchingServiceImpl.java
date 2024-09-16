@@ -50,13 +50,11 @@ public class DispatchingServiceImpl implements DispatchingService {
 	
 	@Override
 	public List<DispatchingEntity> getData(Long branchId) throws Exception {
-		// TODO Auto-generated method stub
 		return dispatchingDAO.getData(branchId);
 	}
 
 	@Override
 	public String saveData(HttpServletRequest request, List<FinishedProductListEntity> finishedProductList) throws Exception {
-		// TODO Auto-generated method stub
 		String validation = validateData(request);
 		String results = "";
 		
@@ -85,7 +83,6 @@ public class DispatchingServiceImpl implements DispatchingService {
 
 	@Override
 	public String deleteData(HttpServletRequest request) throws Exception {
-		// TODO Auto-generated method stub
 		String validation = validateData(request);
 		String results = "";
 		

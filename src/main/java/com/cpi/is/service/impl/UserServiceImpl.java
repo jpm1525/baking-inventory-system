@@ -45,7 +45,6 @@ public class UserServiceImpl implements UserService {
 		userDAO.saveSession(new SessionEntity(
 				request.getSession().getId(), 
 				request.getAttribute("username").toString()));
-		
 	}
 	
 	public UserEntity getUser(String username) throws Exception {
@@ -68,7 +67,6 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public boolean isSessionValid(HttpServletRequest request) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 }

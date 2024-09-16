@@ -8,17 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONArray;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.cpi.is.entity.SessionEntity;
-import com.cpi.is.entity.UserEntity;
-import com.cpi.is.service.DispatchingService;
 import com.cpi.is.service.impl.DailyPlanServiceImpl;
 import com.cpi.is.service.impl.DispatchingServiceImpl;
 import com.cpi.is.service.impl.FinishedProductListServiceImpl;
-import com.cpi.is.service.impl.ProductionMaterialServiceImpl;
 import com.cpi.is.service.impl.RawMaterialListServiceImpl;
 import com.cpi.is.util.SessionUtil;
 
@@ -36,23 +31,25 @@ public class DashboardController extends HttpServlet {
    	private DailyPlanServiceImpl dailyPlanService = (DailyPlanServiceImpl) context.getBean("dailyPlanService");
 	private FinishedProductListServiceImpl finishedProductListService = (FinishedProductListServiceImpl) context.getBean("finishedProductListService");
 	private DispatchingServiceImpl dispatchingService = (DispatchingServiceImpl) context.getBean("dispatchingService");
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DashboardController() {
-        super();
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public DashboardController() {
+		super();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try {
-			
+
 			if (SessionUtil.checkUserSession(request)) {
 				HttpSession session = request.getSession();
 				Long branchIdUser = Long.parseLong(session.getAttribute("branchId").toString());
-				
 				action = request.getParameter("action");
 
 				if ("showDashboard".equals(action)) {
@@ -80,9 +77,11 @@ public class DashboardController extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 

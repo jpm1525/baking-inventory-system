@@ -9,21 +9,21 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="QKC_RAW_MATERIAL")
+@Table(name = "QKC_RAW_MATERIAL")
 public class MaterialCodeEntity implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
-	
-	@Id 
-	@Column(name="material_cd") 
+
+	@Id
+	@Column(name = "material_cd")
 	private String materialCd;
-	@Column(name="material_name")
+	@Column(name = "material_name")
 	private String materialCodeName;
-	@Column(name="unit_of_measurement")
+	@Column(name = "unit_of_measurement")
 	private String unitOfMeasurement;
-	@Column(name="create_date", insertable = false, updatable = false)
+	@Column(name = "create_date", insertable = false, updatable = false)
 	private Date createDate;
-	@Column(name="update_date", insertable = false, updatable = false)
+	@Column(name = "update_date", insertable = false, updatable = false)
 	private Date updateDate;
 
 	public MaterialCodeEntity() {
@@ -52,7 +52,7 @@ public class MaterialCodeEntity implements Serializable {
 	public void setMaterialCodeName(String materialCodeName) {
 		this.materialCodeName = materialCodeName;
 	}
-	
+
 	public String getUnitOfMeasurement() {
 		return unitOfMeasurement;
 	}
@@ -71,8 +71,9 @@ public class MaterialCodeEntity implements Serializable {
 
 	@Override
 	public String toString() {
-		return "MaterialCodeEntity [materialCd=" + materialCd + ", materialCodeName=" + materialCodeName + ", unitOfMeasurement="
-				+ unitOfMeasurement + ", createDate=" + createDate + ", updateDate=" + updateDate + "]";
+		return "MaterialCodeEntity [materialCd=" + materialCd + ", materialCodeName=" + materialCodeName
+				+ ", unitOfMeasurement=" + unitOfMeasurement + ", createDate=" + createDate + ", updateDate="
+				+ updateDate + "]";
 	}
 
 }

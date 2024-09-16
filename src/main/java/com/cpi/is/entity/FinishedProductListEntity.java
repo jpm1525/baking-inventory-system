@@ -2,7 +2,7 @@ package com.cpi.is.entity;
 
 import java.io.Serializable;
 
-import java.util.Date; // Import Date
+import java.util.Date;
 
 import com.cpi.is.entity.maintenance.BranchEntity;
 import com.cpi.is.entity.maintenance.SkuCodeEntity;
@@ -22,15 +22,15 @@ import jakarta.persistence.TemporalType;
 @Table(name = "QKC_FINISHED_PRODUCT_LIST")
 public class FinishedProductListEntity implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @Column(name = "FPL_ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long fplId;
+	@Id
+	@Column(name = "FPL_ID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long fplId;
 
-    @Column(name = "SKU_Cd")
-    private String skuCd;
+	@Column(name = "SKU_Cd")
+	private String skuCd;
 
     @Column(name = "QUANTITY")
     private Long quantity;
@@ -45,12 +45,12 @@ public class FinishedProductListEntity implements Serializable {
     @Column(name = "DPP_ID")
     private Long dppId;
 
-    @ManyToOne
-	@JoinColumn(name="SKU_Cd", insertable=false, updatable=false)
+	@ManyToOne
+	@JoinColumn(name = "SKU_Cd", insertable = false, updatable = false)
 	private SkuCodeEntity sku;
-    
-    @ManyToOne
-	@JoinColumn(name="BRANCH_ID", insertable=false, updatable=false)
+
+	@ManyToOne
+	@JoinColumn(name = "BRANCH_ID", insertable = false, updatable = false)
 	private BranchEntity branch;
 
 	public FinishedProductListEntity() {
@@ -80,50 +80,50 @@ public class FinishedProductListEntity implements Serializable {
         return fplId;
     }
 
-    public void setFplId(Long fplId) {
-        this.fplId = fplId;
-    }
+	public void setFplId(Long fplId) {
+		this.fplId = fplId;
+	}
 
-    public String getSkuCd() {
-        return skuCd;
-    }
+	public String getSkuCd() {
+		return skuCd;
+	}
 
-    public void setSkuCd(String skuCd) {
-        this.skuCd = skuCd;
-    }
+	public void setSkuCd(String skuCd) {
+		this.skuCd = skuCd;
+	}
 
-    public Long getQuantity() {
-        return quantity;
-    }
+	public Long getQuantity() {
+		return quantity;
+	}
 
-    public void setQuantity(Long quantity) {
-        this.quantity = quantity;
-    }
+	public void setQuantity(Long quantity) {
+		this.quantity = quantity;
+	}
 
-    public Long getBranchId() {
-        return branchId;
-    }
+	public Long getBranchId() {
+		return branchId;
+	}
 
-    public void setBranchId(Long branchId) {
-        this.branchId = branchId;
-    }
+	public void setBranchId(Long branchId) {
+		this.branchId = branchId;
+	}
 
-    public Date getDateFinished() {
-        return dateFinished;
-    }
+	public Date getDateFinished() {
+		return dateFinished;
+	}
 
-    public void setDateFinished(Date dateFinished) {
-        this.dateFinished = dateFinished;
-    }
+	public void setDateFinished(Date dateFinished) {
+		this.dateFinished = dateFinished;
+	}
 
-    public SkuCodeEntity getSku() {
+	public SkuCodeEntity getSku() {
 		return sku;
 	}
 
 	public void setSku(SkuCodeEntity sku) {
 		this.sku = sku;
 	}
-    
+
 	public BranchEntity getBranch() {
 		return branch;
 	}
@@ -137,5 +137,4 @@ public class FinishedProductListEntity implements Serializable {
 		return "FinishedProductListEntity [fplId=" + fplId + ", skuCd=" + skuCd + ", quantity=" + quantity
 				+ ", branchId=" + branchId + ", dateFinished=" + dateFinished + ", dppId=" + dppId + "]";
 	}
-	
 }
