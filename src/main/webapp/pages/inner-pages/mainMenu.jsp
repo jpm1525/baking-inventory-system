@@ -59,6 +59,5 @@
     
 
 <script src="js/maintenance.js"></script>
-<script src="js/reports.js"></script>
 <script src="js/main_menu_route.js"></script>
 <script src="js/menu.js"></script>

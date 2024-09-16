@@ -150,7 +150,7 @@
 
 <jsp:include page="../modals/maintenance/userAddModal.jsp"></jsp:include>
 <jsp:include page="../modals/maintenance/userEditModal.jsp"></jsp:include>
-<jsp:include page="../modals/maintenance/deleteModal.jsp"></jsp:include>
+<jsp:include page="../modals/maintenance/userDeleteModal.jsp"></jsp:include>
 
 <script type="text/javascript">
   var userMain = JSON.parse('${userMain}');

@@ -28,7 +28,7 @@
         dark:text-white text-md hover:bg-[#fd5d18] py-2 px-2 rounded"></i>
        
       </div>   
-      <div class ="text-center text-red" id="errorMessage">
+      <div class ="text-center text-red-500" id="errorMessage">
       </div>
 
 	 <div class="d-flex justify-content-center reportTable">
