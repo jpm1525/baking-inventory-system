@@ -38,6 +38,10 @@ public class UserMaintenanceServiceImpl {
 
 	public List<UserEntity> getData() throws Exception {
 		List<UserEntity> userIds = userMaintenanceDAO.getData();
+		userIds.forEach(userId -> {
+			userId.setPassword(null);
+		});
+		
 		return userIds;
 	}
 
