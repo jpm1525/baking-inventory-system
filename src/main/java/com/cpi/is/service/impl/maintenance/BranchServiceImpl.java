@@ -14,7 +14,7 @@ import com.cpi.is.util.JsonEscapeUtil;
 public class BranchServiceImpl implements BranchService {
 
 	private BranchDAOImpl branchDAO;
-	
+
 	public BranchDAOImpl getBranchDAO() {
 		return branchDAO;
 	}
@@ -22,17 +22,15 @@ public class BranchServiceImpl implements BranchService {
 	public void setBranchDAO(BranchDAOImpl branchDAO) {
 		this.branchDAO = branchDAO;
 	}
-	
+
 	private BranchEntity jsonToEntity(JSONObject json) {
-		return new BranchEntity(
-				Long.parseLong(json.getString("branchId")),
-				json.getString("branchName"));
+		return new BranchEntity(Long.parseLong(json.getString("branchId")), json.getString("branchName"));
 	}
 
 	@Override
 	public List<BranchEntity> getData() throws Exception {
 		List<BranchEntity> branches = branchDAO.getData();
-		for (BranchEntity branch: branches) {
+		for (BranchEntity branch : branches) {
 			branch.setBranchName(JsonEscapeUtil.escape(branch.getBranchName()));
 		}
 		return branches;
@@ -42,16 +40,15 @@ public class BranchServiceImpl implements BranchService {
 	public String saveData(HttpServletRequest request) throws Exception {
 		String validation = validateData(request);
 		String results = "";
-		
-		if(validation.equals("success")) {
+
+		if (validation.equals("success")) {
 			try {
-				results = 	branchDAO.saveData(
-						jsonToEntity(new JSONObject(request.getParameter("data"))));
-			} catch(Exception e) {
+				results = branchDAO.saveData(jsonToEntity(new JSONObject(request.getParameter("data"))));
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
-			if(results.equals("success")) {
+
+			if (results.equals("success")) {
 				return results;
 			} else {
 				return "Unable to save Branch Data";
@@ -65,16 +62,15 @@ public class BranchServiceImpl implements BranchService {
 	public String deleteData(HttpServletRequest request) throws Exception {
 		String validation = validateData(request);
 		String results = "";
-		
-		if(validation.equals("success")) {
+
+		if (validation.equals("success")) {
 			try {
-				results = 	branchDAO.deleteData(
-						jsonToEntity(new JSONObject(request.getParameter("data"))));
-			} catch(Exception e) {
+				results = branchDAO.deleteData(jsonToEntity(new JSONObject(request.getParameter("data"))));
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
-			if(results.equals("success")) {
+
+			if (results.equals("success")) {
 				return results;
 			} else {
 				return "Unable to delete Branch Data";
@@ -83,15 +79,15 @@ public class BranchServiceImpl implements BranchService {
 			return "Unable to delete Branch data";
 		}
 	}
-	
-	public String validateData(HttpServletRequest request) throws Exception{
+
+	public String validateData(HttpServletRequest request) throws Exception {
 		JSONObject json = new JSONObject(request.getParameter("data"));
 		String validation = "success";
 		String errorResult = "Please fill-out the branch form properly";
-		
+
 		if (!json.has("branchId") || !(json.get("branchId") instanceof String)) {
 			validation = errorResult;
-		} else if(!json.has("branchName") || !(json.get("branchName") instanceof String)) {
+		} else if (!json.has("branchName") || !(json.get("branchName") instanceof String)) {
 			validation = errorResult;
 		} else if (json.getString("branchId").length() < 1 || json.getString("branchId").length() > 14) {
 			validation = errorResult;
@@ -99,8 +95,8 @@ public class BranchServiceImpl implements BranchService {
 			validation = errorResult;
 		} else if (json.getString("branchName").length() < 1 && json.getString("branchName").length() > 50) {
 			validation = errorResult;
-		} 
-		
+		}
+
 		return validation;
 	}
 

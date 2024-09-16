@@ -1,73 +1,73 @@
-if (typeof data === 'undefined' || data === null) {let data = "";}
-if (typeof callback === 'undefined' || callback === null) {let callback = "";}
-if (typeof observer === 'undefined' || observer === null) {let observer = "";}
+if (typeof data === 'undefined' || data === null) { let data = ""; }
+if (typeof callback === 'undefined' || callback === null) { let callback = ""; }
+if (typeof observer === 'undefined' || observer === null) { let observer = ""; }
 
-var editButton = function(value, data, cell, row, options){
+var editButton = function(value, data, cell, row, options) {
 	let thisButton = '<button class="px-4 py-2 text-white bg-indigo-500 rounded editModalButton"> Edit </button>';
-		thisButton +='<button class="px-4 py-2 ml-5 text-white bg-red-500 rounded deleteModalButton"> Delete </button>';
-    return thisButton;
+	thisButton += '<button class="px-4 py-2 ml-5 text-white bg-red-500 rounded deleteModalButton"> Delete </button>';
+	return thisButton;
 };
 
-var divTable = new Tabulator("#divTableTabulator" , {
-	layout:"fitColumns",
+var divTable = new Tabulator("#divTableTabulator", {
+	layout: "fitColumns",
 	data: userMain,
 	pagination: 'local',
 	pagination: true,
 	paginationSize: 10,
-	paginationSizeSelector:[5, 10, 15, 20],
-	paginationCounter:"rows",
-	selectableRows:1,
+	paginationSizeSelector: [5, 10, 15, 20],
+	paginationCounter: "rows",
+	selectableRows: 1,
 	columns: [
-		{title:"User ID", field: 'userId', minWidth:50},
-		{title:"Username", field: 'username', minWidth:100},
-		{title:"Password", field: 'password', minWidth:100},
-		{title:"Branch ID", field: 'branchId', minWidth:100},
-		{title:"Action", headerSort:false, formatter:editButton, minWidth:200},
+		{ title: "User ID", field: 'userId', minWidth: 50 },
+		{ title: "Username", field: 'username', minWidth: 100 },
+		{ title: "Password", field: 'password', minWidth: 100 },
+		{ title: "Branch ID", field: 'branchId', minWidth: 100 },
+		{ title: "Action", headerSort: false, formatter: editButton, minWidth: 200 },
 	],
 });
 
-$(".userForm").submit(function(e){
+$(".userForm").submit(function(e) {
 	e.preventDefault();
 });
 
-divTable.on('rowClick',function() {
+divTable.on('rowClick', function() {
 	let row = divTable.getSelectedData()[0];
 	if (row !== undefined) {
 		populateForm(row);
-	} 
+	}
 })
 
 callback = function(mutationsList, observer) {
-    for(let mutation of mutationsList) {
-        if (mutation.type === 'childList') {
+	for (let mutation of mutationsList) {
+		if (mutation.type === 'childList') {
 			$(".editModalButton").off("click");
-            $(".editModalButton").on('click', function(){
-                editModal.classList.remove("closing");
-                editModal.showModal();
-                editModal.classList.add("showing");
-            });
+			$(".editModalButton").on('click', function() {
+				editModal.classList.remove("closing");
+				editModal.showModal();
+				editModal.classList.add("showing");
+			});
 			$(".deleteModalButton").off("click");
-            $(".deleteModalButton").on('click', function(){
-                $("#deleteModal").removeClass("closing")
-                deleteModal.showModal();
-                $("#deleteModal").addClass("showing")
-            });
-        }
-    }
+			$(".deleteModalButton").on('click', function() {
+				$("#deleteModal").removeClass("closing")
+				deleteModal.showModal();
+				$("#deleteModal").addClass("showing")
+			});
+		}
+	}
 };
 
 observer = new MutationObserver(callback);
 observer.observe(document.getElementById('divTableTabulator'), { childList: true, subtree: true });
 
-$("#btnUserMain").click(function(){
-	$.get("MaintenanceController",{
+$("#btnUserMain").click(function() {
+	$.get("MaintenanceController", {
 		action: "showUserMain"
-		}, function(response){
+	}, function(response) {
 		$("#divContent").html(response)
 	});
-});	
+});
 
-$('#deleteSaveModalButton').click(function(event){
+$('#deleteSaveModalButton').click(function(event) {
 	event.stopImmediatePropagation();
 	$.post('MaintenanceController', {
 		action: 'deleteUserMaintenanceData',
@@ -80,7 +80,7 @@ $('#deleteSaveModalButton').click(function(event){
 			$('.errorMessage').text(response);
 		}
 	});
-});	
+});
 
 function populateForm(row) {
 	$('#userIdUpdate').val(row.userId);
@@ -101,20 +101,20 @@ function validate(data) {
 	if (data.username === '' || data.password === '' | data.branchId === '') {
 		$('.errorMessage').text("Please correctly fill-out all required fields");
 		valid = false;
-	} else if (data.username.length > 50){
+	} else if (data.username.length > 50) {
 		$('.errorMessage').text("User Name characters should be less than 51");
 		valid = false;
-	} else if (data.password.length > 50){
+	} else if (data.password.length > 50) {
 		$('.errorMessage').text("Password characters should be less than 51");
 		valid = false;
-	} else if (data.branchId.length > 50){
+	} else if (data.branchId.length > 50) {
 		$('.errorMessage').text("Branch ID characters should be less than 51");
 		valid = false;
-	} 
+	}
 	return valid;
 }
 
-function sendData(data){
+function sendData(data) {
 	if (validate(data)) {
 		$.post('MaintenanceController', {
 			action: 'saveUserMaintenanceData',

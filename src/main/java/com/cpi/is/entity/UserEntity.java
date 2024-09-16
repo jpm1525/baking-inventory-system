@@ -14,81 +14,82 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="QKC_USER")
-public class UserEntity implements Serializable{
+@Table(name = "QKC_USER")
+public class UserEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-		
-		@Id
-		@Column(name="USER_ID")
-	    @GeneratedValue(strategy = GenerationType.IDENTITY)
-		private Long userId;
-		private String username;
-		private String password;
-		@Column(name="BRANCH_ID")
-		private Long branchId;
-		
-		@ManyToOne
-		@JoinColumn(name="BRANCH_ID", insertable=false, updatable=false)
-		private BranchEntity branch;
-		
-		public Long getBranchId() {
-			return branchId;
-		}
 
-		public void setBranchId(Long branchId) {
-			this.branchId = branchId;
-		}
+	@Id
+	@Column(name = "USER_ID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long userId;
+	private String username;
+	private String password;
+	@Column(name = "BRANCH_ID")
+	private Long branchId;
 
-		public BranchEntity getBranch() {
-			return branch;
-		}
+	@ManyToOne
+	@JoinColumn(name = "BRANCH_ID", insertable = false, updatable = false)
+	private BranchEntity branch;
 
-		public void setBranch(BranchEntity branch) {
-			this.branch = branch;
-		}
+	public UserEntity() {
+		super();
+	}
 
-		public UserEntity() {
-			super();
-			// TODO Auto-generated constructor stub
-		}
+	public UserEntity(Long userId, String username, String password, Long branchId) {
+		super();
+		this.userId = userId;
+		this.username = username;
+		this.password = password;
+		this.branchId = branchId;
+	}
 
-		public UserEntity(Long userId, String username, String password, Long branchId) {
-			super();
-			this.userId = userId;
-			this.username = username;
-			this.password = password;
-			this.branchId = branchId;
-		}
+	// Getters and Setters
 
-		public Long getUserId() {
-			return userId;
-		}
+	public Long getBranchId() {
+		return branchId;
+	}
 
-		public void setUserId(Long userId) {
-			this.userId = userId;
-		}
+	public void setBranchId(Long branchId) {
+		this.branchId = branchId;
+	}
 
-		public String getUsername() {
-			return username;
-		}
+	public BranchEntity getBranch() {
+		return branch;
+	}
 
-		public void setUsername(String username) {
-			this.username = username;
-		}
+	public void setBranch(BranchEntity branch) {
+		this.branch = branch;
+	}
 
-		public String getPassword() {
-			return password;
-		}
+	public Long getUserId() {
+		return userId;
+	}
 
-		public void setPassword(String password) {
-			this.password = password;
-		}
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
 
-		@Override
-		public String toString() {
-			return "UserEntity [userId=" + userId + ", username=" + username + ", password=" + password + ", branchId="
-					+ branchId + "]";
-		}
-		
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	@Override
+	public String toString() {
+		return "UserEntity [userId=" + userId + ", username=" + username + ", password=" + password + ", branchId="
+				+ branchId + "]";
+	}
+
 }

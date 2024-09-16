@@ -9,23 +9,19 @@ import jakarta.persistence.Table;
 @Table(name = "qkc_raw_material")
 public class MaterialEntity {
 
-    @Id
-    @Column(name = "material_cd")
-    private String materialCd;
+	@Id
+	@Column(name = "material_cd")
+	private String materialCd;
 
-    @Column(name = "material_name")
-    private String materialName;
+	@Column(name = "material_name")
+	private String materialName;
 
-    @Column(name = "unit_of_measurement")
-    private String unitOfMeasurement;
-    
-    
+	@Column(name = "unit_of_measurement")
+	private String unitOfMeasurement;
 
 	public MaterialEntity() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	
 
 	public MaterialEntity(String materialCd, String materialName, String unitOfMeasurement) {
 		super();
@@ -34,6 +30,7 @@ public class MaterialEntity {
 		this.unitOfMeasurement = unitOfMeasurement;
 	}
 
+	// Getters and Setters
 
 	public String getMaterialCd() {
 		return materialCd;
@@ -59,12 +56,10 @@ public class MaterialEntity {
 		this.unitOfMeasurement = unitOfMeasurement;
 	}
 
-
 	@Override
 	public String toString() {
 		return "MaterialEntity [materialCd=" + materialCd + ", materialName=" + materialName + ", unitOfMeasurement="
 				+ unitOfMeasurement + "]";
 	}
-	
-    
+
 }

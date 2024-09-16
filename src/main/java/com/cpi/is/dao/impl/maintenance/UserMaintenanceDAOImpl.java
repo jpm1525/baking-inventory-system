@@ -9,18 +9,18 @@ import com.cpi.is.dao.maintenance.UserMaintenanceDAO;
 import com.cpi.is.entity.UserEntity;
 import com.cpi.is.util.HBUtil;
 
-public class UserMaintenanceDAOImpl implements UserMaintenanceDAO{
-	
+public class UserMaintenanceDAOImpl implements UserMaintenanceDAO {
+
 	@Override
 	public List<UserEntity> getData() throws Exception {
 		List<UserEntity> user = null;
 		try (Session session = HBUtil.getSessionFactory().openSession()) {
-			user = (List<UserEntity>) 
-					session.createQuery("FROM UserEntity T ORDER BY T.userId DESC", UserEntity.class).list();
+			user = (List<UserEntity>) session.createQuery("FROM UserEntity T ORDER BY T.userId DESC", UserEntity.class)
+					.list();
 		}
 		return user;
 	}
-	
+
 	@Override
 	public String saveData(UserEntity data) throws Exception {
 		Transaction transaction = null;
@@ -28,9 +28,9 @@ public class UserMaintenanceDAOImpl implements UserMaintenanceDAO{
 			transaction = session.beginTransaction();
 			if (0 == data.getUserId()) {
 				data.setUserId(null);
-				session.persist(data);	// add a new record
+				session.persist(data); // add a new record
 			} else {
-				session.merge(data);	// update an existing record
+				session.merge(data); // update an existing record
 			}
 			transaction.commit();
 		} catch (Exception e) {

@@ -8,14 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONArray;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import com.cpi.is.entity.SessionEntity;
-import com.cpi.is.entity.UserEntity;
-import com.cpi.is.service.impl.RawMaterialListServiceImpl;
-import com.cpi.is.service.impl.maintenance.BranchServiceImpl;
 import com.cpi.is.util.SessionUtil;
 
 /**
@@ -24,24 +16,27 @@ import com.cpi.is.util.SessionUtil;
 @WebServlet("/DashboardController")
 public class DashboardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private static String page = "";
-    private static String action = "";      
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DashboardController() {
-        super();
-    }
+	private static String page = "";
+	private static String action = "";
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public DashboardController() {
+		super();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try {
-			
+
 			if (SessionUtil.checkUserSession(request)) {
 				HttpSession session = request.getSession();
-				
+
 				action = request.getParameter("action");
 
 				if ("showDashboard".equals(action)) {
@@ -64,9 +59,11 @@ public class DashboardController extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 

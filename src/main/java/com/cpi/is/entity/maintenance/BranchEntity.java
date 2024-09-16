@@ -9,19 +9,19 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="QKC_BRANCH")
+@Table(name = "QKC_BRANCH")
 public class BranchEntity implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
-	
-	@Id 
-	@Column(name="branch_id") 
+
+	@Id
+	@Column(name = "branch_id")
 	private Long branchId;
-	@Column(name="branch_name")
+	@Column(name = "branch_name")
 	private String branchName;
-	@Column(name="create_date", insertable = false, updatable = false)
+	@Column(name = "create_date", insertable = false, updatable = false)
 	private Date createDate;
-	@Column(name="update_date", insertable = false, updatable = false)
+	@Column(name = "update_date", insertable = false, updatable = false)
 	private Date updateDate;
 
 	public BranchEntity() {
@@ -33,6 +33,8 @@ public class BranchEntity implements Serializable {
 		this.branchId = branchId;
 		this.branchName = branchName;
 	}
+
+	// Getters and Setters
 
 	public Long getBranchId() {
 		return branchId;
@@ -57,5 +59,5 @@ public class BranchEntity implements Serializable {
 	public Date getUpdateDate() {
 		return updateDate;
 	}
-	
+
 }

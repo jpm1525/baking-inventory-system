@@ -14,7 +14,7 @@ import com.cpi.is.util.JsonEscapeUtil;
 public class ProductionMaterialServiceImpl implements ProductionMaterialService {
 
 	private ProductionMaterialDAOImpl productionMaterialDAO;
-	
+
 	public ProductionMaterialDAOImpl getProductionMaterialDAO() {
 		return productionMaterialDAO;
 	}
@@ -22,20 +22,17 @@ public class ProductionMaterialServiceImpl implements ProductionMaterialService 
 	public void setProductionMaterialDAO(ProductionMaterialDAOImpl productionMaterialDAO) {
 		this.productionMaterialDAO = productionMaterialDAO;
 	}
-	
+
 	private ProductionMaterialEntity jsonToEntity(JSONObject json) {
-		return new ProductionMaterialEntity(
-		        Long.parseLong(json.getString("pmId")), 
-		        Long.parseLong(json.getString("dppId")), 
-		        json.getString("materialCd"),
-		        Long.parseLong(json.getString("materialListId")), 
-		        Long.parseLong(json.getString("quantityToUse")));
+		return new ProductionMaterialEntity(Long.parseLong(json.getString("pmId")),
+				Long.parseLong(json.getString("dppId")), json.getString("materialCd"),
+				Long.parseLong(json.getString("materialListId")), Long.parseLong(json.getString("quantityToUse")));
 	}
 
 	@Override
 	public List<ProductionMaterialEntity> getData(String dppIdInput) throws Exception {
 		List<ProductionMaterialEntity> productionMaterials = productionMaterialDAO.getData(Long.parseLong(dppIdInput));
-		for (ProductionMaterialEntity productionMaterial: productionMaterials) {
+		for (ProductionMaterialEntity productionMaterial : productionMaterials) {
 			productionMaterial.setMaterialCd(JsonEscapeUtil.escape(productionMaterial.getMaterialCd()));
 		}
 		return productionMaterials;
@@ -44,22 +41,22 @@ public class ProductionMaterialServiceImpl implements ProductionMaterialService 
 	@Override
 	public String saveData(HttpServletRequest request, List<RawMaterialListEntity> rawMaterialList) throws Exception {
 		String validation = validateData(request);
-		String results = "";	
-		
-		if(validation.equals("success")) {
+		String results = "";
+
+		if (validation.equals("success")) {
 			String quantityValidation = validateQuantity(request, rawMaterialList);
-			if(quantityValidation.equals("success")) {
+			if (quantityValidation.equals("success")) {
 				try {
-					results = 	productionMaterialDAO.saveData(
-							jsonToEntity(new JSONObject(request.getParameter("data"))));
-				} catch(Exception e) {
+					results = productionMaterialDAO
+							.saveData(jsonToEntity(new JSONObject(request.getParameter("data"))));
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			} else {
 				return quantityValidation;
 			}
-			
-			if(results.equals("success")) {
+
+			if (results.equals("success")) {
 				return results;
 			} else {
 				return "Unable to save Production Material Data";
@@ -73,16 +70,15 @@ public class ProductionMaterialServiceImpl implements ProductionMaterialService 
 	public String deleteData(HttpServletRequest request) throws Exception {
 		String validation = validateData(request);
 		String results = "";
-		
-		if(validation.equals("success")) {
+
+		if (validation.equals("success")) {
 			try {
-				results = 	productionMaterialDAO.deleteData(
-						jsonToEntity(new JSONObject(request.getParameter("data"))));
-			} catch(Exception e) {
+				results = productionMaterialDAO.deleteData(jsonToEntity(new JSONObject(request.getParameter("data"))));
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
-			if(results.equals("success")) {
+
+			if (results.equals("success")) {
 				return results;
 			} else {
 				return "Unable to delete Production Material Data";
@@ -91,8 +87,8 @@ public class ProductionMaterialServiceImpl implements ProductionMaterialService 
 			return "Unable to delete Production Material data";
 		}
 	}
-	
-	public String validateData(HttpServletRequest request) throws Exception{
+
+	public String validateData(HttpServletRequest request) throws Exception {
 		JSONObject json = new JSONObject(request.getParameter("data"));
 		String validation = "success";
 		String errorResult = "Please fill-out the production material form properly";
@@ -125,49 +121,49 @@ public class ProductionMaterialServiceImpl implements ProductionMaterialService 
 			validation = errorResult;
 		} else if (!json.getString("quantityToUse").matches("^[0-9]\\d*$")) {
 			validation = errorResult;
-		} 
-		
+		}
+
 		return validation;
 	}
-	
-	public String validateQuantity(HttpServletRequest request, List<RawMaterialListEntity> rawMaterialList) throws Exception{
+
+	public String validateQuantity(HttpServletRequest request, List<RawMaterialListEntity> rawMaterialList)
+			throws Exception {
 		JSONObject json = new JSONObject(request.getParameter("data"));
 		String validation = "success";
 		String errorResult = "Please fill-out the production material form properly";
 
 		List<ProductionMaterialEntity> productionMaterials = getData(json.getString("dppId"));
-		outerloop:
-        for (RawMaterialListEntity rawMaterial : rawMaterialList) {
-	    	if(rawMaterial.getMaterialListId() == Long.parseLong(json.getString("materialListId"))) {
-	    		for(ProductionMaterialEntity productionMaterial : productionMaterials) {
-	    			if(productionMaterial.getPmId() == Long.parseLong(json.getString("pmId"))) {
-			    		if((rawMaterial.getQuantity() + productionMaterial.getQuantityToUse()) 
-			    				< Long.parseLong(json.getString("quantityToUse"))) {
-			    			validation = errorResult;
-			    			break outerloop;
-			    		}
-	    			}
-	    		}	
-	    	}
-        }
+		outerloop: for (RawMaterialListEntity rawMaterial : rawMaterialList) {
+			if (rawMaterial.getMaterialListId() == Long.parseLong(json.getString("materialListId"))) {
+				for (ProductionMaterialEntity productionMaterial : productionMaterials) {
+					if (productionMaterial.getPmId() == Long.parseLong(json.getString("pmId"))) {
+						if ((rawMaterial.getQuantity() + productionMaterial.getQuantityToUse()) < Long
+								.parseLong(json.getString("quantityToUse"))) {
+							validation = errorResult;
+							break outerloop;
+						}
+					}
+				}
+			}
+		}
 
 		return validation;
 	}
-	
+
 	public Boolean validateDppId(HttpServletRequest request) {
 		String dppIdInput = "";
-			if(request.getParameter("dppIdInput") instanceof String) {
-				dppIdInput = request.getParameter("dppIdInput");
-			} else {
-				return false;
-			}
-			
-			if (dppIdInput.length() < 1 || dppIdInput.length() > 14) {
-				return false;
-			} else if (!dppIdInput.matches("^[1-9]\\d*$")) {
-				return false;
-			}
-			
+		if (request.getParameter("dppIdInput") instanceof String) {
+			dppIdInput = request.getParameter("dppIdInput");
+		} else {
+			return false;
+		}
+
+		if (dppIdInput.length() < 1 || dppIdInput.length() > 14) {
+			return false;
+		} else if (!dppIdInput.matches("^[1-9]\\d*$")) {
+			return false;
+		}
+
 		return true;
 	}
 

@@ -12,22 +12,25 @@ import org.json.JSONArray;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.cpi.is.entity.UserEntity;
 import com.cpi.is.service.impl.RawMaterialListServiceImpl;
 import com.cpi.is.service.impl.maintenance.BranchServiceImpl;
 import com.cpi.is.service.impl.maintenance.MaterialCodeServiceImpl;
 import com.cpi.is.util.SessionUtil;
 
 /**
- * Servlet implementation class DashboardController
+ * Controller for handling requests related to raw material lists.
+ * Maps to the /RawMaterialListController endpoint.
  */
 @WebServlet("/RawMaterialListController")
 public class RawMaterialListController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
+	
+    // Variables for navigation and action control
     private static String page = "";
     private static String action = "";
-       
+
+    // Load Spring beans from beans.xml
     private ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
 	private RawMaterialListServiceImpl rawMaterialListService = (RawMaterialListServiceImpl) context.getBean("rawMaterialListService");
 	private MaterialCodeServiceImpl materialCodeService = (MaterialCodeServiceImpl) context.getBean("materialCodeService");
@@ -45,12 +48,15 @@ public class RawMaterialListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
+			// Check if user session is active
 			if (SessionUtil.checkUserSession(request)) {
 				action = request.getParameter("action");
 				HttpSession session = request.getSession();
 				Long branchId = Long.parseLong(session.getAttribute("branchId").toString());
-				
+
+				// If action is "showRawMaterialList", fetch the data and set it in the request attributes
 				if ("showRawMaterialList".equals(action)) {
+					// Populate raw material list and related data
 					request.setAttribute("rawMaterialList", new JSONArray(rawMaterialListService.getData(branchId)));
 					request.setAttribute("materialCode", new JSONArray(materialCodeService.getData()));
 					request.setAttribute("branchId", new JSONArray(branchService.getData()));

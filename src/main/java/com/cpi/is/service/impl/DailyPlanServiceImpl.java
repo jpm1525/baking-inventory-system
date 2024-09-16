@@ -15,14 +15,13 @@ import org.json.JSONObject;
 
 import com.cpi.is.dao.impl.DailyPlanDAOImpl;
 import com.cpi.is.entity.DailyPlanEntity;
-import com.cpi.is.entity.maintenance.DispatchTypeEntity;
 import com.cpi.is.service.DailyPlanService;
 import com.cpi.is.util.JsonEscapeUtil;
 
-public class DailyPlanServiceImpl implements DailyPlanService{
+public class DailyPlanServiceImpl implements DailyPlanService {
 
 	private DailyPlanDAOImpl dailyPlanDAO;
-	
+
 	public DailyPlanDAOImpl getDailyPlanDAO() {
 		return dailyPlanDAO;
 	}
@@ -30,7 +29,7 @@ public class DailyPlanServiceImpl implements DailyPlanService{
 	public void setDailyPlanDAO(DailyPlanDAOImpl dailyPlanDAO) {
 		this.dailyPlanDAO = dailyPlanDAO;
 	}
-	
+
 	private DailyPlanEntity jsonToEntity(JSONObject json) {
 		Date date1 = null;
 		try {
@@ -40,19 +39,15 @@ public class DailyPlanServiceImpl implements DailyPlanService{
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		return new DailyPlanEntity(
-		        Integer.parseInt(json.getString("dppId")),
-		        date1,
-		        Integer.parseInt(json.getString("branchId")),
-		        json.getString("skuCd"),
-		        Integer.parseInt(json.getString("quantity")),
-		        json.getString("status"));
+		return new DailyPlanEntity(Integer.parseInt(json.getString("dppId")), date1,
+				Integer.parseInt(json.getString("branchId")), json.getString("skuCd"),
+				Integer.parseInt(json.getString("quantity")), json.getString("status"));
 	}
 
 	@Override
 	public List<DailyPlanEntity> getData(Long branchId) throws Exception {
 		List<DailyPlanEntity> dailyPlans = dailyPlanDAO.getData(branchId);
-		for (DailyPlanEntity dailyPlan: dailyPlans) {
+		for (DailyPlanEntity dailyPlan : dailyPlans) {
 			dailyPlan.setSkuCd(JsonEscapeUtil.escape(dailyPlan.getSkuCd()));
 			dailyPlan.setStatus(JsonEscapeUtil.escape(dailyPlan.getStatus()));
 		}
@@ -63,16 +58,15 @@ public class DailyPlanServiceImpl implements DailyPlanService{
 	public String saveData(HttpServletRequest request) throws Exception {
 		String validation = validateData(request);
 		String results = "";
-		
-		if(validation.equals("success")) {
+
+		if (validation.equals("success")) {
 			try {
-				results = 	dailyPlanDAO.saveData(
-						jsonToEntity(new JSONObject(request.getParameter("data"))));
-			} catch(Exception e) {
+				results = dailyPlanDAO.saveData(jsonToEntity(new JSONObject(request.getParameter("data"))));
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
-			if(results.equals("success")) {
+
+			if (results.equals("success")) {
 				return results;
 			} else {
 				return "Unable to save Raw Material List Data";
@@ -86,16 +80,15 @@ public class DailyPlanServiceImpl implements DailyPlanService{
 	public String deleteData(HttpServletRequest request) throws Exception {
 		String validation = validateData(request);
 		String results = "";
-		
-		if(validation.equals("success")) {
+
+		if (validation.equals("success")) {
 			try {
-				results = 	dailyPlanDAO.deleteData(
-						jsonToEntity(new JSONObject(request.getParameter("data"))));
-			} catch(Exception e) {
+				results = dailyPlanDAO.deleteData(jsonToEntity(new JSONObject(request.getParameter("data"))));
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
-			if(results.equals("success")) {
+
+			if (results.equals("success")) {
 				return results;
 			} else {
 				return "Unable to delete Raw Material List Data";
@@ -104,12 +97,12 @@ public class DailyPlanServiceImpl implements DailyPlanService{
 			return "Unable to delete Raw Material List data";
 		}
 	}
-	
-	public String validateData(HttpServletRequest request) throws Exception{
+
+	public String validateData(HttpServletRequest request) throws Exception {
 		JSONObject json = new JSONObject(request.getParameter("data"));
 		String validation = "success";
 		String errorResult = "Please fill-out the daily planned production form properly";
-		
+
 		if (!json.has("dppId") || !(json.get("dppId") instanceof String)) {
 			validation = errorResult;
 		} else if (!json.has("productionDate") || !(json.get("productionDate") instanceof String)) {
@@ -139,11 +132,11 @@ public class DailyPlanServiceImpl implements DailyPlanService{
 		} else if (json.getString("skuCd").length() < 1 || json.getString("skuCd").length() > 20) {
 			validation = errorResult;
 		} else {
-	        try {
-	        	LocalDate.parse(json.getString("productionDate"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-	        } catch (DateTimeParseException e) {
-	        	validation = errorResult;
-	        }
+			try {
+				LocalDate.parse(json.getString("productionDate"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+			} catch (DateTimeParseException e) {
+				validation = errorResult;
+			}
 		}
 		return validation;
 	}

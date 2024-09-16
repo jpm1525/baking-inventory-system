@@ -9,21 +9,21 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="QKC_SKU")
+@Table(name = "QKC_SKU")
 public class SkuCodeEntity implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
-	
-	@Id 
-	@Column(name="sku_cd") 
+
+	@Id
+	@Column(name = "sku_cd")
 	private String skuCd;
-	@Column(name="sku_name")
+	@Column(name = "sku_name")
 	private String skuCodeName;
-	@Column(name="unit_of_measurement")
+	@Column(name = "unit_of_measurement")
 	private String unitOfMeasurement;
-	@Column(name="create_date", insertable = false, updatable = false)
+	@Column(name = "create_date", insertable = false, updatable = false)
 	private Date createDate;
-	@Column(name="update_date", insertable = false, updatable = false)
+	@Column(name = "update_date", insertable = false, updatable = false)
 	private Date updateDate;
 
 	public SkuCodeEntity() {
@@ -36,6 +36,8 @@ public class SkuCodeEntity implements Serializable {
 		this.skuCodeName = skuCodeName;
 		this.unitOfMeasurement = unitOfMeasurement;
 	}
+
+	// Getters and Setters
 
 	public String getSkuCd() {
 		return skuCd;
@@ -52,7 +54,7 @@ public class SkuCodeEntity implements Serializable {
 	public void setSkuCodeName(String skuCodeName) {
 		this.skuCodeName = skuCodeName;
 	}
-	
+
 	public String getUnitOfMeasurement() {
 		return unitOfMeasurement;
 	}

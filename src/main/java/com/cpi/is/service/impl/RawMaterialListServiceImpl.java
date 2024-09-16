@@ -21,7 +21,7 @@ import com.cpi.is.util.JsonEscapeUtil;
 public class RawMaterialListServiceImpl implements RawMaterialListService {
 
 	private RawMaterialListDAOImpl rawMaterialListDAO;
-	
+
 	public RawMaterialListDAOImpl getRawMaterialListDAO() {
 		return rawMaterialListDAO;
 	}
@@ -29,7 +29,7 @@ public class RawMaterialListServiceImpl implements RawMaterialListService {
 	public void setRawMaterialListDAO(RawMaterialListDAOImpl rawMaterialListDAO) {
 		this.rawMaterialListDAO = rawMaterialListDAO;
 	}
-	
+
 	private RawMaterialListEntity jsonToEntity(JSONObject json) {
 		Date date1 = null;
 		try {
@@ -39,19 +39,15 @@ public class RawMaterialListServiceImpl implements RawMaterialListService {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		return new RawMaterialListEntity(
-		        Long.parseLong(json.getString("materialListId")),
-		        json.getString("materialCd"), 
-		        Long.parseLong(json.getString("quantity")), 
-		        Long.parseLong(json.getString("userId")), 
-		        date1, 
-		        Long.parseLong(json.getString("branchId")));
+		return new RawMaterialListEntity(Long.parseLong(json.getString("materialListId")), json.getString("materialCd"),
+				Long.parseLong(json.getString("quantity")), Long.parseLong(json.getString("userId")), date1,
+				Long.parseLong(json.getString("branchId")));
 	}
 
 	@Override
 	public List<RawMaterialListEntity> getData(Long branchId) throws Exception {
 		List<RawMaterialListEntity> rawMaterialLists = rawMaterialListDAO.getData(branchId);
-		for (RawMaterialListEntity rawMaterialList: rawMaterialLists) {
+		for (RawMaterialListEntity rawMaterialList : rawMaterialLists) {
 			rawMaterialList.setMaterialCd(JsonEscapeUtil.escape(rawMaterialList.getMaterialCd()));
 		}
 		return rawMaterialLists;
@@ -62,15 +58,14 @@ public class RawMaterialListServiceImpl implements RawMaterialListService {
 		String validation = validateData(request);
 		String results = "";
 
-		if(validation.equals("success")) {
+		if (validation.equals("success")) {
 			try {
-				results = 	rawMaterialListDAO.saveData(
-						jsonToEntity(new JSONObject(request.getParameter("data"))));
-			} catch(Exception e) {
+				results = rawMaterialListDAO.saveData(jsonToEntity(new JSONObject(request.getParameter("data"))));
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
-			if(results.equals("success")) {
+
+			if (results.equals("success")) {
 				return results;
 			} else {
 				return "Unable to save Raw Material List Data";
@@ -84,16 +79,15 @@ public class RawMaterialListServiceImpl implements RawMaterialListService {
 	public String deleteData(HttpServletRequest request) throws Exception {
 		String validation = validateData(request);
 		String results = "";
-		
-		if(validation.equals("success")) {
+
+		if (validation.equals("success")) {
 			try {
-				results = 	rawMaterialListDAO.deleteData(
-						jsonToEntity(new JSONObject(request.getParameter("data"))));
-			} catch(Exception e) {
+				results = rawMaterialListDAO.deleteData(jsonToEntity(new JSONObject(request.getParameter("data"))));
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 
-			if(results.equals("success")) {
+			if (results.equals("success")) {
 				return results;
 			} else {
 				return "Unable to delete Raw Material List Data";
@@ -102,12 +96,12 @@ public class RawMaterialListServiceImpl implements RawMaterialListService {
 			return "Unable to delete Raw Material List data";
 		}
 	}
-	
-	public String validateData(HttpServletRequest request) throws Exception{
+
+	public String validateData(HttpServletRequest request) throws Exception {
 		JSONObject json = new JSONObject(request.getParameter("data"));
 		String validation = "success";
 		String errorResult = "Please fill-out the raw material list form properly";
-		
+
 		if (!json.has("materialListId") || !(json.get("materialListId") instanceof String)) {
 			validation = errorResult;
 		} else if (!json.has("materialCd") || !(json.get("materialCd") instanceof String)) {
@@ -139,11 +133,11 @@ public class RawMaterialListServiceImpl implements RawMaterialListService {
 		} else if (!json.getString("branchId").matches("^[1-9]\\d*$")) {
 			validation = errorResult;
 		} else {
-	        try {
-	        	LocalDate.parse(json.getString("dateReceive"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-	        } catch (DateTimeParseException e) {
-	        	validation = errorResult;
-	        }
+			try {
+				LocalDate.parse(json.getString("dateReceive"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+			} catch (DateTimeParseException e) {
+				validation = errorResult;
+			}
 		}
 		return validation;
 	}

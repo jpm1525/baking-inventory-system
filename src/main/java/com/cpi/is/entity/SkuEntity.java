@@ -9,27 +9,22 @@ import jakarta.persistence.Table;
 @Table(name = "qkc_sku")
 public class SkuEntity {
 
-    @Id
-    @Column(name = "sku_cd")
-    private String skuCd;
+	@Id
+	@Column(name = "sku_cd")
+	private String skuCd;
 
-    @Column(name = "sku_name")
-    private String skuName;
+	@Column(name = "sku_name")
+	private String skuName;
 
-    @Column(name = "unit_of_measurement")
-    private String unitOfMeasurement;
+	@Column(name = "unit_of_measurement")
+	private String unitOfMeasurement;
 
-    @Column(name = "batch_number")
-    private Integer batchNumber;
-    
-    
+	@Column(name = "batch_number")
+	private Integer batchNumber;
 
 	public SkuEntity() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	
-	
 
 	public SkuEntity(String skuCd, String skuName, String unitOfMeasurement, Integer batchNumber) {
 		super();
@@ -39,7 +34,7 @@ public class SkuEntity {
 		this.batchNumber = batchNumber;
 	}
 
-
+	// Getters and Setters
 
 	public String getSkuCd() {
 		return skuCd;
@@ -78,5 +73,5 @@ public class SkuEntity {
 		return "SkuEntity [skuCd=" + skuCd + ", skuName=" + skuName + ", unitOfMeasurement=" + unitOfMeasurement
 				+ ", batchNumber=" + batchNumber + "]";
 	}
-    
+
 }

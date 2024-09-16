@@ -11,12 +11,11 @@ import com.cpi.is.dao.impl.maintenance.UserMaintenanceDAOImpl;
 import com.cpi.is.entity.UserEntity;
 import com.cpi.is.util.JsonEscapeUtil;
 
-
 public class UserMaintenanceServiceImpl {
-	
+
 	private UserMaintenanceDAOImpl userMaintenanceDAO;
 	private BCryptPasswordEncoder passwordEncoder;
-	
+
 	public BCryptPasswordEncoder getPasswordEncoder() {
 		return passwordEncoder;
 	}
@@ -24,7 +23,7 @@ public class UserMaintenanceServiceImpl {
 	public void setPasswordEncoder(BCryptPasswordEncoder passwordEncoder) {
 		this.passwordEncoder = passwordEncoder;
 	}
-	
+
 	public UserMaintenanceDAOImpl getUserMaintenanceDAO() {
 		return userMaintenanceDAO;
 	}
@@ -32,18 +31,15 @@ public class UserMaintenanceServiceImpl {
 	public void setUserMaintenanceDAO(UserMaintenanceDAOImpl userMaintenanceDAO) {
 		this.userMaintenanceDAO = userMaintenanceDAO;
 	}
-	
+
 	private UserEntity jsonToEntity(JSONObject json) {
-		return new UserEntity(
-				json.getLong("userId"),
-				json.getString("username"),
-				passwordEncoder.encode(json.getString("password")),
-				json.getLong("branchId"));
+		return new UserEntity(json.getLong("userId"), json.getString("username"),
+				passwordEncoder.encode(json.getString("password")), json.getLong("branchId"));
 	}
-	
+
 	public List<UserEntity> getData() throws Exception {
 		List<UserEntity> userIds = userMaintenanceDAO.getData();
-		for (UserEntity userId: userIds) {
+		for (UserEntity userId : userIds) {
 			userId.setUsername(JsonEscapeUtil.escape(userId.getUsername()));
 			userId.setPassword(JsonEscapeUtil.escape(userId.getPassword()));
 		}
@@ -53,15 +49,14 @@ public class UserMaintenanceServiceImpl {
 	public String saveData(HttpServletRequest request) throws Exception {
 		String validation = validateData(request);
 		String results = "";
-		
-		if(validation.equals("success")) {
+
+		if (validation.equals("success")) {
 			try {
-				results = 	userMaintenanceDAO.saveData(
-								jsonToEntity(new JSONObject(request.getParameter("data"))));
-			} catch(Exception e) {
+				results = userMaintenanceDAO.saveData(jsonToEntity(new JSONObject(request.getParameter("data"))));
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			if(results.equals("success")) {
+			if (results.equals("success")) {
 				return results;
 			} else {
 				return "Unable to save User Data";
@@ -74,15 +69,14 @@ public class UserMaintenanceServiceImpl {
 	public String deleteData(HttpServletRequest request) throws Exception {
 		String validation = validateData(request);
 		String results = "";
-		
-		if(validation.equals("success")) {
+
+		if (validation.equals("success")) {
 			try {
-				results = 	userMaintenanceDAO.deleteData(
-								jsonToEntity(new JSONObject(request.getParameter("data"))));
-			} catch(Exception e) {
+				results = userMaintenanceDAO.deleteData(jsonToEntity(new JSONObject(request.getParameter("data"))));
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			if(results.equals("success")) {
+			if (results.equals("success")) {
 				return results;
 			} else {
 				return "Unable to delete User Data";
@@ -91,12 +85,12 @@ public class UserMaintenanceServiceImpl {
 			return "Unable to delete User Data";
 		}
 	}
-	
-	public String validateData(HttpServletRequest request) throws Exception{
+
+	public String validateData(HttpServletRequest request) throws Exception {
 		JSONObject json = new JSONObject(request.getParameter("data"));
 		String validation = "success";
 		String errorResult = "Please fill-out the user form properly";
-		
+
 		if (!json.has("username") || !(json.get("username") instanceof String)) {
 			validation = errorResult;
 		} else if (!json.has("password") || !(json.get("password") instanceof String)) {
@@ -111,8 +105,8 @@ public class UserMaintenanceServiceImpl {
 			validation = errorResult;
 		} else if (!json.getString("branchId").matches("^[1-9]\\d*$")) {
 			validation = errorResult;
-		} 
-		
+		}
+
 		return validation;
 	}
 

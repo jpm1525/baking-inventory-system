@@ -1,7 +1,6 @@
 package com.cpi.is.entity;
 
 import com.cpi.is.entity.maintenance.MaterialCodeEntity;
-import com.cpi.is.entity.RawMaterialListEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,35 +15,35 @@ import jakarta.persistence.Table;
 @Table(name = "qkc_production_materials")
 public class ProductionMaterialEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pm_id")
-    private Long pmId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "pm_id")
+	private Long pmId;
 
-    @Column(name = "dpp_id")
-    private Long dppId;
+	@Column(name = "dpp_id")
+	private Long dppId;
 
-    @Column(name = "material_cd")
-    private String materialCd;
+	@Column(name = "material_cd")
+	private String materialCd;
 
-    @Column(name = "quantity_to_use")
-    private Long quantityToUse;
-    
-    @Column(name = "material_list_id")
-    private Long materialListId;
-    
+	@Column(name = "quantity_to_use")
+	private Long quantityToUse;
+
+	@Column(name = "material_list_id")
+	private Long materialListId;
+
 	@ManyToOne
 	@JoinColumn(name = "material_cd", insertable = false, updatable = false)
 	private MaterialCodeEntity materialCode;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "material_list_id", insertable = false, updatable = false)
 	private RawMaterialListEntity materialList;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "dpp_id", insertable = false, updatable = false)
 	private RawMaterialListEntity dailyPlannedProduction;
-    
+
 	public ProductionMaterialEntity() {
 		super();
 	}
@@ -57,6 +56,8 @@ public class ProductionMaterialEntity {
 		this.quantityToUse = quantityToUse;
 		this.materialListId = materialListId;
 	}
+
+	// Getters and Setters
 
 	public Long getMaterialListId() {
 		return materialListId;
@@ -128,5 +129,4 @@ public class ProductionMaterialEntity {
 				+ ", quantityToUse=" + quantityToUse + ", materialListId=" + materialListId + "]";
 	}
 
-	
 }

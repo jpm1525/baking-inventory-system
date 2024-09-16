@@ -13,7 +13,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.cpi.is.service.impl.FinishedProductListServiceImpl;
-import com.cpi.is.service.impl.maintenance.BranchServiceImpl;
 import com.cpi.is.service.impl.maintenance.SkuCodeServiceImpl;
 import com.cpi.is.util.SessionUtil;
 
@@ -22,34 +21,38 @@ import com.cpi.is.util.SessionUtil;
  */
 @WebServlet("/FinishedProductListController")
 public class FinishedProductListController extends HttpServlet {
-	
+
 	private static final long serialVersionUID = 1L;
-    private static String page = "";
-    private static String action = "";
-       
-    private ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
-	private FinishedProductListServiceImpl finishedProductListService = (FinishedProductListServiceImpl) context.getBean("finishedProductListService");
+	private static String page = "";
+	private static String action = "";
+
+	private ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+	private FinishedProductListServiceImpl finishedProductListService = (FinishedProductListServiceImpl) context
+			.getBean("finishedProductListService");
 	private SkuCodeServiceImpl skuCodeService = (SkuCodeServiceImpl) context.getBean("skuCodeService");
 
 	/**
-     * @see HttpServlet#HttpServlet()
-     */
-    public FinishedProductListController() {
-        super();
-    }
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public FinishedProductListController() {
+		super();
+	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try {
 			if (SessionUtil.checkUserSession(request)) {
 				action = request.getParameter("action");
 				HttpSession session = request.getSession();
 				Long branchId = Long.parseLong(session.getAttribute("branchId").toString());
-				
+
 				if ("showFinishedProductList".equals(action)) {
-					request.setAttribute("finishedProductList", new JSONArray(finishedProductListService.getData(branchId)));
+					request.setAttribute("finishedProductList",
+							new JSONArray(finishedProductListService.getData(branchId)));
 					request.setAttribute("sku", new JSONArray(skuCodeService.getData()));
 					request.setAttribute("userId", session.getAttribute("userId").toString());
 					request.setAttribute("branchIdUser", branchId);
@@ -73,9 +76,11 @@ public class FinishedProductListController extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 

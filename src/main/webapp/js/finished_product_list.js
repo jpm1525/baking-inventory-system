@@ -1,88 +1,88 @@
 $('.inputBranchId').val(branchId + ' - ' + branchName);
 
-function getSkuCode(){
+function getSkuCode() {
 	let html = '';
-		$.each(sku, function(index, data) {
-			html+= '<option value="' + data.skuCd + '">' + data.skuCd + ' - ' + data.skuCodeName + '</option>'
-		});
-		$('.selSkuCode').append(html);
+	$.each(sku, function(index, data) {
+		html += '<option value="' + data.skuCd + '">' + data.skuCd + ' - ' + data.skuCodeName + '</option>'
+	});
+	$('.selSkuCode').append(html);
 }
 
 getSkuCode();
 
-if (typeof data === 'undefined' || data === null) {let data = "";}
-if (typeof callback === 'undefined' || callback === null) {let callback = "";}
-if (typeof observer === 'undefined' || observer === null) {let observer = "";}
+if (typeof data === 'undefined' || data === null) { let data = ""; }
+if (typeof callback === 'undefined' || callback === null) { let callback = ""; }
+if (typeof observer === 'undefined' || observer === null) { let observer = ""; }
 
-var editButton = function(value, data, cell, row, options){
+var editButton = function(value, data, cell, row, options) {
 	let thisButton = '<button class="px-4 py-2 text-white bg-indigo-500 rounded editModalButton"> Edit </button>';
-		thisButton +='<button class="px-4 py-2 ml-5 text-white bg-red-500 rounded deleteModalButton"> Delete </button>'
-    return thisButton;
+	thisButton += '<button class="px-4 py-2 ml-5 text-white bg-red-500 rounded deleteModalButton"> Delete </button>'
+	return thisButton;
 };
 
-var divTable = new Tabulator("#divTableTabulator" , {
-	layout:"fitDataFill",
+var divTable = new Tabulator("#divTableTabulator", {
+	layout: "fitDataFill",
 	data: finishedProductList, //json parse 
 	pagination: 'local',
 	pagination: true,
 	paginationSize: 10,
-	paginationSizeSelector:[5, 10, 15, 20],
-	paginationCounter:"rows",
-	selectableRows:1,
+	paginationSizeSelector: [5, 10, 15, 20],
+	paginationCounter: "rows",
+	selectableRows: 1,
 	columns: [
-		{title:"ID", field: 'fplId', minWidth:50},
-		{title:"SKU Code", field: 'skuCd', minWidth:50},
-		{title:"SKU", field: 'sku.skuCodeName', minWidth:50},
-		{title:"Name", field: 'quantity', minWidth:100},
-		{title:"Date Finished", field: 'dateFinished', minWidth:100},
-		{title:"Branch", field: 'branch.branchName', minWidth:100},
-		{title:"Action", headerSort:false, formatter:editButton, minWidth:200},
+		{ title: "ID", field: 'fplId', minWidth: 50 },
+		{ title: "SKU Code", field: 'skuCd', minWidth: 50 },
+		{ title: "SKU", field: 'sku.skuCodeName', minWidth: 50 },
+		{ title: "Name", field: 'quantity', minWidth: 100 },
+		{ title: "Date Finished", field: 'dateFinished', minWidth: 100 },
+		{ title: "Branch", field: 'branch.branchName', minWidth: 100 },
+		{ title: "Action", headerSort: false, formatter: editButton, minWidth: 200 },
 	],
 });
 
 
-$(".finishedProductListForm").submit(function(e){
+$(".finishedProductListForm").submit(function(e) {
 	e.preventDefault();
 });
 
-divTable.on('rowClick',function() {
+divTable.on('rowClick', function() {
 	let row = divTable.getSelectedData()[0];
 	if (row !== undefined) {
 		populateForm(row);
-	} 
+	}
 })
 
 callback = function(mutationsList, observer) {
-    for(let mutation of mutationsList) {
-        if (mutation.type === 'childList') {
+	for (let mutation of mutationsList) {
+		if (mutation.type === 'childList') {
 			$(".editModalButton").off("click");
-            $(".editModalButton").on('click', function(){
-                editModal.classList.remove("closing");
-                editModal.showModal();
-                editModal.classList.add("showing");
-            });
+			$(".editModalButton").on('click', function() {
+				editModal.classList.remove("closing");
+				editModal.showModal();
+				editModal.classList.add("showing");
+			});
 			$(".deleteModalButton").off("click");
-            $(".deleteModalButton").on('click', function(){
-                $("#deleteModal").removeClass("closing")
-                deleteModal.showModal();
-                $("#deleteModal").addClass("showing")
-            });
-        }
-    }
+			$(".deleteModalButton").on('click', function() {
+				$("#deleteModal").removeClass("closing")
+				deleteModal.showModal();
+				$("#deleteModal").addClass("showing")
+			});
+		}
+	}
 };
 
 observer = new MutationObserver(callback);
 observer.observe(document.getElementById('divTableTabulator'), { childList: true, subtree: true });
 
-$("#btnShowFinishedProductList").click(function(){
-	$.get("FinishedProductListController",{
+$("#btnShowFinishedProductList").click(function() {
+	$.get("FinishedProductListController", {
 		action: "showFinishedProductList"
-		}, function(response){
+	}, function(response) {
 		$("#divContent").html(response)
 	});
 });
 
-$('#deleteSaveModalButton').click(function(event){
+$('#deleteSaveModalButton').click(function(event) {
 	event.stopImmediatePropagation();
 	$.post('FinishedProductListController', {
 		action: 'deleteData',
@@ -95,7 +95,7 @@ $('#deleteSaveModalButton').click(function(event){
 			$('.errorMessage').text(response);
 		}
 	});
-});	
+});
 
 function populateForm(row) {
 	$('#finishedProductListIdUpdate').val(row.fplId);
@@ -114,39 +114,39 @@ function populateForm(row) {
 
 function validate(data) {
 	let valid = true;
-	if (data.fplId === '' || data.skuCd === '' || data.quantity === '' || 
+	if (data.fplId === '' || data.skuCd === '' || data.quantity === '' ||
 		data.dateFinished === '' || data.branchId === '') {
 		$('.errorMessage').text("Please correctly fill-out all required fields");
 		valid = false;
 	} else if (!(/^[0-9]\d*$/.test(data.fplId))) {
-	    $('.errorMessage').text("Foreign Product List ID should only contain positive numbers");
+		$('.errorMessage').text("Foreign Product List ID should only contain positive numbers");
 		valid = false;
-	} else if (data.fplId > 99999999999999){
+	} else if (data.fplId > 99999999999999) {
 		$('.errorMessage').text("Foreign Product List ID value is too large");
 		valid = false;
-	} else if (data.skuCd.length > 10){
+	} else if (data.skuCd.length > 10) {
 		$('.errorMessage').text("SKU Code characters should be less than 11");
 		valid = false;
 	} else if (!(/^[0-9]\d*$/.test(data.quantity))) {
-	    $('.errorMessage').text("Quantity should only contain positive numbers and zero");
+		$('.errorMessage').text("Quantity should only contain positive numbers and zero");
 		valid = false;
-	} else if (data.quantity > 99999999999999){
+	} else if (data.quantity > 99999999999999) {
 		$('.errorMessage').text("Quantity value is too large");
 		valid = false;
 	} else if (!(!isNaN(Date.parse(data.dateFinished)) && (new Date(data.dateFinished).toISOString().startsWith(data.dateFinished)))) {
-	    $('.errorMessage').text("Please enter valid date");
+		$('.errorMessage').text("Please enter valid date");
 		valid = false;
 	} else if (!(/^[1-9][0-9]*$/.test(data.branchId))) {
-	    $('.errorMessage').text("Branch ID should only contain positive numbers");
+		$('.errorMessage').text("Branch ID should only contain positive numbers");
 		valid = false;
-	} else if (data.branchId > 99999999999999){
+	} else if (data.branchId > 99999999999999) {
 		$('.errorMessage').text("Branch ID value is too large");
 		valid = false;
 	}
 	return valid;
 }
 
-function sendData(data){
+function sendData(data) {
 	if (validate(data)) {
 		$.post('FinishedProductListController', {
 			action: 'saveData',

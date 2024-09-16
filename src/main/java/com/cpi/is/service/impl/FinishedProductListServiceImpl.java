@@ -4,7 +4,6 @@ import java.util.List;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Date;
@@ -22,7 +21,7 @@ import com.cpi.is.util.JsonEscapeUtil;
 public class FinishedProductListServiceImpl implements FinishedProductListService {
 
 	private FinishedProductListDAOImpl finishedProductListDAO;
-	
+
 	public FinishedProductListDAOImpl getFinishedProductListDAO() {
 		return finishedProductListDAO;
 	}
@@ -30,7 +29,7 @@ public class FinishedProductListServiceImpl implements FinishedProductListServic
 	public void setFinishedProductListDAO(FinishedProductListDAOImpl finishedProductListDAO) {
 		this.finishedProductListDAO = finishedProductListDAO;
 	}
-	
+
 	private FinishedProductListEntity jsonToEntity(JSONObject json) {
 		Date date1 = null;
 		try {
@@ -40,18 +39,14 @@ public class FinishedProductListServiceImpl implements FinishedProductListServic
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		return new FinishedProductListEntity(
-		        Long.parseLong(json.getString("fplId")),
-		        json.getString("skuCd"), 
-		        Long.parseLong(json.getString("quantity")), 
-		        Long.parseLong(json.getString("branchId")), 
-		        date1);
+		return new FinishedProductListEntity(Long.parseLong(json.getString("fplId")), json.getString("skuCd"),
+				Long.parseLong(json.getString("quantity")), Long.parseLong(json.getString("branchId")), date1);
 	}
 
 	@Override
 	public List<FinishedProductListEntity> getData(Long branchId) throws Exception {
 		List<FinishedProductListEntity> finishedProductLists = finishedProductListDAO.getData(branchId);
-		for (FinishedProductListEntity finishedProductList: finishedProductLists) {
+		for (FinishedProductListEntity finishedProductList : finishedProductLists) {
 			finishedProductList.setSkuCd(JsonEscapeUtil.escape(finishedProductList.getSkuCd()));
 		}
 		return finishedProductLists;
@@ -61,16 +56,15 @@ public class FinishedProductListServiceImpl implements FinishedProductListServic
 	public String saveData(HttpServletRequest request) throws Exception {
 		String validation = validateData(request);
 		String results = "";
-		
-		if(validation.equals("success")) {
+
+		if (validation.equals("success")) {
 			try {
-				results = 	finishedProductListDAO.saveData(
-						jsonToEntity(new JSONObject(request.getParameter("data"))));
-			} catch(Exception e) {
+				results = finishedProductListDAO.saveData(jsonToEntity(new JSONObject(request.getParameter("data"))));
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
-			if(results.equals("success")) {
+
+			if (results.equals("success")) {
 				return results;
 			} else {
 				return "Unable to save Finished Product List Data";
@@ -84,16 +78,15 @@ public class FinishedProductListServiceImpl implements FinishedProductListServic
 	public String deleteData(HttpServletRequest request) throws Exception {
 		String validation = validateData(request);
 		String results = "";
-		
-		if(validation.equals("success")) {
+
+		if (validation.equals("success")) {
 			try {
-				results = 	finishedProductListDAO.deleteData(
-						jsonToEntity(new JSONObject(request.getParameter("data"))));
-			} catch(Exception e) {
+				results = finishedProductListDAO.deleteData(jsonToEntity(new JSONObject(request.getParameter("data"))));
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
-			if(results.equals("success")) {
+
+			if (results.equals("success")) {
 				return results;
 			} else {
 				return "Unable to delete Finished Product List Data";
@@ -102,12 +95,12 @@ public class FinishedProductListServiceImpl implements FinishedProductListServic
 			return "Unable to delete Finished Product List data";
 		}
 	}
-	
-	public String validateData(HttpServletRequest request) throws Exception{
+
+	public String validateData(HttpServletRequest request) throws Exception {
 		JSONObject json = new JSONObject(request.getParameter("data"));
 		String validation = "success";
 		String errorResult = "Please fill-out the finished product list form properly";
-		
+
 		if (!json.has("fplId") || !(json.get("fplId") instanceof String)) {
 			validation = errorResult + " 1";
 		} else if (!json.has("skuCd") || !(json.get("skuCd") instanceof String)) {
@@ -133,11 +126,11 @@ public class FinishedProductListServiceImpl implements FinishedProductListServic
 		} else if (!json.getString("branchId").matches("^[1-9]\\d*$")) {
 			validation = errorResult + " 12";
 		} else {
-	        try {
-	        	LocalDate.parse(json.getString("dateFinished"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-	        } catch (DateTimeParseException e) {
-	        	validation = errorResult + " 13";
-	        }
+			try {
+				LocalDate.parse(json.getString("dateFinished"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+			} catch (DateTimeParseException e) {
+				validation = errorResult + " 13";
+			}
 		}
 		return validation;
 	}

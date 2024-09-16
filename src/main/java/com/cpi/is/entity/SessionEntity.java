@@ -8,25 +8,27 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="qkc_sessions")
+@Table(name = "qkc_sessions")
 public class SessionEntity implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@Column(name="session_id")
+	@Column(name = "session_id")
 	private String sessionId;
 	private String username;
-	
+
 	public SessionEntity() {
 		super();
 	}
-	
+
 	public SessionEntity(String sessionId, String username) {
 		super();
 		this.sessionId = sessionId;
 		this.username = username;
 	}
+
+	// Getters and Setters
 
 	public String getSessionId() {
 		return sessionId;
@@ -49,5 +51,4 @@ public class SessionEntity implements Serializable {
 		return "SessionEntity [sessionId=" + sessionId + ", username=" + username + "]";
 	}
 
-	
 }
