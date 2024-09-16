@@ -1,6 +1,5 @@
 package com.cpi.is.service.impl;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,7 +14,7 @@ import com.cpi.is.service.ProductionMaterialService;
 public class ProductionMaterialServiceImpl implements ProductionMaterialService {
 
 	private ProductionMaterialDAOImpl productionMaterialDAO;
-	
+
 	public ProductionMaterialDAOImpl getProductionMaterialDAO() {
 		return productionMaterialDAO;
 	}
@@ -23,14 +22,11 @@ public class ProductionMaterialServiceImpl implements ProductionMaterialService 
 	public void setProductionMaterialDAO(ProductionMaterialDAOImpl productionMaterialDAO) {
 		this.productionMaterialDAO = productionMaterialDAO;
 	}
-	
+
 	private ProductionMaterialEntity jsonToEntity(JSONObject json) {
-		return new ProductionMaterialEntity(
-		        Long.parseLong(json.getString("pmId")), 
-		        Long.parseLong(json.getString("dppId")), 
-		        json.getString("materialCd"),
-		        Long.parseLong(json.getString("materialListId")), 
-		        Long.parseLong(json.getString("quantityToUse")));
+		return new ProductionMaterialEntity(Long.parseLong(json.getString("pmId")),
+				Long.parseLong(json.getString("dppId")), json.getString("materialCd"),
+				Long.parseLong(json.getString("materialListId")), Long.parseLong(json.getString("quantityToUse")));
 	}
 
 	@Override
@@ -48,16 +44,16 @@ public class ProductionMaterialServiceImpl implements ProductionMaterialService 
 			String quantityValidation = validateQuantity(request, rawMaterialList, dailyPlans);
 			if(quantityValidation.equals("success")) {
 				try {
-					results = 	productionMaterialDAO.saveData(
-							jsonToEntity(new JSONObject(request.getParameter("data"))));
-				} catch(Exception e) {
+					results = productionMaterialDAO
+							.saveData(jsonToEntity(new JSONObject(request.getParameter("data"))));
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			} else {
 				return quantityValidation;
 			}
-			
-			if(results.equals("success")) {
+
+			if (results.equals("success")) {
 				return results;
 			} else {
 				return "Unable to save Production Material Data";
@@ -71,16 +67,15 @@ public class ProductionMaterialServiceImpl implements ProductionMaterialService 
 	public String deleteData(HttpServletRequest request) throws Exception {
 		String validation = validateData(request);
 		String results = "";
-		
-		if(validation.equals("success")) {
+
+		if (validation.equals("success")) {
 			try {
-				results = 	productionMaterialDAO.deleteData(
-						jsonToEntity(new JSONObject(request.getParameter("data"))));
-			} catch(Exception e) {
+				results = productionMaterialDAO.deleteData(jsonToEntity(new JSONObject(request.getParameter("data"))));
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
-			if(results.equals("success")) {
+
+			if (results.equals("success")) {
 				return results;
 			} else {
 				return "Unable to delete Production Material Data";
@@ -89,8 +84,8 @@ public class ProductionMaterialServiceImpl implements ProductionMaterialService 
 			return "Unable to delete Production Material data";
 		}
 	}
-	
-	public String validateData(HttpServletRequest request) throws Exception{
+
+	public String validateData(HttpServletRequest request) throws Exception {
 		JSONObject json = new JSONObject(request.getParameter("data"));
 		String validation = "success";
 		String errorResult = "Please fill-out the production material form properly";
@@ -123,8 +118,8 @@ public class ProductionMaterialServiceImpl implements ProductionMaterialService 
 			validation = errorResult;
 		} else if (!json.getString("quantityToUse").matches("^[0-9]\\d*$")) {
 			validation = errorResult;
-		} 
-		
+		}
+
 		return validation;
 	}
 	
@@ -173,21 +168,21 @@ public class ProductionMaterialServiceImpl implements ProductionMaterialService 
 
 		return validation;
 	}
-	
+
 	public Boolean validateDppId(HttpServletRequest request) {
 		String dppIdInput = "";
-			if(request.getParameter("dppIdInput") instanceof String) {
-				dppIdInput = request.getParameter("dppIdInput");
-			} else {
-				return false;
-			}
-			
-			if (dppIdInput.length() < 1 || dppIdInput.length() > 14) {
-				return false;
-			} else if (!dppIdInput.matches("^[1-9]\\d*$")) {
-				return false;
-			}
-			
+		if (request.getParameter("dppIdInput") instanceof String) {
+			dppIdInput = request.getParameter("dppIdInput");
+		} else {
+			return false;
+		}
+
+		if (dppIdInput.length() < 1 || dppIdInput.length() > 14) {
+			return false;
+		} else if (!dppIdInput.matches("^[1-9]\\d*$")) {
+			return false;
+		}
+
 		return true;
 	}
 

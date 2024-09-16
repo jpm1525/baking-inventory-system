@@ -1,4 +1,5 @@
-<nav class="sidebar text-[#68411b] dark:text-white bg-white dark:bg-[#1f2937]">
+<nav
+  class="sidebar text-[#68411b] dark:text-white bg-white dark:bg-[#1f2937]">
 
   <div id="btnDashboard"
     class="inline-flex hover:bg-[#f9e4ad] rounded py-2 hover:text-black transition-transform transform hover:translate-x-1">

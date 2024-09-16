@@ -10,7 +10,7 @@ import com.cpi.is.entity.SessionEntity;
 import com.cpi.is.entity.UserEntity;
 import com.cpi.is.util.HBUtil;
 
-public class UserDAOImpl implements UserDAO{
+public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public UserEntity authenticate(UserEntity user) throws Exception {
@@ -24,7 +24,7 @@ public class UserDAOImpl implements UserDAO{
 		}
 		return authenticated;
 	}
-	
+
 	public UserEntity getUser(String username) throws Exception {
 		UserEntity user = null;
 		try (Session session = HBUtil.getSessionFactory().openSession()) {
@@ -48,7 +48,7 @@ public class UserDAOImpl implements UserDAO{
 				transaction.rollback();
 			}
 			throw e;
-		}		
+		}
 	}
 
 	@Override
@@ -56,10 +56,10 @@ public class UserDAOImpl implements UserDAO{
 		SessionEntity validated = null;
 		try (Session session = HBUtil.getSessionFactory().openSession()) {
 			List<SessionEntity> results = session
-					.createQuery("FROM SessionEntity T WHERE T.sessionId = :sessionId AND T.username = :username", SessionEntity.class)
+					.createQuery("FROM SessionEntity T WHERE T.sessionId = :sessionId AND T.username = :username",
+							SessionEntity.class)
 					.setParameter("sessionId", userSession.getSessionId())
-					.setParameter("username", userSession.getUsername())
-					.list();
+					.setParameter("username", userSession.getUsername()).list();
 			if (results.size() > 0) {
 				validated = results.get(0);
 			}
@@ -79,7 +79,6 @@ public class UserDAOImpl implements UserDAO{
 				transaction.rollback();
 			}
 			throw e;
-		}		
+		}
 	}
-
 }

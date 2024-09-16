@@ -64,7 +64,7 @@ public class DispatchingDAOImpl implements DispatchingDAO {
 	public Long getDispatchCount(Long branchId) throws Exception {
 	    Long count = null;
 	    try (Session session = HBUtil.getSessionFactory().openSession()) {
-	        count = (Long) session.createQuery("SELECT COUNT(*) FROM DispatchingEntity T WHERE T.branchId = :branchId")
+	        count = (Long) session.createQuery("SELECT COUNT(*) FROM DispatchingEntity T WHERE T.branchId = :branchId", Long.class)
 	                              .setParameter("branchId", branchId)
 	                              .uniqueResult();
 	    }

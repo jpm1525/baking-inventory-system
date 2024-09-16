@@ -27,9 +27,9 @@ public class DispatchTypeDAOImpl implements DispatchTypeDAO {
 		try (Session session = HBUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 			if ("" == data.getDispatchTypeCd()) {
-				session.persist(data);	// add a new record
+				session.persist(data);
 			} else {
-				session.merge(data);	// update an existing record
+				session.merge(data);
 			}
 			transaction.commit();
 		} catch (Exception e) {

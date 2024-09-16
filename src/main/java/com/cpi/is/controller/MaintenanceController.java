@@ -26,37 +26,43 @@ import com.cpi.is.service.impl.maintenance.MaterialCodeServiceImpl;
 public class MaintenanceController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static String page = "";
-    private static String action = "";      
-    
+	private static String action = "";
+
 	private ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
-	private DispatchTypeServiceImpl dispatchTypeService = (DispatchTypeServiceImpl) context.getBean("dispatchTypeService");
+	private DispatchTypeServiceImpl dispatchTypeService = (DispatchTypeServiceImpl) context
+			.getBean("dispatchTypeService");
 	private BranchServiceImpl branchService = (BranchServiceImpl) context.getBean("branchService");
 	private SkuCodeServiceImpl skuCodeService = (SkuCodeServiceImpl) context.getBean("skuCodeService");
-	private MaterialCodeServiceImpl materialCodeService = (MaterialCodeServiceImpl) context.getBean("materialCodeService");
-	private UserMaintenanceServiceImpl userMaintenanceService = (UserMaintenanceServiceImpl) context.getBean("userMaintenanceService");
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public MaintenanceController() {
-        super();
-    }
+	private MaterialCodeServiceImpl materialCodeService = (MaterialCodeServiceImpl) context
+			.getBean("materialCodeService");
+	private UserMaintenanceServiceImpl userMaintenanceService = (UserMaintenanceServiceImpl) context
+			.getBean("userMaintenanceService");
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	public MaintenanceController() {
+		super();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		try {
-			
+
 			if (SessionUtil.checkUserSession(request)) {
-			
+
 				action = request.getParameter("action");
-				
-				if("showMaintenance".equals(action)) {
+
+				if ("showMaintenance".equals(action)) {
 					page = "pages/maintenance.jsp";
 				} else if("showDispatch".equals(action)) {
-					request.setAttribute("dispatchType", EscapeUtil.escapeQuotes(new JSONArray(dispatchTypeService.getData())));
+					request.setAttribute("dispatchType", 
+							EscapeUtil.escapeQuotes(new JSONArray(dispatchTypeService.getData())));
 					page = "pages/maintenance/dispatch.jsp";
 				} else if ("saveDispatchData".equals(action)) {
 					request.setAttribute("message", dispatchTypeService.saveData(request));
@@ -65,7 +71,8 @@ public class MaintenanceController extends HttpServlet {
 					request.setAttribute("message", dispatchTypeService.deleteData(request));
 					page = "pages/message.jsp";
 				} else if("showBranches".equals(action)) {
-					request.setAttribute("branch",EscapeUtil.escapeQuotes(new JSONArray(branchService.getData())));
+					request.setAttribute("branch", 
+							EscapeUtil.escapeQuotes(new JSONArray(branchService.getData())));
 					page = "pages/maintenance/branch.jsp";
 				} else if ("saveBranchData".equals(action)) {
 					request.setAttribute("message", branchService.saveData(request));
@@ -74,7 +81,8 @@ public class MaintenanceController extends HttpServlet {
 					request.setAttribute("message", branchService.deleteData(request));
 					page = "pages/message.jsp";
 				} else if("showSkuCodes".equals(action)) {
-					request.setAttribute("skuCode",EscapeUtil.escapeQuotes(new JSONArray(skuCodeService.getData())));
+					request.setAttribute("skuCode", 
+							EscapeUtil.escapeQuotes(new JSONArray(skuCodeService.getData())));
 					page = "pages/maintenance/skuCode.jsp";
 				} else if ("saveSkuCodeData".equals(action)) {
 					request.setAttribute("message", skuCodeService.saveData(request));
@@ -83,7 +91,8 @@ public class MaintenanceController extends HttpServlet {
 					request.setAttribute("message", skuCodeService.deleteData(request));
 					page = "pages/message.jsp";
 				} else if("showMaterialCodes".equals(action)) {
-					request.setAttribute("materialCode",EscapeUtil.escapeQuotes(new JSONArray(materialCodeService.getData())));
+					request.setAttribute("materialCode",
+							EscapeUtil.escapeQuotes(new JSONArray(materialCodeService.getData())));
 					page = "pages/maintenance/materialCode.jsp";
 				} else if ("saveMaterialCodeData".equals(action)) {
 					request.setAttribute("message", materialCodeService.saveData(request));
@@ -92,7 +101,8 @@ public class MaintenanceController extends HttpServlet {
 					request.setAttribute("message", materialCodeService.deleteData(request));
 					page = "pages/message.jsp";
 				} else if ("showUserMain".equals(action)) {
-					request.setAttribute("userMain",EscapeUtil.escapeQuotes(new JSONArray(userMaintenanceService.getData())));
+					request.setAttribute("userMain",
+							EscapeUtil.escapeQuotes(new JSONArray(userMaintenanceService.getData())));
 					page = "pages/maintenance/userMaintenance.jsp";
 				} else if ("saveUserMaintenanceData".equals(action)) {
 					request.setAttribute("message", userMaintenanceService.saveData(request));
@@ -101,22 +111,24 @@ public class MaintenanceController extends HttpServlet {
 					request.setAttribute("message", userMaintenanceService.deleteData(request));
 					page = "pages/message.jsp";
 				}
-				
+
 			} else {
-					page = "pages/reload.jsp";
+				page = "pages/reload.jsp";
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			request.getRequestDispatcher(page).forward(request,response);
+			request.getRequestDispatcher(page).forward(request, response);
 		}
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 

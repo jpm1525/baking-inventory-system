@@ -1,12 +1,12 @@
 <link rel="stylesheet" href="css/modal.css" type="text/css" />
-<link rel="stylesheet" href="css/tabulator_simple.min.css"
-  type="text/css">
+<link rel="stylesheet" href="css/tabulator_simple.min.css" type="text/css">
 <link rel="stylesheet" href="css/tabulator_tailwind.css" type="text/css">
 <script type="text/javascript" src="js/tabulator.min.js"></script>
 <script src="js/modal/modal.js"></script>
 <script src="js/modal/input_number.js"></script>
 
 <div class="flex place-content-center flex-col ">
+
   <div>
     <h1
       class="text-blacktext-[#68411b] dark:text-white text-center text-5xl font-bold m-10"
@@ -43,6 +43,7 @@
               </div>
               <span class="tabulator-col-resize-handle"
                 style="height: 45px;"></span>
+
               <div
                 class="tabulator-col tabulator-sortable tabulator-col-sorter-element"
                 role="columnheader" aria-sort="none"
@@ -57,6 +58,7 @@
                   </div>
                 </div>
               </div>
+
               <div
                 class="tabulator-col tabulator-sortable tabulator-col-sorter-element"
                 role="columnheader" aria-sort="none"
@@ -73,6 +75,7 @@
               </div>
               <span class="tabulator-col-resize-handle"
                 style="height: 45px;"></span>
+
               <div
                 class="tabulator-col tabulator-sortable tabulator-col-sorter-element"
                 role="columnheader" aria-sort="none"
@@ -89,6 +92,7 @@
               </div>
               <span class="tabulator-col-resize-handle"
                 style="height: 45px;"></span>
+
               <div
                 class="tabulator-col tabulator-sortable tabulator-col-sorter-element"
                 role="columnheader" aria-sort="none"
@@ -105,6 +109,7 @@
               </div>
               <span class="tabulator-col-resize-handle"
                 style="height: 45px;"></span>
+
               <div
                 class="tabulator-col tabulator-sortable tabulator-col-sorter-element"
                 role="columnheader" aria-sort="none"
@@ -121,6 +126,7 @@
               </div>
               <span class="tabulator-col-resize-handle"
                 style="height: 45px;"></span>
+
               <div
                 class="tabulator-col tabulator-sortable tabulator-col-sorter-element"
                 role="columnheader" aria-sort="none"
@@ -225,11 +231,14 @@
 <jsp:include page="../pages/modals/rawMaterialListEditModal.jsp"></jsp:include>
 <jsp:include page="../pages/modals/maintenance/deleteModal.jsp"></jsp:include>
 
+<script type="text/javascript" src="js/tabulator.min.js"></script>
+<script src="js/modal/modal.js"></script>
+<script src="js/modal/input_number.js"></script>
 <script type="text/javascript">
-	var materialCode = JSON.parse('${materialCode}');
-	var rawMaterialList = JSON.parse('${rawMaterialList}');
-	var branchId = JSON.parse('${branchId}');
-	var userId = JSON.parse('${userId}');
-	var branchIdUser = JSON.parse('${branchIdUser}');
+  var materialCode = JSON.parse('${materialCode}');
+  var rawMaterialList = JSON.parse('${rawMaterialList}');
+  var branchId = JSON.parse('${branchId}');
+  var userId = JSON.parse('${userId}');
+  var branchIdUser = JSON.parse('${branchIdUser}');
 </script>
 <script src="js/raw_material_list.js"></script>

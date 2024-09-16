@@ -18,36 +18,36 @@ import com.cpi.is.service.impl.maintenance.SkuCodeServiceImpl;
 import com.cpi.is.util.EscapeUtil;
 import com.cpi.is.util.SessionUtil;
 
-
 /**
  * Servlet implementation class InventoryController
  */
 @WebServlet("/DailyPlannedProductionController")
 public class DailyPlannedProductionController extends HttpServlet {
-	
+
 	private static final long serialVersionUID = 1L;
-	private static String page = ""; 
-	private static String action = "";   
-	
+	private static String page = "";
+	private static String action = "";
+
 	private ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
 	private DailyPlanServiceImpl dailyPlanService = (DailyPlanServiceImpl) context.getBean("dailyPlanService");
 	private BranchServiceImpl branchService = (BranchServiceImpl) context.getBean("branchService");
 	private SkuCodeServiceImpl skuCodeService = (SkuCodeServiceImpl) context.getBean("skuCodeService");
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DailyPlannedProductionController() {
-        super();
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public DailyPlannedProductionController() {
+		super();
+	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try {
 			if (SessionUtil.checkUserSession(request)) {
-			
 				action = request.getParameter("action");
 				HttpSession session = request.getSession();
 				Long branchId = Long.parseLong(session.getAttribute("branchId").toString());
@@ -67,18 +67,20 @@ public class DailyPlannedProductionController extends HttpServlet {
 				}
 			} else {
 				page = "pages/reload.jsp";
-			}	
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			request.getRequestDispatcher(page).forward(request, response);
 		}
 	}
-	
+
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		doGet(request, response);
 	}

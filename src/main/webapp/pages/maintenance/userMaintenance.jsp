@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="css/modal.css" type="text/css" />
-<link rel="stylesheet" href="css/tabulator_simple.min.css"
-  type="text/css">
+<link rel="stylesheet" href="css/tabulator_simple.min.css" type="text/css">
 <link rel="stylesheet" href="css/tabulator_tailwind.css" type="text/css">
+
 <script type="text/javascript" src="js/tabulator.min.js"></script>
 <script src="js/modal/modal.js"></script>
 
@@ -156,4 +156,3 @@
   var userMain = JSON.parse('${userMain}');
 </script>
 <script src="js/maintenance/user_maintenance.js"></script>
-

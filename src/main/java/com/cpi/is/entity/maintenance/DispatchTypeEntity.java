@@ -9,19 +9,19 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="QKC_DISPATCH_TYPE")
+@Table(name = "QKC_DISPATCH_TYPE")
 public class DispatchTypeEntity implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
-	
-	@Id 
-	@Column(name="dispatch_type_cd") 
+
+	@Id
+	@Column(name = "dispatch_type_cd")
 	private String dispatchTypeCd;
-	@Column(name="dispatch_type_name")
+	@Column(name = "dispatch_type_name")
 	private String dispatchTypeName;
-	@Column(name="create_date", insertable = false, updatable = false)
+	@Column(name = "create_date", insertable = false, updatable = false)
 	private Date createDate;
-	@Column(name="update_date", insertable = false, updatable = false)
+	@Column(name = "update_date", insertable = false, updatable = false)
 	private Date updateDate;
 
 	public DispatchTypeEntity() {
@@ -49,7 +49,7 @@ public class DispatchTypeEntity implements Serializable {
 	public void setDispatchTypeName(String dispatchTypeName) {
 		this.dispatchTypeName = dispatchTypeName;
 	}
-	
+
 	public Date getCreateDate() {
 		return createDate;
 	}

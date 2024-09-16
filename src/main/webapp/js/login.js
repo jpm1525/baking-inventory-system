@@ -6,7 +6,7 @@ $("#btnLogin").click(function() {
 		$('#errorResponse').text("Please fill in both the username and password.").show();
 		return;
 	}
-
+	
 	$("#login-form").hide();
 	$("#loading-screen").show();
 
@@ -47,7 +47,6 @@ function attachLoginEvent() {
 				loginButton.click();
 			}
 		}
-
 		form.addEventListener('keypress', handleEnterKeyPress);
 	}
 }

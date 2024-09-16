@@ -10,15 +10,14 @@ import com.cpi.is.entity.RawMaterialListEntity;
 import com.cpi.is.util.HBUtil;
 
 public class RawMaterialListDAOImpl implements RawMaterialListDAO {
-	
+
 	@Override
 	public List<RawMaterialListEntity> getData(Long branchId) throws Exception {
 		List<RawMaterialListEntity> rawMaterialList = null;
 		try (Session session = HBUtil.getSessionFactory().openSession()) {
-			rawMaterialList = (List<RawMaterialListEntity>) 
-					session.createQuery("From RawMaterialListEntity T WHERE T.branchId = :branchId ORDER BY T.materialListId DESC", RawMaterialListEntity.class)
-					.setParameter("branchId", branchId)
-					.list();
+			rawMaterialList = (List<RawMaterialListEntity>) session.createQuery(
+					"From RawMaterialListEntity T WHERE T.branchId = :branchId ORDER BY T.materialListId DESC",
+					RawMaterialListEntity.class).setParameter("branchId", branchId).list();
 		}
 		return rawMaterialList;
 	}
@@ -39,7 +38,6 @@ public class RawMaterialListDAOImpl implements RawMaterialListDAO {
 			if (transaction != null) {
 				transaction.rollback();
 			}
-			
 			throw e;
 		}
 		return "success";

@@ -1,14 +1,11 @@
 <div id="loginjsp">
   <div class="flex place-content-center scrolling">
-
     <div id="login-form"
       class="flex h-screen w-screen justify-center items-center mt-[-20px] relative flex-wrap">
-
       <div>
         <img src="images/banners/log_img.png"
           class="w-[400px] h-[400px] m-5">
       </div>
-
       <div>
         <form class="m-5">
           <fieldset class="px-8 pb-10 pt-5 rounded-lg">
@@ -42,7 +39,6 @@
       </div>
     </div>
   </div>
-
   <div id="loading-screen" style="display: none;">
     <div
       class="relative flex justify-center items-center align-center h-screen w-screen">
