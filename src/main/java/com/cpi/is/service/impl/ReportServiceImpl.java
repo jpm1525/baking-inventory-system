@@ -70,10 +70,8 @@ public class ReportServiceImpl implements ReportService {
 	public String validateData(String reportDate) throws Exception{
 		String validation = "success";
 		String errorResult = "Please fill-out the report generation form properly";
-	
+		
 		if (reportDate == null) {
-			validation = errorResult;
-		} else if (reportDate.matches("^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$")) {
 			validation = errorResult;
 		} else {
 	        try {
