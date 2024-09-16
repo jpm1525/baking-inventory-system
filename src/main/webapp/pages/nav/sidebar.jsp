@@ -46,8 +46,7 @@
       <div class="w-[40px] align-middle ">
         <i class="fas fa-file-alt p-2"></i>
       </div>
-      <button id="dropdownButtonReport">
-        Report Generation <i id="dropdownIconReport"
+      <button id="dropdownButtonReport">Report Generation <i id="dropdownIconReport"
           class="fas fa-angle-down ml-1"></i>
       </button>
     </div>

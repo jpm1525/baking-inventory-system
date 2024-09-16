@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="css/modal.css" type="text/css" />
-<link rel="stylesheet" href="css/tabulator_simple.min.css" type="text/css">
+<link rel="stylesheet" href="css/tabulator_simple.min.css"
+  type="text/css">
 <link rel="stylesheet" href="css/tabulator_tailwind.css" type="text/css">
 
 <script type="text/javascript" src="js/tabulator.min.js"></script>
@@ -13,12 +14,6 @@
       id="btnShowFinishedProductList">Finished Product List</h1>
   </div>
   <hr class="h-px my-6 bg-gray-200 border-0 dark:bg-gray-700">
-  <div class="flex justify-end">
-    <button id="openAddModalButton"
-      class="px-4 py-2 m-2 text-white bg-indigo-500 rounded">
-      <i class="fas fa-plus"></i>
-    </button>
-  </div>
   <div
     class="relative overflow-x-auto shadow-md sm:rounded-lg basis-6/12">
     <div id="divTableTabulator">
@@ -207,12 +202,7 @@
   </div>
 </div>
 
-<jsp:include page="../pages/modals/finishedProductListAddModal.jsp"></jsp:include>
-<jsp:include page="../pages/modals/finishedProductListEditModal.jsp"></jsp:include>
-<jsp:include page="../pages/modals/maintenance/deleteModal.jsp"></jsp:include>
-
 <script type="text/javascript">
-  var sku = JSON.parse('${sku}');
   var finishedProductList = JSON.parse('${finishedProductList}');
   var branchId = '${branchId}';
   var branchName = '${branchName}';

@@ -2,7 +2,7 @@ package com.cpi.is.entity;
 
 import java.io.Serializable;
 
-import java.util.Date; // Import Date
+import java.util.Date;
 
 import com.cpi.is.entity.maintenance.BranchEntity;
 import com.cpi.is.entity.maintenance.SkuCodeEntity;
@@ -32,15 +32,18 @@ public class FinishedProductListEntity implements Serializable {
 	@Column(name = "SKU_Cd")
 	private String skuCd;
 
-	@Column(name = "QUANTITY")
-	private Long quantity;
-
-	@Column(name = "BRANCH_ID")
-	private Long branchId;
-
-	@Column(name = "DATE_FINISHED")
-	@Temporal(TemporalType.DATE)
-	private Date dateFinished;
+    @Column(name = "QUANTITY")
+    private Long quantity;
+    
+    @Column(name = "BRANCH_ID")
+    private Long branchId;
+    
+    @Column(name = "DATE_FINISHED")
+    @Temporal(TemporalType.DATE)
+    private Date dateFinished;
+    
+    @Column(name = "DPP_ID")
+    private Long dppId;
 
 	@ManyToOne
 	@JoinColumn(name = "SKU_Cd", insertable = false, updatable = false)
@@ -51,21 +54,31 @@ public class FinishedProductListEntity implements Serializable {
 	private BranchEntity branch;
 
 	public FinishedProductListEntity() {
-		super();
-	}
-
-	public FinishedProductListEntity(Long fplId, String skuCd, Long quantity, Long branchId, Date dateFinished) {
+        super();
+    }
+	
+    public FinishedProductListEntity(Long fplId, String skuCd, Long quantity, Long branchId, Long dppId,
+    		Date dateFinished) {
 		super();
 		this.fplId = fplId;
 		this.skuCd = skuCd;
 		this.quantity = quantity;
 		this.branchId = branchId;
 		this.dateFinished = dateFinished;
+		this.dppId = dppId;
+	}
+
+	public Long getDppId() {
+		return dppId;
+	}
+
+	public void setDppId(Long dppId) {
+		this.dppId = dppId;
 	}
 
 	public Long getFplId() {
-		return fplId;
-	}
+        return fplId;
+    }
 
 	public void setFplId(Long fplId) {
 		this.fplId = fplId;
@@ -121,7 +134,7 @@ public class FinishedProductListEntity implements Serializable {
 
 	@Override
 	public String toString() {
-		return "FinishedProductListEntity{" + "fplId=" + fplId + ", skuCd='" + skuCd + '\'' + ", quantity=" + quantity
-				+ ", branchId=" + branchId + ", dateFinished=" + dateFinished + '}';
+		return "FinishedProductListEntity [fplId=" + fplId + ", skuCd=" + skuCd + ", quantity=" + quantity
+				+ ", branchId=" + branchId + ", dateFinished=" + dateFinished + ", dppId=" + dppId + "]";
 	}
 }

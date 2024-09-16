@@ -1,39 +1,35 @@
 @charset "UTF-8";
 
 body {
-    background-image: url('../images/bg3.jpg');
-    background-size: cover;
-    background-position: center;
-    background-color: rgba(255, 255, 255, 0.1);
-    background-attachment: fixed;
-    font-family: 'Century Gothic';
-    height: 100%;
-    margin: 0;
-    overflow-x: hidden;
+  background-image: url('../images/bg3.jpg');
+  background-size: cover;
+  background-position: center;
+  background-color: rgba(255, 255, 255, 0.1);
+  background-attachment: fixed;
+  font-family: 'Century Gothic';
+  height: 100%;
+  margin: 0;
+  overflow-x: hidden;
 }
 
-/* input[type="number"] {
-    -moz-appearance: textfield;
-} */
 .hidden {
   display: none;
 }
 
-
 img{
-  -webkit-user-select: none;
--khtml-user-select: none;
--moz-user-select: none;
--o-user-select: none;
--ms-user-select: none;
-user-select: none;
-
--webkit-user-drag: none;
--khtml-user-drag: none;
--moz-user-drag: none;
--o-user-drag: none;
--ms-user-drag: none;
-user-drag: none;
+   -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  -ms-user-drag: none;
+  user-drag: none;
 }
 
 form h1 {
@@ -49,9 +45,9 @@ form h1 {
 }
 
 label{
-font-size:18px;
-color:#422308;
-font-weight:bold;
+  font-size:18px;
+  color:#422308;
+  font-weight:bold;
 }
 
 fieldset{
@@ -61,12 +57,55 @@ fieldset{
 }  
 
 footer {
-    text-align: center;
+  text-align: center;
+}
+
+.maint{
+  display:inline;
+  border-radius: 10px;
+  width:320px;
+  height:170px;
+}
+
+.maint h1{
+  line-height: 40px;
+  padding-left:5px;
+  padding-right:5px;
+  font-weight:bold;
+  font-size:30px;
+  text-shadow:1px 1px 4px rgba(0, 0, 0, 0.81);
+  z-index:2;
+  position: relative;
+}
+
+.maint img{
+  position: absolute;
+  opacity:0.1;
+  z-index:1;
 }
 
 .reports{
-    display:inline;
-    border-radius: 5px;
+  display:inline;
+  border-radius: 10px;
+  width:360px;
+  height:190px;
+}
+
+.reports h1{
+  line-height: 40px;
+  padding-left:5px;
+  padding-right:5px;
+  font-weight:bold;
+  font-size:30px;
+  text-shadow:1px 1px 4px rgba(0, 0, 0, 0.81);
+  z-index:2;
+  position: relative;
+}
+
+.reports img{
+  position: absolute;
+  opacity:0.1;
+  z-index:1;
 }
 
 @media screen{
@@ -100,63 +139,54 @@ footer {
 }
 
 .dashboardbox img{
-    display:flex;
-    position: absolute;
-    z-index:2;
-    opacity:0.2;
+  display:flex;
+  position: absolute;
+  z-index:2;
+  opacity:0.2;
 }
 
 .menu-content {
-            top: 60px;
-            left: 4px;
-            z-index: 10;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            opacity: 0;
-            transform: translateY(-20px);
-        }
-        .menu-content.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
+  top: 60px;
+  left: 4px;
+  z-index: 10;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 0;
+  transform: translateY(-20px);
+}
+.menu-content.show {
+  opacity: 1;
+  transform: translateY(0);
+}
      
 
 .scrolling{
-    overflow: auto;
+  overflow: auto;
 }
 
-/* @media screen{
-  .dashInfo{
-  flex-wrap:wrap;
-  min-width: 180px;
-  min-height: 180px;
-  }
-} */
-
 .dashInfo{
-    width:180px;
-    height:180px;
-    border-radius: 10px;
-    padding:12px;
+  width:180px;
+  height:180px;
+  border-radius: 10px;
+  padding:12px;
 }
 
 .dashInfo p{
-    position: absolute;
-    z-index:4;
-    text-shadow:1px 1px 4px rgba(0, 0, 0, 0.81);
+  position: absolute;
+  z-index:4;
+  text-shadow:1px 1px 4px rgba(0, 0, 0, 0.81);
 }
 
 .dashInfo img{
-    display:flex;
-    position: absolute;
-    z-index:2;
-    opacity:0.1;
+  display:flex;
+  position: absolute;
+  z-index:2;
+  opacity:0.1;
 }
 
 #divContent h1{
   margin:5px;
 }
 
-/* Content area styles */
 #divContent {
   position: fixed;
   top: 90px;
@@ -171,10 +201,8 @@ footer {
   user-select: none;
 }
 
-
-/* Adjusted width when sidebar is hidden */
 #divContent.sidebar-adjusted {
-  width: calc(100% - 10px); /* Full width when sidebar is hidden */
+  width: calc(100% - 10px);
 }
 
 .menuBtn{
@@ -184,7 +212,6 @@ footer {
   overflow: auto;
 }
 
-/* sidebar styles */
 .sidebar {
   overflow: auto;
   font-size: 2vh;
@@ -203,7 +230,6 @@ footer {
   opacity: 1; 
   transition: transform 0.3s ease, opacity 0.3s ease; 
   box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4);
-
 }
 
 .sidebar.sidebar-hidden {
@@ -212,25 +238,23 @@ footer {
 }
 
 .sidebar ul {
-    list-style: none;
-    padding: 0;
+  list-style: none;
+  padding: 0;
 }
 
 .sidebar ul li {
-    margin: 5px 0;
+  margin: 5px 0;
 }
 
 .sidebar ul li a {
-	font-size:14px;
-    text-decoration: none;
-    display: block;
-    padding: 5px;
-    border-radius: 4px;
-    margin-left: 34px;
+  font-size:14px;
+  text-decoration: none;
+  display: block;
+  padding: 5px;
+  border-radius: 4px;
+  margin-left: 34px;
 }
 
-
-/*TOP BAR*/
 .topbar {
   position: fixed;
   top: 10px;
@@ -261,17 +285,16 @@ footer {
   justify-content: flex-start;
 }
 .topbar-right button {
-    padding: 10px;
-    font-size: 18px;
-    font-weight:bold;
-    border-radius: 4px;
+  padding: 10px;
+  font-size: 18px;
+  font-weight:bold;
+  border-radius: 4px;
 }
 
 .topbar-right button:hover {
     background-color: #ff0000;
 }
 
-/* Modal transitions */
 dialog.showing {
   animation: fadeIn 0.3s forwards;
 }
@@ -280,13 +303,12 @@ dialog.closing {
   animation: fadeOut 0.3s forwards;
 }
 
-/* Fade-in and fade-out animations */
 .fade-in {
-    animation: fadeIn 0.5s forwards;
+  animation: fadeIn 0.5s forwards;
 }
 
 .fade-out {
-    animation: fadeOut 0.5s forwards;
+  animation: fadeOut 0.5s forwards;
 }
 
 @keyframes fadeIn {
@@ -299,16 +321,8 @@ dialog.closing {
   to { opacity: 0; transform: scale(0.9); }
 }
 
-/* Additional styles if needed */
 .close-button {
   position: absolute;
   top: 10px;
   right: 10px;
 }
-
- /*  .relative:hover .dropdown-content,
-  .relative:focus-within .dropdown-content {
-    display: block;
-  } */
-  
- 

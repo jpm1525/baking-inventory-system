@@ -1,17 +1,14 @@
 <div id="loginjsp">
   <div class="flex place-content-center scrolling">
-    <!-- Login Form -->
     <div id="login-form"
       class="flex h-screen w-screen justify-center items-center mt-[-20px] relative flex-wrap">
-
       <div>
         <img src="images/banners/log_img.png"
           class="w-[400px] h-[400px] m-5">
       </div>
-
       <div>
         <form class="m-5">
-          <fieldset class="px-8 pb-4 pt-5 rounded-lg">
+          <fieldset class="px-8 pb-10 pt-5 rounded-lg">
             <div class="flex w-full justify-center text-red-500"
               id="errorResponse"></div>
             <table class="m-5">
@@ -36,18 +33,12 @@
                 <button type="reset" id="login-clear"
                   class="bg-[#846a5b] hover:bg-[#AD8F7D] text-white px-10 py-2 rounded border border-[#6F594C] hover:border-[#846a5b]">Clear</button>
               </div>
-              <div class="text-center mt-4">
-                <a href="#" id="show-forgot"
-                  class="text-blue-500 hover:underline">Forgot
-                  Password?</a>
-              </div>
             </div>
           </fieldset>
         </form>
       </div>
     </div>
   </div>
-
   <div id="loading-screen" style="display: none;">
     <div
       class="relative flex justify-center items-center align-center h-screen w-screen">

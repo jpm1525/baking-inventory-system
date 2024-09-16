@@ -13,7 +13,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.cpi.is.service.impl.FinishedProductListServiceImpl;
-import com.cpi.is.service.impl.maintenance.SkuCodeServiceImpl;
 import com.cpi.is.util.EscapeUtil;
 import com.cpi.is.util.SessionUtil;
 
@@ -24,13 +23,12 @@ import com.cpi.is.util.SessionUtil;
 public class FinishedProductListController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private static String page = "";
-	private static String action = "";
-
-	private ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
-	private FinishedProductListServiceImpl finishedProductListService = (FinishedProductListServiceImpl) context
-			.getBean("finishedProductListService");
-	private SkuCodeServiceImpl skuCodeService = (SkuCodeServiceImpl) context.getBean("skuCodeService");
+    private static String page = "";
+    private static String action = "";
+       
+    private ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+	private FinishedProductListServiceImpl finishedProductListService = (FinishedProductListServiceImpl)
+			context.getBean("finishedProductListService");
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -52,23 +50,14 @@ public class FinishedProductListController extends HttpServlet {
 				Long branchId = Long.parseLong(session.getAttribute("branchId").toString());
 
 				if ("showFinishedProductList".equals(action)) {
-					request.setAttribute("finishedProductList", 
+					request.setAttribute("finishedProductList",
 							EscapeUtil.escapeQuotes(new JSONArray(finishedProductListService.getData(branchId))));
-					request.setAttribute("sku", 
-							EscapeUtil.escapeQuotes(new JSONArray(skuCodeService.getData())));
-					request.setAttribute("userId", 
-							session.getAttribute("userId").toString());
+					request.setAttribute("userId", session.getAttribute("userId").toString());
 					request.setAttribute("branchIdUser", branchId);
 					request.setAttribute("branchNameUser", 
 							session.getAttribute("branchName").toString());
 					page = "pages/finishedProductList.jsp";
-				} else if ("saveData".equals(action)) {
-					request.setAttribute("message", finishedProductListService.saveData(request));
-					page = "pages/message.jsp";
-				} else if ("deleteData".equals(action)) {
-					request.setAttribute("message", finishedProductListService.deleteData(request));
-					page = "pages/message.jsp";
-				}
+				} 
 			} else {
 				page = "pages/reload.jsp";
 			}

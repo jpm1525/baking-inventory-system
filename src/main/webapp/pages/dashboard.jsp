@@ -19,7 +19,7 @@
         src="images/info-icons/pro_icon.png" ondragstart="return false;">
       <p class="text-white font-bold text-6xl mt-10">${dailyCount}</p>
       <p class="text-white font-bold text-xs mt-24">total count</p>
-      <p class="text-white font-bold text-lg">Production Status</p>
+      <p class="text-white font-bold text-lg">Production</p>
     </div>
 
     <div class="dashInfo bg-[#7db7ce]">
@@ -39,5 +39,6 @@
       <p class="text-white font-bold text-xs mt-24">total count</p>
       <p class="text-white font-bold text-lg">Dispatch Records</p>
     </div>
+
   </div>
 </div>

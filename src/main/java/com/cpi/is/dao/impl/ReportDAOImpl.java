@@ -33,7 +33,7 @@ public class ReportDAOImpl implements ReportDAO {
 							+ "   AND a.fpl_id NOT IN (SELECT fpl_id \r\n"
 							+ "                          FROM qkc_dispatch_tracking)\r\n"
 							+ "   AND TRUNC(a.date_finished) <= TO_DATE('" + reportDate + "', 'YYYY-MM-DD')\r\n"
-							+ "   AND b.sku_cd = a.sku_cd\r\n" 
+							+ "   AND b.dpp_id = a.dpp_id\r\n" 
 							+ "   AND c.dpp_id = b.dpp_id\r\n"
 							+ "   AND d.material_cd = c.material_cd\r\n" 
 							+ " ORDER BY a.fpl_id";

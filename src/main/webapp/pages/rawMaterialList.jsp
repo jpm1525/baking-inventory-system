@@ -1,7 +1,9 @@
-<!-- External Stylesheets for Modals and Tabulator -->
 <link rel="stylesheet" href="css/modal.css" type="text/css" />
 <link rel="stylesheet" href="css/tabulator_simple.min.css" type="text/css">
 <link rel="stylesheet" href="css/tabulator_tailwind.css" type="text/css">
+<script type="text/javascript" src="js/tabulator.min.js"></script>
+<script src="js/modal/modal.js"></script>
+<script src="js/modal/input_number.js"></script>
 
 <div class="flex place-content-center flex-col ">
 
@@ -42,7 +44,6 @@
               <span class="tabulator-col-resize-handle"
                 style="height: 45px;"></span>
 
-              <!-- Column: Material Code -->
               <div
                 class="tabulator-col tabulator-sortable tabulator-col-sorter-element"
                 role="columnheader" aria-sort="none"
@@ -58,7 +59,6 @@
                 </div>
               </div>
 
-              <!-- Column: Material Name -->
               <div
                 class="tabulator-col tabulator-sortable tabulator-col-sorter-element"
                 role="columnheader" aria-sort="none"
@@ -76,7 +76,6 @@
               <span class="tabulator-col-resize-handle"
                 style="height: 45px;"></span>
 
-              <!-- Column: Quantity -->
               <div
                 class="tabulator-col tabulator-sortable tabulator-col-sorter-element"
                 role="columnheader" aria-sort="none"
@@ -94,7 +93,6 @@
               <span class="tabulator-col-resize-handle"
                 style="height: 45px;"></span>
 
-              <!-- Column: Date Received -->
               <div
                 class="tabulator-col tabulator-sortable tabulator-col-sorter-element"
                 role="columnheader" aria-sort="none"
@@ -112,7 +110,6 @@
               <span class="tabulator-col-resize-handle"
                 style="height: 45px;"></span>
 
-              <!-- Column: User ID -->
               <div
                 class="tabulator-col tabulator-sortable tabulator-col-sorter-element"
                 role="columnheader" aria-sort="none"
@@ -130,7 +127,6 @@
               <span class="tabulator-col-resize-handle"
                 style="height: 45px;"></span>
 
-              <!-- Column: Branch ID -->
               <div
                 class="tabulator-col tabulator-sortable tabulator-col-sorter-element"
                 role="columnheader" aria-sort="none"

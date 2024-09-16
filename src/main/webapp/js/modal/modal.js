@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
 	editModal = document.getElementById("editModal");
 	closeEditModalButton = document.getElementById("closeEditModalButton");
 	cancelEditModalButton = document.getElementById("cancelEditModalButton");
@@ -34,8 +33,6 @@ $(document).ready(function() {
 
 	closeAddModalButton.addEventListener("click", closeAddModal);
 	cancelAddModalButton.addEventListener("click", closeAddModal);
-
-
 });
 
 function closeEditModal() {

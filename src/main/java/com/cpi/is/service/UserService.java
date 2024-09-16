@@ -12,5 +12,6 @@ public interface UserService {
 	UserEntity getUser(String username) throws Exception;
 	SessionEntity validateSession(HttpServletRequest request) throws Exception;
 	void deleteSession(HttpServletRequest request) throws Exception;
+	public boolean isSessionValid(HttpServletRequest request) throws Exception;
 	
 }
