@@ -16,6 +16,7 @@ import com.cpi.is.service.impl.DailyPlanServiceImpl;
 import com.cpi.is.service.impl.ProductionMaterialServiceImpl;
 import com.cpi.is.service.impl.RawMaterialListServiceImpl;
 import com.cpi.is.service.impl.maintenance.MaterialCodeServiceImpl;
+import com.cpi.is.util.EscapeUtil;
 import com.cpi.is.util.SessionUtil;
 
 /**
@@ -57,22 +58,24 @@ public class ProductionMaterialController extends HttpServlet {
 				Long branchId = Long.parseLong(session.getAttribute("branchId").toString());
 
 				if ("showProductionMaterial".equals(action)) {
-					if (productionMaterialService.validateDppId(request)) {
-						request.setAttribute("productionMaterial",
-								new JSONArray(productionMaterialService.getData(request.getParameter("dppIdInput"))));
-						request.setAttribute("materialCode", new JSONArray(materialCodeService.getData()));
-						request.setAttribute("rawMaterialList",
-								new JSONArray(rawMaterialListService.getData(branchId)));
-						request.setAttribute("dailyPlannedProduction",
-								new JSONArray(dailyPlanService.getData(branchId)));
+					if(productionMaterialService.validateDppId(request)) {
+						request.setAttribute("productionMaterial", 
+								EscapeUtil.escapeQuotes(new JSONArray(productionMaterialService
+										  .getData(request.getParameter("dppIdInput")))));
+						request.setAttribute("materialCode", 
+								EscapeUtil.escapeQuotes(new JSONArray(materialCodeService.getData())));
+						request.setAttribute("rawMaterialList", 
+								EscapeUtil.escapeQuotes(new JSONArray(rawMaterialListService.getData(branchId))));
+						request.setAttribute("dailyPlannedProduction", 
+								EscapeUtil.escapeQuotes(new JSONArray(dailyPlanService.getData(branchId))));
 						request.setAttribute("dppIdInput", request.getParameter("dppIdInput"));
 						page = "pages/productionMaterial.jsp";
 					} else {
 						page = "pages/reload.jsp";
 					}
 				} else if ("saveData".equals(action)) {
-					request.setAttribute("message",
-							productionMaterialService.saveData(request, rawMaterialListService.getData(branchId)));
+					request.setAttribute("message", productionMaterialService.saveData(
+							request, rawMaterialListService.getData(branchId), dailyPlanService.getData(branchId)));
 					page = "pages/message.jsp";
 				} else if ("deleteData".equals(action)) {
 					request.setAttribute("message", productionMaterialService.deleteData(request));

@@ -15,6 +15,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.cpi.is.service.impl.RawMaterialListServiceImpl;
 import com.cpi.is.service.impl.maintenance.BranchServiceImpl;
 import com.cpi.is.service.impl.maintenance.MaterialCodeServiceImpl;
+import com.cpi.is.util.EscapeUtil;
 import com.cpi.is.util.SessionUtil;
 
 /**
@@ -32,8 +33,10 @@ public class RawMaterialListController extends HttpServlet {
 
     // Load Spring beans from beans.xml
     private ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
-	private RawMaterialListServiceImpl rawMaterialListService = (RawMaterialListServiceImpl) context.getBean("rawMaterialListService");
-	private MaterialCodeServiceImpl materialCodeService = (MaterialCodeServiceImpl) context.getBean("materialCodeService");
+	private RawMaterialListServiceImpl rawMaterialListService = (RawMaterialListServiceImpl) 
+			context.getBean("rawMaterialListService");
+	private MaterialCodeServiceImpl materialCodeService = (MaterialCodeServiceImpl) 
+			context.getBean("materialCodeService");
 	private BranchServiceImpl branchService = (BranchServiceImpl) context.getBean("branchService");
 
 	/**
@@ -56,10 +59,12 @@ public class RawMaterialListController extends HttpServlet {
 
 				// If action is "showRawMaterialList", fetch the data and set it in the request attributes
 				if ("showRawMaterialList".equals(action)) {
-					// Populate raw material list and related data
-					request.setAttribute("rawMaterialList", new JSONArray(rawMaterialListService.getData(branchId)));
-					request.setAttribute("materialCode", new JSONArray(materialCodeService.getData()));
-					request.setAttribute("branchId", new JSONArray(branchService.getData()));
+					request.setAttribute("rawMaterialList", 
+							EscapeUtil.escapeQuotes(new JSONArray(rawMaterialListService.getData(branchId))));
+					request.setAttribute("materialCode", 
+							EscapeUtil.escapeQuotes(new JSONArray(materialCodeService.getData())));
+					request.setAttribute("branchId", 
+							EscapeUtil.escapeQuotes(new JSONArray(branchService.getData())));
 					request.setAttribute("userId", session.getAttribute("userId").toString());
 					request.setAttribute("branchIdUser", branchId);
 					page = "pages/rawMaterialList.jsp";

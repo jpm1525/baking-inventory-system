@@ -16,7 +16,6 @@ import org.json.JSONObject;
 import com.cpi.is.dao.impl.RawMaterialListDAOImpl;
 import com.cpi.is.entity.RawMaterialListEntity;
 import com.cpi.is.service.RawMaterialListService;
-import com.cpi.is.util.JsonEscapeUtil;
 
 public class RawMaterialListServiceImpl implements RawMaterialListService {
 
@@ -47,9 +46,6 @@ public class RawMaterialListServiceImpl implements RawMaterialListService {
 	@Override
 	public List<RawMaterialListEntity> getData(Long branchId) throws Exception {
 		List<RawMaterialListEntity> rawMaterialLists = rawMaterialListDAO.getData(branchId);
-		for (RawMaterialListEntity rawMaterialList : rawMaterialLists) {
-			rawMaterialList.setMaterialCd(JsonEscapeUtil.escape(rawMaterialList.getMaterialCd()));
-		}
 		return rawMaterialLists;
 	}
 
@@ -140,6 +136,11 @@ public class RawMaterialListServiceImpl implements RawMaterialListService {
 			}
 		}
 		return validation;
+	}
+	
+	@Override
+	public Long getMaterialCount(Long branchId) throws Exception {
+	    return rawMaterialListDAO.getMaterialCount(branchId);
 	}
 
 }

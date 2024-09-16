@@ -18,11 +18,10 @@ var divTable = new Tabulator("#divTableTabulator", {
 	paginationCounter: "rows",
 	selectableRows: 1,
 	columns: [
-		{ title: "User ID", field: 'userId', minWidth: 50 },
-		{ title: "Username", field: 'username', minWidth: 100 },
-		{ title: "Password", field: 'password', minWidth: 100 },
-		{ title: "Branch ID", field: 'branchId', minWidth: 100 },
-		{ title: "Action", headerSort: false, formatter: editButton, minWidth: 200 },
+		{title:"User ID", field: 'userId', minWidth:50},
+		{title:"Username", field: 'username', minWidth:100},
+		{title:"Branch ID", field: 'branchId', minWidth:100},
+		{title:"Action", headerSort:false, formatter:editButton, minWidth:200},
 	],
 });
 
@@ -85,7 +84,6 @@ $('#deleteSaveModalButton').click(function(event) {
 function populateForm(row) {
 	$('#userIdUpdate').val(row.userId);
 	$('#usernameUpdate').val(row.username);
-	$('#passwordUpdate').val(row.password);
 	$('#branchIdUpdate').val(row.branchId);
 	data = {
 		userId: row.userId.toString(),

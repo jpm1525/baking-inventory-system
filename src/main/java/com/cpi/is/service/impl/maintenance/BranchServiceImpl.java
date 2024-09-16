@@ -9,7 +9,6 @@ import org.json.JSONObject;
 import com.cpi.is.dao.impl.maintenance.BranchDAOImpl;
 import com.cpi.is.entity.maintenance.BranchEntity;
 import com.cpi.is.service.maintenance.BranchService;
-import com.cpi.is.util.JsonEscapeUtil;
 
 public class BranchServiceImpl implements BranchService {
 
@@ -30,9 +29,6 @@ public class BranchServiceImpl implements BranchService {
 	@Override
 	public List<BranchEntity> getData() throws Exception {
 		List<BranchEntity> branches = branchDAO.getData();
-		for (BranchEntity branch : branches) {
-			branch.setBranchName(JsonEscapeUtil.escape(branch.getBranchName()));
-		}
 		return branches;
 	}
 

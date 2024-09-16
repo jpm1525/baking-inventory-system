@@ -9,6 +9,7 @@
   <div>
     <h1 class="text-[#68411b]  dark:text-white text-center text-5xl font-bold m-10" id="btnDispatch">Dispatch Type</h1>
   </div>
+  <hr class="h-px my-6 bg-gray-200 border-0 dark:bg-gray-700">
   <div class="flex justify-end">
     <button id="openAddModalButton" class="px-4 py-2 m-2 text-white bg-indigo-500 rounded">
       <i class="fas fa-plus"></i>

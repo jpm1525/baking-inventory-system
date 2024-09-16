@@ -16,7 +16,6 @@ import org.json.JSONObject;
 import com.cpi.is.dao.impl.FinishedProductListDAOImpl;
 import com.cpi.is.entity.FinishedProductListEntity;
 import com.cpi.is.service.FinishedProductListService;
-import com.cpi.is.util.JsonEscapeUtil;
 
 public class FinishedProductListServiceImpl implements FinishedProductListService {
 
@@ -46,9 +45,6 @@ public class FinishedProductListServiceImpl implements FinishedProductListServic
 	@Override
 	public List<FinishedProductListEntity> getData(Long branchId) throws Exception {
 		List<FinishedProductListEntity> finishedProductLists = finishedProductListDAO.getData(branchId);
-		for (FinishedProductListEntity finishedProductList : finishedProductLists) {
-			finishedProductList.setSkuCd(JsonEscapeUtil.escape(finishedProductList.getSkuCd()));
-		}
 		return finishedProductLists;
 	}
 
@@ -59,7 +55,8 @@ public class FinishedProductListServiceImpl implements FinishedProductListServic
 
 		if (validation.equals("success")) {
 			try {
-				results = finishedProductListDAO.saveData(jsonToEntity(new JSONObject(request.getParameter("data"))));
+				results = finishedProductListDAO.saveData(jsonToEntity(
+						new JSONObject(request.getParameter("data"))));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -81,7 +78,8 @@ public class FinishedProductListServiceImpl implements FinishedProductListServic
 
 		if (validation.equals("success")) {
 			try {
-				results = finishedProductListDAO.deleteData(jsonToEntity(new JSONObject(request.getParameter("data"))));
+				results = finishedProductListDAO.deleteData(jsonToEntity(
+						new JSONObject(request.getParameter("data"))));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -135,4 +133,7 @@ public class FinishedProductListServiceImpl implements FinishedProductListServic
 		return validation;
 	}
 
+	public Long getFinishedCount(Long branchId) throws Exception {
+	    return finishedProductListDAO.getFinishedCount(branchId);
+	}
 }

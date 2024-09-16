@@ -11,6 +11,7 @@
       class="text-blacktext-[#68411b] dark:text-white text-center text-5xl font-bold m-10"
       id="btnShowProductionMaterial">Production Material</h1>
   </div>
+  <hr class="h-px my-6 bg-gray-200 border-0 dark:bg-gray-700">
   <div class="flex justify-between">
     <button type="button" id="btnShowDailyPlannedProduction"
       class="text-white bg-gradient-to-r from-blue-500 via-blue-600 

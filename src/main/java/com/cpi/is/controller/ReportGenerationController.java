@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
 import org.springframework.context.ApplicationContext;
@@ -45,6 +46,8 @@ public class ReportGenerationController extends HttpServlet {
 		try {
 			if (SessionUtil.checkUserSession(request)) {
 				action = request.getParameter("action");
+				HttpSession session = request.getSession();
+				Long branchId = Long.parseLong(session.getAttribute("branchId").toString());
 				
 				if ("showReportGeneration".equals(action)) {
 					page = "pages/reportGeneration.jsp";
@@ -54,7 +57,7 @@ public class ReportGenerationController extends HttpServlet {
 					page = "pages/reports/reportsFinished.jsp";
 					
 				} else if ("getReportFinished".equals(action)) {
-					request.setAttribute("message", EscapeUtil.escapeQuotes(new JSONArray(reportService.getCurrentFinishedInventory(request))));
+					request.setAttribute("message", EscapeUtil.escapeQuotes(new JSONArray(reportService.getCurrentFinishedInventory(request,branchId))));
 					page = "pages/message.jsp";
 					
 				} else if ("showReportPlanned".equals(action)) {
@@ -62,7 +65,7 @@ public class ReportGenerationController extends HttpServlet {
 					page = "pages/reports/reportsPlanned.jsp";
 					
 				} else if ("getReportPlanned".equals(action)) {
-					request.setAttribute("message", EscapeUtil.escapeQuotes(new JSONArray(reportService.getPlannedRawMaterialsInventory(request))));
+					request.setAttribute("message", EscapeUtil.escapeQuotes(new JSONArray(reportService.getPlannedRawMaterialsInventory(request,branchId))));
 					page = "pages/message.jsp";
 					
 				} else if ("showReportProduction".equals(action)) {
@@ -70,7 +73,7 @@ public class ReportGenerationController extends HttpServlet {
 					page = "pages/reports/reportsProduction.jsp";
 					
 				} else if ("getReportProduction".equals(action)) {
-					request.setAttribute("message", EscapeUtil.escapeQuotes(new JSONArray(reportService.getProductionReport(request))));
+					request.setAttribute("message", EscapeUtil.escapeQuotes(new JSONArray(reportService.getProductionReport(request,branchId))));
 					page = "pages/message.jsp";
 					
 				} else if ("showReportReceived".equals(action)) {
@@ -78,7 +81,7 @@ public class ReportGenerationController extends HttpServlet {
 					page = "pages/reports/reportsReceived.jsp";
 					
 				} else if ("getReportReceived".equals(action)) {
-					request.setAttribute("message", EscapeUtil.escapeQuotes(new JSONArray(reportService.getReceivedInventoryReport(request))));
+					request.setAttribute("message", EscapeUtil.escapeQuotes(new JSONArray(reportService.getReceivedInventoryReport(request,branchId))));
 					page = "pages/message.jsp";
 				}
 			} else {

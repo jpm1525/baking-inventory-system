@@ -14,6 +14,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.cpi.is.service.impl.FinishedProductListServiceImpl;
 import com.cpi.is.service.impl.maintenance.SkuCodeServiceImpl;
+import com.cpi.is.util.EscapeUtil;
 import com.cpi.is.util.SessionUtil;
 
 /**
@@ -51,12 +52,15 @@ public class FinishedProductListController extends HttpServlet {
 				Long branchId = Long.parseLong(session.getAttribute("branchId").toString());
 
 				if ("showFinishedProductList".equals(action)) {
-					request.setAttribute("finishedProductList",
-							new JSONArray(finishedProductListService.getData(branchId)));
-					request.setAttribute("sku", new JSONArray(skuCodeService.getData()));
-					request.setAttribute("userId", session.getAttribute("userId").toString());
+					request.setAttribute("finishedProductList", 
+							EscapeUtil.escapeQuotes(new JSONArray(finishedProductListService.getData(branchId))));
+					request.setAttribute("sku", 
+							EscapeUtil.escapeQuotes(new JSONArray(skuCodeService.getData())));
+					request.setAttribute("userId", 
+							session.getAttribute("userId").toString());
 					request.setAttribute("branchIdUser", branchId);
-					request.setAttribute("branchNameUser", session.getAttribute("branchName").toString());
+					request.setAttribute("branchNameUser", 
+							session.getAttribute("branchName").toString());
 					page = "pages/finishedProductList.jsp";
 				} else if ("saveData".equals(action)) {
 					request.setAttribute("message", finishedProductListService.saveData(request));

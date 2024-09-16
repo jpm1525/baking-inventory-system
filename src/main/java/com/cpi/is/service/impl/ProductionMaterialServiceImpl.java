@@ -6,10 +6,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.json.JSONObject;
 
 import com.cpi.is.dao.impl.ProductionMaterialDAOImpl;
+import com.cpi.is.entity.DailyPlanEntity;
 import com.cpi.is.entity.ProductionMaterialEntity;
 import com.cpi.is.entity.RawMaterialListEntity;
 import com.cpi.is.service.ProductionMaterialService;
-import com.cpi.is.util.JsonEscapeUtil;
 
 public class ProductionMaterialServiceImpl implements ProductionMaterialService {
 
@@ -32,20 +32,17 @@ public class ProductionMaterialServiceImpl implements ProductionMaterialService 
 	@Override
 	public List<ProductionMaterialEntity> getData(String dppIdInput) throws Exception {
 		List<ProductionMaterialEntity> productionMaterials = productionMaterialDAO.getData(Long.parseLong(dppIdInput));
-		for (ProductionMaterialEntity productionMaterial : productionMaterials) {
-			productionMaterial.setMaterialCd(JsonEscapeUtil.escape(productionMaterial.getMaterialCd()));
-		}
 		return productionMaterials;
 	}
 
 	@Override
-	public String saveData(HttpServletRequest request, List<RawMaterialListEntity> rawMaterialList) throws Exception {
+	public String saveData(HttpServletRequest request, List<RawMaterialListEntity> rawMaterialList, List<DailyPlanEntity> dailyPlans) throws Exception {
 		String validation = validateData(request);
-		String results = "";
-
-		if (validation.equals("success")) {
-			String quantityValidation = validateQuantity(request, rawMaterialList);
-			if (quantityValidation.equals("success")) {
+		String results = "";	
+		
+		if(validation.equals("success")) {
+			String quantityValidation = validateQuantity(request, rawMaterialList, dailyPlans);
+			if(quantityValidation.equals("success")) {
 				try {
 					results = productionMaterialDAO
 							.saveData(jsonToEntity(new JSONObject(request.getParameter("data"))));
@@ -125,27 +122,49 @@ public class ProductionMaterialServiceImpl implements ProductionMaterialService 
 
 		return validation;
 	}
-
-	public String validateQuantity(HttpServletRequest request, List<RawMaterialListEntity> rawMaterialList)
-			throws Exception {
+	
+	public String validateQuantity(HttpServletRequest request, List<RawMaterialListEntity> rawMaterialList, List<DailyPlanEntity> dailyPlans) throws Exception{
 		JSONObject json = new JSONObject(request.getParameter("data"));
-		String validation = "success";
-		String errorResult = "Please fill-out the production material form properly";
+		String validation = "Please fill-out the production material form properly";
 
 		List<ProductionMaterialEntity> productionMaterials = getData(json.getString("dppId"));
-		outerloop: for (RawMaterialListEntity rawMaterial : rawMaterialList) {
-			if (rawMaterial.getMaterialListId() == Long.parseLong(json.getString("materialListId"))) {
-				for (ProductionMaterialEntity productionMaterial : productionMaterials) {
-					if (productionMaterial.getPmId() == Long.parseLong(json.getString("pmId"))) {
-						if ((rawMaterial.getQuantity() + productionMaterial.getQuantityToUse()) < Long
-								.parseLong(json.getString("quantityToUse"))) {
-							validation = errorResult;
-							break outerloop;
-						}
-					}
-				}
-			}
-		}
+		outerloop:
+        for (RawMaterialListEntity rawMaterial : rawMaterialList) {
+	    	if(rawMaterial.getMaterialListId() == Long.parseLong(json.getString("materialListId"))) {
+	        	if(Long.parseLong(json.getString("pmId")) == 0) {
+		    		for(DailyPlanEntity dailyPlan : dailyPlans) {
+		    			if(dailyPlan.getDppId() == Long.parseLong(json.getString("dppId"))) {
+		    				if(rawMaterial.getDateReceive().getTime() > dailyPlan.getProductionDate().getTime()) {
+		    					break outerloop;
+		    				}else {
+		    					break;
+		    				}
+		    			}
+		    		}
+		    		if((rawMaterial.getQuantity()) < Long.parseLong(json.getString("quantityToUse"))) {
+		    			break outerloop;
+		    		} else {
+		    			validation = "success";
+		    			break outerloop;
+		    		}
+	        	}else {
+		    		for(ProductionMaterialEntity productionMaterial : productionMaterials) {
+		    			if(productionMaterial.getPmId() == Long.parseLong(json.getString("pmId"))) {
+			            	if(rawMaterial.getDateReceive().getTime() > 
+			            			productionMaterial.getDailyPlannedProduction().getProductionDate().getTime()) {
+			        			break outerloop;
+			            	}else if((rawMaterial.getQuantity() + productionMaterial.getQuantityToUse()) 
+				    				< Long.parseLong(json.getString("quantityToUse"))) {
+				    			break outerloop;
+				    		} else {
+				    			validation = "success";
+				    			break outerloop;
+				    		}
+		    			}
+		    		}	
+	        	}
+	    	}
+        }
 
 		return validation;
 	}

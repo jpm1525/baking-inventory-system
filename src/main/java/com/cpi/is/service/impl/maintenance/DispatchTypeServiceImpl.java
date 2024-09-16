@@ -9,7 +9,6 @@ import org.json.JSONObject;
 import com.cpi.is.dao.impl.maintenance.DispatchTypeDAOImpl;
 import com.cpi.is.entity.maintenance.DispatchTypeEntity;
 import com.cpi.is.service.maintenance.DispatchTypeService;
-import com.cpi.is.util.JsonEscapeUtil;
 
 public class DispatchTypeServiceImpl implements DispatchTypeService {
 
@@ -30,10 +29,6 @@ public class DispatchTypeServiceImpl implements DispatchTypeService {
 	@Override
 	public List<DispatchTypeEntity> getData() throws Exception {
 		List<DispatchTypeEntity> dispatchTypes = dispatchTypeDAO.getData();
-		for (DispatchTypeEntity dispatchType : dispatchTypes) {
-			dispatchType.setDispatchTypeCd(JsonEscapeUtil.escape(dispatchType.getDispatchTypeCd()));
-			dispatchType.setDispatchTypeName(JsonEscapeUtil.escape(dispatchType.getDispatchTypeName()));
-		}
 		return dispatchTypes;
 	}
 

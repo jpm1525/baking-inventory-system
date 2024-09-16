@@ -14,6 +14,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.cpi.is.service.impl.maintenance.DispatchTypeServiceImpl;
 import com.cpi.is.service.impl.maintenance.SkuCodeServiceImpl;
 import com.cpi.is.service.impl.maintenance.UserMaintenanceServiceImpl;
+import com.cpi.is.util.EscapeUtil;
 import com.cpi.is.util.SessionUtil;
 import com.cpi.is.service.impl.maintenance.BranchServiceImpl;
 import com.cpi.is.service.impl.maintenance.MaterialCodeServiceImpl;
@@ -59,8 +60,9 @@ public class MaintenanceController extends HttpServlet {
 
 				if ("showMaintenance".equals(action)) {
 					page = "pages/maintenance.jsp";
-				} else if ("showDispatch".equals(action)) {
-					request.setAttribute("dispatchType", new JSONArray(dispatchTypeService.getData()));
+				} else if("showDispatch".equals(action)) {
+					request.setAttribute("dispatchType", 
+							EscapeUtil.escapeQuotes(new JSONArray(dispatchTypeService.getData())));
 					page = "pages/maintenance/dispatch.jsp";
 				} else if ("saveDispatchData".equals(action)) {
 					request.setAttribute("message", dispatchTypeService.saveData(request));
@@ -68,8 +70,9 @@ public class MaintenanceController extends HttpServlet {
 				} else if ("deleteDispatchData".equals(action)) {
 					request.setAttribute("message", dispatchTypeService.deleteData(request));
 					page = "pages/message.jsp";
-				} else if ("showBranches".equals(action)) {
-					request.setAttribute("branch", new JSONArray(branchService.getData()));
+				} else if("showBranches".equals(action)) {
+					request.setAttribute("branch", 
+							EscapeUtil.escapeQuotes(new JSONArray(branchService.getData())));
 					page = "pages/maintenance/branch.jsp";
 				} else if ("saveBranchData".equals(action)) {
 					request.setAttribute("message", branchService.saveData(request));
@@ -77,8 +80,9 @@ public class MaintenanceController extends HttpServlet {
 				} else if ("deleteBranchData".equals(action)) {
 					request.setAttribute("message", branchService.deleteData(request));
 					page = "pages/message.jsp";
-				} else if ("showSkuCodes".equals(action)) {
-					request.setAttribute("skuCode", new JSONArray(skuCodeService.getData()));
+				} else if("showSkuCodes".equals(action)) {
+					request.setAttribute("skuCode", 
+							EscapeUtil.escapeQuotes(new JSONArray(skuCodeService.getData())));
 					page = "pages/maintenance/skuCode.jsp";
 				} else if ("saveSkuCodeData".equals(action)) {
 					request.setAttribute("message", skuCodeService.saveData(request));
@@ -86,8 +90,9 @@ public class MaintenanceController extends HttpServlet {
 				} else if ("deleteSkuCodeData".equals(action)) {
 					request.setAttribute("message", skuCodeService.deleteData(request));
 					page = "pages/message.jsp";
-				} else if ("showMaterialCodes".equals(action)) {
-					request.setAttribute("materialCode", new JSONArray(materialCodeService.getData()));
+				} else if("showMaterialCodes".equals(action)) {
+					request.setAttribute("materialCode",
+							EscapeUtil.escapeQuotes(new JSONArray(materialCodeService.getData())));
 					page = "pages/maintenance/materialCode.jsp";
 				} else if ("saveMaterialCodeData".equals(action)) {
 					request.setAttribute("message", materialCodeService.saveData(request));
@@ -96,7 +101,8 @@ public class MaintenanceController extends HttpServlet {
 					request.setAttribute("message", materialCodeService.deleteData(request));
 					page = "pages/message.jsp";
 				} else if ("showUserMain".equals(action)) {
-					request.setAttribute("userMain", new JSONArray(userMaintenanceService.getData()));
+					request.setAttribute("userMain",
+							EscapeUtil.escapeQuotes(new JSONArray(userMaintenanceService.getData())));
 					page = "pages/maintenance/userMaintenance.jsp";
 				} else if ("saveUserMaintenanceData".equals(action)) {
 					request.setAttribute("message", userMaintenanceService.saveData(request));

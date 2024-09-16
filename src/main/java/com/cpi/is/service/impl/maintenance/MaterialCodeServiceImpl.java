@@ -9,7 +9,6 @@ import org.json.JSONObject;
 import com.cpi.is.dao.impl.maintenance.MaterialCodeDAOImpl;
 import com.cpi.is.entity.maintenance.MaterialCodeEntity;
 import com.cpi.is.service.maintenance.MaterialCodeService;
-import com.cpi.is.util.JsonEscapeUtil;
 
 public class MaterialCodeServiceImpl implements MaterialCodeService {
 
@@ -31,11 +30,6 @@ public class MaterialCodeServiceImpl implements MaterialCodeService {
 	@Override
 	public List<MaterialCodeEntity> getData() throws Exception {
 		List<MaterialCodeEntity> materialCodes = materialCodeDAO.getData();
-		for (MaterialCodeEntity materialCode : materialCodes) {
-			materialCode.setMaterialCd(JsonEscapeUtil.escape(materialCode.getMaterialCd()));
-			materialCode.setMaterialCodeName(JsonEscapeUtil.escape(materialCode.getMaterialCodeName()));
-			materialCode.setUnitOfMeasurement(JsonEscapeUtil.escape(materialCode.getUnitOfMeasurement()));
-		}
 		return materialCodes;
 	}
 

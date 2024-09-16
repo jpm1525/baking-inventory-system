@@ -15,6 +15,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.cpi.is.service.impl.DailyPlanServiceImpl;
 import com.cpi.is.service.impl.maintenance.BranchServiceImpl;
 import com.cpi.is.service.impl.maintenance.SkuCodeServiceImpl;
+import com.cpi.is.util.EscapeUtil;
 import com.cpi.is.util.SessionUtil;
 
 /**
@@ -47,15 +48,14 @@ public class DailyPlannedProductionController extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			if (SessionUtil.checkUserSession(request)) {
-
 				action = request.getParameter("action");
 				HttpSession session = request.getSession();
 				Long branchId = Long.parseLong(session.getAttribute("branchId").toString());
-
-				if ("showDailyPlannedProduction".equals(action)) {
-					request.setAttribute("dailyPlannedProduction", new JSONArray(dailyPlanService.getData(branchId)));
-					request.setAttribute("branchId", new JSONArray(branchService.getData()));
-					request.setAttribute("skuCd", new JSONArray(skuCodeService.getData()));
+				
+				if("showDailyPlannedProduction".equals(action)) {
+					request.setAttribute("dailyPlannedProduction", EscapeUtil.escapeQuotes(new JSONArray(dailyPlanService.getData(branchId))));
+					request.setAttribute("branchId", EscapeUtil.escapeQuotes(new JSONArray(branchService.getData())));
+					request.setAttribute("skuCd", EscapeUtil.escapeQuotes(new JSONArray(skuCodeService.getData())));
 					request.setAttribute("branchIdInput", branchId);
 					page = "pages/dailyPlannedProduction.jsp";
 				} else if ("saveData".equals(action)) {

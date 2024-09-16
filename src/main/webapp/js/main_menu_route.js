@@ -1,88 +1,57 @@
 $(document).ready(function() {
-	$(".menu-btn").click(function() {
-		var buttonId = $(this).attr('id');
-		var url, action;
+    const buttonActions = {
+        'btnToDash': { url: 'DashboardController', action: 'showDashboard' },
+        'btnToRaw': { url: 'RawMaterialListController', action: 'showRawMaterialList' },
+        'btnToDaily': { url: 'DailyPlannedProductionController', action: 'showDailyPlannedProduction' },
+        'btnToFinishedProductList': { url: 'FinishedProductListController', action: 'showFinishedProductList' },
+        'btnToDispatching': { url: 'DispatchingController', action: 'showDispatching' },
+        'btnToReport': { url: 'ReportGenerationController', action: 'showReportGeneration' },
+        'btnToMaintenance': { url: 'MaintenanceController', action: 'showMaintenance' }
+    };
 
-		switch (buttonId) {
-			case 'btnToDash':
-				showLoading();
-				url = 'DashboardController';
-				action = 'showDashboard';
-				$("#divVeryOuter").hide();
-				$("#divOuter").show();
-				break;
-			case 'btnToRaw':
-				showLoading();
-				url = 'RawMaterialListController';
-				action = 'showRawMaterialList';
-				$("#divVeryOuter").hide();
-				$("#divOuter").show();
-				break;
-			case 'btnToDaily':
-				showLoading();
-				url = 'DailyPlannedProductionController';
-				action = 'showDailyPlannedProduction';
-				$("#divVeryOuter").hide();
-				$("#divOuter").show();
-				break;
-			case 'btnToFinishedProductList':
-				showLoading();
-				url = 'FinishedProductListController';
-				action = 'showFinishedProductList';
-				$("#divVeryOuter").hide();
-				$("#divOuter").show();
-				break;
-			case 'btnToDispatching':
-				showLoading();
-				url = 'DispatchingController';
-				action = 'showDispatching';
-				$("#divVeryOuter").hide();
-				$("#divOuter").show();
-				break;
-			case 'btnToReport':
-				showLoading();
-				url = 'ReportGenerationController';
-				action = 'showReportGeneration';
-				$("#divVeryOuter").hide();
-				$("#divOuter").show();
-				break;
-			case 'btnToMaintenance':
-				showLoading();
-				url = 'MaintenanceController';
-				action = 'showMaintenance';
-				$("#divVeryOuter").hide();
-				$("#divOuter").show();
-				break;
+    $(".menu-btn").click(function() {
+        const buttonId = $(this).attr('id');
+        const buttonData = buttonActions[buttonId];
 
+        if (buttonData) {
+            showLoading();
+            $("#divVeryOuter").hide();
+            $("#divOuter").show();
+            $("#divContent").css("overflow", "hidden");
+			$("#sidebarToggle").css("visibility", "visible");
+            $.get(buttonData.url, { action: buttonData.action }, function(response) {
+                $("#divContent").html(response);
+                hideLoading();
+            });
+        }
+    });
 
-			default:
-				return;
-		}
+    $("#btnMainMenu").click(function() {
+        $("#divOuter").hide();
+        $("#divVeryOuter").show();
+		$("#sidebarToggle").css("visibility", "hidden");
+    });
 
-
-		$.get(url, { action: action }, function(response) {
-			if (buttonId === 'btnMainMenu') {
-				$("#divVeryOuter").html(response);
-			} else {
-				$("#divContent").html(response);
-			}
-		});
-	});
-
-	$("#btnMainMenu").click(function() {
-		$("#divOuter").hide();
-		$("#divVeryOuter").show();
-	});
-
-	$("#btnLogout").click(function() {
-		$.post("UserController", {
-			action: "logout"
-		}, function(response) {
-			$("#divMain").html(response);
-			$("#divMenu").html("");
-			window.location.reload();
-			/*history.go();*/
-		});
-	});
-
+    $("#btnLogout").click(function() {
+        $.post("UserController", { action: "logout" }, function(response) {
+            $("#divMain").html(response);
+            $("#divMenu").html("");
+            window.location.reload();
+        });
+    });
 });
+
+function showLoading() {
+    $("#content-loading-screen").show();
+    $("#divContent").prepend(`
+      <div id="content-loading-screen" class="relative flex justify-center items-center align-center h-full w-full mb-[200px] overflow-hidden">
+        <div class="absolute animate-spin rounded-full h-20 w-20 border-t-4 border-b-4 dark:border-white border-[#68411b] mb-20"></div>
+        <p class="animate-pulse text-xl font-bold grid-rows-2 mt-6">Loading content . . .</p>
+      </div>
+    `);
+}
+
+function hideLoading() {
+    $("#content-loading-screen").remove();
+    $("#divContent").css("overflow", "auto");
+}

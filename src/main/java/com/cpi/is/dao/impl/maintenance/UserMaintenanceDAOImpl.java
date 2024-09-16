@@ -13,12 +13,12 @@ public class UserMaintenanceDAOImpl implements UserMaintenanceDAO {
 
 	@Override
 	public List<UserEntity> getData() throws Exception {
-		List<UserEntity> user = null;
+		List<UserEntity> users = null;
 		try (Session session = HBUtil.getSessionFactory().openSession()) {
-			user = (List<UserEntity>) session.createQuery("FROM UserEntity T ORDER BY T.userId DESC", UserEntity.class)
-					.list();
+			users = (List<UserEntity>) 
+					session.createQuery("FROM UserEntity T ORDER BY T.userId DESC", UserEntity.class).list();
 		}
-		return user;
+		return users;
 	}
 
 	@Override
