@@ -30,9 +30,9 @@ public class RawMaterialListDAOImpl implements RawMaterialListDAO {
 			transaction = session.beginTransaction();
 			if (0 == item.getMaterialListId()) {
 				item.setMaterialListId(null);
-				session.persist(item);	// add a new record
+				session.persist(item);
 			} else {
-				session.merge(item);	// update an existing record
+				session.merge(item);
 			}
 			transaction.commit();
 		} catch (Exception e) {
@@ -65,7 +65,7 @@ public class RawMaterialListDAOImpl implements RawMaterialListDAO {
 	public Long getMaterialCount(Long branchId) throws Exception {
 	    Long count = null;
 	    try (Session session = HBUtil.getSessionFactory().openSession()) {
-	        count = (Long) session.createQuery("SELECT COUNT(*) FROM RawMaterialListEntity T WHERE T.branchId = :branchId")
+	        count = (Long) session.createQuery("SELECT COUNT(*) FROM RawMaterialListEntity T WHERE T.branchId = :branchId", Long.class)
 	                              .setParameter("branchId", branchId)
 	                              .uniqueResult();
 	    }
