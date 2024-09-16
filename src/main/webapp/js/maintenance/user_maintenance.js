@@ -68,17 +68,22 @@ $("#btnUserMain").click(function(){
 
 $('#deleteSaveModalButton').click(function(event){
 	event.stopImmediatePropagation();
-	$.post('MaintenanceController', {
-		action: 'deleteUserMaintenanceData',
-		data: JSON.stringify(data)
-	}, function(response) {
-		if (response.includes('success')) {
-			closeDeleteModal();
-			$('#btnUserMain').click();
-		} else {
-			$('.errorMessage').text(response);
-		}
-	});
+	data["password"] = $('#passwordDelete').val().toString();
+	console.log(data);
+	if(validate(data)){
+		console.log("running");
+		$.post('MaintenanceController', {
+			action: 'deleteUserMaintenanceData',
+			data: JSON.stringify(data)
+		}, function(response) {
+			if (response.includes('success')) {
+				closeDeleteModal();
+				$('#btnUserMain').click();
+			} else {
+				$('.errorMessage').text(response);
+			}
+		});
+	}
 });	
 
 function populateForm(row) {
@@ -88,7 +93,6 @@ function populateForm(row) {
 	data = {
 		userId: row.userId.toString(),
 		username: row.username.toString(),
-		password: row.password.toString(),
 		branchId: row.branchId.toString()
 	};
 }
