@@ -188,7 +188,7 @@ function validate(data) {
 	} else if (data.materialListId > 99999999999999) {
 		$('.errorMessage').text("Daily Planned Production ID value is too large");
 		valid = false;
-	} else if (!(/^[1-9][0-9]*$/.test(data.quantityToUse))) {
+	} else if (!(/^[0-9]*$/.test(data.quantityToUse))) {
 		$('.errorMessage').text("Quantity value should only contain positive numbers");
 		valid = false;
 	} else if (data.quantityToUse > 99999999999999) {
