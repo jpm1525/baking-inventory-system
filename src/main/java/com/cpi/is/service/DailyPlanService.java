@@ -11,6 +11,5 @@ public interface DailyPlanService {
 	List<DailyPlanEntity> getData(Long branchId) throws Exception;
 	String saveData(HttpServletRequest request) throws Exception;
 	String deleteData(HttpServletRequest request) throws Exception;
-	String validateData(HttpServletRequest request) throws Exception;
 	Long getDailyCount(Long branchId) throws Exception;
 }

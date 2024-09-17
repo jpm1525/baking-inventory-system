@@ -66,26 +66,11 @@ public class ReportDAOImpl implements ReportDAO {
 		try (Session session = HBUtil.getSessionFactory().openSession()) {
 			session.doWork(new Work() {
 				public void execute(Connection connection) throws SQLException {
-					String queryString = "SELECT x.material_cd, x.material_name, (x.quantity - y.quantity) quantity\r\n"
-							+ "  FROM (SELECT b.material_cd, b.material_name, SUM(a.quantity) quantity\r\n"
-							+ "          FROM qkc_raw_material_list a,\r\n" 
-							+ "               qkc_raw_material b\r\n"
-							+ "         WHERE a.branch_id = " + branchId 
-							+ " 		  AND TRUNC(a.date_receive) <= TO_DATE('" + reportDate + "', 'YYYY-MM-DD')\r\n"
-							+ "           AND b.material_cd = a.material_cd\r\n"
-							+ "         GROUP BY b.material_cd, b.material_name\r\n" 
-							+ "         ORDER BY b.material_cd) x,\r\n"
-							+ "       (SELECT c.material_cd, c.material_name, SUM(a.quantity * b.quantity_to_use) quantity\r\n"
-							+ "          FROM qkc_daily_planned_production a,\r\n"
-							+ "               qkc_production_materials b,\r\n" 
-							+ "               qkc_raw_material c\r\n"
-							+ "         WHERE a.branch_id = " + branchId 
-							+ " 		  AND TRUNC(a.production_date) <= TO_DATE('" + reportDate + "', 'YYYY-MM-DD')\r\n"
-							+ "           AND b.dpp_id = a.dpp_id\r\n" 
-							+ "           AND c.material_cd = b.material_cd\r\n"
-							+ "         GROUP BY c.material_cd, c.material_name\r\n" 
-							+ "         ORDER BY c.material_cd) y\r\n"
-							+ " WHERE x.material_cd = y.material_cd";
+					String queryString = "SELECT b.material_cd, b.material_name, a.quantity\r\n"
+							+ "  FROM qkc_raw_material_list a,\r\n" + "       qkc_raw_material b\r\n"
+							+ " WHERE a.branch_id = " + branchId 
+							+ "   AND TRUNC(a.date_receive) <= TO_DATE('" + reportDate + "', 'YYYY-MM-DD')\r\n"
+							+ "   AND b.material_cd = a.material_cd\r\n" + " ORDER BY b.material_cd";
 					try (Statement statement = connection.createStatement();
 							ResultSet resultSet = statement.executeQuery(queryString)) {
 
@@ -111,7 +96,7 @@ public class ReportDAOImpl implements ReportDAO {
 		try (Session session = HBUtil.getSessionFactory().openSession()) {
 			session.doWork(new Work() {
 				public void execute(Connection connection) throws SQLException {
-					String queryString = "SELECT c.material_cd, c.material_name, SUM(a.quantity * b.quantity_to_use) quantity\r\n"
+					String queryString = "SELECT c.material_cd, c.material_name, SUM(b.quantity_to_use) quantity\r\n"
 							+ "  FROM qkc_daily_planned_production a,\r\n" 
 							+ "       qkc_production_materials b,\r\n"
 							+ "       qkc_raw_material c\r\n" 

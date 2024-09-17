@@ -16,7 +16,7 @@ public class SkuCodeDAOImpl implements SkuCodeDAO {
 		List<SkuCodeEntity> skuCode = null;
 		try (Session session = HBUtil.getSessionFactory().openSession()) {
 			skuCode = (List<SkuCodeEntity>) 
-					session.createQuery("FROM SkuCodeEntity T ORDER BY T.createDate DESC", SkuCodeEntity.class).list();
+					session.createQuery("FROM SkuCodeEntity T ORDER BY T.skuCd DESC", SkuCodeEntity.class).list();
 		}
 		return skuCode;
 	}

@@ -16,7 +16,7 @@ public class DispatchTypeDAOImpl implements DispatchTypeDAO {
 		List<DispatchTypeEntity> dispatchType = null;
 		try (Session session = HBUtil.getSessionFactory().openSession()) {
 			dispatchType = (List<DispatchTypeEntity>) 
-					session.createQuery("FROM DispatchTypeEntity T ORDER BY T.createDate DESC", DispatchTypeEntity.class).list();
+					session.createQuery("FROM DispatchTypeEntity T ORDER BY T.dispatchTypeCd DESC", DispatchTypeEntity.class).list();
 		}
 		return dispatchType;
 	}
