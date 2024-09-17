@@ -11,6 +11,5 @@ public interface MaterialCodeService {
 	List<MaterialCodeEntity> getData() throws Exception;
 	String saveData(HttpServletRequest request) throws Exception;
 	String deleteData(HttpServletRequest request) throws Exception;
-	String validateData(HttpServletRequest request) throws Exception;
 	
 }
